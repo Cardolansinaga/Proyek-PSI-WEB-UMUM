@@ -18,9 +18,57 @@
     body {
         min-width: 320px;
     }
+
+    ::selection {
+        background: #d6a63a;
+        color: #071f3a;
+    }
 }
 
 @layer components {
+    .scroll-progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 70;
+        width: 100%;
+        height: 3px;
+        pointer-events: none;
+        background: linear-gradient(90deg, #d6a63a, #f5d477, #74c7be);
+        box-shadow: 0 0 18px rgb(214 166 58 / 0.45);
+        transform: scaleX(0);
+        transform-origin: left;
+    }
+
+    header {
+        transition: transform 260ms ease, box-shadow 260ms ease;
+    }
+
+    header.is-scrolled {
+        box-shadow: 0 16px 48px rgb(7 31 58 / 0.13);
+    }
+
+    main {
+        overflow: clip;
+    }
+
+    main > section {
+        position: relative;
+        isolation: isolate;
+    }
+
+    main > section::before {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background:
+            radial-gradient(circle at 10% 12%, rgb(214 166 58 / 0.055), transparent 22rem),
+            radial-gradient(circle at 92% 34%, rgb(78 169 155 / 0.052), transparent 24rem);
+        content: "";
+        opacity: 0.72;
+    }
+
     .nav-link {
         position: relative;
         padding-block: 0.5rem;
@@ -1283,6 +1331,1148 @@
     }
 }
 
+@layer components {
+    :root {
+        --sman-navy: #08233f;
+        --sman-navy-2: #123552;
+        --sman-navy-3: #1e435f;
+        --sman-gold: #c69a3a;
+        --sman-gold-soft: #e6c36f;
+        --sman-paper: #ffffff;
+        --sman-wash: #f6f8fb;
+        --sman-line: #e2eaf1;
+        --sman-ink: #0c2742;
+        --sman-muted: #65798b;
+        --sman-soft: #eef3f7;
+    }
+
+    body {
+        background: var(--sman-wash);
+        color: var(--sman-ink);
+    }
+
+    .scroll-progress {
+        background: var(--sman-gold);
+        box-shadow: 0 0 10px rgb(198 154 58 / 0.22);
+    }
+
+    main > section::before,
+    .school-hero::before,
+    .page-hero::before,
+    .cta-panel::before,
+    footer::before {
+        display: none;
+    }
+
+    .school-hero::after,
+    .page-hero::after {
+        background:
+            linear-gradient(90deg, rgb(255 255 255 / 0.045) 0 1px, transparent 1px 100%),
+            linear-gradient(0deg, rgb(255 255 255 / 0.04) 0 1px, transparent 1px 100%);
+        background-size: 8rem 8rem;
+        opacity: 0.62;
+        mix-blend-mode: normal;
+    }
+
+    .hero-shade,
+    .page-hero-overlay {
+        background:
+            linear-gradient(90deg, rgb(8 35 63 / 0.94) 0%, rgb(8 35 63 / 0.76) 58%, rgb(8 35 63 / 0.48) 100%),
+            linear-gradient(180deg, rgb(8 35 63 / 0.06), rgb(8 35 63 / 0.5));
+    }
+
+    .hero-home,
+    .hero-profile,
+    .hero-academic,
+    .hero-dorm,
+    .hero-student,
+    .hero-ppdb,
+    .hero-news,
+    .hero-gallery,
+    .hero-achievement,
+    .contact-hero,
+    .alumni-hero,
+    .teacher-hero {
+        background:
+            linear-gradient(135deg, var(--sman-navy) 0%, var(--sman-navy-2) 54%, #546b78 100%),
+            var(--sman-navy) !important;
+    }
+
+    .bg-\[\#071f3a\],
+    footer,
+    .cta-panel,
+    .program-card.dark,
+    .profile-stat.dark,
+    .metric-card.dark {
+        background-color: var(--sman-navy) !important;
+    }
+
+    .text-\[\#071f3a\],
+    .feature-card h3,
+    .news-card h3,
+    .program-card h3,
+    .soft-card h3,
+    .achievement-card h3,
+    .club-card h3,
+    .timeline-row h3,
+    .calendar-card h3,
+    .service-tile strong,
+    .section-title,
+    .message-panel h2 {
+        color: var(--sman-ink) !important;
+    }
+
+    .text-\[\#d6a63a\],
+    .eyebrow,
+    .meta-line,
+    .section-pill,
+    .footer-title,
+    .dark-footer-title,
+    .profile-stat.dark span,
+    .metric-card.dark strong,
+    .round-icon,
+    .soft-card span {
+        color: var(--sman-gold) !important;
+    }
+
+    .bg-\[\#d6a63a\],
+    .section-pill::before,
+    .nav-link::after,
+    .soft-card span,
+    .round-icon {
+        background-color: var(--sman-gold) !important;
+    }
+
+    .section-pill {
+        border: 1px solid rgb(198 154 58 / 0.35);
+        background: rgb(198 154 58 / 0.12);
+        box-shadow: none;
+    }
+
+    .gold-button {
+        background: var(--sman-gold) !important;
+        color: var(--sman-navy) !important;
+        box-shadow: 0 12px 28px rgb(8 35 63 / 0.12);
+    }
+
+    .gold-button:hover {
+        background: #b98e31 !important;
+        box-shadow: 0 16px 34px rgb(8 35 63 / 0.16);
+    }
+
+    .ghost-button {
+        border: 1px solid rgb(255 255 255 / 0.26);
+        background: rgb(255 255 255 / 0.1);
+        color: #fff;
+        box-shadow: none;
+    }
+
+    .outline-button,
+    .filter-pill,
+    .pager,
+    .club-card a,
+    .teacher-card a,
+    .info-card a {
+        color: var(--sman-ink) !important;
+        border-color: var(--sman-line);
+        background: #fff;
+    }
+
+    .outline-button:hover,
+    .filter-pill:hover,
+    .pager:hover,
+    .club-card a:hover {
+        border-color: rgb(198 154 58 / 0.55);
+        color: var(--sman-navy) !important;
+        box-shadow: 0 14px 30px rgb(8 35 63 / 0.1);
+    }
+
+    .filter-pill.active,
+    .pager.active {
+        background: var(--sman-navy) !important;
+        color: #fff !important;
+    }
+
+    .feature-card,
+    .info-card,
+    .news-card,
+    .achievement-card,
+    .teacher-card,
+    .leader-card,
+    .club-card,
+    .program-card,
+    .soft-card,
+    .calendar-card,
+    .profile-stat,
+    .service-tile,
+    .document-row,
+    .mini-video,
+    .testimonial,
+    .message-panel,
+    .featured-news,
+    .faq-item {
+        border-color: var(--sman-line);
+        background-color: var(--sman-paper);
+        box-shadow: 0 16px 42px rgb(8 35 63 / 0.07);
+    }
+
+    .feature-card:hover,
+    .info-card:hover,
+    .news-card:hover,
+    .achievement-card:hover,
+    .teacher-card:hover,
+    .leader-card:hover,
+    .club-card:hover,
+    .program-card:hover,
+    .soft-card:hover,
+    .calendar-card:hover,
+    .profile-stat:hover,
+    .testimonial:hover,
+    .faq-item:hover {
+        border-color: rgb(198 154 58 / 0.38);
+        box-shadow: 0 22px 54px rgb(8 35 63 / 0.11);
+    }
+
+    .feature-card p,
+    .info-card p,
+    .news-card p,
+    .program-card p,
+    .soft-card p,
+    .achievement-card p,
+    .club-card p,
+    .timeline-row p,
+    .calendar-card p,
+    .testimonial,
+    .prose-copy,
+    .footer-list,
+    .dark-footer-list {
+        color: var(--sman-muted) !important;
+    }
+
+    .program-card.gold {
+        background: #b99042 !important;
+        color: #fff;
+    }
+
+    .program-card.gold h3,
+    .program-card.gold p {
+        color: #fff !important;
+    }
+
+    .profile-stat strong,
+    .big-stat strong,
+    .metric-card strong,
+    .stat-item strong {
+        background: none !important;
+        -webkit-background-clip: initial;
+        background-clip: initial;
+        color: var(--sman-ink) !important;
+    }
+
+    .stat-item strong,
+    .program-card.dark h3,
+    .program-card.dark strong,
+    .profile-stat.dark strong,
+    .metric-card.dark strong {
+        color: #fff !important;
+    }
+
+    .stat-item span,
+    .program-card.dark p,
+    .service-tile p,
+    .dark-value p {
+        color: rgb(255 255 255 / 0.66) !important;
+    }
+
+    .illustration,
+    .gallery-tile,
+    .facility-tile,
+    .campus-photo,
+    .principal-photo,
+    .academic-portrait,
+    .dorm-study-card,
+    .student-mentoring,
+    .character-collage,
+    .portrait-visual,
+    .teaching-visual,
+    .achievement-portrait,
+    .video-hero {
+        filter: saturate(0.72) contrast(0.98);
+        box-shadow: 0 18px 46px rgb(8 35 63 / 0.1);
+    }
+
+    .illustration:hover,
+    .gallery-tile:hover,
+    .facility-tile:hover,
+    .campus-photo:hover,
+    .principal-photo:hover,
+    .academic-portrait:hover,
+    .dorm-study-card:hover,
+    .student-mentoring:hover,
+    .character-collage:hover,
+    .portrait-visual:hover,
+    .teaching-visual:hover,
+    .achievement-portrait:hover,
+    .video-hero:hover {
+        filter: saturate(0.82) contrast(1);
+    }
+
+    .illustration::after,
+    .gallery-tile::after,
+    .facility-tile::after,
+    .campus-photo::after,
+    .principal-photo::after,
+    .academic-portrait::after,
+    .dorm-study-card::after,
+    .student-mentoring::after,
+    .character-collage::after,
+    .portrait-visual::after,
+    .teaching-visual::after,
+    .achievement-portrait::after,
+    .video-hero::after {
+        background: linear-gradient(180deg, transparent, rgb(8 35 63 / 0.08));
+    }
+
+    .library-real,
+    .dog-lab,
+    .lab-real,
+    .gym-real,
+    .classroom-real,
+    .dorm-room,
+    .court-real,
+    .canteen-real,
+    .night-study,
+    .osis-real,
+    .basketball-real,
+    .band-real,
+    .robotics-real,
+    .dance-real {
+        background-blend-mode: normal, normal, normal, normal;
+    }
+
+    .soft-card span,
+    .round-icon {
+        color: #fff !important;
+    }
+
+    .faq-item summary::after {
+        color: var(--sman-gold);
+    }
+
+    .footer-social,
+    .social-link,
+    .icon-button,
+    .share {
+        background: rgb(255 255 255 / 0.1);
+        color: #fff;
+    }
+
+    .social-link {
+        background: var(--sman-soft);
+        color: var(--sman-ink);
+    }
+
+    .cta-panel {
+        box-shadow: 0 22px 56px rgb(8 35 63 / 0.16);
+    }
+}
+
+@layer components {
+    :root {
+        --ink: #071f3a;
+        --ink-soft: #496176;
+        --muted: #6b7f91;
+        --line: #e3ebf2;
+        --paper: #ffffff;
+        --wash: #f6f9fc;
+        --gold: #d6a63a;
+        --teal: #4fa79d;
+        --radius-sm: 0.55rem;
+        --radius-md: 0.85rem;
+        --radius-lg: 1.15rem;
+        --shadow-soft: 0 18px 48px rgb(7 31 58 / 0.08);
+        --shadow-lift: 0 28px 72px rgb(7 31 58 / 0.14);
+        --section-y: clamp(4rem, 7vw, 6.5rem);
+    }
+
+    body {
+        background:
+            linear-gradient(180deg, #f8fbfd 0%, #f5f8fb 40%, #ffffff 100%);
+        color: var(--ink);
+        padding-top: var(--header-height, 7.5rem);
+    }
+
+    header {
+        position: fixed !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 60;
+        backdrop-filter: blur(14px);
+    }
+
+    header nav {
+        border-bottom: 1px solid rgb(227 235 242 / 0.9);
+    }
+
+    header .mobile-menu > div {
+        width: min(19rem, calc(100vw - 2rem));
+        max-height: calc(100vh - 8rem);
+        overflow-y: auto;
+    }
+
+    main > section {
+        padding-top: var(--section-y);
+        padding-bottom: var(--section-y);
+    }
+
+    main > section.school-hero,
+    main > section.page-hero {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .school-hero > .mx-auto,
+    .page-hero > .mx-auto {
+        min-height: clamp(30rem, 72vh, 39rem);
+        padding-top: clamp(4.5rem, 8vw, 7rem);
+        padding-bottom: clamp(4.5rem, 8vw, 7rem);
+    }
+
+    .school-hero h1,
+    .page-hero h1 {
+        max-width: 14ch;
+        font-size: clamp(2.55rem, 7vw, 4.9rem);
+        letter-spacing: 0;
+        text-wrap: balance;
+    }
+
+    .school-hero p,
+    .page-hero p {
+        font-size: clamp(0.95rem, 1.4vw, 1.08rem);
+        text-wrap: pretty;
+    }
+
+    h1,
+    h2,
+    h3 {
+        letter-spacing: 0;
+    }
+
+    h2,
+    .section-title,
+    .message-panel h2,
+    .cta-panel h2,
+    .featured-news h2 {
+        text-wrap: balance;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+
+    .section-pill,
+    .eyebrow {
+        letter-spacing: 0.16em;
+    }
+
+    .feature-card,
+    .info-card,
+    .news-card,
+    .achievement-card,
+    .teacher-card,
+    .staff-card,
+    .leader-card,
+    .club-card,
+    .program-card,
+    .soft-card,
+    .calendar-card,
+    .profile-stat,
+    .service-tile,
+    .document-row,
+    .mini-video,
+    .testimonial,
+    .message-panel,
+    .map-card,
+    .featured-news,
+    .metric-card,
+    .faq-item {
+        border-color: var(--line);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .feature-card,
+    .info-card,
+    .program-card,
+    .soft-card,
+    .testimonial,
+    .message-panel {
+        padding: clamp(1.45rem, 3vw, 2.25rem);
+    }
+
+    .feature-card,
+    .info-card {
+        min-height: auto;
+    }
+
+    .news-card h3,
+    .feature-card h3,
+    .program-card h3,
+    .achievement-card h3,
+    .club-card h3 {
+        text-wrap: balance;
+    }
+
+    .news-card p,
+    .feature-card p,
+    .program-card p,
+    .soft-card p,
+    .achievement-card p,
+    .club-card p {
+        text-wrap: pretty;
+    }
+
+    .gold-button,
+    .ghost-button,
+    .outline-button,
+    .primary-wide,
+    .club-card a {
+        min-height: 2.9rem;
+        border-radius: 999px;
+        white-space: normal;
+        text-align: center;
+        line-height: 1.2;
+    }
+
+    .gold-button {
+        background: linear-gradient(135deg, #d6a63a, #f0c766);
+    }
+
+    .ghost-button {
+        border-color: rgb(255 255 255 / 0.28);
+        background: rgb(255 255 255 / 0.14);
+        backdrop-filter: blur(14px);
+    }
+
+    .outline-button {
+        background: rgb(255 255 255 / 0.92);
+    }
+
+    .illustration,
+    .gallery-tile,
+    .facility-tile,
+    .campus-photo,
+    .principal-photo,
+    .academic-portrait,
+    .dorm-study-card,
+    .student-mentoring,
+    .character-collage,
+    .portrait-visual,
+    .teaching-visual,
+    .achievement-portrait,
+    .video-hero {
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-soft);
+    }
+
+    .gallery-grid,
+    .masonry-gallery,
+    .facility-mosaic,
+    .dorm-gallery,
+    .academic-grid {
+        gap: clamp(1rem, 2vw, 1.5rem);
+    }
+
+    .cta-panel {
+        max-width: 76rem;
+        border-radius: clamp(1.15rem, 3vw, 1.7rem);
+        padding: clamp(3rem, 7vw, 5rem) clamp(1.25rem, 5vw, 4rem);
+    }
+
+    .cta-panel h2 {
+        font-size: clamp(2rem, 5vw, 3.6rem);
+    }
+
+    footer {
+        position: relative;
+        overflow: hidden;
+    }
+
+    footer::before {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+            radial-gradient(circle at 88% 20%, rgb(214 166 58 / 0.12), transparent 18rem),
+            radial-gradient(circle at 10% 80%, rgb(79 167 157 / 0.12), transparent 16rem);
+        content: "";
+    }
+
+    footer > * {
+        position: relative;
+    }
+
+    @media (min-width: 768px) {
+        .feature-card:nth-child(even),
+        .news-card:nth-child(2),
+        .achievement-card:nth-child(2),
+        .club-card:nth-child(even) {
+            transition-delay: 50ms;
+        }
+    }
+
+    @media (max-width: 1279px) {
+        header nav .mx-auto {
+            padding-top: 0.9rem;
+            padding-bottom: 0.9rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        :root {
+            --section-y: 3.75rem;
+        }
+
+        body {
+            background: #f7fafc;
+        }
+
+        header .bg-\[\#071f3a\] .mx-auto {
+            align-items: flex-start;
+            padding-top: 0.65rem;
+            padding-bottom: 0.65rem;
+            line-height: 1.5;
+        }
+
+        header nav .mx-auto {
+            gap: 1rem;
+        }
+
+        header nav a.flex {
+            gap: 0.75rem;
+        }
+
+        header nav a.flex > span:first-child {
+            width: 2.6rem;
+            height: 2.6rem;
+        }
+
+        header nav a.flex .block.text-base {
+            font-size: 0.95rem;
+        }
+
+        header nav a.flex .block.text-\[9px\] {
+            max-width: 11rem;
+            letter-spacing: 0.22em;
+        }
+
+        .school-hero > .mx-auto,
+        .page-hero > .mx-auto {
+            min-height: clamp(28rem, 78vh, 34rem);
+            padding-top: 4rem;
+            padding-bottom: 4rem;
+        }
+
+        .school-hero h1,
+        .page-hero h1 {
+            max-width: 12ch;
+            font-size: clamp(2.3rem, 12vw, 3.35rem);
+        }
+
+        .school-hero p,
+        .page-hero p {
+            max-width: 34rem;
+            line-height: 1.75;
+        }
+
+        .school-hero .gold-button,
+        .school-hero .ghost-button,
+        .page-hero .gold-button,
+        .page-hero .ghost-button {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .section-pill {
+            max-width: 100%;
+            white-space: normal;
+            line-height: 1.3;
+        }
+
+        .gallery-grid,
+        .masonry-gallery,
+        .facility-mosaic,
+        .dorm-gallery,
+        .academic-grid,
+        .gallery-showcase {
+            display: grid;
+            grid-template-columns: 1fr;
+        }
+
+        .gallery-grid > *,
+        .masonry-gallery > *,
+        .facility-mosaic > *,
+        .dorm-gallery > *,
+        .academic-grid > *,
+        .gallery-showcase > * {
+            grid-column: auto !important;
+            grid-row: auto !important;
+            min-height: 16rem;
+        }
+
+        .facility-tile.big,
+        .facility-tile.dorm-room,
+        .masonry-gallery .tall {
+            min-height: 20rem;
+        }
+
+        .calendar-card,
+        .document-row,
+        .partner-line {
+            gap: 0.9rem;
+        }
+
+        .calendar-card > span {
+            width: 3.45rem;
+            height: 3.45rem;
+            font-size: 0.72rem;
+        }
+
+        .profile-stat strong,
+        .big-stat strong,
+        .metric-card strong {
+            font-size: 2rem;
+        }
+
+        .floating-quote,
+        .quote-card,
+        .showcase-card {
+            animation: none;
+        }
+    }
+
+    @media (max-width: 480px) {
+        header .bg-\[\#071f3a\] .mx-auto {
+            font-size: 0.62rem;
+        }
+
+        header nav a.flex .block.text-\[9px\] {
+            display: none;
+        }
+
+        .school-hero > .mx-auto,
+        .page-hero > .mx-auto {
+            min-height: 30rem;
+        }
+
+        .school-hero h1,
+        .page-hero h1 {
+            max-width: 11ch;
+        }
+
+        main > section > .mx-auto {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        .feature-card,
+        .info-card,
+        .program-card,
+        .soft-card,
+        .testimonial,
+        .message-panel,
+        .cta-panel {
+            padding: 1.25rem;
+        }
+
+        .cta-panel h2 {
+            font-size: clamp(1.8rem, 10vw, 2.45rem);
+        }
+
+        .footer-social,
+        .social-link,
+        .icon-button,
+        .share {
+            width: 2.35rem;
+            height: 2.35rem;
+        }
+    }
+}
+
+@layer components {
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translate3d(0, 2rem, 0) scale(0.985);
+        transition:
+            opacity 720ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--reveal-delay, 0ms),
+            transform 720ms cubic-bezier(0.2, 0.8, 0.2, 1) var(--reveal-delay, 0ms);
+        will-change: opacity, transform;
+    }
+
+    .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    .section-pill,
+    .eyebrow,
+    .meta-line {
+        position: relative;
+    }
+
+    .section-pill {
+        box-shadow: inset 0 0 0 1px rgb(214 166 58 / 0.18), 0 14px 34px rgb(214 166 58 / 0.08);
+        backdrop-filter: blur(12px);
+    }
+
+    .gold-button,
+    .ghost-button,
+    .outline-button,
+    .primary-wide,
+    .filter-pill,
+    .pager,
+    .club-card a,
+    .featured-news a,
+    .teacher-card a,
+    .info-card a {
+        position: relative;
+        overflow: hidden;
+        transform: translateY(0);
+        transition:
+            transform 220ms ease,
+            box-shadow 220ms ease,
+            border-color 220ms ease,
+            background-color 220ms ease,
+            color 220ms ease;
+    }
+
+    .gold-button::after,
+    .ghost-button::after,
+    .outline-button::after,
+    .primary-wide::after,
+    .club-card a::after {
+        position: absolute;
+        inset: -40% auto -40% -55%;
+        width: 45%;
+        pointer-events: none;
+        background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.42), transparent);
+        content: "";
+        transform: skewX(-20deg);
+        transition: left 520ms ease;
+    }
+
+    .gold-button:hover,
+    .ghost-button:hover,
+    .outline-button:hover,
+    .primary-wide:hover,
+    .filter-pill:hover,
+    .pager:hover,
+    .club-card a:hover,
+    .teacher-card a:hover,
+    .info-card a:hover {
+        transform: translateY(-3px);
+    }
+
+    .gold-button:hover,
+    .primary-wide:hover {
+        box-shadow: 0 18px 38px rgb(214 166 58 / 0.28);
+    }
+
+    .ghost-button:hover,
+    .outline-button:hover,
+    .club-card a:hover {
+        box-shadow: 0 16px 36px rgb(7 31 58 / 0.14);
+    }
+
+    .gold-button:hover::after,
+    .ghost-button:hover::after,
+    .outline-button:hover::after,
+    .primary-wide:hover::after,
+    .club-card a:hover::after {
+        left: 115%;
+    }
+
+    .feature-card,
+    .info-card,
+    .news-card,
+    .achievement-card,
+    .teacher-card,
+    .staff-card,
+    .leader-card,
+    .club-card,
+    .program-card,
+    .soft-card,
+    .calendar-card,
+    .profile-stat,
+    .service-tile,
+    .document-row,
+    .mini-video,
+    .testimonial,
+    .message-panel,
+    .map-card,
+    .featured-news,
+    .metric-card {
+        transition:
+            transform 260ms ease,
+            box-shadow 260ms ease,
+            border-color 260ms ease,
+            background-color 260ms ease;
+    }
+
+    .feature-card:hover,
+    .info-card:hover,
+    .news-card:hover,
+    .achievement-card:hover,
+    .teacher-card:hover,
+    .staff-card:hover,
+    .leader-card:hover,
+    .club-card:hover,
+    .program-card:hover,
+    .soft-card:hover,
+    .calendar-card:hover,
+    .profile-stat:hover,
+    .service-tile:hover,
+    .document-row:hover,
+    .mini-video:hover,
+    .testimonial:hover,
+    .message-panel:hover,
+    .map-card:hover,
+    .featured-news:hover,
+    .metric-card:hover {
+        border-color: rgb(214 166 58 / 0.42);
+        box-shadow: 0 28px 70px rgb(7 31 58 / 0.13);
+        transform: translateY(-6px);
+    }
+
+    .illustration,
+    .gallery-tile,
+    .facility-tile,
+    .campus-photo,
+    .principal-photo,
+    .academic-portrait,
+    .dorm-study-card,
+    .student-mentoring,
+    .character-collage,
+    .portrait-visual,
+    .teaching-visual,
+    .achievement-portrait,
+    .video-hero {
+        transform: translateZ(0);
+        transition:
+            transform 360ms cubic-bezier(0.2, 0.8, 0.2, 1),
+            filter 360ms ease,
+            box-shadow 360ms ease;
+    }
+
+    .illustration::after,
+    .gallery-tile::after,
+    .facility-tile::after,
+    .campus-photo::after,
+    .principal-photo::after,
+    .academic-portrait::after,
+    .dorm-study-card::after,
+    .student-mentoring::after,
+    .character-collage::after,
+    .portrait-visual::after,
+    .teaching-visual::after,
+    .achievement-portrait::after,
+    .video-hero::after {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background:
+            linear-gradient(120deg, transparent 0 35%, rgb(255 255 255 / 0.18) 48%, transparent 62% 100%),
+            radial-gradient(circle at 82% 18%, rgb(255 255 255 / 0.16), transparent 9rem);
+        content: "";
+        opacity: 0;
+        transition: opacity 280ms ease;
+    }
+
+    .illustration:hover,
+    .gallery-tile:hover,
+    .facility-tile:hover,
+    .campus-photo:hover,
+    .principal-photo:hover,
+    .academic-portrait:hover,
+    .dorm-study-card:hover,
+    .student-mentoring:hover,
+    .character-collage:hover,
+    .portrait-visual:hover,
+    .teaching-visual:hover,
+    .achievement-portrait:hover,
+    .video-hero:hover {
+        filter: saturate(1.08) contrast(1.03);
+        transform: translateY(-5px) scale(1.012);
+    }
+
+    .illustration:hover::after,
+    .gallery-tile:hover::after,
+    .facility-tile:hover::after,
+    .campus-photo:hover::after,
+    .principal-photo:hover::after,
+    .academic-portrait:hover::after,
+    .dorm-study-card:hover::after,
+    .student-mentoring:hover::after,
+    .character-collage:hover::after,
+    .portrait-visual:hover::after,
+    .teaching-visual:hover::after,
+    .achievement-portrait:hover::after,
+    .video-hero:hover::after {
+        opacity: 1;
+    }
+
+    .floating-quote,
+    .quote-card,
+    .showcase-card {
+        animation: softFloat 6.5s ease-in-out infinite;
+    }
+
+    .stat-item strong,
+    .big-stat strong,
+    .profile-stat strong,
+    .metric-card strong {
+        background: linear-gradient(135deg, #071f3a, #0b4a68 48%, #d6a63a);
+        -webkit-background-clip: text;
+        background-clip: text;
+    }
+
+    .stat-item strong {
+        background: linear-gradient(135deg, #d6a63a, #f4d77a, #74c7be);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .profile-stat.dark strong,
+    .metric-card.dark strong {
+        background: linear-gradient(135deg, #fff, #d6a63a);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .faq-item {
+        overflow: hidden;
+        transition: box-shadow 220ms ease, transform 220ms ease, border-color 220ms ease;
+    }
+
+    .faq-item:hover,
+    .faq-item[open] {
+        box-shadow: 0 18px 46px rgb(7 31 58 / 0.1);
+        transform: translateY(-2px);
+    }
+
+    .faq-item summary::after {
+        transition: transform 220ms ease;
+    }
+
+    .faq-item[open] summary::after {
+        transform: rotate(180deg);
+    }
+
+    .faq-item p {
+        animation: faqReveal 260ms ease both;
+    }
+
+    .mobile-menu[open] > div {
+        animation: menuReveal 180ms ease both;
+    }
+
+    .cta-panel {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+    }
+
+    .cta-panel::before {
+        position: absolute;
+        inset: -20%;
+        z-index: -1;
+        background:
+            radial-gradient(circle at 85% 12%, rgb(214 166 58 / 0.28), transparent 16rem),
+            radial-gradient(circle at 12% 90%, rgb(116 199 190 / 0.18), transparent 16rem);
+        content: "";
+        animation: auraShift 12s ease-in-out infinite alternate;
+    }
+
+    .play-button {
+        animation: pulseRing 2.8s ease-in-out infinite;
+    }
+
+    @keyframes softFloat {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+
+        50% {
+            transform: translateY(-0.55rem);
+        }
+    }
+
+    @keyframes faqReveal {
+        from {
+            opacity: 0;
+            transform: translateY(-0.35rem);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes menuReveal {
+        from {
+            opacity: 0;
+            transform: translateY(-0.5rem) scale(0.98);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    @keyframes auraShift {
+        from {
+            transform: translate3d(-1.5rem, -0.6rem, 0) rotate(0deg);
+        }
+
+        to {
+            transform: translate3d(1.2rem, 0.8rem, 0) rotate(8deg);
+        }
+    }
+
+    @keyframes pulseRing {
+        0%,
+        100% {
+            box-shadow: 0 0 0 0 rgb(255 255 255 / 0.28), 0 18px 45px rgb(7 31 58 / 0.18);
+        }
+
+        50% {
+            box-shadow: 0 0 0 1rem rgb(255 255 255 / 0), 0 18px 45px rgb(7 31 58 / 0.22);
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
+            transition-duration: 0.01ms !important;
+        }
+
+        .reveal-on-scroll {
+            opacity: 1;
+            transform: none;
+        }
+    }
+}
+
 @media (max-width: 1023px) {
     .hero-visual::before {
         width: 32rem;
@@ -1348,6 +2538,41 @@
         background:
             linear-gradient(90deg, rgb(7 31 58 / 0.96) 0%, rgb(7 31 58 / 0.78) 52%, rgb(7 31 58 / 0.36) 100%),
             linear-gradient(180deg, rgb(7 31 58 / 0.04), rgb(7 31 58 / 0.62));
+    }
+
+    .school-hero::before,
+    .page-hero::before {
+        position: absolute;
+        inset: -20%;
+        z-index: 0;
+        pointer-events: none;
+        background:
+            radial-gradient(circle at 78% 26%, rgb(214 166 58 / 0.24), transparent 18rem),
+            radial-gradient(circle at 18% 74%, rgb(116 199 190 / 0.2), transparent 16rem);
+        content: "";
+        filter: blur(2px);
+        transform: translate3d(0, var(--hero-drift, 0px), 0);
+        transition: transform 300ms ease-out;
+    }
+
+    .school-hero::after,
+    .page-hero::after {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background:
+            linear-gradient(115deg, transparent 0 32%, rgb(255 255 255 / 0.08) 45%, transparent 58% 100%),
+            repeating-linear-gradient(90deg, rgb(255 255 255 / 0.045) 0 1px, transparent 1px 4rem);
+        content: "";
+        mix-blend-mode: screen;
+        opacity: 0.68;
+    }
+
+    .school-hero > *,
+    .page-hero > * {
+        position: relative;
+        z-index: 1;
     }
 
     .hero-home {
@@ -2003,5 +3228,595 @@
         left: 1rem;
         right: 1rem;
         max-width: none;
+    }
+}
+
+@layer components {
+    .hero-profile {
+        background:
+            linear-gradient(90deg, rgb(7 31 58 / 0.18), rgb(7 31 58 / 0.16)),
+            linear-gradient(90deg, transparent 0 36%, rgb(255 255 255 / 0.18) 36% 37%, transparent 37% 100%),
+            linear-gradient(180deg, rgb(255 255 255 / 0.2) 0 17%, transparent 17% 100%),
+            linear-gradient(120deg, #20384c 0 38%, #8fa6b6 38% 47%, #3d5669 47% 100%);
+    }
+
+    .hero-academic {
+        background:
+            radial-gradient(circle at 72% 30%, rgb(150 192 197 / 0.72) 0 17rem, transparent 17.2rem),
+            linear-gradient(90deg, transparent 0 25%, rgb(255 255 255 / 0.09) 25% 26%, transparent 26% 100%),
+            repeating-linear-gradient(0deg, rgb(255 255 255 / 0.08) 0 1px, transparent 1px 3.2rem),
+            linear-gradient(115deg, #0e2e4b, #647b88);
+    }
+
+    .hero-dorm {
+        background:
+            linear-gradient(90deg, rgb(7 31 58 / 0.2), rgb(7 31 58 / 0.14)),
+            radial-gradient(circle at 88% 70%, rgb(35 90 70 / 0.48) 0 7rem, transparent 7.2rem),
+            radial-gradient(circle at 10% 78%, rgb(18 77 62 / 0.44) 0 8rem, transparent 8.2rem),
+            repeating-linear-gradient(90deg, rgb(255 255 255 / 0.12) 0 2px, transparent 2px 7rem),
+            linear-gradient(180deg, #6e8795, #12304c);
+    }
+
+    .hero-student {
+        background:
+            radial-gradient(circle at 38% 0%, rgb(255 255 255 / 0.12) 0 12rem, transparent 12.3rem),
+            radial-gradient(circle at 62% 26%, #283e55 0 11rem, transparent 11.3rem),
+            linear-gradient(90deg, transparent 0 28%, #22354b 28% 31%, transparent 31% 59%, #22354b 59% 62%, transparent 62% 100%),
+            linear-gradient(180deg, #7e95a6, #20384f);
+    }
+
+    .profile-stat {
+        min-height: 8.5rem;
+        border: 1px solid #e7edf2;
+        border-radius: 1.25rem;
+        background: #fff;
+        padding: 1.7rem;
+        box-shadow: 0 18px 42px rgb(7 31 58 / 0.06);
+    }
+
+    .profile-stat.dark {
+        background: #071f3a;
+        color: #fff;
+        box-shadow: 0 22px 52px rgb(7 31 58 / 0.18);
+    }
+
+    .profile-stat strong {
+        display: block;
+        color: #071f3a;
+        font-size: clamp(2rem, 4vw, 2.7rem);
+        font-weight: 900;
+        line-height: 1;
+    }
+
+    .profile-stat.dark strong {
+        color: #fff;
+    }
+
+    .profile-stat span {
+        display: block;
+        margin-top: 0.8rem;
+        color: #8da0b1;
+        font-size: 0.68rem;
+        font-weight: 900;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .campus-photo,
+    .principal-photo,
+    .academic-portrait,
+    .dorm-study-card,
+    .student-mentoring,
+    .character-collage {
+        position: relative;
+        min-height: 28rem;
+        overflow: hidden;
+        border: 0.45rem solid #fff;
+        border-radius: 1.2rem;
+        background-color: #dfe8ef;
+        box-shadow: 0 24px 60px rgb(15 35 55 / 0.14);
+    }
+
+    .campus-photo.historic {
+        filter: grayscale(1);
+        background:
+            linear-gradient(90deg, transparent 0 26%, #28394a 26% 29%, transparent 29% 72%, #28394a 72% 75%, transparent 75% 100%),
+            repeating-linear-gradient(0deg, transparent 0 3.3rem, rgb(24 36 48 / 0.22) 3.3rem 3.45rem),
+            repeating-linear-gradient(90deg, #cdd5dc 0 3.4rem, #eff2f4 3.4rem 4.8rem),
+            linear-gradient(180deg, #e7ecef, #aeb9c0);
+    }
+
+    .principal-photo {
+        min-height: 18rem;
+        border-radius: 999px;
+        background:
+            radial-gradient(circle at 50% 31%, #ddb38e 0 3.4rem, transparent 3.5rem),
+            linear-gradient(90deg, transparent 0 38%, #1b2d40 38% 62%, transparent 62% 100%),
+            radial-gradient(circle at 50% 55%, rgb(214 166 58 / 0.7) 0 4.2rem, transparent 4.3rem),
+            repeating-linear-gradient(90deg, #8a5a2d 0 0.9rem, #d2ad73 0.9rem 1.2rem, #4e321f 1.2rem 1.5rem),
+            #20384f;
+    }
+
+    .timeline-row {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1.2rem;
+    }
+
+    .timeline-row > span {
+        margin-top: 0.35rem;
+        width: 0.65rem;
+        height: 0.65rem;
+        border-radius: 999px;
+        background: #d6a63a;
+        box-shadow: 0 0 0 0.45rem rgb(214 166 58 / 0.13);
+    }
+
+    .timeline-row h3,
+    .soft-card h3,
+    .program-card h3,
+    .service-tile strong,
+    .calendar-card h3,
+    .club-card h3,
+    .dark-value h3 {
+        color: #071f3a;
+        font-weight: 900;
+    }
+
+    .timeline-row p,
+    .soft-card p,
+    .program-card p,
+    .calendar-card p,
+    .club-card p,
+    .dark-value p {
+        margin-top: 0.55rem;
+        color: #6b7f91;
+        font-size: 0.86rem;
+        font-weight: 650;
+        line-height: 1.7;
+    }
+
+    .soft-card,
+    .program-card,
+    .calendar-card {
+        border: 1px solid #e7edf2;
+        border-radius: 1rem;
+        background: #fff;
+        padding: 1.6rem;
+        box-shadow: 0 18px 42px rgb(15 35 55 / 0.05);
+    }
+
+    .soft-card span {
+        display: grid;
+        width: 2.35rem;
+        height: 2.35rem;
+        place-items: center;
+        border-radius: 999px;
+        background: #f6edd9;
+        color: #bd9140;
+        font-size: 0.78rem;
+        font-weight: 900;
+    }
+
+    .soft-card h3 {
+        margin-top: 1.4rem;
+    }
+
+    .facility-mosaic,
+    .dorm-gallery {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 1.4rem;
+    }
+
+    .facility-tile {
+        position: relative;
+        grid-column: span 6;
+        min-height: 18rem;
+        overflow: hidden;
+        border-radius: 1rem;
+        background-color: #15304a;
+        box-shadow: 0 22px 50px rgb(7 31 58 / 0.16);
+    }
+
+    .facility-tile.big,
+    .facility-tile.dorm-room {
+        grid-row: span 2;
+        min-height: 37.4rem;
+    }
+
+    .facility-tile span {
+        position: absolute;
+        right: 1.2rem;
+        bottom: 1.2rem;
+        left: 1.2rem;
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 900;
+        text-shadow: 0 2px 14px rgb(0 0 0 / 0.35);
+    }
+
+    .library-real {
+        background:
+            linear-gradient(180deg, transparent 35%, rgb(7 31 58 / 0.84)),
+            repeating-linear-gradient(90deg, #8a5a2d 0 1.1rem, #d2ad73 1.1rem 1.45rem, #4e321f 1.45rem 1.8rem),
+            linear-gradient(180deg, #cbd7dd, #79512c);
+    }
+
+    .lab-real {
+        background:
+            linear-gradient(180deg, transparent 42%, rgb(7 31 58 / 0.84)),
+            radial-gradient(circle at 28% 48%, rgb(255 255 255 / 0.7) 0 1.6rem, transparent 1.7rem),
+            linear-gradient(90deg, transparent 0 36%, #e9f0f4 36% 39%, transparent 39% 56%, #d9e3e9 56% 60%, transparent 60% 100%),
+            linear-gradient(180deg, #8dc7cf, #21394e);
+    }
+
+    .gym-real {
+        background:
+            linear-gradient(180deg, transparent 44%, rgb(7 31 58 / 0.84)),
+            repeating-linear-gradient(90deg, transparent 0 5rem, rgb(255 255 255 / 0.16) 5rem 5.2rem),
+            linear-gradient(180deg, #4d6375, #17293b);
+    }
+
+    .classroom-real {
+        background:
+            linear-gradient(180deg, transparent 50%, rgb(7 31 58 / 0.82)),
+            linear-gradient(90deg, transparent 0 35%, #2f8a62 35% 72%, transparent 72% 100%),
+            linear-gradient(180deg, #d6c49e, #6b4d34);
+    }
+
+    .dog-lab {
+        background:
+            linear-gradient(180deg, transparent 34%, rgb(7 31 58 / 0.86)),
+            radial-gradient(circle at 42% 42%, #e4d0b7 0 5rem, transparent 5.2rem),
+            radial-gradient(circle at 35% 25%, #514131 0 1.2rem, transparent 1.3rem),
+            linear-gradient(115deg, #081423, #2c5061);
+    }
+
+    .org-chart {
+        display: grid;
+        justify-items: center;
+    }
+
+    .org-node {
+        min-width: 11rem;
+        border: 1px solid #e7edf2;
+        border-radius: 1rem;
+        background: #fff;
+        padding: 1.35rem;
+        color: #071f3a;
+        font-size: 0.9rem;
+        font-weight: 900;
+        box-shadow: 0 18px 38px rgb(15 35 55 / 0.06);
+    }
+
+    .org-node span {
+        display: block;
+        margin-top: 0.35rem;
+        color: #bd9140;
+        font-size: 0.6rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+    }
+
+    .org-line {
+        width: min(42rem, 70vw);
+        height: 4rem;
+        border-bottom: 1px solid #dfe8ef;
+        border-left: 1px solid #dfe8ef;
+        border-right: 1px solid #dfe8ef;
+    }
+
+    .academic-portrait {
+        min-height: 34rem;
+        border-radius: 1.4rem;
+        background:
+            radial-gradient(circle at 50% 26%, #f0c19a 0 3.7rem, transparent 3.8rem),
+            linear-gradient(90deg, transparent 0 36%, #80512f 36% 64%, transparent 64% 100%),
+            linear-gradient(90deg, transparent 0 24%, #6ab0a8 24% 76%, transparent 76% 100%),
+            linear-gradient(180deg, #9bd8bd 0 60%, #235660 60% 100%);
+    }
+
+    .floating-quote {
+        position: absolute;
+        left: -1.5rem;
+        bottom: 3rem;
+        max-width: 18rem;
+        border-radius: 1rem;
+        background: #fff;
+        padding: 1.6rem;
+        color: #071f3a;
+        font-size: 0.9rem;
+        font-weight: 900;
+        line-height: 1.55;
+        box-shadow: 0 20px 48px rgb(7 31 58 / 0.16);
+    }
+
+    .floating-quote.dark {
+        background: #071f3a;
+        color: #fff;
+    }
+
+    .academic-grid {
+        display: grid;
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: 1.5rem;
+    }
+
+    .program-card {
+        grid-column: span 6;
+        min-height: 16rem;
+    }
+
+    .program-card.wide {
+        grid-column: span 7;
+    }
+
+    .program-card.dark {
+        background: #071f3a;
+        color: #fff;
+        box-shadow: 0 22px 54px rgb(7 31 58 / 0.2);
+    }
+
+    .program-card.dark h3,
+    .program-card.dark p {
+        color: inherit;
+    }
+
+    .program-card.dark p {
+        color: rgb(255 255 255 / 0.62);
+    }
+
+    .program-card.gold {
+        background: #bd9140;
+        color: #fff;
+    }
+
+    .program-card.gold h3,
+    .program-card.gold p {
+        color: inherit;
+    }
+
+    .calendar-card {
+        display: flex;
+        align-items: center;
+        gap: 1.2rem;
+    }
+
+    .calendar-card > span {
+        display: grid;
+        width: 4rem;
+        height: 4rem;
+        flex: 0 0 auto;
+        place-items: center;
+        border-radius: 0.9rem;
+        background: #f7f1e4;
+        color: #071f3a;
+        font-size: 0.82rem;
+        font-weight: 900;
+        text-align: center;
+    }
+
+    .service-tile {
+        border-radius: 1rem;
+        background: rgb(255 255 255 / 0.08);
+        padding: 1.4rem;
+    }
+
+    .service-tile p {
+        margin-top: 0.5rem;
+        color: rgb(255 255 255 / 0.54);
+        font-size: 0.78rem;
+        font-weight: 650;
+        line-height: 1.6;
+    }
+
+    .dorm-study-card {
+        background:
+            radial-gradient(circle at 35% 35%, #dca77e 0 2.2rem, transparent 2.3rem),
+            radial-gradient(circle at 62% 30%, #c9886d 0 2.1rem, transparent 2.2rem),
+            linear-gradient(90deg, transparent 0 24%, #2a7d77 24% 42%, transparent 42% 54%, #c65e36 54% 72%, transparent 72% 100%),
+            linear-gradient(180deg, #b9d7c9, #7fb5a8);
+    }
+
+    .dorm-gallery .facility-tile {
+        grid-column: span 4;
+    }
+
+    .dorm-gallery .dorm-room {
+        grid-column: span 6;
+    }
+
+    .dorm-gallery .night-study {
+        grid-column: span 6;
+    }
+
+    .dorm-room {
+        background:
+            linear-gradient(180deg, transparent 48%, rgb(7 31 58 / 0.88)),
+            linear-gradient(90deg, transparent 0 20%, #e2c8a7 20% 58%, transparent 58% 100%),
+            linear-gradient(180deg, #8c6a48, #3b2c20);
+    }
+
+    .court-real {
+        background:
+            linear-gradient(180deg, transparent 44%, rgb(7 31 58 / 0.82)),
+            repeating-linear-gradient(90deg, rgb(255 255 255 / 0.22) 0 2px, transparent 2px 4rem),
+            linear-gradient(180deg, #76b8ca, #d17b38);
+    }
+
+    .canteen-real {
+        background:
+            linear-gradient(180deg, transparent 45%, rgb(7 31 58 / 0.82)),
+            radial-gradient(circle at 28% 42%, #dca77e 0 1.7rem, transparent 1.8rem),
+            radial-gradient(circle at 56% 36%, #c9886d 0 1.7rem, transparent 1.8rem),
+            radial-gradient(circle at 74% 42%, #e8b891 0 1.7rem, transparent 1.8rem),
+            linear-gradient(180deg, #b9c4c9, #445f6a);
+    }
+
+    .night-study {
+        background:
+            linear-gradient(180deg, transparent 45%, rgb(7 31 58 / 0.86)),
+            radial-gradient(circle at 36% 48%, #dca77e 0 1.8rem, transparent 1.9rem),
+            radial-gradient(circle at 58% 43%, #c9886d 0 1.8rem, transparent 1.9rem),
+            radial-gradient(circle at 76% 48%, #e5b08c 0 1.8rem, transparent 1.9rem),
+            linear-gradient(180deg, #0f263c, #372b25);
+    }
+
+    .dark-value h3 {
+        margin-top: 1.2rem;
+        color: #fff;
+    }
+
+    .dark-value p {
+        color: rgb(255 255 255 / 0.58);
+    }
+
+    .dark-value span {
+        display: grid;
+        width: 2.8rem;
+        height: 2.8rem;
+        border-radius: 999px;
+        background: rgb(214 166 58 / 0.18);
+    }
+
+    .daily-timeline {
+        display: grid;
+        gap: 1.2rem;
+    }
+
+    .daily-timeline .calendar-card:nth-child(even) {
+        margin-left: clamp(0rem, 11vw, 8rem);
+    }
+
+    .student-mentoring {
+        background:
+            radial-gradient(circle at 26% 42%, #dca77e 0 2.3rem, transparent 2.4rem),
+            radial-gradient(circle at 57% 36%, #8f5d3c 0 2.4rem, transparent 2.5rem),
+            radial-gradient(circle at 78% 42%, #8d513c 0 2.25rem, transparent 2.35rem),
+            linear-gradient(90deg, transparent 0 20%, #ffbf61 20% 39%, transparent 39% 48%, #f6f4eb 48% 62%, transparent 62% 70%, #24a78b 70% 88%, transparent 88% 100%),
+            linear-gradient(180deg, #b2ded3, #f2dfb6);
+    }
+
+    .osis-real {
+        min-height: 20rem;
+        background:
+            linear-gradient(180deg, transparent 40%, rgb(7 31 58 / 0.86)),
+            radial-gradient(circle at 35% 52%, #dca77e 0 1.6rem, transparent 1.7rem),
+            radial-gradient(circle at 68% 48%, #c9886d 0 1.6rem, transparent 1.7rem),
+            linear-gradient(180deg, #132a3f, #111827);
+    }
+
+    .club-card {
+        overflow: hidden;
+        border: 1px solid #e7edf2;
+        border-radius: 1rem;
+        background: #fff;
+        box-shadow: 0 18px 42px rgb(15 35 55 / 0.06);
+    }
+
+    .club-card .illustration {
+        min-height: 13rem;
+    }
+
+    .club-card h3,
+    .club-card p,
+    .club-card a {
+        display: block;
+        margin-inline: 1.4rem;
+    }
+
+    .club-card h3 {
+        margin-top: 1.3rem;
+    }
+
+    .club-card a {
+        margin-block: 1.4rem;
+        border: 1px solid #e7edf2;
+        border-radius: 999px;
+        padding: 0.8rem 1rem;
+        text-align: center;
+        color: #071f3a;
+        font-size: 0.78rem;
+        font-weight: 900;
+    }
+
+    .basketball-real {
+        background:
+            linear-gradient(180deg, transparent 50%, rgb(7 31 58 / 0.88)),
+            radial-gradient(circle at 45% 50%, #de7a24 0 4.2rem, transparent 4.3rem),
+            radial-gradient(circle at 45% 50%, transparent 0 2rem, rgb(7 31 58 / 0.5) 2rem 2.15rem, transparent 2.2rem),
+            #0e2236;
+    }
+
+    .band-real {
+        background:
+            linear-gradient(180deg, transparent 42%, rgb(7 31 58 / 0.88)),
+            radial-gradient(circle at 50% 46%, #b21b42 0 2.8rem, transparent 2.9rem),
+            radial-gradient(circle at 50% 46%, transparent 0 3.4rem, rgb(255 255 255 / 0.28) 3.4rem 3.5rem, transparent 3.6rem),
+            #190d1b;
+    }
+
+    .robotics-real {
+        background:
+            linear-gradient(180deg, transparent 48%, rgb(7 31 58 / 0.88)),
+            linear-gradient(90deg, transparent 0 32%, #9da8b3 32% 68%, transparent 68% 100%),
+            repeating-linear-gradient(90deg, rgb(214 166 58 / 0.32) 0 2px, transparent 2px 2rem),
+            #15283f;
+    }
+
+    .dance-real {
+        background:
+            linear-gradient(180deg, transparent 42%, rgb(7 31 58 / 0.88)),
+            radial-gradient(circle at 41% 40%, #e4aa83 0 1.8rem, transparent 1.9rem),
+            radial-gradient(circle at 61% 43%, #c27b62 0 1.8rem, transparent 1.9rem),
+            linear-gradient(45deg, transparent 0 35%, #e03b2f 35% 48%, transparent 48% 100%),
+            #111827;
+    }
+
+    .character-collage {
+        background:
+            radial-gradient(circle at 28% 32%, #dca77e 0 2.4rem, transparent 2.5rem),
+            linear-gradient(90deg, transparent 0 18%, #e6a24f 18% 34%, transparent 34% 64%, #1b4b5a 64% 88%, transparent 88% 100%),
+            repeating-linear-gradient(90deg, rgb(255 255 255 / 0.12) 0 1px, transparent 1px 4rem),
+            linear-gradient(180deg, #18364d, #0d263c);
+    }
+
+    @media (max-width: 1024px) {
+        .facility-tile,
+        .facility-tile.big,
+        .facility-tile.dorm-room,
+        .dorm-gallery .facility-tile,
+        .dorm-gallery .dorm-room,
+        .dorm-gallery .night-study,
+        .program-card,
+        .program-card.wide {
+            grid-column: 1 / -1;
+            grid-row: auto;
+            min-height: 18rem;
+        }
+
+        .floating-quote {
+            left: 1rem;
+            right: 1rem;
+            max-width: none;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .calendar-card {
+            align-items: flex-start;
+        }
+
+        .daily-timeline .calendar-card:nth-child(even) {
+            margin-left: 0;
+        }
+
+        .profile-stat,
+        .soft-card,
+        .program-card,
+        .calendar-card {
+            padding: 1.25rem;
+        }
     }
 }
