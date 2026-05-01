@@ -18,10 +18,11 @@
             $newsSlug = 'siswa-sman-2-balige-raih-medali-emas-di-olimpiade-sains-nasional-2024';
             $navItems = [
                 ['label' => 'Beranda', 'href' => route('home'), 'key' => 'home'],
-                ['label' => 'Profil', 'href' => route('guru'), 'key' => 'guru'],
-                ['label' => 'Akademik', 'href' => route('guru') . '#direktori', 'key' => 'akademik'],
+                ['label' => 'Profil', 'href' => route('profil'), 'key' => 'profil'],
+                ['label' => 'Akademik', 'href' => route('akademik'), 'key' => 'akademik'],
                 ['label' => 'Prestasi', 'href' => route('prestasi'), 'key' => 'prestasi'],
-                ['label' => 'Kesiswaan', 'href' => route('home') . '#kesiswaan', 'key' => 'kesiswaan'],
+                ['label' => 'Kesiswaan', 'href' => route('kesiswaan'), 'key' => 'kesiswaan'],
+                ['label' => 'Asrama', 'href' => route('asrama'), 'key' => 'asrama'],
                 ['label' => 'PPDB', 'href' => route('ppdb'), 'key' => 'ppdb'],
                 ['label' => 'Berita', 'href' => route('berita.index'), 'key' => 'berita'],
                 ['label' => 'Galeri', 'href' => route('galeri'), 'key' => 'galeri'],
@@ -42,7 +43,7 @@
             </div>
 
             <nav class="bg-white">
-                <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 lg:px-8">
+                <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 lg:px-8 xl:justify-start xl:gap-14">
                     <a href="{{ route('home') }}" class="flex min-w-0 items-center gap-3">
                         <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#071f3a] text-sm font-extrabold text-[#d6a63a] shadow-lg shadow-[#071f3a]/20">S2</span>
                         <span class="min-w-0">
@@ -51,15 +52,11 @@
                         </span>
                     </a>
 
-                    <div class="hidden items-center gap-5 text-xs font-extrabold text-[#496176] xl:flex">
+                    <div class="hidden flex-1 items-center justify-end gap-5 text-xs font-extrabold text-[#496176] xl:flex">
                         @foreach ($navItems as $item)
                             <a class="nav-link {{ $active === $item['key'] ? 'active' : '' }}" href="{{ $item['href'] }}">{{ $item['label'] }}</a>
                         @endforeach
                     </div>
-
-                    <a href="{{ route('kontak') }}" class="hidden rounded-full bg-[#071f3a] px-5 py-2.5 text-xs font-black text-white transition hover:bg-[#103a63] lg:inline-flex">
-                        Kontak
-                    </a>
 
                     <details class="mobile-menu relative xl:hidden">
                         <summary class="grid h-11 w-11 cursor-pointer list-none place-items-center rounded-full border border-[#e4ebf2] text-[#071f3a]">
@@ -99,12 +96,14 @@
                 <div>
                     <h3 class="dark-footer-title">Eksplorasi</h3>
                     <ul class="dark-footer-list">
-                        <li><a href="{{ route('guru') }}">Profil Sekolah</a></li>
+                        <li><a href="{{ route('profil') }}">Profil Sekolah</a></li>
+                        <li><a href="{{ route('akademik') }}">Akademik</a></li>
+                        <li><a href="{{ route('asrama') }}">Asrama & Kehidupan Sekolah</a></li>
+                        <li><a href="{{ route('kesiswaan') }}">Kesiswaan & Ekstrakurikuler</a></li>
                         <li><a href="{{ route('ppdb') }}">Pendaftaran PPDB</a></li>
                         <li><a href="{{ route('berita.index') }}">Berita & Pengumuman</a></li>
                         <li><a href="{{ route('galeri') }}">Galeri Kampus</a></li>
                         <li><a href="{{ route('prestasi') }}">Prestasi Siswa</a></li>
-                        <li><a href="{{ route('kontak') }}">Kontak</a></li>
                     </ul>
                 </div>
                 <div>
@@ -123,10 +122,7 @@
             <div class="border-t border-white/8">
                 <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 text-[10px] font-black uppercase tracking-[0.22em] text-white/30 sm:flex-row sm:items-center sm:justify-between lg:px-8">
                     <p>(c) 2024 SMAN 2 Balige. All rights reserved.</p>
-                    <div class="flex gap-6">
-                        <a href="{{ route('kontak') }}">Privacy Policy</a>
-                        <a href="{{ route('kontak') }}">Terms of Service</a>
-                    </div>
+                    <p>Portal resmi sekolah</p>
                 </div>
             </div>
         </footer>
