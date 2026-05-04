@@ -60,9 +60,8 @@
                 <a href="{{ route('dashboard') }}" class="nav-item">📊 Dashboard</a>
                 <a href="{{ route('guru.index') }}" class="nav-item">👥 Guru & Staf</a>
                 <a href="{{ route('prestasi.index') }}" class="nav-item active-nav">🏅 Prestasi</a>
-                <a href="#" class="nav-item">📰 Berita</a>
                 <a href="#" class="nav-item">📢 Pengumuman</a>
-                <a href="#" class="nav-item">🎓 Kesiswaan</a>
+                <a href="{{ route('kesiswaan.index') }}" class="nav-item">🎓 Kesiswaan</a>
                 <a href="#" class="nav-item">📝 PPDB</a>
                 <a href="#" class="nav-item">🖼️ Galeri</a>
                 <a href="#" class="nav-item">⚙️ Pengaturan</a>
@@ -85,12 +84,15 @@
                 PANEL ADMIN <span style="margin: 0 8px; color: #e2e8f0;">/</span> <span style="color: #64748b;">Manajemen Prestasi</span>
             </div>
             <div style="display: flex; align-items: center; gap: 24px;">
+                @php
+                    $adminName = optional(Auth::user())->name ?? session('admin_name') ?? 'Admin';
+                @endphp
                 <div style="text-align: right;">
-                    <div style="font-size: 13px; font-weight: 900; color: #071f3a;">{{ Auth::user()->name }}</div>
+                    <div style="font-size: 13px; font-weight: 900; color: #071f3a;">{{ $adminName }}</div>
                     <div style="font-size: 10px; font-weight: 700; color: #3b82f6;">ADMIN UTAMA</div>
                 </div>
                 <div style="width: 35px; height: 35px; background: #071f3a; border-radius: 50%; display: grid; place-items: center; color: white; font-size: 12px; font-weight: 800;">
-                    {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
+                    {{ strtoupper(substr($adminName, 0, 2)) }}
                 </div>
             </div>
         </header>

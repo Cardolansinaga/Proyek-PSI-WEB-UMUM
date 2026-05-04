@@ -71,10 +71,10 @@
                 <a href="{{ route('guru.index') }}" class="nav-item">👥 Guru & Staf</a>
                 <a href="{{ route('prestasi.index') }}" class="nav-item">🏅 Prestasi</a>
                 <a href="{{ route('pengumuman.index') }}" class="nav-item active-nav">📢 Pengumuman</a>
-                <a href="#" class="nav-item">📰 Berita</a>
+                <a href="{{ route('kesiswaan.index') }}" class="nav-item">🎓 Kesiswaan</a>
                 <a href="#" class="nav-item">📝 PPDB</a>
+                <a href="#" class="nav-item">🖼️ Galeri</a>
                 <a href="#" class="nav-item">⚙️ Pengaturan</a>
-            </nav>
         </div>
         
         <div style="margin-top: auto; padding: 32px;">
@@ -94,7 +94,10 @@
                 <div style="position: relative;">
                     <input type="text" placeholder="Cari pengumuman..." style="background: #f1f5f9; border: none; padding: 8px 16px 8px 35px; border-radius: 20px; font-size: 13px; width: 250px;">
                 </div>
-                <div style="width: 35px; height: 35px; background: #071f3a; border-radius: 50%; display: grid; place-items: center; color: white; font-weight: 800;">{{ strtoupper(substr(Auth::user()->name, 0, 2)) }}</div>
+                @php
+                    $adminName = optional(Auth::user())->name ?? session('admin_name') ?? 'Admin';
+                @endphp
+                <div style="width: 35px; height: 35px; background: #071f3a; border-radius: 50%; display: grid; place-items: center; color: white; font-weight: 800;">{{ strtoupper(substr($adminName, 0, 2)) }}</div>
             </div>
         </header>
 

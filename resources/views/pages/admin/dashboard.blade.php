@@ -56,8 +56,7 @@
                 <a href="{{ route('guru.index') }}" class="nav-item {{ request()->routeIs('guru.*') ? 'active-nav' : '' }}">👥 Guru & Staf</a>
                 <a href="{{ route('prestasi.index') }}" class="nav-item {{ request()->routeIs('prestasi.*') ? 'active-nav' : '' }}">🏅 Prestasi</a>
                 <a href="{{ route('pengumuman.index') }}" class="nav-item {{ request()->routeIs('pengumuman.*') ? 'active-nav' : '' }}">📢 Pengumuman</a>
-                <a href="#" class="nav-item">📰 Berita</a>
-                <a href="#" class="nav-item">🎓 Kesiswaan</a>
+                <a href="{{ route('kesiswaan.index') }}" class="nav-item">🎓 Kesiswaan</a>
                 <a href="#" class="nav-item">📝 PPDB</a>
                 <a href="#" class="nav-item">🖼️ Galeri</a>
                 <a href="#" class="nav-item">⚙️ Pengaturan</a>
@@ -84,12 +83,15 @@
                     <input type="text" placeholder="Search data..." style="background: #f1f5f9; border: none; padding: 8px 16px 8px 35px; border-radius: 20px; font-size: 13px; width: 250px;">
                 </div>
                 <div style="display: flex; align-items: center; gap: 12px;">
+                    @php
+                        $adminName = optional(Auth::user())->name ?? session('admin_name') ?? 'Admin';
+                    @endphp
                     <div style="text-align: right;">
-                        <div style="font-size: 13px; font-weight: 900; color: #071f3a;">{{ Auth::user()->name }}</div>
+                        <div style="font-size: 13px; font-weight: 900; color: #071f3a;">{{ $adminName }}</div>
                         <div style="font-size: 10px; font-weight: 700; color: #3b82f6;">ADMIN UTAMA</div>
                     </div>
                     <div style="width: 35px; height: 35px; background: #071f3a; border-radius: 50%; display: grid; place-items: center; color: white; font-size: 12px; font-weight: 800;">
-                        {{ strtoupper(substr(Auth::user()->name, 0, 2)) }}
+                        {{ strtoupper(substr($adminName, 0, 2)) }}
                     </div>
                 </div>
             </div>
@@ -100,7 +102,6 @@
                 <h2 style="font-size: 24px; font-weight: 900; color: #071f3a;">Selamat Datang, Admin</h2>
                 <div style="display: flex; gap: 12px;">
                     <button style="background: white; border: 1px solid #e2e8f0; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; color: #475569;">Laporan Bulanan</button>
-                    <button style="background: #071f3a; border: none; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; color: white;">+ Tambah Berita</button>
                 </div>
             </div>
 
@@ -109,7 +110,6 @@
             <div class="stats-grid">
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 12px;"><span style="background: #eff6ff; padding: 8px; border-radius: 10px;">📰</span><span style="color: #22c55e; font-size: 12px; font-weight: 700;">+12%</span></div>
-                    <div style="color: #94a3b8; font-size: 10px; font-weight: 800; text-transform: uppercase;">Total Berita</div>
                     <div style="font-size: 24px; font-weight: 900; color: #071f3a;">1.284</div>
                 </div>
                 <div class="card">

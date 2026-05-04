@@ -38,7 +38,7 @@
                         <span>Tel. (0632) 213456</span>
                         <span>info@sman2balige.sch.id</span>
                     </div>
-                    <a href="#portal" class="text-white/80 transition hover:text-[#d6a63a]">Portal Staff</a>
+                    <a href="{{ route('login') }}" class="text-white/80 transition hover:text-[#d6a63a]">Portal Staff</a>
                 </div>
             </div>
 
