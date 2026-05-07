@@ -44,8 +44,8 @@
                 <div class="mx-auto mt-5 h-1 w-16 rounded-full bg-[#d6a63a]"></div>
             </div>
             <div class="mt-12 grid gap-8 lg:grid-cols-[0.85fr_1fr_0.75fr]">
-                <div class="facility-tile osis-real"><span>OSIS Safework</span></div>
-                <article class="program-card"><p class="eyebrow text-left">Lembaga Eksekutif</p><h3>OSIS SMAN 2 Balige</h3><p>Wadah aspirasi dan pelaksana kegiatan siswa yang dinamis untuk mendorong budaya kolaborasi.</p><a href="#" class="mt-6 inline-flex text-sm font-black text-[#071f3a]">Struktur & Visi -></a></article>
+                <div class="facility-tile osis-real"><span>OSIS SMAN 2 Balige</span></div>
+                <article class="program-card"><p class="eyebrow text-left">Lembaga Eksekutif</p><h3>OSIS SMAN 2 Balige</h3><p>Wadah aspirasi dan pelaksana kegiatan siswa yang dinamis untuk mendorong budaya kolaborasi.</p><a href="{{ route('kontak') }}#pesan" class="final-link mt-6">Tanya Pembina OSIS -></a></article>
                 <article class="program-card dark"><p class="eyebrow text-left">Lembaga Legislatif</p><h3>MPK</h3><p>Majelis perwakilan kelas yang mengawal aspirasi siswa secara demokratis.</p><strong class="mt-8 block text-[#d6a63a]">42 Perwakilan Terpilih</strong></article>
             </div>
         </div>
@@ -54,13 +54,38 @@
     <section id="ekskul" class="bg-white py-20 sm:py-24">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
             <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-                <div><p class="eyebrow">Eksplorasi Minat & Bakat</p><h2 class="mt-3 text-4xl font-black text-[#071f3a]">Pilih Komunitas Passion-mu</h2><p class="mt-4 max-w-2xl text-sm font-semibold text-[#6b7f91]">Wadah bagi siswa untuk mengeksplorasi hobi, mengasah skill, dan membangun jaringan pertemanan.</p></div>
-                <div class="flex gap-3"><button class="pager"><</button><button class="pager active">></button></div>
+                <div><p class="eyebrow">Eksplorasi Minat & Bakat</p><h2 class="mt-3 text-4xl font-black text-[#071f3a]">Pilih Komunitas Minatmu</h2><p class="mt-4 max-w-2xl text-sm font-semibold text-[#6b7f91]">Wadah bagi siswa untuk mengeksplorasi hobi, mengasah keterampilan, dan membangun jaringan pertemanan.</p></div>
+                <a href="{{ route('kontak') }}#pesan" class="outline-button">Konsultasi Ekskul</a>
             </div>
             <div class="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
                 @foreach ([['basketball-real', 'Smanza Basketball', 'Mengasah teknik, fisik, dan mental juara.'], ['band-real', 'Symphony Band', 'Wadah ekspresi musikalitas modern.'], ['robotics-real', 'Robotics & IoT', 'Berinovasi dengan teknologi masa depan.'], ['dance-real', 'Seni Tari Batak', 'Melestarikan kekayaan budaya lokal.']] as $club)
-                    <article class="club-card"><div class="illustration {{ $club[0] }}"></div><h3>{{ $club[1] }}</h3><p>{{ $club[2] }}</p><a href="#">Bergabung</a></article>
+                    <article class="club-card"><div class="illustration {{ $club[0] }}"></div><h3>{{ $club[1] }}</h3><p>{{ $club[2] }}</p><a href="{{ route('kontak') }}#pesan">Bergabung</a></article>
                 @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section id="asrama" class="bg-[#f6f9fc] py-20 sm:py-24">
+        <div class="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-[1fr_0.95fr] lg:items-center lg:px-8">
+            <div>
+                <p class="eyebrow">Asrama & Kehidupan Harian</p>
+                <h2 class="mt-3 text-4xl font-black leading-tight text-[#071f3a]">Lingkungan Belajar yang Terarah dan Nyaman</h2>
+                <p class="mt-6 max-w-2xl text-sm font-semibold leading-7 text-[#6b7f91]">Asrama menjadi ruang pembinaan karakter, kemandirian, dan kebersamaan. Rutinitas harian dirancang agar siswa tetap seimbang antara belajar, ibadah, istirahat, dan pengembangan bakat.</p>
+                <div class="mt-8 grid max-w-xl gap-5 sm:grid-cols-3">
+                    <div class="metric-card"><strong>24/7</strong><span>Pendampingan</span></div>
+                    <div class="metric-card"><strong>4</strong><span>Zona Pembinaan</span></div>
+                    <div class="metric-card"><strong>Terjadwal</strong><span>Belajar Malam</span></div>
+                </div>
+                <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+                    <a href="{{ route('ppdb') }}" class="gold-button">Tanya Fasilitas PPDB</a>
+                    <a href="{{ route('kontak') }}#peta" class="outline-button">Lihat Lokasi</a>
+                </div>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-tile library"><span>Ruang Belajar</span></div>
+                <div class="gallery-tile hall"><span>Asrama Siswa</span></div>
+                <div class="gallery-tile court"><span>Kegiatan Sore</span></div>
+                <div class="gallery-tile lab"><span>Lab & Mentoring</span></div>
             </div>
         </div>
     </section>

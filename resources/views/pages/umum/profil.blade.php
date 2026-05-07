@@ -30,10 +30,10 @@
                 <p class="mt-5 max-w-2xl text-sm font-semibold leading-7 text-[#6b7f91]">
                     Sejak berdiri, sekolah ini konsisten menorehkan prestasi akademik maupun non-akademik di tingkat regional, nasional, dan internasional.
                 </p>
-                <a href="#sejarah" class="mt-8 inline-flex text-sm font-black text-[#071f3a]">Pelajari Selengkapnya -></a>
+                <a href="#sejarah" class="final-link mt-8">Pelajari Sejarah Sekolah -></a>
             </div>
             <div class="grid gap-5 sm:grid-cols-2">
-                @foreach ([['1990', 'Tahun Berdiri'], ['A+', 'Akreditasi'], ['800+', 'Siswa Aktif'], ['50+', 'Tenaga Pendidik']] as $stat)
+                    @foreach ([['1990', 'Tahun Berdiri'], ['A', 'Akreditasi'], ['800+', 'Siswa Aktif'], ['50+', 'Tenaga Pendidik']] as $stat)
                     <div class="profile-stat {{ $loop->index === 1 ? 'dark' : '' }}"><strong>{{ $stat[0] }}</strong><span>{{ $stat[1] }}</span></div>
                 @endforeach
             </div>
@@ -47,7 +47,7 @@
                 <p class="eyebrow">Timeline</p>
                 <h2 class="mt-3 text-4xl font-black text-[#071f3a]">Jejak Langkah & Sejarah</h2>
                 <div class="mt-10 space-y-7">
-                    @foreach ([['Masa Pembentukan (1990)', 'Berawal dari semangat menghadirkan sekolah unggulan untuk masyarakat Balige.'], ['Era Transformasi Digital (2015)', 'Penguatan pembelajaran berbasis teknologi dan akses literasi modern.'], ['Masa Kini (2024)', 'Menghadirkan kurikulum Merdeka, pembinaan karakter, dan program prestasi terpadu.']] as $item)
+                    @foreach ([['Masa Pembentukan (1990)', 'Berawal dari semangat menghadirkan sekolah unggulan untuk masyarakat Balige.'], ['Era Transformasi Digital (2015)', 'Penguatan pembelajaran berbasis teknologi dan akses literasi modern.'], ['Masa Kini (2026)', 'Menghadirkan Kurikulum Merdeka, pembinaan karakter, dan program prestasi terpadu.']] as $item)
                         <div class="timeline-row"><span></span><div><h3>{{ $item[0] }}</h3><p>{{ $item[1] }}</p></div></div>
                     @endforeach
                 </div>
@@ -63,7 +63,7 @@
             </div>
             <div class="mt-14 grid gap-6 lg:grid-cols-[1.35fr_0.75fr]">
                 <article class="rounded-2xl bg-[#071f3a] p-8 text-white shadow-2xl shadow-[#071f3a]/18">
-                    <span class="round-icon bg-white/10 text-[#d6a63a]">V</span>
+                    <span class="round-icon bg-white/10 text-[#d6a63a]"><i class="bi bi-compass"></i></span>
                     <h3 class="mt-8 text-2xl font-black">Visi Utama</h3>
                     <p class="mt-5 text-lg font-semibold italic leading-8 text-white/76">Terwujudnya insan pendidikan yang bertaqwa, cerdas, terampil, kompetitif, dan berwawasan lingkungan dalam kancah global yang dinamis.</p>
                 </article>
@@ -89,7 +89,7 @@
                 <p class="section-pill">Sambutan Kepala Sekolah</p>
                 <h2 class="mt-6 text-4xl font-black">Drs. Horas Balige, M.Pd.</h2>
                 <p class="mt-6 max-w-3xl text-lg font-semibold italic leading-9 text-white/68">Pendidikan adalah kunci pembuka pintu masa depan. Di SMAN 2 Balige, kami berkomitmen untuk tidak hanya mengajar, tetapi menginspirasi setiap jiwa untuk menemukan potensi terbaik mereka.</p>
-                <a href="{{ route('guru') }}" class="gold-button mt-8">Baca Profil Lengkap</a>
+                <a href="{{ route('guru') }}" class="gold-button mt-8">Lihat Direktori Guru</a>
             </div>
         </div>
     </section>

@@ -6,8 +6,360 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+@layer components {
+    .final-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: #071f3a;
+        font-size: 0.86rem;
+        font-weight: 900;
+        text-decoration: none;
+        transition: color 150ms ease, transform 150ms ease;
+    }
+
+    .final-link:hover {
+        color: #b88416;
+        transform: translateX(2px);
+    }
+
+    .school-hero,
+    .page-hero {
+        background-size: cover !important;
+        background-position: center !important;
+    }
+
+    .hero-home {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.48)),
+            url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-profile {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.45)),
+            url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-academic {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-dorm {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
+            url("https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-student {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-ppdb {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-news,
+    .hero-gallery {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
+            url("https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-achievement {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .contact-hero {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.92), rgb(7 31 58 / 0.48)),
+            url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .alumni-hero {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
+            url("https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .teacher-hero {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
+            url("https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .filter-pill,
+    .pager {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .filter-pill:focus-visible,
+    .pager:focus-visible,
+    .gold-button:focus-visible,
+    .ghost-button:focus-visible,
+    .outline-button:focus-visible,
+    .primary-wide:focus-visible,
+    .final-link:focus-visible {
+        outline: 3px solid rgb(214 166 58 / 0.45);
+        outline-offset: 3px;
+    }
+}
+
+@layer components {
+    body:has(.admin-container) {
+        overflow: auto !important;
+        font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif !important;
+        background: #f8fafc;
+    }
+
+    .admin-container {
+        min-height: 100vh !important;
+        width: 100% !important;
+    }
+
+    .admin-container .main-content {
+        min-width: 0 !important;
+    }
+
+    .admin-container .stats-grid,
+    .admin-container .quick-access-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+    }
+
+    .admin-container .faculty-grid,
+    .admin-container .gallery-admin-grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
+    }
+
+    .admin-container .main-grid,
+    .admin-container .settings-grid {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .admin-container .data-table {
+        display: block !important;
+        width: 100% !important;
+        overflow-x: auto !important;
+        white-space: nowrap;
+    }
+
+    .admin-container .card {
+        border-radius: 16px !important;
+    }
+
+    @media (max-width: 900px) {
+        .admin-container {
+            display: flex !important;
+            flex-direction: column !important;
+            height: auto !important;
+            min-height: 100vh !important;
+        }
+
+        .admin-container .sidebar {
+            width: 100% !important;
+            height: auto !important;
+            min-height: 0 !important;
+            position: static !important;
+        }
+
+        .admin-container .sidebar > div:first-child {
+            padding: 18px !important;
+        }
+
+        .admin-container .sidebar > div:last-child {
+            margin-top: 0 !important;
+            padding: 0 18px 18px !important;
+        }
+
+        .admin-container .sidebar nav {
+            display: grid !important;
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+            gap: 8px !important;
+        }
+
+        .admin-container .nav-item {
+            justify-content: center !important;
+            min-height: 44px !important;
+            padding: 10px 12px !important;
+            border-left: 0 !important;
+            text-align: center !important;
+        }
+
+        .admin-container .main-content {
+            overflow: visible !important;
+        }
+
+        .admin-container .header {
+            height: auto !important;
+            min-height: 0 !important;
+            padding: 16px !important;
+            align-items: flex-start !important;
+            flex-direction: column !important;
+            gap: 12px !important;
+        }
+
+        .admin-container .header > div {
+            max-width: 100% !important;
+        }
+
+        .admin-container .content-padding {
+            padding: 20px 16px !important;
+        }
+
+        .admin-container .filter-container,
+        .admin-container .pagination-container {
+            align-items: stretch !important;
+            flex-direction: column !important;
+        }
+
+        .admin-container .filter-select,
+        .admin-container .search-box,
+        .admin-container .btn-primary,
+        .admin-container .btn-outline,
+        .admin-container .btn-add {
+            width: 100% !important;
+        }
+
+        .admin-container h1 {
+            font-size: clamp(1.7rem, 7vw, 2.3rem) !important;
+            line-height: 1.1 !important;
+        }
+    }
+
+    @media (max-width: 520px) {
+        .admin-container .sidebar nav {
+            grid-template-columns: 1fr !important;
+        }
+
+        .admin-container .stats-grid,
+        .admin-container .quick-access-grid,
+        .admin-container .faculty-grid,
+        .admin-container .gallery-admin-grid,
+        .admin-container .settings-grid {
+            grid-template-columns: 1fr !important;
+        }
+    }
+}
+
+@layer components {
+    .final-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        color: #071f3a;
+        font-size: 0.86rem;
+        font-weight: 900;
+        text-decoration: none;
+        transition: color 150ms ease, transform 150ms ease;
+    }
+
+    .final-link:hover {
+        color: #b88416;
+        transform: translateX(2px);
+    }
+
+    .school-hero,
+    .page-hero {
+        background-size: cover;
+        background-position: center;
+    }
+
+    .hero-home {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.48)),
+            url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=85");
+    }
+
+    .hero-profile {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.45)),
+            url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85");
+    }
+
+    .hero-academic {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1800&q=85");
+    }
+
+    .hero-dorm {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
+            url("https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1800&q=85");
+    }
+
+    .hero-student {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85");
+    }
+
+    .hero-ppdb {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1800&q=85");
+    }
+
+    .hero-news,
+    .hero-gallery {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
+            url("https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1800&q=85");
+    }
+
+    .hero-achievement {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=1800&q=85");
+    }
+
+    .contact-hero {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.92), rgb(7 31 58 / 0.48)),
+            url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=85");
+    }
+
+    .alumni-hero {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
+            url("https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1800&q=85");
+    }
+
+    .teacher-hero {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
+            url("https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1800&q=85");
+    }
+
+    .filter-pill,
+    .pager {
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .filter-pill:focus-visible,
+    .pager:focus-visible,
+    .gold-button:focus-visible,
+    .ghost-button:focus-visible,
+    .outline-button:focus-visible,
+    .primary-wide:focus-visible,
+    .final-link:focus-visible {
+        outline: 3px solid rgb(214 166 58 / 0.45);
+        outline-offset: 3px;
+    }
 }
 
 @layer base {
@@ -1634,7 +1986,7 @@
     }
 
     .library-real,
-    .dog-lab,
+    .science-lab,
     .lab-real,
     .gym-real,
     .classroom-real,
@@ -3465,7 +3817,7 @@
             linear-gradient(180deg, #d6c49e, #6b4d34);
     }
 
-    .dog-lab {
+    .science-lab {
         background:
             linear-gradient(180deg, transparent 34%, rgb(7 31 58 / 0.86)),
             radial-gradient(circle at 42% 42%, #e4d0b7 0 5rem, transparent 5.2rem),
@@ -3817,6 +4169,281 @@
         .program-card,
         .calendar-card {
             padding: 1.25rem;
+        }
+    }
+}
+
+@layer components {
+    .school-hero,
+    .page-hero {
+        background-size: cover !important;
+        background-position: center !important;
+    }
+
+    .hero-home {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.48)),
+            url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-profile {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.45)),
+            url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-academic {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-dorm {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
+            url("https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-student {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-ppdb {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-news,
+    .hero-gallery {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
+            url("https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-achievement {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .contact-hero {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.92), rgb(7 31 58 / 0.48)),
+            url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .alumni-hero {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
+            url("https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .teacher-hero {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
+            url("https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-gallery {
+        background-image:
+            linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
+            url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1800&q=85") !important;
+    }
+
+    .hero-shade,
+    .page-hero-overlay {
+        background:
+            linear-gradient(90deg, rgb(7 31 58 / 0.84) 0%, rgb(7 31 58 / 0.62) 46%, rgb(7 31 58 / 0.24) 100%) !important;
+    }
+
+    .hero-home .hero-shade {
+        background:
+            linear-gradient(90deg, rgb(7 31 58 / 0.72) 0%, rgb(7 31 58 / 0.5) 48%, rgb(7 31 58 / 0.24) 100%) !important;
+    }
+
+    .hero-campus-card {
+        position: relative;
+        isolation: isolate;
+        min-height: clamp(18rem, 34vw, 31rem);
+        overflow: hidden;
+        border: 1px solid rgb(255 255 255 / 0.22);
+        border-radius: 1.3rem;
+        background:
+            linear-gradient(180deg, rgb(255 255 255 / 0.14), rgb(255 255 255 / 0.04)),
+            linear-gradient(180deg, #86b7d2 0 48%, #eef3e5 48% 58%, #214b48 58% 100%);
+        box-shadow: 0 32px 70px rgb(0 0 0 / 0.28);
+    }
+
+    .hero-campus-card > span {
+        position: absolute;
+        display: block;
+    }
+
+    .campus-sun {
+        top: 9%;
+        right: 13%;
+        width: 4.2rem;
+        height: 4.2rem;
+        border-radius: 999px;
+        background: #f3c65b;
+        box-shadow: 0 0 0 1.2rem rgb(243 198 91 / 0.16);
+    }
+
+    .campus-building {
+        bottom: 26%;
+        border-radius: 0.6rem 0.6rem 0.2rem 0.2rem;
+        background:
+            linear-gradient(90deg, rgb(255 255 255 / 0.22) 0 1px, transparent 1px 100%),
+            linear-gradient(180deg, rgb(255 255 255 / 0.2) 0 1px, transparent 1px 100%),
+            linear-gradient(180deg, #edf2f7, #b8c6d0);
+        background-size: 2.2rem 2rem, 100% 2rem, auto;
+        box-shadow: inset 0 -1.2rem 0 rgb(7 31 58 / 0.16);
+    }
+
+    .campus-building.main {
+        left: 31%;
+        width: 39%;
+        height: 48%;
+    }
+
+    .campus-building.side-left {
+        left: 9%;
+        width: 27%;
+        height: 34%;
+    }
+
+    .campus-building.side-right {
+        right: 7%;
+        width: 28%;
+        height: 38%;
+    }
+
+    .campus-court {
+        inset: auto 7% 0;
+        height: 31%;
+        border-radius: 60% 60% 0 0 / 28% 28% 0 0;
+        background:
+            linear-gradient(90deg, transparent 0 49%, rgb(255 255 255 / 0.42) 49% 50%, transparent 50% 100%),
+            repeating-linear-gradient(90deg, rgb(255 255 255 / 0.16) 0 1px, transparent 1px 5rem),
+            linear-gradient(180deg, #c99a43, #916d2e);
+        transform: perspective(26rem) rotateX(58deg);
+        transform-origin: bottom;
+    }
+
+    .campus-tree {
+        bottom: 27%;
+        width: 3.4rem;
+        height: 5.2rem;
+        background:
+            linear-gradient(90deg, transparent 0 45%, #5a3b24 45% 55%, transparent 55% 100%),
+            radial-gradient(circle at 50% 24%, #2f8b68 0 1.6rem, transparent 1.7rem),
+            radial-gradient(circle at 31% 45%, #246b55 0 1.3rem, transparent 1.4rem),
+            radial-gradient(circle at 70% 48%, #3ca073 0 1.35rem, transparent 1.45rem);
+    }
+
+    .tree-one {
+        left: 7%;
+    }
+
+    .tree-two {
+        right: 6%;
+        transform: scale(0.88);
+    }
+
+    .contact-hero-card {
+        position: relative;
+        min-height: clamp(14rem, 28vw, 25rem);
+        overflow: hidden;
+        border: 1px solid rgb(255 255 255 / 0.2);
+        border-radius: 1.2rem;
+        background:
+            radial-gradient(circle at 78% 18%, rgb(214 166 58 / 0.36) 0 4.8rem, transparent 5rem),
+            linear-gradient(180deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0.05)),
+            #102f4c;
+        box-shadow: 0 28px 70px rgb(0 0 0 / 0.24);
+    }
+
+    .contact-hero-card > span {
+        position: absolute;
+        display: block;
+    }
+
+    .contact-map-grid {
+        inset: 10% 8%;
+        border-radius: 1rem;
+        background:
+            linear-gradient(90deg, rgb(255 255 255 / 0.12) 0 1px, transparent 1px 100%),
+            linear-gradient(0deg, rgb(255 255 255 / 0.12) 0 1px, transparent 1px 100%);
+        background-size: 3rem 3rem;
+    }
+
+    .contact-pin {
+        top: 30%;
+        left: 43%;
+        width: 5.2rem;
+        height: 5.2rem;
+        border: 0.9rem solid #d6a63a;
+        border-radius: 999px 999px 999px 0;
+        background: #fff;
+        transform: rotate(-45deg);
+        box-shadow: 0 18px 32px rgb(0 0 0 / 0.18);
+    }
+
+    .contact-pin::after {
+        position: absolute;
+        inset: 1rem;
+        border-radius: 999px;
+        background: #071f3a;
+        content: "";
+    }
+
+    .contact-route {
+        height: 0.28rem;
+        border-radius: 999px;
+        background: rgb(255 255 255 / 0.72);
+    }
+
+    .route-one {
+        right: 16%;
+        bottom: 26%;
+        width: 36%;
+        transform: rotate(-12deg);
+    }
+
+    .route-two {
+        left: 13%;
+        bottom: 36%;
+        width: 31%;
+        transform: rotate(18deg);
+    }
+
+    .contact-envelope {
+        right: 11%;
+        bottom: 10%;
+        width: 5.8rem;
+        height: 3.8rem;
+        border: 0.22rem solid rgb(255 255 255 / 0.85);
+        border-radius: 0.55rem;
+        background:
+            linear-gradient(35deg, transparent 48%, rgb(255 255 255 / 0.85) 49% 51%, transparent 52%),
+            linear-gradient(145deg, transparent 48%, rgb(255 255 255 / 0.85) 49% 51%, transparent 52%),
+            rgb(255 255 255 / 0.08);
+    }
+
+    .school-hero::before,
+    .school-hero::after,
+    .page-hero::before,
+    .page-hero::after {
+        display: none !important;
+    }
+
+    @media (max-width: 1023px) {
+        .hero-campus-card {
+            min-height: 15.5rem;
+            opacity: 0.95;
         }
     }
 }
