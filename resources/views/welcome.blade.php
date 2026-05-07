@@ -4,23 +4,32 @@
 @section('description', 'Beranda resmi SMAN 2 Balige, sekolah unggul yang membangun generasi berkarakter dan berprestasi.')
 
 @section('content')
-    @php($newsSlug = 'siswa-sman-2-balige-raih-medali-emas-di-olimpiade-sains-nasional-2024')
+    @php($newsSlug = 'pembinaan-sains-sman-2-balige-2026')
 
-    <section class="school-hero hero-home">
+    <section class="school-hero hero-home" style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85'); background-size: cover; background-position: center;">
         <div class="hero-shade"></div>
-        <div class="mx-auto grid min-h-[620px] max-w-7xl items-center px-4 py-24 lg:px-8">
+        <div class="mx-auto grid min-h-[620px] max-w-7xl items-center gap-12 px-4 py-20 sm:py-24 lg:grid-cols-[1fr_0.82fr] lg:px-8">
             <div class="relative max-w-3xl">
                 <span class="section-pill">Institusi Pendidikan Prestisius</span>
-                <h1 class="mt-7 text-5xl font-black leading-[0.98] text-white sm:text-6xl lg:text-7xl">
+                <h1 class="mt-7 text-4xl font-black leading-[1.02] text-white sm:text-6xl lg:text-7xl">
                     Membangun Generasi Unggul & Berkarakter
                 </h1>
                 <p class="mt-7 max-w-2xl text-base font-semibold leading-8 text-white/78">
                     Membentuk pemimpin masa depan melalui standar akademik internasional, kedisiplinan tinggi, dan pengembangan bakat komprehensif di jantung kota Balige.
                 </p>
                 <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-                    <a href="{{ route('ppdb') }}" class="gold-button">Info PPDB 2024 -></a>
-                    <a href="{{ route('guru') }}" class="ghost-button">Lihat Profil Sekolah</a>
+                    <a href="{{ route('ppdb') }}" class="gold-button">Info PPDB 2026</a>
+                    <a href="{{ route('profil') }}" class="ghost-button">Lihat Profil Sekolah</a>
                 </div>
+            </div>
+            <div class="hero-campus-card" aria-hidden="true">
+                <span class="campus-sun"></span>
+                <span class="campus-building main"></span>
+                <span class="campus-building side-left"></span>
+                <span class="campus-building side-right"></span>
+                <span class="campus-court"></span>
+                <span class="campus-tree tree-one"></span>
+                <span class="campus-tree tree-two"></span>
             </div>
         </div>
     </section>
@@ -38,7 +47,7 @@
                 <article class="feature-card"><span class="feature-icon">BK</span><h3>Akademik</h3><p>Kurikulum unggulan persiapan masuk PTN terbaik dan luar negeri.</p></article>
                 <article class="feature-card"><span class="feature-icon">KR</span><h3>Karakter</h3><p>Penanaman nilai luhur, disiplin, dan etika berintegritas.</p></article>
                 <article class="feature-card"><span class="feature-icon">TR</span><h3>Prestasi</h3><p>Ragam jejak juara kompetisi sains, seni, dan olahraga.</p></article>
-                <article class="feature-card"><span class="feature-icon">GD</span><h3>Fasilitas</h3><p>Kampus asri modern dengan ruang belajar yang nyaman.</p></article>
+                <article class="feature-card"><span class="feature-icon">GD</span><h3>Fasilitas</h3><p>Lingkungan sekolah asri dengan ruang belajar yang nyaman.</p></article>
                 <article id="kesiswaan" class="feature-card"><span class="feature-icon">OS</span><h3>Ekskul</h3><p>20+ pilihan pengembangan diri mulai robotik hingga seni.</p></article>
             </div>
         </div>
@@ -59,10 +68,10 @@
                     Pendidikan Adalah Investasi Masa Depan Terbesar
                 </h2>
                 <blockquote class="relative mt-7 max-w-2xl text-lg font-semibold italic leading-8 text-[#6b7f91]">
-                    "Di SMAN 2 Balige, kami tidak hanya mengajar mata pelajaran, kami membentuk karakter pemimpin. Kami percaya bahwa setiap anak memiliki potensi yang perlu dipupuk dengan disiplin, kasih sayang, dan fasilitas terbaik."
+                    "Di SMAN 2 Balige, kami tidak hanya mengajar mata pelajaran. Kami membentuk karakter, disiplin, dan keberanian siswa untuk tumbuh sebagai pembelajar yang siap menghadapi masa depan."
                 </blockquote>
                 <div class="mt-8">
-                    <h3 class="text-xl font-black text-[#071f3a]">Drs. Edison Siregar, M.Pd.</h3>
+                    <h3 class="text-xl font-black text-[#071f3a]">Drs. Horas Balige, M.Pd.</h3>
                     <p class="mt-1 text-xs font-black uppercase tracking-[0.16em] text-[#d6a63a]">Kepala Sekolah SMAN 2 Balige</p>
                 </div>
             </div>
@@ -89,9 +98,9 @@
                 <a href="{{ route('berita.index') }}" class="outline-button">Lihat Semua Berita -></a>
             </div>
             <div class="mt-12 grid gap-8 lg:grid-cols-3">
-                <article class="news-card"><div class="illustration graduates"></div><div class="p-7"><p class="meta-line">Pendidikan / 12 Okt 2024</p><h3>Penerimaan Siswa Baru Jalur Prestasi 2024</h3><p>SMAN 2 Balige mengundang putra-putri terbaik bangsa untuk bergabung melalui jalur prestasi.</p><a href="{{ route('ppdb') }}">Baca Selengkapnya -></a></div></article>
-                <article class="news-card"><div class="illustration olympiad"></div><div class="p-7"><p class="meta-line">Prestasi / 08 Okt 2024</p><h3>Juara Umum Olimpiade Sains Nasional Provinsi</h3><p>Kembali mengukir sejarah, tim sains SMAN 2 Balige meraih gelar juara umum.</p><a href="{{ route('berita.show', $newsSlug) }}">Baca Selengkapnya -></a></div></article>
-                <article class="news-card"><div class="illustration workshop"></div><div class="p-7"><p class="meta-line">Kesiswaan / 01 Okt 2024</p><h3>Workshop Kepemimpinan: Karakter Visioner</h3><p>Melalui program LDKS intensif, OSIS menyiapkan generasi pelayan yang tangguh.</p><a href="{{ route('berita.index') }}">Baca Selengkapnya -></a></div></article>
+                <article class="news-card"><div class="illustration graduates"></div><div class="p-7"><p class="meta-line">PPDB / 12 Mei 2026</p><h3>Penerimaan Siswa Baru Tahun Ajaran 2026/2027</h3><p>Informasi jalur pendaftaran, dokumen, dan jadwal layanan PPDB kini tersedia untuk calon siswa dan orang tua.</p><a href="{{ route('ppdb') }}">Baca Selengkapnya -></a></div></article>
+                <article class="news-card"><div class="illustration olympiad"></div><div class="p-7"><p class="meta-line">Prestasi / 08 Mei 2026</p><h3>Tim Sains Sekolah Siap Mengikuti Seleksi Olimpiade</h3><p>Program pembinaan akademik terus diperkuat melalui mentoring rutin, simulasi soal, dan evaluasi berkala.</p><a href="{{ route('berita.show', $newsSlug) }}">Baca Selengkapnya -></a></div></article>
+                <article class="news-card"><div class="illustration workshop"></div><div class="p-7"><p class="meta-line">Kesiswaan / 01 Mei 2026</p><h3>LDKS Menumbuhkan Kepemimpinan yang Berkarakter</h3><p>OSIS dan MPK menyiapkan agenda pembinaan agar siswa berani memimpin, bekerja sama, dan bertanggung jawab.</p><a href="{{ route('kesiswaan') }}#organisasi">Baca Selengkapnya -></a></div></article>
             </div>
         </div>
     </section>
@@ -99,7 +108,7 @@
     <section class="bg-[#f6f9fc] py-20 sm:py-24">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
-                <h2 class="text-4xl font-black text-[#071f3a] sm:text-5xl">Galeri Kampus</h2>
+                <h2 class="text-4xl font-black text-[#071f3a] sm:text-5xl">Galeri Sekolah</h2>
                 <div class="mx-auto mt-5 h-1 w-16 rounded-full bg-[#d6a63a]"></div>
                 <p class="mt-6 text-sm font-semibold text-[#6b7f91] sm:text-base">Potret kehidupan akademik dan kreativitas siswa SMAN 2 Balige.</p>
             </div>

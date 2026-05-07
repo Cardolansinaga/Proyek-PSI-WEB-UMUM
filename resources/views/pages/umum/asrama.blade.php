@@ -86,7 +86,7 @@
 
     <section class="bg-white px-4 py-20 lg:px-8">
         <div class="cta-panel">
-            <p class="eyebrow text-[#d6a63a]">Pendaftaran 2024/2025</p>
+            <p class="eyebrow text-[#d6a63a]">Pendaftaran 2026/2027</p>
             <h2>Mulai Perjalanan Anda Menjadi Pemimpin Dunia</h2>
             <p>Amankan tempat Anda di salah satu institusi pendidikan terbaik dengan komunitas pembelajar berdedikasi.</p>
             <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">

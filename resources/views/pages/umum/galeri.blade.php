@@ -20,7 +20,7 @@
             <div>
                 <p class="eyebrow">Dokumentasi Kegiatan</p>
                 <h2 class="mt-4 text-4xl font-black leading-tight text-[#071f3a] sm:text-5xl">Merekam Jejak Keunggulan dan Kolaborasi</h2>
-                <p class="mt-7 max-w-xl text-sm font-semibold leading-7 text-[#6b7f91]">Setiap sudut kampus dan aktivitas siswa adalah bagian dari narasi besar kami.</p>
+                <p class="mt-7 max-w-xl text-sm font-semibold leading-7 text-[#6b7f91]">Setiap sudut sekolah dan aktivitas siswa adalah bagian dari narasi besar kami.</p>
                 <div class="mt-10 grid max-w-sm grid-cols-2 gap-8">
                     <div class="big-stat"><strong>5,000+</strong><span>Foto Kegiatan</span></div>
                     <div class="big-stat"><strong>200+</strong><span>Video Dokumenter</span></div>
@@ -39,40 +39,40 @@
             <div class="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
                 <div class="flex flex-wrap gap-3">
                     @foreach (['Semua', 'Akademik', 'Prestasi', 'Event', 'Fasilitas'] as $filter)
-                        <button class="filter-pill {{ $loop->first ? 'active' : '' }}">{{ $filter }}</button>
+                        <a href="#koleksi-galeri" class="filter-pill {{ $loop->first ? 'active' : '' }}">{{ $filter }}</a>
                     @endforeach
                 </div>
-                <label class="search-box"><span>Cari</span><input type="search" placeholder="Cari momen..."></label>
+                <a href="{{ route('kontak') }}#pesan" class="outline-button">Ajukan Dokumentasi</a>
             </div>
-            <div class="masonry-gallery mt-10">
+            <div id="koleksi-galeri" class="masonry-gallery mt-10">
                 <div class="illustration meeting"></div>
                 <div class="illustration robot"></div>
                 <div class="illustration library tall"></div>
                 <div class="illustration graduation"></div>
                 <div class="illustration sports"></div>
             </div>
-            <div class="mt-14 text-center"><button class="outline-button">Muat Lebih Banyak</button></div>
+            <div class="mt-14 text-center"><a href="{{ route('kontak') }}#pesan" class="outline-button">Minta Arsip Galeri</a></div>
         </div>
     </section>
 
     <section class="bg-white py-20 sm:py-24">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
             <div class="mx-auto max-w-3xl text-center">
-                <p class="eyebrow">Cinematic Experience</p>
+                <p class="eyebrow">Dokumentasi Multimedia</p>
                 <h2 class="mt-3 text-4xl font-black text-[#071f3a] sm:text-5xl">Galeri Multimedia</h2>
                 <div class="mx-auto mt-5 h-1 w-16 rounded-full bg-[#d6a63a]"></div>
                 <p class="mt-6 text-sm font-semibold text-[#6b7f91]">Saksikan dinamika sekolah melalui dokumentasi video premium.</p>
             </div>
             <div class="video-hero mt-12">
-                <div class="play-button">Play</div>
+                <a class="play-button" href="{{ route('kontak') }}#pesan" aria-label="Minta akses video dokumentasi"><i class="bi bi-play-fill"></i></a>
                 <div class="absolute bottom-8 left-8 right-8 text-white">
                     <p class="text-sm font-black uppercase tracking-[0.16em] text-[#d6a63a]">Video Utama</p>
-                    <h3 class="mt-2 text-3xl font-black">SMAN 2 Balige: A Year in Review 2023</h3>
-                    <p class="mt-2 max-w-xl text-sm font-semibold text-white/72">Saksikan pencapaian akademik dan prestasi non-akademik siswa kami dalam satu tahun terakhir.</p>
+                    <h3 class="mt-2 text-3xl font-black">SMAN 2 Balige: Rekam Jejak Kegiatan Sekolah 2026</h3>
+                    <p class="mt-2 max-w-xl text-sm font-semibold text-white/72">Saksikan pencapaian akademik dan prestasi non-akademik siswa kami dalam satu tahun ajaran.</p>
                 </div>
             </div>
             <div class="mt-8 grid gap-8 md:grid-cols-3">
-                <article class="mini-video"><div class="illustration presentation"></div><strong>Inovasi Siswa 2024</strong><p>Eksplorasi proyek teknologi terbaru buatan siswa.</p></article>
+                <article class="mini-video"><div class="illustration presentation"></div><strong>Inovasi Siswa 2026</strong><p>Eksplorasi proyek teknologi terbaru buatan siswa.</p></article>
                 <article class="mini-video"><div class="illustration assembly"></div><strong>Dies Natalis SMAN 2</strong><p>Perayaan ulang tahun sekolah yang penuh kehangatan.</p></article>
                 <article class="mini-video"><div class="illustration class"></div><strong>Digital Campus Tour</strong><p>Jelajahi fasilitas modern melalui tur virtual.</p></article>
             </div>

@@ -8,7 +8,7 @@
         <div class="hero-shade"></div>
         <div class="mx-auto grid min-h-[520px] max-w-7xl place-items-center px-4 py-20 lg:px-8">
             <div class="relative max-w-4xl">
-                <span class="section-pill">Tahun Ajaran 2024/2025</span>
+                <span class="section-pill">Tahun Ajaran 2026/2027</span>
                 <h1 class="mt-7 text-5xl font-black leading-[0.98] text-white sm:text-6xl lg:text-7xl">
                     Penerimaan Peserta <span class="text-[#d6a63a]">Didik Baru</span>
                 </h1>
@@ -17,7 +17,7 @@
                 </p>
                 <div class="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
                     <a href="#formulir" class="gold-button">Daftar Sekarang</a>
-                    <a href="#syarat" class="ghost-button">Unduh Panduan</a>
+                    <a href="#syarat" class="ghost-button">Lihat Panduan</a>
                 </div>
             </div>
         </div>
@@ -30,9 +30,9 @@
                 <div class="mx-auto mt-5 h-1 w-16 rounded-full bg-[#d6a63a]"></div>
             </div>
             <div class="mt-14 grid gap-8 md:grid-cols-3">
-                <article class="info-card"><span class="round-icon">A</span><h2>Akreditasi A</h2><p>Kualitas pendidikan terstandarisasi nasional dengan kurikulum relevan dan adaptif.</p></article>
-                <article class="info-card"><span class="round-icon">P</span><h2>Prestasi Internasional</h2><p>Siswa kami konsisten meraih medali di ajang olimpiade sains dan kompetisi global.</p></article>
-                <article class="info-card"><span class="round-icon">I</span><h2>Lingkungan Inklusif</h2><p>Pembentukan karakter melalui lingkungan aman, disiplin, dan penuh rasa persaudaraan.</p></article>
+                <article class="info-card"><span class="round-icon"><i class="bi bi-award"></i></span><h2>Akreditasi A</h2><p>Kualitas pendidikan terstandarisasi nasional dengan kurikulum relevan dan adaptif.</p></article>
+                <article class="info-card"><span class="round-icon"><i class="bi bi-trophy"></i></span><h2>Prestasi Internasional</h2><p>Siswa kami konsisten meraih medali di ajang olimpiade sains dan kompetisi global.</p></article>
+                <article class="info-card"><span class="round-icon"><i class="bi bi-people"></i></span><h2>Lingkungan Inklusif</h2><p>Pembentukan karakter melalui lingkungan aman, disiplin, dan penuh rasa persaudaraan.</p></article>
             </div>
         </div>
     </section>
@@ -77,7 +77,7 @@
             <div class="mt-12 space-y-5 text-left">
                 <details class="faq-item" open><summary>Apakah ada biaya pendaftaran PPDB?</summary><p>Pendaftaran PPDB di SMAN 2 Balige tidak dipungut biaya apa pun. Mohon waspada terhadap segala bentuk penipuan yang mengatasnamakan panitia sekolah.</p></details>
                 <details class="faq-item"><summary>Jalur apa saja yang tersedia tahun ini?</summary><p>Tersedia jalur prestasi akademik, prestasi non-akademik, zonasi, afirmasi, dan perpindahan tugas orang tua sesuai aturan dinas pendidikan.</p></details>
-                <details class="faq-item"><summary>Bagaimana jika mengalami kendala teknis?</summary><p>Calon siswa dapat menghubungi sekretariat PPDB melalui email atau datang langsung ke kampus pada jam kerja.</p></details>
+                <details class="faq-item"><summary>Bagaimana jika mengalami kendala teknis?</summary><p>Calon siswa dapat menghubungi sekretariat PPDB melalui email atau datang langsung ke sekolah pada jam kerja.</p></details>
             </div>
         </div>
     </section>
@@ -87,8 +87,8 @@
             <h2>Siap Menjadi Bagian Dari Generasi Unggul?</h2>
             <p>Jangan lewatkan kesempatan berharga untuk menempuh pendidikan di salah satu SMA terbaik di Sumatera Utara.</p>
             <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-                <a href="{{ route('kontak') }}" class="gold-button">Daftar PPDB Sekarang</a>
-                <a href="{{ route('kontak') }}" class="ghost-button">Hubungi Panitia</a>
+                <a href="{{ route('kontak') }}#pesan" class="gold-button">Hubungi Panitia PPDB</a>
+                <a href="{{ route('kontak') }}#peta" class="ghost-button">Lihat Lokasi Sekolah</a>
             </div>
         </div>
     </section>

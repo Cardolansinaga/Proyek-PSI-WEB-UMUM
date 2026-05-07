@@ -25,7 +25,7 @@
                     Di SMAN 2 Balige, kualitas pengajaran adalah prioritas utama. Kami memiliki jajaran pendidik yang tidak hanya ahli di bidangnya, tetapi juga memiliki integritas tinggi sebagai panutan bagi siswa.
                 </p>
                 <div class="mt-9 rounded-xl bg-[#f6f9fc] p-6">
-                    <div class="partner-line text-[#071f3a]"><span>i</span><div><strong>Inovasi Pedagogik</strong><p class="text-[#6b7f91]">Penerapan kurikulum berbasis teknologi yang dipadukan dengan nilai budaya lokal Sumatera Utara.</p></div></div>
+                    <div class="partner-line text-[#071f3a]"><span></span><div><strong>Inovasi Pedagogik</strong><p class="text-[#6b7f91]">Penerapan kurikulum berbasis teknologi yang dipadukan dengan nilai budaya lokal Sumatera Utara.</p></div></div>
                 </div>
             </div>
             <div class="teaching-visual"></div>
@@ -52,15 +52,17 @@
                     <p class="eyebrow text-left">Direktori</p>
                     <h2 class="mt-3 text-3xl font-black text-[#071f3a] sm:text-4xl">Guru Mata Pelajaran</h2>
                 </div>
-                <div class="segmented">
-                    <button>Semua</button><button>Sains</button><button>Bahasa</button><button>Seni</button>
+                <div class="flex flex-wrap gap-3">
+                    @foreach (['Semua', 'Sains', 'Bahasa', 'Seni'] as $filter)
+                        <a class="filter-pill {{ $loop->first ? 'active' : '' }}" href="#direktori">{{ $filter }}</a>
+                    @endforeach
                 </div>
             </div>
             <div class="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
-                <article class="teacher-card teacher-a"><div></div><h3>Ani Siahaan, S.Pd</h3><p>Matematika & Kalkulus</p><a href="#">Profil Lengkap -></a></article>
-                <article class="teacher-card teacher-b"><div></div><h3>Dr. David Pardede</h3><p>Fisika Terapan</p><a href="#">Profil Lengkap -></a></article>
-                <article class="teacher-card teacher-c"><div></div><h3>M. Napitupulu, M.Hum</h3><p>Bahasa & Sastra</p><a href="#">Profil Lengkap -></a></article>
-                <article class="teacher-card teacher-d"><div></div><h3>T. Siregar, S.Kom</h3><p>Informatika & TIK</p><a href="#">Profil Lengkap -></a></article>
+                <article class="teacher-card teacher-a"><div></div><h3>Ani Siahaan, S.Pd</h3><p>Matematika & Kalkulus</p><a href="{{ route('kontak') }}#pesan">Hubungi Sekolah -></a></article>
+                <article class="teacher-card teacher-b"><div></div><h3>Dr. David Pardede</h3><p>Fisika Terapan</p><a href="{{ route('kontak') }}#pesan">Hubungi Sekolah -></a></article>
+                <article class="teacher-card teacher-c"><div></div><h3>M. Napitupulu, M.Hum</h3><p>Bahasa & Sastra</p><a href="{{ route('kontak') }}#pesan">Hubungi Sekolah -></a></article>
+                <article class="teacher-card teacher-d"><div></div><h3>T. Siregar, S.Kom</h3><p>Informatika & TIK</p><a href="{{ route('kontak') }}#pesan">Hubungi Sekolah -></a></article>
             </div>
         </div>
     </section>
@@ -102,7 +104,7 @@
     <section class="bg-[#f6f9fc] px-4 py-20 text-center lg:px-8">
         <h2 class="text-3xl font-black text-[#071f3a]">Siap Bergabung dengan Komunitas Belajar Kami?</h2>
         <div class="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
-            <a class="rounded-full bg-[#071f3a] px-8 py-4 text-sm font-black text-white shadow-xl shadow-[#071f3a]/15" href="{{ route('home') }}#akademik">Pelajari Kurikulum</a>
+            <a class="rounded-full bg-[#071f3a] px-8 py-4 text-sm font-black text-white shadow-xl shadow-[#071f3a]/15" href="{{ route('akademik') }}">Pelajari Kurikulum</a>
             <a class="rounded-full bg-white px-8 py-4 text-sm font-black text-[#071f3a] ring-1 ring-[#dfe8ef]" href="{{ route('kontak') }}">Hubungi Kami</a>
         </div>
     </section>

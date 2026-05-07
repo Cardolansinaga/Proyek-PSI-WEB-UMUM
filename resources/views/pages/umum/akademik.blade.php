@@ -14,8 +14,8 @@
                 </h1>
                 <p class="mt-7 max-w-2xl text-base font-semibold leading-8 text-white/78">Ekosistem belajar yang kompetitif, suportif, dan berbasis standar nasional pendidikan yang ditingkatkan untuk masa depan global.</p>
                 <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-                    <a href="#portal-akademik" class="gold-button">E-Learning Portal</a>
-                    <a href="#kurikulum" class="ghost-button">Unduh Kurikulum</a>
+                    <a href="#portal-akademik" class="gold-button">Layanan Akademik</a>
+                    <a href="#kurikulum" class="ghost-button">Lihat Kurikulum</a>
                 </div>
             </div>
         </div>
@@ -46,8 +46,8 @@
                 <p class="mt-5 text-sm font-semibold leading-7 text-[#6b7f91]">Kurikulum Merdeka dipadukan dengan program pengayaan khusus olimpiade dan riset ilmiah.</p>
             </div>
             <div class="academic-grid mt-12">
-                <article class="program-card wide"><span class="round-icon">KM</span><h3>Kurikulum Merdeka Plus</h3><p>Fleksibilitas pembelajaran yang berfokus pada pengembangan bakat, minat, dan Profil Pelajar Pancasila.</p></article>
-                <article class="program-card dark"><span class="round-icon bg-white/10 text-[#d6a63a]">RI</span><h3>Riset & Karya Ilmiah</h3><p>Mewajibkan setiap siswa menghasilkan karya tulis ilmiah tahunan untuk mengasah metodologi.</p></article>
+                <article class="program-card wide"><span class="round-icon"><i class="bi bi-journal-bookmark"></i></span><h3>Kurikulum Merdeka Plus</h3><p>Fleksibilitas pembelajaran yang berfokus pada pengembangan bakat, minat, dan Profil Pelajar Pancasila.</p></article>
+                <article class="program-card dark"><span class="round-icon bg-white/10 text-[#d6a63a]"><i class="bi bi-flask"></i></span><h3>Riset & Karya Ilmiah</h3><p>Mewajibkan setiap siswa menghasilkan karya tulis ilmiah tahunan untuk mengasah metodologi.</p></article>
                 <article class="program-card gold"><h3>English Mastery</h3><p>Integrasi kurikulum internasional untuk persiapan studi dan kompetisi global.</p></article>
                 <article class="program-card"><h3>Bimbingan Intensif PTN</h3><p>Pendampingan khusus kelas XII dengan simulasi UTBK dan konsultasi jurusan personal.</p></article>
             </div>
@@ -57,13 +57,13 @@
     <section class="bg-white py-20 sm:py-24">
         <div class="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-[1fr_0.92fr] lg:px-8">
             <div>
-                <p class="eyebrow text-left">Kalender Akademik <span class="text-[#d6a63a]">2024/2025</span></p>
+                <p class="eyebrow text-left">Kalender Akademik <span class="text-[#d6a63a]">2026/2027</span></p>
                 <div class="mt-8 grid gap-5">
-                    @foreach ([['15 Jul', 'Awal Semester Ganjil', 'Orientasi siswa baru dan pertemuan orang tua murid.'], ['02 Okt', 'Penilaian Tengah Semester', 'Evaluasi capaian belajar tiga bulan pertama.'], ['18 Des', 'Pembagian Rapor', 'Laporan perkembangan akademik semester 1.']] as $event)
+                    @foreach ([['13 Jul', 'Awal Semester Ganjil', 'Orientasi siswa baru dan pertemuan orang tua murid.'], ['05 Okt', 'Penilaian Tengah Semester', 'Evaluasi capaian belajar tiga bulan pertama.'], ['18 Des', 'Pembagian Rapor', 'Laporan perkembangan akademik semester 1.']] as $event)
                         <article class="calendar-card"><span>{{ $event[0] }}</span><div><h3>{{ $event[1] }}</h3><p>{{ $event[2] }}</p></div></article>
                     @endforeach
                 </div>
-                <a href="#" class="mt-8 inline-flex text-sm font-black text-[#071f3a]">Lihat Selengkapnya -></a>
+                <a href="{{ route('kontak') }}#pesan" class="final-link mt-8">Tanya Bagian Kurikulum -></a>
             </div>
             <aside id="portal-akademik" class="rounded-[1.6rem] bg-[#071f3a] p-8 text-white shadow-2xl shadow-[#071f3a]/20">
                 <h3 class="text-2xl font-black">Layanan Akademik</h3>
@@ -84,7 +84,7 @@
                 <p class="mt-5 text-sm font-semibold leading-7 text-white/58">Dukungan teknologi modern untuk memastikan pembelajaran teoritis dapat dipraktikkan secara langsung.</p>
             </div>
             <div class="facility-mosaic mt-12">
-                <div class="facility-tile dog-lab"><span>Lab Kimia & Fisika Terpadu</span></div>
+                <div class="facility-tile science-lab"><span>Lab Kimia & Fisika Terpadu</span></div>
                 <div class="facility-tile lab-real"><span>Lab Multimedia</span></div>
                 <div class="facility-tile library-real"><span>Perpustakaan Digital</span></div>
                 <div class="facility-tile classroom-real"><span>Smart Classroom</span></div>

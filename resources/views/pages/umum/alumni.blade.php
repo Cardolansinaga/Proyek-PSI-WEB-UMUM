@@ -74,13 +74,13 @@
                     <h2 class="text-3xl font-black text-[#071f3a]">Jejak Lulusan</h2>
                     <p class="mt-3 max-w-2xl text-sm font-semibold text-[#6b7f91]">Lulusan SMAN 2 Balige tersebar di berbagai universitas terbaik di dalam dan luar negeri setiap tahunnya.</p>
                 </div>
-                <a class="inline-flex w-fit text-sm font-black text-[#071f3a]" href="#lulusan">Lihat Statistik Lengkap -></a>
+                <a class="final-link w-fit" href="{{ route('kontak') }}#pesan">Kirim Kabar Alumni -></a>
             </div>
             <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="track-card"><span>edu</span><strong>UI & ITB</strong><small>35% lulusan 2023</small></div>
-                <div class="track-card"><span>glb</span><strong>Luar Negeri</strong><small>12 mahasiswa aktif</small></div>
-                <div class="track-card"><span>gov</span><strong>Kedinasan</strong><small>25 lulusan / tahun</small></div>
-                <div class="track-card"><span>tn</span><strong>TNI & Polri</strong><small>Akademi terbaik</small></div>
+                <div class="track-card"><span><i class="bi bi-mortarboard"></i></span><strong>UI & ITB</strong><small>35% lulusan 2026</small></div>
+                <div class="track-card"><span><i class="bi bi-globe2"></i></span><strong>Luar Negeri</strong><small>12 mahasiswa aktif</small></div>
+                <div class="track-card"><span><i class="bi bi-building"></i></span><strong>Kedinasan</strong><small>25 lulusan / tahun</small></div>
+                <div class="track-card"><span><i class="bi bi-shield-check"></i></span><strong>TNI & Polri</strong><small>Akademi terbaik</small></div>
             </div>
         </div>
     </section>
@@ -91,8 +91,8 @@
                 <h2 class="text-3xl font-black">Kemitraan Strategis</h2>
                 <div class="mt-4 h-1 w-14 rounded-full bg-[#d6a63a]"></div>
                 <div class="mt-10 space-y-8">
-                    <div class="partner-line"><span>i</span><div><strong>Sinergi Industri</strong><p>Program magang dan kunjungan industri untuk membekali siswa dengan wawasan dunia kerja profesional sejak dini.</p></div></div>
-                    <div class="partner-line"><span>g</span><div><strong>Beasiswa Kemitraan</strong><p>Dukungan finansial dari berbagai yayasan dan perusahaan mitra bagi siswa berprestasi dan kurang mampu.</p></div></div>
+                    <div class="partner-line"><span></span><div><strong>Sinergi Industri</strong><p>Program magang dan kunjungan industri untuk membekali siswa dengan wawasan dunia kerja profesional sejak dini.</p></div></div>
+                    <div class="partner-line"><span></span><div><strong>Beasiswa Kemitraan</strong><p>Dukungan finansial dari berbagai yayasan dan perusahaan mitra bagi siswa berprestasi dan kurang mampu.</p></div></div>
                 </div>
             </div>
             <div class="partner-grid">
@@ -120,7 +120,7 @@
                 <p class="mt-6 max-w-2xl text-sm font-bold leading-7 text-[#173047]/75">Jadilah bagian dari ekosistem yang terus bertumbuh untuk masa depan pendidikan Indonesia yang lebih gemilang.</p>
             </div>
             <div class="flex flex-col gap-4 sm:flex-row">
-                <a class="rounded-2xl bg-[#071f3a] px-7 py-4 text-sm font-black text-white" href="#">Gabung Jejaring</a>
+                <a class="rounded-2xl bg-[#071f3a] px-7 py-4 text-sm font-black text-white" href="{{ route('kontak') }}#pesan">Gabung Jejaring</a>
                 <a class="rounded-2xl bg-white px-7 py-4 text-sm font-black text-[#071f3a]" href="{{ route('kontak') }}">Hubungi Mitra</a>
             </div>
         </div>
