@@ -112,35 +112,58 @@ Route::get('/admin/kesiswaan', function (Request $request) {
 		return redirect()->route('login');
 	}
 	return view('pages.admin.kesiswaan');
-})->name('kesiswaan.index');
+})->name('admin.kesiswaan.index');
 
 Route::get('/admin/kesiswaan/create', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
 	return view('pages.admin.form-kesiswaan', ['id' => 'baru', 'mode' => 'create']);
-})->name('kesiswaan.create');
+})->name('admin.kesiswaan.create');
 
 Route::get('/admin/kesiswaan/{id}/edit', function (Request $request, $id) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
 	return view('pages.admin.form-kesiswaan', ['id' => $id, 'mode' => 'edit']);
-})->name('kesiswaan.edit');
+})->name('admin.kesiswaan.edit');
 
 Route::post('/admin/kesiswaan', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return redirect()->route('kesiswaan.index')->with('status', 'Data kesiswaan berhasil disimpan.');
+	return redirect()->route('admin.kesiswaan.index')->with('status', 'Data kesiswaan berhasil disimpan.');
 })->name('admin.kesiswaan.store');
 
 Route::post('/admin/kesiswaan/{id}', function (Request $request, $id) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return redirect()->route('kesiswaan.index')->with('status', 'Data kesiswaan berhasil diperbarui.');
+	return redirect()->route('admin.kesiswaan.index')->with('status', 'Data kesiswaan berhasil diperbarui.');
 })->name('admin.kesiswaan.update');
+
+// Legacy named route alias: keep templates referring to `kesiswaan.index` working
+Route::get('/admin/kesiswaan-legacy', function (Request $request) {
+    if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
+        return redirect()->route('login');
+    }
+    return redirect()->route('admin.kesiswaan.index');
+})->name('kesiswaan.index');
+
+// Legacy aliases for create/edit route names used by older admin templates
+Route::get('/admin/kesiswaan/create-legacy', function (Request $request) {
+	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
+		return redirect()->route('login');
+	}
+	return redirect()->route('admin.kesiswaan.create');
+})->name('kesiswaan.create');
+
+Route::get('/admin/kesiswaan/{id}/edit-legacy', function (Request $request, $id) {
+	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
+		return redirect()->route('login');
+	}
+	return redirect()->route('admin.kesiswaan.edit', $id);
+})->name('kesiswaan.edit');
 
 Route::get('/admin/ppdb', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
