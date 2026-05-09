@@ -105,18 +105,4 @@
         </div>
     </section>
 
-    <section class="bg-white px-4 py-20 lg:px-8">
-        <div class="rounded-[2rem] border-t-4 border-[#d6a63a] bg-[#f6f9fc] p-8 shadow-xl shadow-[#071f3a]/5 sm:p-12 lg:p-16">
-            <div class="mx-auto flex max-w-6xl flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-                <div>
-                    <h2 class="text-4xl font-black leading-tight text-[#071f3a]">Siap Menorehkan Prestasi Bersama Kami?</h2>
-                    <p class="mt-5 max-w-2xl text-sm font-semibold leading-7 text-[#6b7f91]">Jelajahi lebih jauh pencapaian siswa kami atau ikuti kabar terbaru dari lingkungan sekolah yang penuh semangat.</p>
-                </div>
-                <div class="flex flex-col gap-4 sm:flex-row">
-                    <a href="{{ route('prestasi') }}" class="rounded-full bg-[#071f3a] px-8 py-4 text-sm font-black text-white">Lihat Prestasi</a>
-                    <a href="{{ route('berita.index') }}" class="rounded-full bg-white px-8 py-4 text-sm font-black text-[#071f3a] ring-1 ring-[#dfe8ef]">Baca Berita</a>
-                </div>
-            </div>
-        </div>
-    </section>
-@endsection
+                    

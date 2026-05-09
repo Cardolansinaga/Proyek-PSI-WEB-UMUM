@@ -1,8 +1,66 @@
-<!DOCTYPE html>
-<html lang="id">
-<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Kesiswaan - SMAN 2 Balige</title> @vite(['resources/css/app.css', 'resources/js/app.js']) <style> * { margin: 0; padding: 0; box-sizing: border-box; } body { overflow: hidden; font-family: 'Inter', sans-serif; background-color: #f8fafc; } .admin-container { display: flex; height: 100vh; width: 100vw; } .sidebar { width: 260px; background-color: #071f3a; flex-shrink: 0; display: flex; flex-direction: column; color: white; } .nav-item { padding: 12px 16px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; color: #94a3b8; text-decoration: none; transition: 0.2s; } .nav-item:hover { color: white; background: rgba(255,255,255,0.05); border-radius: 12px; } .active-nav { background: rgba(255,255,255,0.1); color: white; border-radius: 12px; font-weight: 700; border-left: 4px solid #10b981; } .main-content { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; } .header { height: 70px; background: white; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; position: sticky; top: 0; z-index: 10; } .content-padding { padding: 32px; } .card { background: white; border: 1px solid #f1f5f9; border-radius: 20px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); } .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 24px; } .data-table { width: 100%; border-collapse: collapse; margin-top: 12px; } .data-table th { text-align: left; padding: 12px; border-bottom: 2px solid #f1f5f9; color: #94a3b8; font-size: 11px; text-transform: uppercase; } .data-table td { padding: 12px; border-bottom: 1px solid #f1f5f9; font-size: 14px; color: #1e293b; } .btn-add { background: #071f3a; color: white; padding: 10px 18px; border-radius: 10px; font-weight: 700; text-decoration: none; } </style> @include('pages.admin.partials.responsive') </head>
-<body>
-<div class="admin-container"> <aside class="sidebar"> <div style="padding: 32px;"> <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 32px;"> <div style="background: #d6a63a; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; font-weight: 900; color: white;">S2</div> <div> <div style="font-size: 14px; font-weight: 900; line-height: 1;">SMAN 2 Balige</div> <div style="font-size: 10px; color: #94a3b8;">Portal Admin</div> </div> </div> <nav style="display: flex; flex-direction: column; gap: 4px;"> <a href="{{ route('dashboard') }}" class="nav-item"> Dashboard</a> <a href="{{ route('guru.index') }}" class="nav-item"> Guru & Staf</a> <a href="{{ route('prestasi.index') }}" class="nav-item"> Prestasi</a> <a href="{{ route('pengumuman.index') }}" class="nav-item"> Pengumuman</a> <a href="{{ route('kesiswaan.index') }}" class="nav-item active-nav"> Kesiswaan</a> <a href="{{ route('admin.ppdb') }}" class="nav-item"> PPDB</a> <a href="{{ route('admin.galeri') }}" class="nav-item"> Galeri</a> <a href="{{ route('admin.pengaturan') }}" class="nav-item"> Pengaturan</a> </nav> </div> <div style="margin-top: auto; padding: 32px;"> <form method="POST" action="{{ route('logout') }}"> @csrf <button type="submit" style="color: #f87171; background: none; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;"> Keluar</button> </form> </div> </aside> <div class="main-content"> <header class="header"> <div style="font-size: 12px; font-weight: 800; color: #94a3b8; letter-spacing: 1px;">PANEL ADMIN <span style="margin: 0 8px; color: #e2e8f0;">/</span> <span style="color: #64748b;">Kesiswaan</span></div> <div style="display: flex; align-items: center; gap: 24px;"> @php $adminName = optional(Auth::user())->name ?? session('admin_name') ?? 'Admin'; @endphp <div style="text-align: right;"> <div style="font-size: 13px; font-weight: 900; color: #071f3a;">{{ $adminName }}</div> <div style="font-size: 10px; font-weight: 700; color: #3b82f6;">ADMIN UTAMA</div> </div> <div style="width: 35px; height: 35px; background: #071f3a; border-radius: 50%; display: grid; place-items: center; color: white; font-weight: 800;">{{ strtoupper(substr($adminName,0,2)) }}</div> </div> </header> <main class="content-padding"> <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;"> <div> <h1 style="font-size:28px; font-weight:800; color:#071f3a;">Kesiswaan</h1> <p style="color:#64748b;">Kelola organisasi siswa, ekstrakurikuler, dan agenda kegiatan.</p> </div> <a href="{{ route('kesiswaan.create') }}" class="btn-add">+ Tambah Data</a> </div> <div class="stats-grid"> <div class="card"> <div style="color:#94a3b8; font-size:11px; font-weight:800; text-transform:uppercase;">Total Organisasi</div> <div style="font-size:24px; font-weight:900; color:#071f3a;">12</div> </div> <div class="card"> <div style="color:#94a3b8; font-size:11px; font-weight:800; text-transform:uppercase;">Ekstrakurikuler</div> <div style="font-size:24px; font-weight:900; color:#071f3a;">24</div> </div> <div class="card"> <div style="color:#94a3b8; font-size:11px; font-weight:800; text-transform:uppercase;">Agenda Mendatang</div> <div style="font-size:24px; font-weight:900; color:#071f3a;">08</div> </div> <div class="card"> <div style="color:#94a3b8; font-size:11px; font-weight:800; text-transform:uppercase;">Partisipasi Aktif</div> <div style="font-size:24px; font-weight:900; color:#071f3a;">1.2k</div> </div> </div> <div class="card" style="margin-top: 12px;"> <h3 style="font-size:16px; font-weight:800; color:#071f3a; margin-bottom:12px;">Daftar Organisasi</h3> <table class="data-table"> <thead> <tr> <th>Nama Organisasi</th> <th>Ketua Umum</th> <th>Jadwal</th> <th>Status</th> <th>Aksi</th> </tr> </thead> <tbody> <tr> <td style="font-weight:700;">OSIS</td> <td>Andi Wijaya</td> <td>Mon, 16:00</td> <td style="color:#16a34a; font-weight:800;">Aktif</td> <td><a href="{{ route('kesiswaan.edit', 1) }}" style="color:#071f3a; font-weight:800; text-decoration:none;">Edit</a></td> </tr> <tr> <td style="font-weight:700;">MPK</td> <td>Siti Aminah</td> <td>Fri, 14:00</td> <td style="color:#16a34a; font-weight:800;">Aktif</td> <td><a href="{{ route('kesiswaan.edit', 2) }}" style="color:#071f3a; font-weight:800; text-decoration:none;">Edit</a></td> </tr> </tbody> </table> </div> </main> </div>
-</div>
-</body>
-</html>
+@extends('layouts.site', ['active' => 'kesiswaan'])
+
+@section('title', 'Admin Kesiswaan - SMAN 2 Balige')
+@section('description', 'Panel admin untuk manajemen kesiswaan dan agenda.')
+
+@section('content')
+    <div class="mx-auto max-w-7xl px-4 py-10 lg:px-8">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-2xl font-black">Kesiswaan — Admin</h1>
+                <p class="text-sm text-gray-600">Kelola agenda, organisasi, dan statistik kesiswaan.</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <a href="/admin/kesiswaan/create" class="inline-flex items-center rounded bg-[#071f3a] px-4 py-2 text-sm font-semibold text-white">Buat Agenda</a>
+                <a href="/admin/kesiswaan/import" class="inline-flex items-center rounded border px-4 py-2 text-sm">Impor</a>
+            </div>
+        </div>
+
+        <div class="bg-white shadow-sm rounded-lg p-4">
+            <table class="w-full table-auto text-left">
+                <thead>
+                    <tr class="text-sm text-gray-700">
+                        <th class="py-3 px-4">Tanggal</th>
+                        <th class="py-3 px-4">Judul</th>
+                        <th class="py-3 px-4">Lokasi</th>
+                        <th class="py-3 px-4">Status</th>
+                        <th class="py-3 px-4">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($events ?? [['date' => '2026-10-28','title' => 'Latihan Dasar Kepemimpinan (LDK)','location' => 'Aula Serbaguna','status' => 'CONFIRMED'], ['date' => '2026-11-05','title' => 'Kompetisi Sains Balige (KSB)','location' => 'Laboratorium IPA','status' => 'PLANNING']] as $event)
+                        <tr class="border-t">
+                            <td class="py-3 px-4 align-top">{{ $event['date'] ?? ($event->date ?? '-') }}</td>
+                            <td class="py-3 px-4 align-top">{{ $event['title'] ?? ($event->title ?? '-') }}</td>
+                            <td class="py-3 px-4 align-top">{{ $event['location'] ?? ($event->location ?? '-') }}</td>
+                            <td class="py-3 px-4 align-top"><span class="rounded px-2 py-1 text-xs font-semibold {{ ($event['status'] ?? ($event->status ?? '')) == 'CONFIRMED' ? 'bg-emerald-100 text-emerald-700' : 'bg-sky-100 text-sky-700' }}">{{ $event['status'] ?? ($event->status ?? '-') }}</span></td>
+                            <td class="py-3 px-4 align-top">
+                                <a href="/admin/kesiswaan/{{ $loop->index ?? ($event->id ?? '') }}/edit" class="text-sm text-[#071f3a]">Edit</a>
+                                <form action="/admin/kesiswaan/{{ $loop->index ?? ($event->id ?? '') }}" method="POST" class="inline-block ml-3">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-sm text-red-600">Hapus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <div class="rounded-lg border p-4">
+                <h4 class="font-black">Statistik Partisipasi</h4>
+                <p class="text-sm text-gray-600 mt-2">Ringkasan partisipasi per kategori.</p>
+            </div>
+            <div class="rounded-lg border p-4">
+                <h4 class="font-black">Prestasi</h4>
+                <p class="text-sm text-gray-600 mt-2">Kelola prestasi dan sorotan siswa.</p>
+            </div>
+            <div class="rounded-lg border p-4">
+                <h4 class="font-black">Pengaturan Organisasi</h4>
+                <p class="text-sm text-gray-600 mt-2">Kelola OSIS, MPK, dan perwakilan kelas.</p>
+            </div>
+        </div>
+    </div>
+@endsection
