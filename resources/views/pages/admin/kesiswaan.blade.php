@@ -1,66 +1,108 @@
 @extends('layouts.site', ['active' => 'kesiswaan'])
 
-@section('title', 'Admin Kesiswaan - SMAN 2 Balige')
-@section('description', 'Panel admin untuk manajemen kesiswaan dan agenda.')
+@section('title', 'Kesiswaan & Ekstrakurikuler - SMAN 2 Balige')
+@section('description', 'Kesiswaan, OSIS, MPK, ekstrakurikuler, dan pembinaan karakter SMAN 2 Balige.')
 
 @section('content')
-    <div class="mx-auto max-w-7xl px-4 py-10 lg:px-8">
-        <div class="flex items-center justify-between mb-6">
+    <section class="school-hero hero-student text-center">
+        <div class="hero-shade"></div>
+        <div class="mx-auto grid min-h-[560px] max-w-7xl place-items-center px-4 py-20 lg:px-8">
+            <div class="relative max-w-4xl">
+                <span class="section-pill">Ekosistem Kesiswaan</span>
+                <h1 class="mt-7 text-5xl font-black leading-[0.98] text-white sm:text-6xl lg:text-7xl">
+                    Membentuk Karakter Berlandaskan Integritas
+                </h1>
+                <p class="mx-auto mt-7 max-w-2xl text-base font-semibold leading-8 text-white/78">Satu wadah kolaboratif untuk mengasah potensi, kepemimpinan, dan kreativitas siswa.</p>
+                <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
+                    <a href="#ekskul" class="gold-button">Daftar Ekstrakurikuler</a>
+                    <a href="#organisasi" class="ghost-button">Lihat Jadwal Kegiatan</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-white py-20 sm:py-24">
+        <div class="mx-auto grid max-w-7xl gap-14 px-4 lg:grid-cols-[1fr_0.95fr] lg:items-center lg:px-8">
             <div>
-                <h1 class="text-2xl font-black">Kesiswaan — Admin</h1>
-                <p class="text-sm text-gray-600">Kelola agenda, organisasi, dan statistik kesiswaan.</p>
+                <p class="eyebrow">Nilai Utama Kami</p>
+                <h2 class="mt-3 text-4xl font-black leading-tight text-[#071f3a]">Pengembangan Karakter & Potensi Tak Terbatas</h2>
+                <p class="mt-7 max-w-2xl text-sm font-semibold leading-7 text-[#6b7f91]">Pendidikan melampaui ruang kelas. Kami percaya setiap siswa memiliki keunikan yang harus diasah melalui sistem pembinaan yang terintegrasi.</p>
+                <div class="mt-9 grid max-w-lg grid-cols-2 gap-5">
+                    <div class="soft-card"><span>01</span><h3>Integritas</h3><p>Kejujuran dalam setiap tindakan dan keputusan.</p></div>
+                    <div class="soft-card"><span>02</span><h3>Kritis</h3><p>Kemampuan berpikir solutif menghadapi tantangan.</p></div>
+                </div>
             </div>
-            <div class="flex items-center gap-3">
-                <a href="/admin/kesiswaan/create" class="inline-flex items-center rounded bg-[#071f3a] px-4 py-2 text-sm font-semibold text-white">Buat Agenda</a>
-                <a href="/admin/kesiswaan/import" class="inline-flex items-center rounded border px-4 py-2 text-sm">Impor</a>
+            <div class="student-mentoring"></div>
+        </div>
+    </section>
+
+    <section id="organisasi" class="bg-[#f6f9fc] py-20 sm:py-24">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+            <div class="mx-auto max-w-3xl text-center">
+                <p class="eyebrow">Kepemimpinan Siswa</p>
+                <h2 class="mt-3 text-4xl font-black text-[#071f3a]">Organisasi Strategis</h2>
+                <div class="mx-auto mt-5 h-1 w-16 rounded-full bg-[#d6a63a]"></div>
+            </div>
+            <div class="mt-12 grid gap-8 lg:grid-cols-[0.85fr_1fr_0.75fr]">
+                <div class="facility-tile osis-real"><span>OSIS SMAN 2 Balige</span></div>
+                <article class="program-card"><p class="eyebrow text-left">Lembaga Eksekutif</p><h3>OSIS SMAN 2 Balige</h3><p>Wadah aspirasi dan pelaksana kegiatan siswa yang dinamis untuk mendorong budaya kolaborasi.</p><a href="{{ route('kontak') }}#pesan" class="final-link mt-6">Tanya Pembina OSIS -></a></article>
+                <article class="program-card dark"><p class="eyebrow text-left">Lembaga Legislatif</p><h3>MPK</h3><p>Majelis perwakilan kelas yang mengawal aspirasi siswa secara demokratis.</p><strong class="mt-8 block text-[#d6a63a]">42 Perwakilan Terpilih</strong></article>
             </div>
         </div>
+    </section>
 
-        <div class="bg-white shadow-sm rounded-lg p-4">
-            <table class="w-full table-auto text-left">
-                <thead>
-                    <tr class="text-sm text-gray-700">
-                        <th class="py-3 px-4">Tanggal</th>
-                        <th class="py-3 px-4">Judul</th>
-                        <th class="py-3 px-4">Lokasi</th>
-                        <th class="py-3 px-4">Status</th>
-                        <th class="py-3 px-4">Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($events ?? [['date' => '2026-10-28','title' => 'Latihan Dasar Kepemimpinan (LDK)','location' => 'Aula Serbaguna','status' => 'CONFIRMED'], ['date' => '2026-11-05','title' => 'Kompetisi Sains Balige (KSB)','location' => 'Laboratorium IPA','status' => 'PLANNING']] as $event)
-                        <tr class="border-t">
-                            <td class="py-3 px-4 align-top">{{ $event['date'] ?? ($event->date ?? '-') }}</td>
-                            <td class="py-3 px-4 align-top">{{ $event['title'] ?? ($event->title ?? '-') }}</td>
-                            <td class="py-3 px-4 align-top">{{ $event['location'] ?? ($event->location ?? '-') }}</td>
-                            <td class="py-3 px-4 align-top"><span class="rounded px-2 py-1 text-xs font-semibold {{ ($event['status'] ?? ($event->status ?? '')) == 'CONFIRMED' ? 'bg-emerald-100 text-emerald-700' : 'bg-sky-100 text-sky-700' }}">{{ $event['status'] ?? ($event->status ?? '-') }}</span></td>
-                            <td class="py-3 px-4 align-top">
-                                <a href="/admin/kesiswaan/{{ $loop->index ?? ($event->id ?? '') }}/edit" class="text-sm text-[#071f3a]">Edit</a>
-                                <form action="/admin/kesiswaan/{{ $loop->index ?? ($event->id ?? '') }}" method="POST" class="inline-block ml-3">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-sm text-red-600">Hapus</button>
-                                </form>
-                            </td>
-                        </tr>
+    <section id="ekskul" class="bg-white py-20 sm:py-24">
+        <div class="mx-auto max-w-7xl px-4 lg:px-8">
+            <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
+                <div><p class="eyebrow">Eksplorasi Minat & Bakat</p><h2 class="mt-3 text-4xl font-black text-[#071f3a]">Pilih Komunitas Minatmu</h2><p class="mt-4 max-w-2xl text-sm font-semibold text-[#6b7f91]">Wadah bagi siswa untuk mengeksplorasi hobi, mengasah keterampilan, dan membangun jaringan pertemanan.</p></div>
+                <a href="{{ route('kontak') }}#pesan" class="outline-button">Konsultasi Ekskul</a>
+            </div>
+            <div class="mt-12 grid gap-7 sm:grid-cols-2 lg:grid-cols-4">
+                @foreach ([['basketball-real', 'Smanza Basketball', 'Mengasah teknik, fisik, dan mental juara.'], ['band-real', 'Symphony Band', 'Wadah ekspresi musikalitas modern.'], ['robotics-real', 'Robotics & IoT', 'Berinovasi dengan teknologi masa depan.'], ['dance-real', 'Seni Tari Batak', 'Melestarikan kekayaan budaya lokal.']] as $club)
+                    <article class="club-card"><div class="illustration {{ $club[0] }}"></div><h3>{{ $club[1] }}</h3><p>{{ $club[2] }}</p><a href="{{ route('kontak') }}#pesan">Bergabung</a></article>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section id="asrama" class="bg-[#f6f9fc] py-20 sm:py-24">
+        <div class="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-[1fr_0.95fr] lg:items-center lg:px-8">
+            <div>
+                <p class="eyebrow">Asrama & Kehidupan Harian</p>
+                <h2 class="mt-3 text-4xl font-black leading-tight text-[#071f3a]">Lingkungan Belajar yang Terarah dan Nyaman</h2>
+                <p class="mt-6 max-w-2xl text-sm font-semibold leading-7 text-[#6b7f91]">Asrama menjadi ruang pembinaan karakter, kemandirian, dan kebersamaan. Rutinitas harian dirancang agar siswa tetap seimbang antara belajar, ibadah, istirahat, dan pengembangan bakat.</p>
+                <div class="mt-8 grid max-w-xl gap-5 sm:grid-cols-3">
+                    <div class="metric-card"><strong>24/7</strong><span>Pendampingan</span></div>
+                    <div class="metric-card"><strong>4</strong><span>Zona Pembinaan</span></div>
+                    <div class="metric-card"><strong>Terjadwal</strong><span>Belajar Malam</span></div>
+                </div>
+                <div class="mt-8 flex flex-col gap-4 sm:flex-row">
+                    <a href="{{ route('ppdb') }}" class="gold-button">Tanya Fasilitas PPDB</a>
+                    <a href="{{ route('kontak') }}#peta" class="outline-button">Lihat Lokasi</a>
+                </div>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-tile library"><span>Ruang Belajar</span></div>
+                <div class="gallery-tile hall"><span>Asrama Siswa</span></div>
+                <div class="gallery-tile court"><span>Kegiatan Sore</span></div>
+                <div class="gallery-tile lab"><span>Lab & Mentoring</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="bg-[#071f3a] py-20 text-white">
+        <div class="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-[1fr_0.95fr] lg:items-center lg:px-8">
+            <div>
+                <p class="eyebrow">Akreditasi Karakter</p>
+                <h2 class="mt-3 text-4xl font-black">Kurikulum Pembinaan Karakter Terpadu</h2>
+                <div class="mt-10 grid gap-7">
+                    @foreach ([['Latihan Dasar Kepemimpinan (LDK)', 'Pelatihan intensif tahunan bagi pengurus organisasi untuk membentuk karakter leader.'], ['Social Awareness Project', 'Program pengabdian masyarakat untuk menumbuhkan empati dan solidaritas.']] as $program)
+                        <div class="partner-line text-white"><span></span><div><strong>{{ $program[0] }}</strong><p class="text-white/58">{{ $program[1] }}</p></div></div>
                     @endforeach
-                </tbody>
-            </table>
+                </div>
+            </div>
+            <div class="character-collage"></div>
         </div>
+    </section>
 
-        <div class="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-3">
-            <div class="rounded-lg border p-4">
-                <h4 class="font-black">Statistik Partisipasi</h4>
-                <p class="text-sm text-gray-600 mt-2">Ringkasan partisipasi per kategori.</p>
-            </div>
-            <div class="rounded-lg border p-4">
-                <h4 class="font-black">Prestasi</h4>
-                <p class="text-sm text-gray-600 mt-2">Kelola prestasi dan sorotan siswa.</p>
-            </div>
-            <div class="rounded-lg border p-4">
-                <h4 class="font-black">Pengaturan Organisasi</h4>
-                <p class="text-sm text-gray-600 mt-2">Kelola OSIS, MPK, dan perwakilan kelas.</p>
-            </div>
-        </div>
-    </div>
-@endsection
+                    
