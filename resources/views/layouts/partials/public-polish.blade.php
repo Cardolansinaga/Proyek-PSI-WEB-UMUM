@@ -1046,14 +1046,14 @@
         margin-top: 20px;
         display: grid;
         gap: 11px;
-        color: rgba(255, 255, 255, .64);
+        color: rgba(255, 255, 255, .82);
         font-size: 13px;
         font-weight: 600;
         line-height: 1.6;
     }
 
     .dark-footer-list a {
-        color: inherit;
+        color: rgba(255, 255, 255, .88);
         text-decoration: none;
     }
 
@@ -1142,6 +1142,882 @@
         .outline-button,
         .ghost-button {
             width: 100%;
+        }
+    }
+</style>
+
+<style>
+    .public-site main > section:not(.school-hero):not(.page-hero):not(.public-hero) {
+        padding-top: clamp(64px, 6vw, 96px) !important;
+        padding-bottom: clamp(64px, 6vw, 96px) !important;
+    }
+
+    .public-site .school-hero > .mx-auto,
+    .public-site .page-hero > .mx-auto,
+    .public-site .hero-home > .mx-auto {
+        min-height: clamp(520px, 62vh, 680px) !important;
+    }
+
+    .public-site h1,
+    .public-site h2,
+    .public-site h3,
+    .public-site strong {
+        letter-spacing: 0 !important;
+    }
+
+    .public-site h2 {
+        max-width: 900px;
+    }
+
+    .public-site .section-pill,
+    .public-site .eyebrow,
+    .public-site .meta-line {
+        border: 1px solid rgba(214, 166, 58, .16);
+        background: #fff7df !important;
+        color: #8a6211 !important;
+    }
+
+    .public-site .nav-link {
+        font-size: 13px !important;
+        color: #324b63 !important;
+    }
+
+    .public-site .nav-link.active,
+    .public-site .nav-link:hover {
+        background: #edf5fb !important;
+        color: #071f3a !important;
+    }
+
+    .public-site .feature-card,
+    .public-site .info-card,
+    .public-site .news-card,
+    .public-site .achievement-card,
+    .public-site .teacher-card,
+    .public-site .staff-card,
+    .public-site .leader-card,
+    .public-site .program-card,
+    .public-site .soft-card,
+    .public-site .calendar-card,
+    .public-site .service-tile,
+    .public-site .document-row,
+    .public-site .step-card,
+    .public-site .track-card,
+    .public-site .metric-card,
+    .public-site .faq-item {
+        min-height: auto !important;
+        border: 1px solid #d9e5ef !important;
+        background: #ffffff !important;
+        box-shadow: 0 12px 28px rgba(7, 31, 58, .07) !important;
+    }
+
+    .public-site .program-card,
+    .public-site .info-card,
+    .public-site .soft-card,
+    .public-site .step-card,
+    .public-site .service-tile {
+        display: flex !important;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 12px;
+        padding: 26px !important;
+    }
+
+    .public-site .program-card.dark,
+    .public-site aside[class*="bg-[#071f3a]"] {
+        background: linear-gradient(135deg, #071f3a 0%, #103d5f 100%) !important;
+        color: #ffffff !important;
+    }
+
+    .public-site .program-card.dark h3,
+    .public-site .program-card.dark p,
+    .public-site aside[class*="bg-[#071f3a]"] h3,
+    .public-site aside[class*="bg-[#071f3a]"] strong,
+    .public-site aside[class*="bg-[#071f3a]"] p {
+        color: rgba(255, 255, 255, .9) !important;
+    }
+
+    .public-site .program-card.gold {
+        background: #fff4dd !important;
+        border-color: rgba(214, 166, 58, .4) !important;
+    }
+
+    .public-site .academic-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 18px !important;
+        align-items: stretch !important;
+    }
+
+    .public-site .academic-grid .program-card.wide {
+        grid-column: span 2;
+    }
+
+    .public-site #kurikulum .academic-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        align-items: stretch !important;
+    }
+
+    .public-site #kurikulum .academic-grid .program-card,
+    .public-site #kurikulum .academic-grid .program-card.wide {
+        grid-column: auto !important;
+        grid-row: auto !important;
+        width: 100% !important;
+        min-height: 220px !important;
+        height: 100% !important;
+    }
+
+    .public-site .facility-mosaic {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 18px !important;
+    }
+
+    .public-site .facility-tile {
+        min-height: 230px !important;
+        padding: 22px !important;
+        align-items: flex-end !important;
+        border: 1px solid rgba(255, 255, 255, .16) !important;
+    }
+
+    .public-site .facility-tile span,
+    .public-site .gallery-tile span {
+        display: inline-flex;
+        width: fit-content;
+        border-radius: 6px;
+        background: rgba(7, 31, 58, .72);
+        padding: 9px 12px;
+        color: #ffffff !important;
+        text-shadow: none !important;
+    }
+
+    .public-site .stat-item strong {
+        font-size: clamp(30px, 3vw, 42px) !important;
+    }
+
+    .public-site .stat-item span {
+        color: rgba(255, 255, 255, .82) !important;
+        font-size: 12px !important;
+    }
+
+    .public-site .cta-panel {
+        border-radius: 8px !important;
+        background: linear-gradient(135deg, #071f3a 0%, #0f4c5c 100%) !important;
+        box-shadow: 0 24px 60px rgba(7, 31, 58, .18) !important;
+    }
+
+    .public-site .leadership-panel {
+        border: 1px solid #d9e5ef;
+        border-radius: 8px;
+        background: linear-gradient(135deg, #ffffff 0%, #f5f9fc 100%);
+        box-shadow: 0 18px 45px rgba(7, 31, 58, .08);
+    }
+
+    .public-site .leadership-card {
+        border-radius: 8px;
+        background: #071f3a;
+        color: #ffffff;
+        padding: clamp(26px, 4vw, 46px);
+    }
+
+    .public-site .leadership-card p,
+    .public-site .leadership-card blockquote {
+        color: rgba(255, 255, 255, .84) !important;
+    }
+
+    .public-site .commitment-list {
+        display: grid;
+        gap: 14px;
+    }
+
+    .public-site .commitment-list li {
+        display: flex;
+        gap: 12px;
+        border: 1px solid #d9e5ef;
+        border-radius: 8px;
+        background: #ffffff;
+        padding: 16px;
+        color: #334e68;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.6;
+    }
+
+    .public-site .commitment-list li::before {
+        display: grid;
+        flex: 0 0 auto;
+        width: 28px;
+        height: 28px;
+        place-items: center;
+        border-radius: 999px;
+        background: #fff4dd;
+        color: #8a6211;
+        content: "\F26A";
+        font-family: "bootstrap-icons";
+        font-size: 13px;
+    }
+
+    @media (max-width: 1024px) {
+        .public-site .academic-grid,
+        .public-site .facility-mosaic {
+            grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        }
+
+        .public-site .academic-grid .program-card.wide {
+            grid-column: auto !important;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .public-site .academic-grid,
+        .public-site .facility-mosaic,
+        .public-site .gallery-grid {
+            grid-template-columns: 1fr !important;
+        }
+
+        .public-site .school-hero h1,
+        .public-site .page-hero h1,
+        .public-site .hero-home h1 {
+            font-size: 36px !important;
+        }
+
+        .public-site .school-hero > .mx-auto,
+        .public-site .page-hero > .mx-auto,
+        .public-site .hero-home > .mx-auto {
+            min-height: auto !important;
+        }
+    }
+</style>
+
+<style>
+    .public-site {
+        background:
+            linear-gradient(180deg, rgba(246, 249, 252, .96), rgba(255, 255, 255, 1) 42%, rgba(246, 249, 252, .92)),
+            #f6f9fc;
+    }
+
+    .site-header {
+        border-bottom: 1px solid rgba(7, 31, 58, .07);
+    }
+
+    .public-site .nav-link {
+        position: relative;
+        padding: 9px 0;
+    }
+
+    .public-site .nav-link::after {
+        position: absolute;
+        right: 0;
+        bottom: 1px;
+        left: 0;
+        height: 2px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #d6a63a, #18a999, #e85d5a);
+        content: "";
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform .24s ease;
+    }
+
+    .public-site .nav-link:hover::after,
+    .public-site .nav-link.active::after {
+        transform: scaleX(1);
+    }
+
+    .public-site .school-hero,
+    .public-site .public-hero {
+        position: relative;
+        overflow: hidden;
+        isolation: isolate;
+    }
+
+    .public-site .school-hero::before,
+    .public-site .public-hero::before {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+            linear-gradient(120deg, transparent 0 34%, rgba(240, 199, 94, .18) 34% 35%, transparent 35% 62%, rgba(24, 169, 153, .14) 62% 63%, transparent 63%),
+            repeating-linear-gradient(135deg, rgba(255, 255, 255, .08) 0 1px, transparent 1px 22px);
+        content: "";
+        opacity: .72;
+        animation: heroPatternShift 18s linear infinite;
+    }
+
+    .public-site .section-pill,
+    .public-site .eyebrow {
+        letter-spacing: .18em;
+    }
+
+    .public-site .gold-button,
+    .public-site .outline-button,
+    .public-site .ghost-button {
+        position: relative;
+        overflow: hidden;
+        transform: translateZ(0);
+        transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+
+    .public-site .gold-button::after,
+    .public-site .outline-button::after,
+    .public-site .ghost-button::after {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(105deg, transparent 0 30%, rgba(255, 255, 255, .4) 46%, transparent 62% 100%);
+        content: "";
+        transform: translateX(-120%);
+        transition: transform .7s ease;
+    }
+
+    .public-site .gold-button:hover,
+    .public-site .outline-button:hover,
+    .public-site .ghost-button:hover {
+        transform: translateY(-2px);
+    }
+
+    .public-site .gold-button:hover::after,
+    .public-site .outline-button:hover::after,
+    .public-site .ghost-button:hover::after {
+        transform: translateX(120%);
+    }
+
+    .public-site .feature-card,
+    .public-site .news-card,
+    .public-site .program-card,
+    .public-site .soft-card,
+    .public-site .profile-stat,
+    .public-site .achievement-card,
+    .public-site .gallery-tile,
+    .public-site .facility-tile,
+    .public-site .timeline-row,
+    .public-site .org-node {
+        transition: transform .24s ease, box-shadow .24s ease, border-color .24s ease, filter .24s ease;
+    }
+
+    .public-site .feature-card:hover,
+    .public-site .news-card:hover,
+    .public-site .program-card:hover,
+    .public-site .soft-card:hover,
+    .public-site .profile-stat:hover,
+    .public-site .achievement-card:hover,
+    .public-site .gallery-tile:hover,
+    .public-site .facility-tile:hover,
+    .public-site .timeline-row:hover,
+    .public-site .org-node:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 22px 55px rgba(7, 31, 58, .14);
+    }
+
+    .public-site .feature-card:nth-child(5n + 1) .feature-icon,
+    .public-site .soft-card:nth-child(3n + 1) span {
+        background: linear-gradient(135deg, #071f3a, #0f4c5c);
+        color: #f0c75e;
+    }
+
+    .public-site .feature-card:nth-child(5n + 2) .feature-icon,
+    .public-site .soft-card:nth-child(3n + 2) span {
+        background: linear-gradient(135deg, #18a999, #0f4c5c);
+        color: #ffffff;
+    }
+
+    .public-site .feature-card:nth-child(5n + 3) .feature-icon,
+    .public-site .soft-card:nth-child(3n + 3) span {
+        background: linear-gradient(135deg, #d6a63a, #e85d5a);
+        color: #071f3a;
+    }
+
+    .public-site .profile-stat,
+    .public-site .vision-card,
+    .public-site .value-card,
+    .public-site .cta-panel {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .public-site .profile-stat::before,
+    .public-site .vision-card::before,
+    .public-site .value-card::before,
+    .public-site .cta-panel::before {
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(135deg, rgba(255, 255, 255, .22), transparent 34%),
+            repeating-linear-gradient(90deg, rgba(255, 255, 255, .08) 0 1px, transparent 1px 18px);
+        content: "";
+        opacity: .42;
+        pointer-events: none;
+    }
+
+    .public-site .value-card {
+        border: 1px solid rgba(214, 166, 58, .46) !important;
+        background: #fff4dd !important;
+        color: #071f3a !important;
+    }
+
+    .public-site .value-card h3 {
+        color: #071f3a !important;
+    }
+
+    .public-site .value-card ul,
+    .public-site .value-card li {
+        color: #334e68 !important;
+    }
+
+    .public-site .text-white\/55,
+    .public-site .text-white\/56,
+    .public-site .text-white\/58,
+    .public-site .text-white\/72,
+    .public-site .text-white\/74,
+    .public-site .text-white\/76,
+    .public-site .text-white\/78,
+    .public-site .text-white\/80 {
+        color: rgba(255, 255, 255, .84) !important;
+    }
+
+    .public-site .text-\[\#6b7f91\] {
+        color: #52687d !important;
+    }
+
+    .public-site .dark-footer-title {
+        color: #f8fbff !important;
+    }
+
+    .public-site .dark-footer-list {
+        color: rgba(255, 255, 255, .82) !important;
+    }
+
+    .public-site .dark-footer-list a {
+        color: rgba(255, 255, 255, .88) !important;
+    }
+
+    .public-site .dark-footer-list a:hover {
+        color: #f0c75e !important;
+    }
+
+    .public-site .gallery-tile span,
+    .public-site .facility-tile span {
+        backdrop-filter: blur(10px);
+    }
+
+    .public-site footer {
+        position: relative;
+        overflow: hidden;
+        background:
+            linear-gradient(135deg, #061a31 0%, #082946 52%, #0c3f4c 100%);
+    }
+
+    .public-site footer::before {
+        position: absolute;
+        inset: 0;
+        background:
+            linear-gradient(120deg, transparent 0 58%, rgba(214, 166, 58, .11) 58% 59%, transparent 59%),
+            repeating-linear-gradient(135deg, rgba(255, 255, 255, .055) 0 1px, transparent 1px 24px);
+        content: "";
+        pointer-events: none;
+    }
+
+    .public-site footer > div {
+        position: relative;
+    }
+
+    .public-site .footer-social {
+        transition: transform .22s ease, background-color .22s ease, color .22s ease;
+    }
+
+    .public-site .footer-social:hover {
+        background: #f0c75e;
+        color: #071f3a;
+        transform: translateY(-3px);
+    }
+
+    .public-site .footer-text-link,
+    .public-site .footer-internal-link {
+        display: inline-flex;
+        align-items: center;
+        min-height: 38px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: .12em;
+        text-transform: uppercase;
+        transition: color .22s ease, border-color .22s ease, background-color .22s ease;
+    }
+
+    .public-site .footer-text-link {
+        border: 1px solid rgba(240, 199, 94, .28);
+        padding: 0 14px;
+        color: #f0c75e;
+    }
+
+    .public-site .footer-text-link:hover {
+        border-color: rgba(240, 199, 94, .7);
+        background: rgba(240, 199, 94, .08);
+        color: #ffffff;
+    }
+
+    .public-site .footer-internal-link {
+        padding: 0;
+        color: rgba(255, 255, 255, .64);
+    }
+
+    .public-site .footer-internal-link:hover {
+        color: #ffffff;
+    }
+
+    .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity .68s ease, transform .68s ease;
+        transition-delay: var(--reveal-delay, 0ms);
+    }
+
+    .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+
+    @keyframes heroPatternShift {
+        0% {
+            background-position: 0 0, 0 0;
+        }
+
+        100% {
+            background-position: 220px 0, 120px 120px;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .public-site *,
+        .public-site *::before,
+        .public-site *::after {
+            animation-duration: .01ms !important;
+            animation-iteration-count: 1 !important;
+            scroll-behavior: auto !important;
+            transition-duration: .01ms !important;
+        }
+
+        .reveal-on-scroll {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+</style>
+
+<style>
+    .public-site {
+        --readable-navy: #071f3a;
+        --readable-body: #334e68;
+        --readable-muted: #52687d;
+    }
+
+    .public-site section[id] {
+        scroll-margin-top: calc(var(--header-height, 84px) + 20px);
+    }
+
+    .public-site .reveal-on-scroll {
+        opacity: 1 !important;
+        transform: none !important;
+        transition-delay: 0ms !important;
+    }
+
+    .public-site .hero-kesiswaan {
+        background-image: linear-gradient(90deg, rgba(8,33,59,.86), rgba(8,33,59,.34)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1800&q=85') !important;
+        background-size: cover !important;
+        background-position: center !important;
+    }
+
+    .public-site .step-card {
+        position: relative;
+        min-height: 168px !important;
+        padding: 28px !important;
+        background: #ffffff !important;
+        color: var(--readable-navy) !important;
+    }
+
+    .public-site .step-card span {
+        position: absolute;
+        top: 18px;
+        right: 22px;
+        color: rgba(201, 150, 44, .34) !important;
+        font-size: clamp(42px, 5vw, 60px) !important;
+        line-height: 1 !important;
+        font-weight: 900 !important;
+    }
+
+    .public-site .step-card h3 {
+        max-width: calc(100% - 56px);
+        margin-top: 58px !important;
+        color: var(--readable-navy) !important;
+        font-size: 17px !important;
+        line-height: 1.35 !important;
+        font-weight: 900 !important;
+    }
+
+    .public-site .step-card p {
+        margin-top: 10px !important;
+        color: var(--readable-muted) !important;
+        font-size: 13px !important;
+        line-height: 1.65 !important;
+        font-weight: 700 !important;
+    }
+
+    .public-site aside[class*="bg-[#071f3a]"] > h3 {
+        color: #ffffff !important;
+    }
+
+    .public-site aside[class*="bg-[#071f3a]"] .service-tile,
+    .public-site aside[class*="bg-[#071f3a]"] .schedule-row {
+        background: #ffffff !important;
+        border-color: rgba(217, 229, 239, .96) !important;
+        color: var(--readable-navy) !important;
+    }
+
+    .public-site aside[class*="bg-[#071f3a]"] .service-tile strong,
+    .public-site aside[class*="bg-[#071f3a]"] .schedule-row strong {
+        color: var(--readable-navy) !important;
+        font-size: 15px !important;
+        line-height: 1.35 !important;
+        font-weight: 900 !important;
+    }
+
+    .public-site aside[class*="bg-[#071f3a]"] .service-tile p {
+        color: var(--readable-muted) !important;
+        font-size: 13px !important;
+        line-height: 1.65 !important;
+        font-weight: 700 !important;
+    }
+
+    .public-site .schedule-row {
+        display: flex !important;
+        align-items: center !important;
+        gap: 16px !important;
+        min-height: 58px !important;
+        padding: 0 16px 0 0 !important;
+        overflow: hidden;
+    }
+
+    .public-site .schedule-row > span {
+        min-height: 58px !important;
+        height: 100% !important;
+        border-radius: 0 !important;
+    }
+
+    .public-site .program-card,
+    .public-site .info-card,
+    .public-site .soft-card,
+    .public-site .document-row,
+    .public-site .calendar-card,
+    .public-site .faq-item,
+    .public-site .service-tile,
+    .public-site .news-card,
+    .public-site .achievement-card,
+    .public-site .club-card {
+        color: var(--readable-body) !important;
+    }
+
+    .public-site .program-card h2,
+    .public-site .program-card h3,
+    .public-site .info-card h2,
+    .public-site .info-card h3,
+    .public-site .soft-card h2,
+    .public-site .soft-card h3,
+    .public-site .document-row strong,
+    .public-site .calendar-card h3,
+    .public-site .faq-item summary,
+    .public-site .news-card h3,
+    .public-site .achievement-card h3,
+    .public-site .club-card h3 {
+        color: var(--readable-navy) !important;
+    }
+
+    .public-site .program-card p,
+    .public-site .info-card p,
+    .public-site .soft-card p,
+    .public-site .document-row p,
+    .public-site .calendar-card p,
+    .public-site .faq-item p,
+    .public-site .news-card p,
+    .public-site .achievement-card p,
+    .public-site .club-card p {
+        color: var(--readable-muted) !important;
+    }
+
+    .public-site .program-card.dark h3,
+    .public-site .program-card.dark strong {
+        color: #ffffff !important;
+    }
+
+    .public-site .program-card.dark p {
+        color: rgba(255, 255, 255, .86) !important;
+    }
+
+    .public-site .facility-tile,
+    .public-site .gallery-tile,
+    .public-site .illustration {
+        position: relative;
+        isolation: isolate;
+        background-color: #27435b !important;
+        background-blend-mode: normal, normal, multiply;
+    }
+
+    .public-site .facility-mosaic .facility-tile {
+        grid-column: auto !important;
+        grid-row: auto !important;
+    }
+
+    .public-site .facility-tile::before,
+    .public-site .gallery-tile::before,
+    .public-site .illustration::before {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+            radial-gradient(circle at 18% 18%, rgba(240, 199, 94, .36), transparent 28%),
+            radial-gradient(circle at 82% 24%, rgba(24, 169, 153, .30), transparent 30%),
+            linear-gradient(135deg, #103d5f, #071f3a 58%, #0f4c5c);
+        content: "";
+        opacity: 0;
+    }
+
+    .public-site .facility-tile::after,
+    .public-site .gallery-tile::after {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background: linear-gradient(180deg, rgba(7,31,58,0) 35%, rgba(7,31,58,.78) 100%);
+        content: "";
+    }
+
+    .public-site .facility-tile.science-lab,
+    .public-site .facility-tile.lab-real,
+    .public-site .gallery-tile.lab,
+    .public-site .illustration.lab {
+        background-image:
+            linear-gradient(180deg, transparent 35%, rgba(8,33,59,.80)),
+            radial-gradient(circle at 28% 46%, rgba(255,255,255,.86) 0 1.6rem, transparent 1.7rem),
+            radial-gradient(circle at 69% 48%, rgba(214,166,58,.82) 0 2.2rem, transparent 2.3rem),
+            linear-gradient(90deg, transparent 0 30%, #eaf4f7 30% 34%, transparent 34% 52%, #d4e1e8 52% 57%, transparent 57%),
+            linear-gradient(180deg, #a9d8df 0 48%, #dfe9ee 48% 64%, #17344f 64% 100%) !important;
+    }
+
+    .public-site .facility-tile.lab-real {
+        background-image:
+            linear-gradient(180deg, transparent 35%, rgba(8,33,59,.80)),
+            linear-gradient(90deg, transparent 0 13%, #071f3a 13% 29%, transparent 29% 43%, #071f3a 43% 59%, transparent 59% 73%, #071f3a 73% 89%, transparent 89%),
+            linear-gradient(90deg, transparent 0 15%, #19a99a 15% 27%, transparent 27% 45%, #d6a63a 45% 57%, transparent 57% 75%, #19a99a 75% 87%, transparent 87%),
+            radial-gradient(circle at 74% 26%, #d6a63a 0 2.5rem, transparent 2.6rem),
+            linear-gradient(180deg, #d9e9f2 0 22%, #d7e7fa 22% 52%, #12395f 52% 100%) !important;
+    }
+
+    .public-site .facility-tile.library-real,
+    .public-site .gallery-tile.library,
+    .public-site .illustration.library {
+        background-image:
+            linear-gradient(180deg, transparent 35%, rgba(8,33,59,.80)),
+            repeating-linear-gradient(90deg, #f4efe6 0 1.1rem, #8f3f2b 1.1rem 2rem, #d6a63a 2rem 3rem, #18364d 3rem 4rem, #efe2ca 4rem 5rem),
+            linear-gradient(180deg, #7b5638 0 68%, #071f3a 68% 100%) !important;
+    }
+
+    .public-site .facility-tile.classroom-real,
+    .public-site .gallery-tile.hall {
+        background-image:
+            linear-gradient(180deg, transparent 35%, rgba(8,33,59,.80)),
+            linear-gradient(90deg, transparent 0 13%, #fff8e7 13% 26%, transparent 26% 43%, #fff8e7 43% 56%, transparent 56% 73%, #fff8e7 73% 86%, transparent 86%),
+            radial-gradient(circle at 20% 62%, #bd7c5c 0 1.3rem, transparent 1.4rem),
+            radial-gradient(circle at 50% 62%, #94684c 0 1.3rem, transparent 1.4rem),
+            radial-gradient(circle at 80% 62%, #c98c65 0 1.3rem, transparent 1.4rem),
+            linear-gradient(90deg, transparent 0 14%, #1f7a66 14% 58%, transparent 58% 66%, #dbeafe 66% 91%, transparent 91%),
+            linear-gradient(180deg, #e8f0f4 0 45%, #d7b889 45% 100%) !important;
+    }
+
+    .public-site .facility-tile.court-real,
+    .public-site .gallery-tile.court {
+        background-image:
+            linear-gradient(180deg, transparent 35%, rgba(8,33,59,.80)),
+            linear-gradient(90deg, transparent 0 13%, #fff8e7 13% 26%, transparent 26% 43%, #fff8e7 43% 56%, transparent 56% 73%, #fff8e7 73% 86%, transparent 86%),
+            radial-gradient(circle at 20% 62%, #bd7c5c 0 1.3rem, transparent 1.4rem),
+            radial-gradient(circle at 50% 62%, #94684c 0 1.3rem, transparent 1.4rem),
+            radial-gradient(circle at 80% 62%, #c98c65 0 1.3rem, transparent 1.4rem),
+            linear-gradient(90deg, transparent 0 14%, #1f7a66 14% 58%, transparent 58% 66%, #dbeafe 66% 91%, transparent 91%),
+            linear-gradient(180deg, #e8f0f4 0 45%, #d7b889 45% 100%) !important;
+    }
+
+    .public-site .illustration.graduates,
+    .public-site .illustration.graduation,
+    .public-site .illustration.campus,
+    .public-site .illustration.meeting,
+    .public-site .illustration.study,
+    .public-site .illustration.class,
+    .public-site .illustration.assembly {
+        background-image:
+            linear-gradient(180deg, transparent 38%, rgba(8,33,59,.78)),
+            linear-gradient(90deg, transparent 0 13%, #fff8e7 13% 26%, transparent 26% 43%, #fff8e7 43% 56%, transparent 56% 73%, #fff8e7 73% 86%, transparent 86%),
+            radial-gradient(circle at 20% 62%, #bd7c5c 0 1.3rem, transparent 1.4rem),
+            radial-gradient(circle at 50% 62%, #94684c 0 1.3rem, transparent 1.4rem),
+            radial-gradient(circle at 80% 62%, #c98c65 0 1.3rem, transparent 1.4rem),
+            linear-gradient(90deg, transparent 0 14%, #1f7a66 14% 58%, transparent 58% 66%, #dbeafe 66% 91%, transparent 91%),
+            linear-gradient(180deg, #e8f0f4 0 45%, #d7b889 45% 100%) !important;
+    }
+
+    .public-site .illustration.olympiad,
+    .public-site .illustration.labroom,
+    .public-site .illustration.robot,
+    .public-site .illustration.presentation,
+    .public-site .illustration.robotics-real {
+        background-image:
+            linear-gradient(180deg, transparent 38%, rgba(8,33,59,.78)),
+            radial-gradient(circle at 28% 46%, rgba(255,255,255,.86) 0 1.6rem, transparent 1.7rem),
+            radial-gradient(circle at 69% 48%, rgba(214,166,58,.82) 0 2.2rem, transparent 2.3rem),
+            linear-gradient(90deg, transparent 0 30%, #eaf4f7 30% 34%, transparent 34% 52%, #d4e1e8 52% 57%, transparent 57%),
+            linear-gradient(180deg, #a9d8df 0 48%, #dfe9ee 48% 64%, #17344f 64% 100%) !important;
+    }
+
+    .public-site .illustration.victory,
+    .public-site .illustration.trophy,
+    .public-site .illustration.medalists,
+    .public-site .illustration.speech,
+    .public-site .illustration.workshop,
+    .public-site .illustration.alumni {
+        background-image:
+            linear-gradient(180deg, transparent 38%, rgba(8,33,59,.78)),
+            linear-gradient(90deg, transparent 0 13%, #071f3a 13% 29%, transparent 29% 43%, #071f3a 43% 59%, transparent 59% 73%, #071f3a 73% 89%, transparent 89%),
+            linear-gradient(90deg, transparent 0 15%, #19a99a 15% 27%, transparent 27% 45%, #d6a63a 45% 57%, transparent 57% 75%, #19a99a 75% 87%, transparent 87%),
+            radial-gradient(circle at 74% 26%, #d6a63a 0 2.5rem, transparent 2.6rem),
+            linear-gradient(180deg, #d9e9f2 0 22%, #d7e7fa 22% 52%, #12395f 52% 100%) !important;
+    }
+
+    .public-site .illustration.runner,
+    .public-site .illustration.sports,
+    .public-site .illustration.dance,
+    .public-site .illustration.culture,
+    .public-site .illustration.art,
+    .public-site .illustration.basketball-real,
+    .public-site .illustration.band-real,
+    .public-site .illustration.dance-real {
+        background-image:
+            linear-gradient(180deg, transparent 38%, rgba(8,33,59,.78)),
+            repeating-linear-gradient(90deg, #f4efe6 0 1.1rem, #8f3f2b 1.1rem 2rem, #d6a63a 2rem 3rem, #18364d 3rem 4rem, #efe2ca 4rem 5rem),
+            linear-gradient(180deg, #7b5638 0 68%, #071f3a 68% 100%) !important;
+    }
+
+    .public-site .facility-tile span,
+    .public-site .gallery-tile span,
+    .public-site .visual-label {
+        position: relative;
+        z-index: 1;
+        background: rgba(6, 26, 49, .82) !important;
+        color: #ffffff !important;
+        box-shadow: 0 10px 22px rgba(0, 0, 0, .18);
+    }
+
+    @media (max-width: 640px) {
+        .public-site .step-card {
+            min-height: 150px !important;
+        }
+
+        .public-site .step-card h3 {
+            max-width: none;
+            margin-top: 50px !important;
         }
     }
 </style>

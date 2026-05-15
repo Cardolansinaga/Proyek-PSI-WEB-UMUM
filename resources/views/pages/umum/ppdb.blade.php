@@ -1,23 +1,23 @@
 @extends('layouts.site', ['active' => 'ppdb'])
 
-@section('title', 'PPDB Online - SMAN 2 Balige')
+@section('title', 'Informasi PPDB - SMAN 2 Balige')
 @section('description', 'Informasi penerimaan peserta didik baru SMAN 2 Balige.')
 
 @section('content')
     <section class="school-hero hero-ppdb text-center">
         <div class="hero-shade"></div>
         <div class="mx-auto grid min-h-[520px] max-w-7xl place-items-center px-4 py-20 lg:px-8">
-            <div class="relative max-w-4xl">
-                <span class="section-pill">Tahun Ajaran 2026/2027</span>
-                <h1 class="mt-7 text-5xl font-black leading-[0.98] text-white sm:text-6xl lg:text-7xl">
-                    Penerimaan Peserta <span class="text-[#d6a63a]">Didik Baru</span>
+            <div class="relative max-w-4xl animate-fade-in-up">
+                <span class="section-pill animate-fade-in" style="animation-delay: 0.1s;">Tahun Ajaran 2026/2027</span>
+                <h1 class="mt-7 text-5xl font-black leading-[0.98] text-white sm:text-6xl lg:text-7xl animate-fade-in-up" style="animation-delay: 0.2s;">
+                    Informasi Penerimaan Peserta <span class="text-[#d6a63a]">Didik Baru</span>
                 </h1>
-                <p class="mx-auto mt-7 max-w-2xl text-base font-semibold leading-8 text-white/76">
+                <p class="mx-auto mt-7 max-w-2xl text-base font-semibold leading-8 text-white/76 animate-fade-in-up" style="animation-delay: 0.3s;">
                     Bergabunglah dengan institusi pendidikan unggulan yang berfokus pada karakter, prestasi, dan masa depan gemilang.
                 </p>
                 <div class="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
-                    <a href="#formulir" class="gold-button">Daftar Sekarang</a>
-                    <a href="#syarat" class="ghost-button">Lihat Panduan</a>
+                    <a href="#formulir" class="gold-button transition-smooth hover:animate-pulse-glow" style="animation-delay: 0.4s;">Hubungi Panitia</a>
+                    <a href="#syarat" class="ghost-button transition-smooth" style="animation-delay: 0.5s;">Lihat Panduan</a>
                 </div>
             </div>
         </div>
@@ -25,25 +25,25 @@
 
     <section class="bg-white py-20 sm:py-24">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
-            <div class="mx-auto max-w-3xl text-center">
+            <div class="mx-auto max-w-3xl text-center animate-fade-in-up">
                 <h2 class="text-3xl font-black text-[#071f3a] sm:text-4xl">Mengapa Memilih SMAN 2 Balige?</h2>
                 <div class="mx-auto mt-5 h-1 w-16 rounded-full bg-[#d6a63a]"></div>
             </div>
             <div class="mt-14 grid gap-8 md:grid-cols-3">
-                <article class="info-card"><span class="round-icon"><i class="bi bi-award"></i></span><h2>Akreditasi A</h2><p>Kualitas pendidikan terstandarisasi nasional dengan kurikulum relevan dan adaptif.</p></article>
-                <article class="info-card"><span class="round-icon"><i class="bi bi-trophy"></i></span><h2>Prestasi Internasional</h2><p>Siswa kami konsisten meraih medali di ajang olimpiade sains dan kompetisi global.</p></article>
-                <article class="info-card"><span class="round-icon"><i class="bi bi-people"></i></span><h2>Lingkungan Inklusif</h2><p>Pembentukan karakter melalui lingkungan aman, disiplin, dan penuh rasa persaudaraan.</p></article>
+                <article class="info-card hover-lift animate-fade-in-up stagger-1"><span class="round-icon"><i class="bi bi-award"></i></span><h2>Akreditasi A</h2><p>Kualitas pendidikan terstandarisasi nasional dengan kurikulum relevan dan adaptif.</p></article>
+                <article class="info-card hover-lift animate-fade-in-up stagger-2"><span class="round-icon"><i class="bi bi-trophy"></i></span><h2>Prestasi Internasional</h2><p>Siswa kami konsisten meraih medali di ajang olimpiade sains dan kompetisi global.</p></article>
+                <article class="info-card hover-lift animate-fade-in-up stagger-3"><span class="round-icon"><i class="bi bi-people"></i></span><h2>Lingkungan Inklusif</h2><p>Pembentukan karakter melalui lingkungan aman, disiplin, dan penuh rasa persaudaraan.</p></article>
             </div>
         </div>
     </section>
 
     <section class="bg-[#071f3a] py-20 text-center text-white">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
-            <h2 class="text-3xl font-black sm:text-4xl">Alur Pendaftaran Online</h2>
-            <p class="mx-auto mt-4 max-w-2xl text-sm font-semibold leading-7 text-white/56">Ikuti langkah-langkah mudah untuk menjadi bagian dari civitas akademika SMAN 2 Balige.</p>
+            <h2 class="text-3xl font-black sm:text-4xl animate-fade-in-up">Alur Pendaftaran</h2>
+            <p class="mx-auto mt-4 max-w-2xl text-sm font-semibold leading-7 text-white/78 animate-fade-in-up" style="animation-delay: 0.1s;">Ikuti langkah-langkah mudah untuk menjadi bagian dari civitas akademika SMAN 2 Balige.</p>
             <div class="mt-12 grid gap-6 md:grid-cols-4">
-                @foreach ([['Registrasi Akun', 'Buat akun pada portal PPDB.'], ['Unggah Dokumen', 'Lengkapi formulir biodata dan berkas.'], ['Verifikasi Berkas', 'Tim panitia memeriksa kelengkapan dokumen.'], ['Pengumuman', 'Cek status kelulusan melalui dashboard.']] as $index => $step)
-                    <article class="step-card"><span>{{ $index + 1 }}</span><h3>{{ $step[0] }}</h3><p>{{ $step[1] }}</p></article>
+                @foreach ([['Konsultasi Informasi', 'Hubungi panitia untuk memastikan jadwal dan jalur pendaftaran.'], ['Persiapan Dokumen', 'Lengkapi biodata calon siswa dan berkas yang diperlukan.'], ['Verifikasi Berkas', 'Tim panitia memeriksa kelengkapan dokumen.'], ['Pengumuman', 'Ikuti informasi resmi sekolah terkait hasil seleksi.']] as $index => $step)
+                    <article class="step-card transition-smooth hover:translate-y-[-8px] animate-fade-in-up" style="animation-delay: {{ (0.2 + $index * 0.1) }}s;"><span>{{ $index + 1 }}</span><h3>{{ $step[0] }}</h3><p>{{ $step[1] }}</p></article>
                 @endforeach
             </div>
         </div>
@@ -87,8 +87,8 @@
             <h2>Siap Menjadi Bagian Dari Generasi Unggul?</h2>
             <p>Jangan lewatkan kesempatan berharga untuk menempuh pendidikan di salah satu SMA terbaik di Sumatera Utara.</p>
             <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-                <a href="{{ route('kontak') }}#pesan" class="gold-button">Hubungi Panitia PPDB</a>
-                <a href="{{ route('kontak') }}#peta" class="ghost-button">Lihat Lokasi Sekolah</a>
+                <a href="{{ route('home') }}#kontak" class="gold-button">Hubungi Panitia PPDB</a>
+                <a href="{{ route('home') }}#kontak" class="ghost-button">Lihat Lokasi Sekolah</a>
             </div>
         </div>
     </section>

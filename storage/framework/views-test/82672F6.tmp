@@ -1,9 +1,7 @@
-@extends('layouts.site', ['active' => 'home'])
+<?php $__env->startSection('title', 'Beranda - SMAN 2 Balige'); ?>
+<?php $__env->startSection('description', 'Beranda resmi SMAN 2 Balige, sekolah unggul yang membangun generasi berkarakter dan berprestasi.'); ?>
 
-@section('title', 'Beranda - SMAN 2 Balige')
-@section('description', 'Beranda resmi SMAN 2 Balige, sekolah unggul yang membangun generasi berkarakter dan berprestasi.')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <section class="school-hero hero-home" style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85'); background-size: cover; background-position: center;">
         <div class="hero-shade"></div>
         <div class="mx-auto grid min-h-[620px] max-w-7xl items-center gap-12 px-4 py-20 sm:py-24 lg:grid-cols-[1fr_0.82fr] lg:px-8">
@@ -16,7 +14,7 @@
                     Membentuk pemimpin masa depan melalui standar akademik internasional, kedisiplinan tinggi, dan pengembangan bakat komprehensif di jantung kota Balige.
                 </p>
                 <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-                    <a href="{{ route('ppdb') }}" class="gold-button">Informasi PPDB</a>
+                    <a href="<?php echo e(route('ppdb')); ?>" class="gold-button">Informasi PPDB</a>
                     <a href="#profil" class="ghost-button">Lihat Profil Sekolah</a>
                 </div>
             </div>
@@ -47,13 +45,13 @@
                 </p>
                 <div class="mt-9 flex flex-col gap-4 sm:flex-row">
                     <a href="#sejarah" class="gold-button">Lihat Sejarah</a>
-                    <a href="{{ route('akademik') }}#prestasi" class="outline-button">Akademik & Prestasi</a>
+                    <a href="<?php echo e(route('akademik')); ?>#prestasi" class="outline-button">Akademik & Prestasi</a>
                 </div>
             </div>
             <div class="grid gap-5 sm:grid-cols-2">
-                @foreach ([['Karakter', 'Budaya sekolah yang disiplin dan saling menghargai.'], ['Akademik', 'Pendampingan belajar yang terarah dan berkelanjutan.'], ['Kesiswaan', 'Ruang tumbuh untuk organisasi dan kegiatan siswa.'], ['Kolaborasi', 'Komunikasi sekolah, orang tua, dan mitra.']] as $stat)
-                    <div class="profile-stat {{ $loop->index === 1 ? 'dark' : '' }}"><strong>{{ $stat[0] }}</strong><span>{{ $stat[1] }}</span></div>
-                @endforeach
+                <?php $__currentLoopData = [['Karakter', 'Budaya sekolah yang disiplin dan saling menghargai.'], ['Akademik', 'Pendampingan belajar yang terarah dan berkelanjutan.'], ['Kesiswaan', 'Ruang tumbuh untuk organisasi dan kegiatan siswa.'], ['Kolaborasi', 'Komunikasi sekolah, orang tua, alumni, dan mitra.']]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $stat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="profile-stat <?php echo e($loop->index === 1 ? 'dark' : ''); ?>"><strong><?php echo e($stat[0]); ?></strong><span><?php echo e($stat[1]); ?></span></div>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
         <div class="mx-auto mt-16 max-w-7xl px-4 lg:px-8">
@@ -74,9 +72,9 @@
                 <p class="eyebrow">Sejarah & Arah Sekolah</p>
                 <h2 class="mt-3 text-4xl font-black text-[#071f3a] sm:text-5xl">Jejak Langkah yang Terus Bergerak</h2>
                 <div class="mt-10 space-y-7">
-                    @foreach ([['Masa Pembentukan (1990)', 'Berawal dari semangat menghadirkan sekolah unggulan untuk masyarakat Balige dan kawasan Toba.'], ['Transformasi Digital (2015)', 'Pembelajaran diperkuat dengan literasi teknologi, akses informasi modern, dan pengelolaan kelas yang lebih adaptif.'], ['Masa Kini (2026)', 'Kurikulum Merdeka, pembinaan karakter, dan program prestasi berjalan terpadu untuk menyiapkan lulusan yang matang.']] as $item)
-                        <div class="timeline-row"><span></span><div><h3>{{ $item[0] }}</h3><p>{{ $item[1] }}</p></div></div>
-                    @endforeach
+                    <?php $__currentLoopData = [['Masa Pembentukan (1990)', 'Berawal dari semangat menghadirkan sekolah unggulan untuk masyarakat Balige dan kawasan Toba.'], ['Transformasi Digital (2015)', 'Pembelajaran diperkuat dengan literasi teknologi, akses informasi modern, dan pengelolaan kelas yang lebih adaptif.'], ['Masa Kini (2026)', 'Kurikulum Merdeka, pembinaan karakter, dan program prestasi berjalan terpadu untuk menyiapkan lulusan yang matang.']]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <div class="timeline-row"><span></span><div><h3><?php echo e($item[0]); ?></h3><p><?php echo e($item[1]); ?></p></div></div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </div>
             </div>
         </div>
@@ -87,7 +85,7 @@
             <div class="mx-auto max-w-3xl text-center">
                 <p class="eyebrow">Visi, Misi, Nilai</p>
                 <h2 class="mt-3 text-4xl font-black text-[#071f3a] sm:text-5xl">Fondasi Sekolah</h2>
-                <p class="mt-5 text-sm font-semibold leading-7 text-[#6b7f91]">Arah kerja sekolah dibuat jelas, terukur, dan mudah dipahami oleh siswa, orang tua, guru, serta mitra.</p>
+                <p class="mt-5 text-sm font-semibold leading-7 text-[#6b7f91]">Arah kerja sekolah dibuat jelas, terukur, dan mudah dipahami oleh siswa, orang tua, guru, alumni, serta mitra.</p>
             </div>
             <div class="mt-14 grid gap-6 lg:grid-cols-[1.35fr_0.75fr]">
                 <article class="vision-card rounded-2xl bg-[#071f3a] p-8 text-white shadow-2xl shadow-[#071f3a]/18">
@@ -103,9 +101,9 @@
                 </article>
             </div>
             <div class="mt-6 grid gap-6 md:grid-cols-3">
-                @foreach ([['01', 'Kualitas Akademik'], ['02', 'Pembangunan Karakter'], ['03', 'Inovasi Berkelanjutan']] as $mission)
-                    <article class="soft-card"><span>{{ $mission[0] }}</span><h3>{{ $mission[1] }}</h3><p>Menguatkan fondasi siswa melalui layanan pembelajaran yang terukur, humanis, dan relevan.</p></article>
-                @endforeach
+                <?php $__currentLoopData = [['01', 'Kualitas Akademik'], ['02', 'Pembangunan Karakter'], ['03', 'Inovasi Berkelanjutan']]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $mission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <article class="soft-card"><span><?php echo e($mission[0]); ?></span><h3><?php echo e($mission[1]); ?></h3><p>Menguatkan fondasi siswa melalui layanan pembelajaran yang terukur, humanis, dan relevan.</p></article>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </div>
         </div>
     </section>
@@ -147,9 +145,9 @@
                 <a href="#kontak" class="outline-button">Hubungi Sekolah -></a>
             </div>
             <div class="mt-12 grid gap-8 lg:grid-cols-3">
-                <article class="news-card"><div class="illustration graduates"></div><div class="p-7"><p class="meta-line">PPDB / 12 Mei 2026</p><h3>Penerimaan Siswa Baru Tahun Ajaran 2026/2027</h3><p>Informasi jalur pendaftaran, dokumen, dan jadwal layanan PPDB kini tersedia untuk calon siswa dan orang tua.</p><a href="{{ route('ppdb') }}">Baca Selengkapnya -></a></div></article>
-                <article class="news-card"><div class="illustration olympiad"></div><div class="p-7"><p class="meta-line">Prestasi / 08 Mei 2026</p><h3>Tim Sains Sekolah Siap Mengikuti Seleksi Olimpiade</h3><p>Program pembinaan akademik terus diperkuat melalui mentoring rutin, simulasi soal, dan evaluasi berkala.</p><a href="{{ route('akademik') }}#prestasi">Baca Selengkapnya -></a></div></article>
-                <article class="news-card"><div class="illustration workshop"></div><div class="p-7"><p class="meta-line">Kesiswaan / 01 Mei 2026</p><h3>LDKS Menumbuhkan Kepemimpinan yang Berkarakter</h3><p>OSIS dan MPK menyiapkan agenda pembinaan agar siswa berani memimpin, bekerja sama, dan bertanggung jawab.</p><a href="{{ route('kesiswaan') }}#organisasi">Baca Selengkapnya -></a></div></article>
+                <article class="news-card"><div class="illustration graduates"></div><div class="p-7"><p class="meta-line">PPDB / 12 Mei 2026</p><h3>Penerimaan Siswa Baru Tahun Ajaran 2026/2027</h3><p>Informasi jalur pendaftaran, dokumen, dan jadwal layanan PPDB kini tersedia untuk calon siswa dan orang tua.</p><a href="<?php echo e(route('ppdb')); ?>">Baca Selengkapnya -></a></div></article>
+                <article class="news-card"><div class="illustration olympiad"></div><div class="p-7"><p class="meta-line">Prestasi / 08 Mei 2026</p><h3>Tim Sains Sekolah Siap Mengikuti Seleksi Olimpiade</h3><p>Program pembinaan akademik terus diperkuat melalui mentoring rutin, simulasi soal, dan evaluasi berkala.</p><a href="<?php echo e(route('akademik')); ?>#prestasi">Baca Selengkapnya -></a></div></article>
+                <article class="news-card"><div class="illustration workshop"></div><div class="p-7"><p class="meta-line">Kesiswaan / 01 Mei 2026</p><h3>LDKS Menumbuhkan Kepemimpinan yang Berkarakter</h3><p>OSIS dan MPK menyiapkan agenda pembinaan agar siswa berani memimpin, bekerja sama, dan bertanggung jawab.</p><a href="<?php echo e(route('kesiswaan')); ?>#organisasi">Baca Selengkapnya -></a></div></article>
             </div>
         </div>
     </section>
@@ -175,9 +173,11 @@
             <h2>Siap Menjadi Bagian Dari Generasi Unggul?</h2>
             <p>Bergabunglah dengan komunitas pembelajar terbaik dan wujudkan cita-citamu bersama SMAN 2 Balige.</p>
             <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-                <a href="{{ route('ppdb') }}" class="gold-button">Informasi PPDB</a>
+                <a href="<?php echo e(route('ppdb')); ?>" class="gold-button">Informasi PPDB</a>
                 <a href="#galeri" class="ghost-button">Lihat Galeri</a>
             </div>
         </div>
     </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.site', ['active' => 'home'], array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\Proyek-PSI-WEB-UMUM\resources\views/welcome.blade.php ENDPATH**/ ?>
