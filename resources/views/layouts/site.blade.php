@@ -10,25 +10,20 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @include('layouts.partials.public-polish')
     </head>
-    <body class="min-w-80 bg-[#f6f9fc] font-sans text-[#102a43] antialiased">
+    <body class="public-site min-w-80 bg-[#f6f9fc] font-sans text-[#102a43] antialiased">
         @php
             $active = $active ?? '';
             $newsSlug = 'pembinaan-sains-sman-2-balige-2026';
             $navItems = [
                 ['label' => 'Beranda', 'href' => route('home'), 'key' => 'home'],
-                ['label' => 'Profil', 'href' => route('profil'), 'key' => 'profil'],
-                ['label' => 'Akademik', 'href' => route('akademik'), 'key' => 'akademik'],
-                ['label' => 'Prestasi', 'href' => route('prestasi'), 'key' => 'prestasi'],
-                ['label' => 'Kehidupan Siswa', 'href' => route('kesiswaan'), 'key' => 'kesiswaan'],
+                ['label' => 'Akademik & Prestasi', 'href' => route('akademik'), 'key' => 'akademik'],
+                ['label' => 'Kesiswaan & Ekstrakurikuler', 'href' => route('kesiswaan'), 'key' => 'kesiswaan'],
                 ['label' => 'PPDB', 'href' => route('ppdb'), 'key' => 'ppdb'],
-                ['label' => 'Berita', 'href' => route('berita.index'), 'key' => 'berita'],
-                ['label' => 'Galeri', 'href' => route('galeri'), 'key' => 'galeri'],
-                ['label' => 'Kontak', 'href' => route('kontak'), 'key' => 'kontak'],
             ];
         @endphp
 
-        <header class="sticky top-0 z-50 shadow-[0_8px_30px_rgba(15,35,55,0.08)]">
-            <nav class="bg-white">
+        <header class="site-header sticky top-0 z-50 shadow-[0_8px_30px_rgba(15,35,55,0.08)]">
+            <nav class="bg-white/95 backdrop-blur-xl">
                 <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 lg:px-8 xl:justify-start xl:gap-14">
                     <a href="{{ route('home') }}" class="flex min-w-0 items-center gap-3">
                         <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#071f3a] text-sm font-extrabold text-[#d6a63a] shadow-lg shadow-[#071f3a]/20">S2</span>
@@ -42,7 +37,6 @@
                         @foreach ($navItems as $item)
                             <a class="nav-link {{ $active === $item['key'] ? 'active' : '' }}" href="{{ $item['href'] }}">{{ $item['label'] }}</a>
                         @endforeach
-                        <a href="{{ route('login') }}" class="rounded-full bg-[#071f3a] px-5 py-3 text-[11px] font-black uppercase tracking-[0.12em] text-white transition hover:bg-[#12385b]">Portal Staff</a>
                     </div>
 
                     <details class="mobile-menu relative xl:hidden">
@@ -54,7 +48,6 @@
                             @foreach ($navItems as $item)
                                 <a class="mobile-link {{ $active === $item['key'] ? 'text-[#071f3a]' : '' }}" href="{{ $item['href'] }}">{{ $item['label'] }}</a>
                             @endforeach
-                            <a class="mobile-link text-[#071f3a]" href="{{ route('login') }}">Portal Staff</a>
                         </div>
                     </details>
                 </div>
@@ -65,53 +58,41 @@
             @yield('content')
         </main>
 
-        <footer class="bg-[#071f3a] text-white">
-            <div class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] lg:px-8">
+        <footer id="kontak" class="bg-[#071f3a] text-white">
+            <div class="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:grid-cols-2 lg:grid-cols-[1.35fr_1fr_1.25fr] lg:px-8">
                 <div>
                     <div class="flex items-center gap-3">
                         <span class="grid h-11 w-11 place-items-center rounded-full bg-white text-sm font-black text-[#071f3a]">S2</span>
                         <span class="text-xl font-black">SMAN 2 <span class="text-[#d6a63a]">Balige</span></span>
                     </div>
-                    <p class="mt-6 max-w-sm text-sm font-semibold leading-7 text-white/58">
-                        Membentuk insan berkarakter, berprestasi, dan berwawasan global di tanah Toba.
+                    <p class="mt-6 max-w-sm text-sm font-semibold leading-7 text-white/78">
+                        Portal resmi informasi sekolah untuk profil, akademik, kesiswaan dan ekstrakurikuler, PPDB, dan kontak SMAN 2 Balige.
                     </p>
                     <div class="mt-7 flex gap-3">
                         <a class="footer-social" href="mailto:info@sman2balige.sch.id" aria-label="Kirim email ke sekolah"><i class="bi bi-envelope"></i></a>
-                        <a class="footer-social" href="{{ route('kontak') }}#peta" aria-label="Lihat lokasi sekolah"><i class="bi bi-geo-alt"></i></a>
-                        <a class="footer-social" href="{{ route('login') }}" aria-label="Masuk portal staff"><i class="bi bi-person-lock"></i></a>
+                        <a class="footer-social" href="https://maps.google.com/?q=SMAN%202%20Balige" target="_blank" rel="noopener" aria-label="Lihat lokasi sekolah"><i class="bi bi-geo-alt"></i></a>
                     </div>
                 </div>
                 <div>
-                    <h3 class="dark-footer-title">Eksplorasi</h3>
+                    <h3 class="dark-footer-title">Navigasi Utama</h3>
                     <ul class="dark-footer-list">
-                        <li><a href="{{ route('profil') }}">Profil Sekolah</a></li>
-                        <li><a href="{{ route('akademik') }}">Akademik</a></li>
-                        <li><a href="{{ route('guru') }}">Guru & Tenaga Kependidikan</a></li>
-                        <li><a href="{{ route('kesiswaan') }}">Kehidupan Siswa & Asrama</a></li>
+                        <li><a href="{{ route('home') }}">Beranda</a></li>
+                        <li><a href="{{ route('akademik') }}">Akademik & Prestasi</a></li>
+                        <li><a href="{{ route('kesiswaan') }}">Kesiswaan & Ekstrakurikuler</a></li>
                         <li><a href="{{ route('ppdb') }}">Pendaftaran PPDB</a></li>
-                        <li><a href="{{ route('berita.index') }}">Berita & Pengumuman</a></li>
-                        <li><a href="{{ route('galeri') }}">Galeri Sekolah</a></li>
-                        <li><a href="{{ route('prestasi') }}">Prestasi Siswa</a></li>
-                        <li><a href="{{ route('alumni') }}">Alumni & Kemitraan</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="dark-footer-title">Informasi Kontak</h3>
+                    <h3 class="dark-footer-title">Kontak Resmi</h3>
                     <ul class="dark-footer-list">
                         <li>Jl. Sopo Surung, Kec. Balige, Kab. Toba, Sumatera Utara.</li>
                         <li>(0632) 213456</li>
                         <li>info@sman2balige.sch.id</li>
                     </ul>
-                </div>
-                <div id="portal">
-                    <h3 class="dark-footer-title">Portal Staff</h3>
-                    <a href="{{ route('login') }}" class="mt-6 inline-flex rounded-lg bg-[#d6a63a] px-7 py-4 text-sm font-black text-[#071f3a] transition hover:bg-[#efc861]">Masuk Admin</a>
-                </div>
-            </div>
-            <div class="border-t border-white/8">
-                <div class="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-8 text-[10px] font-black uppercase tracking-[0.22em] text-white/30 sm:flex-row sm:items-center sm:justify-between lg:px-8">
-                    <p>(c) 2026 SMAN 2 Balige. All rights reserved.</p>
-                    <p>Portal resmi sekolah</p>
+                    <div class="mt-7 flex flex-wrap gap-3">
+                        <a href="{{ route('ppdb') }}" class="footer-text-link">Informasi PPDB</a>
+                        <a href="{{ route('login') }}" class="footer-internal-link" aria-label="Akses portal internal sekolah">Portal Internal</a>
+                    </div>
                 </div>
             </div>
         </footer>

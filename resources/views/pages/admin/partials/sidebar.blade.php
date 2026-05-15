@@ -9,12 +9,10 @@
         </div>
         <nav style="display: flex; flex-direction: column; gap: 4px;">
             <a href="{{ route('dashboard') }}" class="nav-item {{ ($activeAdmin ?? '') === 'dashboard' ? 'active-nav' : '' }}">Dashboard</a>
-            <a href="{{ route('guru.index') }}" class="nav-item {{ ($activeAdmin ?? '') === 'guru' ? 'active-nav' : '' }}">Guru & Staf</a>
-            <a href="{{ route('prestasi.index') }}" class="nav-item {{ ($activeAdmin ?? '') === 'prestasi' ? 'active-nav' : '' }}">Prestasi</a>
-            <a href="{{ route('pengumuman.index') }}" class="nav-item {{ ($activeAdmin ?? '') === 'pengumuman' ? 'active-nav' : '' }}">Pengumuman</a>
-            <a href="{{ route('kesiswaan.index') }}" class="nav-item {{ ($activeAdmin ?? '') === 'kesiswaan' ? 'active-nav' : '' }}">Kesiswaan</a>
+            <a href="{{ route('admin.beranda') }}" class="nav-item {{ ($activeAdmin ?? '') === 'beranda' ? 'active-nav' : '' }}">Beranda</a>
+            <a href="{{ route('prestasi.index') }}" class="nav-item {{ ($activeAdmin ?? '') === 'prestasi' ? 'active-nav' : '' }}">Akademik & Prestasi</a>
+            <a href="{{ route('kesiswaan.index') }}" class="nav-item {{ ($activeAdmin ?? '') === 'kesiswaan' ? 'active-nav' : '' }}">Kesiswaan & Ekstrakurikuler</a>
             <a href="{{ route('admin.ppdb') }}" class="nav-item {{ ($activeAdmin ?? '') === 'ppdb' ? 'active-nav' : '' }}">PPDB</a>
-            <a href="{{ route('admin.galeri') }}" class="nav-item {{ ($activeAdmin ?? '') === 'galeri' ? 'active-nav' : '' }}">Galeri</a>
             <a href="{{ route('admin.pengaturan') }}" class="nav-item {{ ($activeAdmin ?? '') === 'pengaturan' ? 'active-nav' : '' }}">Pengaturan</a>
         </nav>
     </div>

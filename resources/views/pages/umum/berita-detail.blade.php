@@ -20,7 +20,7 @@
                     <div><strong class="block text-[#071f3a]">Admin Sekolah</strong><span class="text-sm font-semibold text-[#8396a8]">Humas SMAN 2 Balige</span></div>
                 </div>
                 <div class="flex gap-3">
-                    <a class="icon-button" href="{{ route('prestasi') }}" aria-label="Lihat prestasi"><i class="bi bi-trophy"></i></a>
+                    <a class="icon-button" href="{{ route('akademik') }}#prestasi" aria-label="Lihat prestasi"><i class="bi bi-trophy"></i></a>
                     <a class="icon-button" href="{{ route('berita.index') }}" aria-label="Kembali ke berita"><i class="bi bi-newspaper"></i></a>
                 </div>
             </div>
@@ -61,8 +61,8 @@
             <h2 class="text-3xl font-black text-[#071f3a]">Berita Terkait</h2>
             <p class="mt-3 text-sm font-semibold text-[#8396a8]">Simak informasi menarik lainnya dari sekolah kami.</p>
             <div class="mt-10 grid gap-8 md:grid-cols-2">
-                <article class="news-card"><div class="illustration graduates"></div><div class="p-7"><p class="meta-line">Pengumuman</p><h3>Persiapan Wisuda Angkatan 2026 Mulai Dimatangkan</h3><p>Rapat koordinasi bersama wali murid telah menyepakati jadwal dan lokasi pelaksanaan.</p></div></article>
-                <article class="news-card"><div class="illustration campus"></div><div class="p-7"><p class="meta-line">Kesiswaan</p><h3>Kegiatan LDKS OSIS Berjalan Lancar di Sipinsur</h3><p>Pelatihan kepemimpinan dasar diikuti seluruh pengurus OSIS baru untuk periode mendatang.</p></div></article>
+                <article class="news-card hover-lift animate-fade-in-up stagger-1"><div class="illustration graduates"></div><div class="p-7"><p class="meta-line">Pengumuman</p><h3>Persiapan Wisuda Angkatan 2026 Mulai Dimatangkan</h3><p>Rapat koordinasi bersama wali murid telah menyepakati jadwal dan lokasi pelaksanaan.</p></div></article>
+                <article class="news-card hover-lift animate-fade-in-up stagger-2"><div class="illustration campus"></div><div class="p-7"><p class="meta-line">Kesiswaan</p><h3>Kegiatan LDKS OSIS Berjalan Lancar di Sipinsur</h3><p>Pelatihan kepemimpinan dasar diikuti seluruh pengurus OSIS baru untuk periode mendatang.</p></div></article>
             </div>
             <div class="mt-12 text-center"><a href="{{ route('berita.index') }}" class="rounded-full bg-[#071f3a] px-8 py-4 text-sm font-black uppercase tracking-[0.08em] text-white">Lihat Berita Lainnya -></a></div>
         </div>

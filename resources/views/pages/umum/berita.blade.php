@@ -18,10 +18,10 @@
     <section class="school-hero hero-news text-center">
         <div class="hero-shade"></div>
         <div class="mx-auto grid min-h-[430px] max-w-7xl place-items-center px-4 py-20 lg:px-8">
-            <div class="relative max-w-4xl">
-                <span class="section-pill">Warta Sekolah</span>
-                <h1 class="mt-7 text-5xl font-black leading-[1] text-white sm:text-6xl">Informasi & Update Terbaru Sekolah</h1>
-                <p class="mx-auto mt-6 max-w-2xl text-base font-semibold leading-8 text-white/72">Ikuti perkembangan prestasi, pengumuman akademik, dan agenda kesiswaan dalam satu portal terpadu.</p>
+            <div class="relative max-w-4xl animate-fade-in-up">
+                <span class="section-pill animate-fade-in" style="animation-delay: 0.1s;">Warta Sekolah</span>
+                <h1 class="mt-7 text-5xl font-black leading-[1] text-white sm:text-6xl animate-fade-in-up" style="animation-delay: 0.2s;">Informasi & Update Terbaru Sekolah</h1>
+                <p class="mx-auto mt-6 max-w-2xl text-base font-semibold leading-8 text-white/72 animate-fade-in-up" style="animation-delay: 0.3s;">Ikuti perkembangan prestasi, pengumuman akademik, dan agenda kesiswaan dalam satu portal terpadu.</p>
             </div>
         </div>
     </section>
@@ -33,13 +33,13 @@
                     <a href="#daftar-berita" class="filter-pill {{ $loop->first ? 'active' : '' }}">{{ $filter }}</a>
                 @endforeach
             </div>
-            <a href="{{ route('kontak') }}#pesan" class="outline-button">Kirim Informasi ke Humas</a>
+            <a href="{{ route('home') }}#kontak" class="outline-button">Kirim Informasi ke Humas</a>
         </div>
     </section>
 
     <section id="daftar-berita" class="bg-[#f8fafc] py-16 sm:py-20">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
-            <article class="featured-news">
+            <article class="featured-news hover-lift animate-fade-in-up">
                 <div class="illustration trophy"></div>
                 <div class="p-8 lg:p-12">
                     <p class="meta-line">15 Mei 2026</p>
@@ -50,14 +50,14 @@
             </article>
             <div class="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
                 @foreach ($cards as $card)
-                    <article class="news-card">
+                    <article class="news-card hover-lift animate-fade-in-up stagger-{{ ($loop->index % 6) + 1 }}">
                         <div class="illustration {{ $card[3] }}"><span class="visual-label">{{ $card[0] }}</span></div>
                         <div class="p-7">
                             <h3>{{ $card[1] }}</h3>
                             <p>{{ $card[2] }}</p>
                             <div class="mt-6 flex items-center justify-between text-[11px] font-black uppercase tracking-[0.12em]">
                                 <span class="text-[#9aaaba]">{{ sprintf('%02d', $loop->index + 1) }} Mei 2026</span>
-                                <a class="!mt-0 text-[#c59632]" href="{{ route('berita.show', $slug) }}">Detail -></a>
+                                <a class="!mt-0 text-[#c59632] transition-smooth hover:translate-x-1" href="{{ route('berita.show', $slug) }}">Detail -></a>
                             </div>
                         </div>
                     </article>
@@ -72,8 +72,8 @@
     <section class="bg-white px-4 py-20 lg:px-8">
         <div class="cta-panel">
             <h2>Siap Menjadi Bagian Dari Kami?</h2>
-            <p>Penerimaan Peserta Didik Baru tahun ajaran 2026/2027 telah dibuka. Daftarkan putra-putri Anda sekarang.</p>
-            <a href="{{ route('ppdb') }}" class="gold-button mt-10">Daftar PPDB Online</a>
+            <p>Informasi Penerimaan Peserta Didik Baru tahun ajaran 2026/2027 tersedia untuk calon siswa dan orang tua.</p>
+            <a href="{{ route('ppdb') }}" class="gold-button mt-10">Informasi PPDB</a>
         </div>
     </section>
 @endsection

@@ -7,17 +7,17 @@
     <section class="alumni-hero page-hero">
         <div class="page-hero-overlay"></div>
         <div class="mx-auto max-w-7xl px-4 py-24 sm:py-32 lg:px-8">
-            <div class="relative max-w-4xl">
-                <span class="section-pill">Komunitas Alumni</span>
-                <h1 class="mt-7 max-w-4xl text-5xl font-black leading-[1.02] text-white sm:text-6xl lg:text-7xl">
+            <div class="relative max-w-4xl animate-fade-in-up">
+                <span class="section-pill animate-fade-in" style="animation-delay: 0.1s;">Komunitas Alumni</span>
+                <h1 class="mt-7 max-w-4xl text-5xl font-black leading-[1.02] text-white sm:text-6xl lg:text-7xl animate-fade-in-up" style="animation-delay: 0.2s;">
                     Membangun Warisan, Menginspirasi <span class="text-[#d6a63a]">Masa Depan.</span>
                 </h1>
-                <p class="mt-7 max-w-2xl text-base font-semibold leading-8 text-white/72">
+                <p class="mt-7 max-w-2xl text-base font-semibold leading-8 text-white/72 animate-fade-in-up" style="animation-delay: 0.3s;">
                     Menghubungkan generasi pemimpin, inovator, dan pemikir yang lahir dari rahim SMAN 2 Balige untuk kontribusi nyata bagi bangsa dan dunia.
                 </p>
                 <div class="mt-9 flex flex-col gap-4 sm:flex-row">
-                    <a class="gold-button" href="#kontribusi">Gabung Jejaring Alumni -></a>
-                    <a class="ghost-button" href="#kemitraan">Hubungi Kerja Sama</a>
+                    <a class="gold-button transition-smooth" href="#kontribusi" style="animation-delay: 0.4s;">Gabung Jejaring Alumni -></a>
+                    <a class="ghost-button transition-smooth" href="#kemitraan" style="animation-delay: 0.5s;">Hubungi Kerja Sama</a>
                 </div>
             </div>
         </div>
@@ -48,7 +48,7 @@
                 <p class="mt-5 text-sm font-semibold leading-7 text-[#6b7f91]">Kisah sukses mereka yang mengawali langkah di Balige dan kini mewarnai dunia dengan prestasi luar biasa.</p>
             </div>
             <div class="mt-14 grid gap-8 lg:grid-cols-[1.7fr_0.85fr]">
-                <article class="alumni-feature alumni-photo-one">
+                <article class="alumni-feature alumni-photo-one hover-lift animate-fade-in-up stagger-1">
                     <div>
                         <span>Angkatan 1998</span>
                         <h3>Dr. Johannes Simbolon</h3>
@@ -56,10 +56,10 @@
                     </div>
                 </article>
                 <div class="grid gap-8">
-                    <article class="alumni-small alumni-photo-two">
+                    <article class="alumni-small alumni-photo-two hover-lift animate-fade-in-up stagger-2">
                         <div><h3>Maria Pangaribuan, MBA</h3><p>CEO Tech Start-up Global</p></div>
                     </article>
-                    <article class="alumni-small alumni-photo-three">
+                    <article class="alumni-small alumni-photo-three hover-lift animate-fade-in-up stagger-3">
                         <div><h3>Ir. Tumpal Siahaan</h3><p>Arsitek Nasional</p></div>
                     </article>
                 </div>
@@ -74,13 +74,13 @@
                     <h2 class="text-3xl font-black text-[#071f3a]">Jejak Lulusan</h2>
                     <p class="mt-3 max-w-2xl text-sm font-semibold text-[#6b7f91]">Lulusan SMAN 2 Balige tersebar di berbagai universitas terbaik di dalam dan luar negeri setiap tahunnya.</p>
                 </div>
-                <a class="final-link w-fit" href="{{ route('kontak') }}#pesan">Kirim Kabar Alumni -></a>
+                <a class="final-link w-fit" href="{{ route('home') }}#kontak">Kirim Kabar Alumni -></a>
             </div>
             <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                <div class="track-card"><span><i class="bi bi-mortarboard"></i></span><strong>UI & ITB</strong><small>35% lulusan 2026</small></div>
-                <div class="track-card"><span><i class="bi bi-globe2"></i></span><strong>Luar Negeri</strong><small>12 mahasiswa aktif</small></div>
-                <div class="track-card"><span><i class="bi bi-building"></i></span><strong>Kedinasan</strong><small>25 lulusan / tahun</small></div>
-                <div class="track-card"><span><i class="bi bi-shield-check"></i></span><strong>TNI & Polri</strong><small>Akademi terbaik</small></div>
+                <div class="track-card hover-lift animate-fade-in-up stagger-1"><span><i class="bi bi-mortarboard"></i></span><strong>UI & ITB</strong><small>35% lulusan 2026</small></div>
+                <div class="track-card hover-lift animate-fade-in-up stagger-2"><span><i class="bi bi-globe2"></i></span><strong>Luar Negeri</strong><small>12 mahasiswa aktif</small></div>
+                <div class="track-card hover-lift animate-fade-in-up stagger-3"><span><i class="bi bi-building"></i></span><strong>Kedinasan</strong><small>25 lulusan / tahun</small></div>
+                <div class="track-card hover-lift animate-fade-in-up stagger-4"><span><i class="bi bi-shield-check"></i></span><strong>TNI & Polri</strong><small>Akademi terbaik</small></div>
             </div>
         </div>
     </section>
@@ -120,8 +120,8 @@
                 <p class="mt-6 max-w-2xl text-sm font-bold leading-7 text-[#173047]/75">Jadilah bagian dari ekosistem yang terus bertumbuh untuk masa depan pendidikan Indonesia yang lebih gemilang.</p>
             </div>
             <div class="flex flex-col gap-4 sm:flex-row">
-                <a class="rounded-2xl bg-[#071f3a] px-7 py-4 text-sm font-black text-white" href="{{ route('kontak') }}#pesan">Gabung Jejaring</a>
-                <a class="rounded-2xl bg-white px-7 py-4 text-sm font-black text-[#071f3a]" href="{{ route('kontak') }}">Hubungi Mitra</a>
+                <a class="rounded-2xl bg-[#071f3a] px-7 py-4 text-sm font-black text-white" href="{{ route('home') }}#kontak">Gabung Jejaring</a>
+                <a class="rounded-2xl bg-white px-7 py-4 text-sm font-black text-[#071f3a]" href="{{ route('home') }}#kontak">Hubungi Mitra</a>
             </div>
         </div>
     </section>

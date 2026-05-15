@@ -37,6 +37,12 @@
         letter-spacing: 0 !important;
     }
 
+    .admin-container a[href*="/admin/guru"],
+    .admin-container a[href*="/admin/pengumuman"],
+    .admin-container a[href*="/admin/galeri"] {
+        display: none !important;
+    }
+
     .admin-container {
         min-height: 100vh !important;
         width: 100% !important;
@@ -770,6 +776,8 @@
         const iconFor = function (label) {
             const text = label.toLowerCase();
             if (text.includes('dashboard')) return 'bi-speedometer2';
+            if (text.includes('beranda')) return 'bi-house-door';
+            if (text.includes('akademik')) return 'bi-journal-richtext';
             if (text.includes('guru')) return 'bi-people';
             if (text.includes('prestasi')) return 'bi-trophy';
             if (text.includes('pengumuman')) return 'bi-megaphone';
@@ -788,8 +796,26 @@
         });
 
         document.querySelectorAll('.admin-container .nav-item').forEach(function (item) {
-            const label = item.textContent.replace(/\s+/g, ' ').trim();
+            const href = item.getAttribute('href') || '';
+            let label = item.textContent.replace(/\s+/g, ' ').trim();
+            if (href.includes('/admin/prestasi')) label = 'Akademik & Prestasi';
+            if (href.includes('/admin/kesiswaan')) label = 'Kesiswaan & Ekstrakurikuler';
             item.innerHTML = '<i class="bi ' + iconFor(label) + ' admin-nav-icon" aria-hidden="true"></i><span>' + escapeHtml(label) + '</span>';
+        });
+
+        document.querySelectorAll('.admin-container .sidebar nav').forEach(function (nav) {
+            if (!nav.querySelector('a[href*="/admin/beranda"]')) {
+                const dashboard = nav.querySelector('a[href$="/admin"], a[href*="/admin"]:not([href*="/admin/"])');
+                const link = document.createElement('a');
+                link.href = "{{ route('admin.beranda') }}";
+                link.className = 'nav-item';
+                link.innerHTML = '<i class="bi bi-house-door admin-nav-icon" aria-hidden="true"></i><span>Beranda</span>';
+                if (dashboard && dashboard.nextSibling) {
+                    nav.insertBefore(link, dashboard.nextSibling);
+                } else {
+                    nav.insertBefore(link, nav.firstChild);
+                }
+            }
         });
 
         document.querySelectorAll('.admin-container .quick-access-grid .card').forEach(function (card) {
@@ -836,20 +862,20 @@
             window.location.href = url;
         };
 
-        if (button.classList.contains('floating-add-btn')) go("{{ route('admin.guru.create') }}");
-        if (label.includes('buat pengumuman') || label.includes('terbitkan')) go("{{ route('pengumuman.create') }}");
+        if (button.classList.contains('floating-add-btn')) go("{{ route('dashboard') }}");
+        if (label.includes('buat pengumuman') || label.includes('terbitkan')) go("{{ route('admin.beranda') }}");
         if (label.includes('manajemen ppdb') || label.includes('verif ppdb') || label.includes('ekspor data') || label.includes('laporan')) go("{{ route('admin.ppdb') }}");
-        if (label.includes('tambah anggota guru') || label.includes('tambah guru')) go("{{ route('admin.guru.create') }}");
+        if (label.includes('tambah anggota guru') || label.includes('tambah guru')) go("{{ route('dashboard') }}");
         if (label.includes('tambah data')) go("{{ route('kesiswaan.create') }}");
-        if (label.includes('upload galeri') || label.includes('unggah media')) go("{{ route('admin.galeri.upload') }}");
+        if (label.includes('upload galeri') || label.includes('unggah media')) go("{{ route('admin.beranda') }}");
         if (label.includes('atur admin')) go("{{ route('admin.pengaturan') }}");
         if (label.includes('export pdf') || label.includes('ekspor daftar')) go("{{ route('prestasi.index') }}");
         if (label.includes('filter') || label.includes('export') || label.includes('arsip') || label.includes('prev') || label.includes('next')) go(window.location.href);
-        if (label.includes('edit') && window.location.pathname.includes('/pengumuman')) go("{{ route('pengumuman.edit', 1) }}");
+        if (label.includes('edit') && window.location.pathname.includes('/pengumuman')) go("{{ route('admin.beranda') }}");
         if (label.includes('edit') && window.location.pathname.includes('/prestasi')) go("{{ route('prestasi.edit', 1) }}");
-        if (label.includes('edit') && window.location.pathname.includes('/galeri')) go("{{ route('admin.galeri.edit', 1) }}");
+        if (label.includes('edit') && window.location.pathname.includes('/galeri')) go("{{ route('admin.beranda') }}");
         if (label.includes('detail') && window.location.pathname.includes('/ppdb')) go("{{ route('admin.ppdb.show', 1) }}");
         if (label.includes('simpan data')) go("{{ route('prestasi.index') }}");
-        if (label.includes('simpan profil') || label.includes('hapus data guru')) go("{{ route('guru.index') }}");
+        if (label.includes('simpan profil') || label.includes('hapus data guru')) go("{{ route('dashboard') }}");
     });
 </script>

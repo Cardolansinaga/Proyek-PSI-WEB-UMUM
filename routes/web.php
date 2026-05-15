@@ -5,18 +5,18 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
 
 Route::view('/', 'welcome')->name('home');
-Route::view('/profil-sekolah', 'pages.umum.profil')->name('profil');
+Route::redirect('/profil-sekolah', '/#profil')->name('profil');
 Route::view('/akademik', 'pages.umum.akademik')->name('akademik');
-Route::redirect('/asrama-kehidupan-sekolah', '/kesiswaan-ekstrakurikuler#asrama')->name('asrama');
+Route::redirect('/asrama-kehidupan-sekolah', '/kesiswaan-ekstrakurikuler#ekskul')->name('asrama');
 Route::view('/kesiswaan-ekstrakurikuler', 'pages.umum.kesiswaan')->name('kesiswaan');
 Route::view('/ppdb', 'pages.umum.ppdb')->name('ppdb');
-Route::view('/berita', 'pages.umum.berita')->name('berita.index');
-Route::view('/berita/{slug}', 'pages.umum.berita-detail')->name('berita.show');
-Route::view('/galeri', 'pages.umum.galeri')->name('galeri');
-Route::view('/prestasi', 'pages.umum.prestasi')->name('prestasi');
-Route::view('/kontak', 'pages.umum.kontak')->name('kontak');
-Route::view('/alumni-kemitraan', 'pages.umum.alumni')->name('alumni');
-Route::view('/guru-tenaga-kependidikan', 'pages.umum.guru')->name('guru');
+Route::redirect('/berita', '/#berita')->name('berita.index');
+Route::redirect('/berita/{slug}', '/#berita')->name('berita.show');
+Route::redirect('/galeri', '/#galeri')->name('galeri');
+Route::redirect('/prestasi', '/akademik#prestasi')->name('prestasi');
+Route::redirect('/kontak', '/#kontak')->name('kontak');
+Route::redirect('/alumni-kemitraan', '/')->name('alumni');
+Route::redirect('/guru-tenaga-kependidikan', '/')->name('guru');
 // Admin dashboard route (serves admin dashboard view) - protected by simple session flag
 Route::get('/admin', function (Request $request) {
 	// allow either session flag or cookie as fallback
@@ -26,26 +26,35 @@ Route::get('/admin', function (Request $request) {
 
 	return view('pages.admin.dashboard');
 })->name('dashboard');
+
+Route::get('/admin/beranda', function (Request $request) {
+	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
+		return redirect()->route('login');
+	}
+
+	return view('pages.admin.beranda');
+})->name('admin.beranda');
+
 // Admin sub-pages
 Route::get('/admin/guru', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return view('pages.admin.guru');
+	return redirect()->route('dashboard');
 })->name('guru.index');
 
 Route::get('/admin/guru/create', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return view('pages.admin.form-guru', ['id' => 'baru', 'mode' => 'create']);
+	return redirect()->route('dashboard');
 })->name('admin.guru.create');
 
 Route::post('/admin/guru', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return redirect()->route('guru.index')->with('status', 'Data guru berhasil disimpan.');
+	return redirect()->route('dashboard');
 })->name('admin.guru.store');
 
 Route::get('/admin/prestasi', function (Request $request) {
@@ -59,7 +68,7 @@ Route::get('/admin/pengumuman', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return view('pages.admin.pengumuman');
+	return redirect()->route('admin.beranda');
 })->name('pengumuman.index');
 
 // Create pengumuman page
@@ -67,21 +76,21 @@ Route::get('/admin/pengumuman/create', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return view('pages.admin.tambah-pengumuman');
+	return redirect()->route('admin.beranda');
 })->name('pengumuman.create');
 
 Route::get('/admin/pengumuman/{id}/edit', function (Request $request, $id) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return view('pages.admin.tambah-pengumuman', ['id' => $id, 'mode' => 'edit']);
+	return redirect()->route('admin.beranda');
 })->name('pengumuman.edit');
 
 Route::post('/admin/pengumuman', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return redirect()->route('pengumuman.index')->with('status', 'Pengumuman berhasil disimpan.');
+	return redirect()->route('admin.beranda')->with('status', 'Konten Beranda berhasil disimpan.');
 })->name('admin.pengumuman.store');
 
 // Create prestasi page
@@ -190,35 +199,35 @@ Route::get('/admin/galeri', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return view('pages.admin.galeri');
+	return redirect()->route('admin.beranda');
 })->name('admin.galeri');
 
 Route::get('/admin/galeri/upload', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return view('pages.admin.form-galeri', ['id' => 'baru', 'mode' => 'upload']);
+	return redirect()->route('admin.beranda');
 })->name('admin.galeri.upload');
 
 Route::get('/admin/galeri/{id}/edit', function (Request $request, $id) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return view('pages.admin.form-galeri', ['id' => $id, 'mode' => 'edit']);
+	return redirect()->route('admin.beranda');
 })->name('admin.galeri.edit');
 
 Route::post('/admin/galeri', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return redirect()->route('admin.galeri')->with('status', 'Media galeri berhasil disimpan.');
+	return redirect()->route('admin.beranda')->with('status', 'Galeri Beranda berhasil disimpan.');
 })->name('admin.galeri.store');
 
 Route::post('/admin/galeri/{id}', function (Request $request, $id) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return redirect()->route('admin.galeri')->with('status', 'Media galeri berhasil diperbarui.');
+	return redirect()->route('admin.beranda')->with('status', 'Galeri Beranda berhasil diperbarui.');
 })->name('admin.galeri.update');
 
 Route::get('/admin/pengaturan', function (Request $request) {
@@ -240,14 +249,14 @@ Route::get('/admin/guru/{id}/edit', function (Request $request, $id) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return view('pages.admin.form-guru', ['id' => $id, 'mode' => 'edit']);
+	return redirect()->route('dashboard');
 })->name('guru.edit');
 
 Route::post('/admin/guru/{id}', function (Request $request, $id) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
 	}
-	return redirect()->route('guru.index')->with('status', 'Data guru berhasil diperbarui.');
+	return redirect()->route('dashboard');
 })->name('admin.guru.update');
 // Login page for admin/portal staff
 Route::view('/login', 'auth.login')->name('login');
