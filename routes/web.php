@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\StudentController;
 
 Route::view('/', 'welcome')->name('home');
 Route::redirect('/profil-sekolah', '/#profil')->name('profil');
@@ -123,6 +125,16 @@ Route::get('/admin/kesiswaan', function (Request $request) {
 	return view('pages.admin.kesiswaan');
 })->name('admin.kesiswaan.index');
 
+// Student edit page (server-rendered form)
+Route::get('/admin/students/{id}/edit', function (Request $request, $id) {
+	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
+		return redirect()->route('login');
+	}
+
+	$student = App\Models\Student::findOrFail($id);
+	return view('pages.admin.edit-student', ['student' => $student]);
+})->name('admin.students.edit');
+
 Route::get('/admin/kesiswaan/create', function (Request $request) {
 	if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
 		return redirect()->route('login');
@@ -150,6 +162,13 @@ Route::post('/admin/kesiswaan/{id}', function (Request $request, $id) {
 	}
 	return redirect()->route('admin.kesiswaan.index')->with('status', 'Data kesiswaan berhasil diperbarui.');
 })->name('admin.kesiswaan.update');
+
+// API endpoints for student management (used by admin frontend)
+Route::get('/admin/api/students', [StudentController::class, 'index'])->name('admin.api.students.index');
+Route::get('/admin/api/students/{id}', [StudentController::class, 'show'])->name('admin.api.students.show');
+Route::post('/admin/api/students', [StudentController::class, 'store'])->name('admin.api.students.store');
+Route::post('/admin/api/students/{id}', [StudentController::class, 'update'])->name('admin.api.students.update');
+Route::delete('/admin/api/students/{id}', [StudentController::class, 'destroy'])->name('admin.api.students.destroy');
 
 // Legacy named route alias: keep templates referring to `kesiswaan.index` working
 Route::get('/admin/kesiswaan-legacy', function (Request $request) {
@@ -267,12 +286,20 @@ Route::post('/login', function (Request $request) {
 		'password' => 'required|string',
 	]);
 
-	// Simple placeholder auth: replace with Auth::attempt(...) in real app
-	if ($request->email === 'admin@sman2balige.sch.id' && $request->password === 'password') {
-		$request->session()->put('is_admin', true);
-		$request->session()->put('admin_name', 'Admin Utama');
-		// also set a cookie fallback so clients without session persistence still work
-		return redirect('/admin')->withCookie(Cookie::make('is_admin', '1', 120))->with('status', 'Berhasil masuk ke dashboard admin.');
+	$credentials = $request->only('email', 'password');
+	if (Auth::attempt($credentials)) {
+		$request->session()->regenerate();
+		// determine admin by env ADMIN_EMAIL or fallback to specific address
+		$adminEmail = env('ADMIN_EMAIL', 'admin@sman2balige.sch.id');
+		if (strtolower($request->email) === strtolower($adminEmail)) {
+			$request->session()->put('is_admin', true);
+			$request->session()->put('admin_name', Auth::user()->name ?? 'Admin');
+			return redirect('/admin')->withCookie(Cookie::make('is_admin', '1', 120))->with('status', 'Berhasil masuk ke dashboard admin.');
+		}
+
+		// authenticated but not admin: redirect to home
+		Auth::logout();
+		return back()->withErrors(['email' => 'Akun tidak memiliki akses admin.'])->withInput();
 	}
 
 	return back()->withErrors(['email' => 'Email atau password tidak sesuai.'])->withInput();
@@ -280,7 +307,9 @@ Route::post('/login', function (Request $request) {
 
 // Logout route to clear admin session
 Route::post('/logout', function (Request $request) {
-	$request->session()->forget('is_admin');
+	Auth::logout();
+	$request->session()->invalidate();
+	$request->session()->regenerateToken();
 	$cookie = Cookie::forget('is_admin');
 	return redirect()->route('login')->withCookie($cookie);
 })->name('logout');

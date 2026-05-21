@@ -4,11 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Manajemen Kesiswaan & Ekstrakurikuler - SMAN 2 Balige">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Manajemen Kesiswaan & Ekstrakurikuler - SMAN 2 Balige</title>
     
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800|manrope:400,500,600,700,800" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+                        <table class="data-table">
     
     <style>
         :root {
@@ -20,9 +21,9 @@
             --site-line: #d9e3ee;
             --site-soft: #f6f9fc;
             --site-gold: #d6a63a;
-            --site-gold-light: #e5b84a;
-            --site-green: #0f9f7a;
-            --site-blue: #2563eb;
+                            <tbody id="students-tbody">
+                                <!-- rows injected by JS -->
+                            </tbody>
             --site-card: #ffffff;
             --site-radius: 12px;
             --site-shadow: 0 4px 20px rgba(7, 31, 58, 0.08);
@@ -1049,13 +1050,12 @@
 
                     <div class="card-toolbar">
                         <div class="filter-group">
-                            <button class="filter-btn active">Semua</button>
-                            <button class="filter-btn">Aktif</button>
-                            <button class="filter-btn">Ditinjau</button>
-                            <button class="filter-btn">
-                                <i class="bi bi-funnel"></i>
-                                Filter Kategori
-                            </button>
+                            <input id="search-input" type="search" placeholder="Cari nama/NIS/email" style="padding:8px;border-radius:8px;border:1px solid var(--site-line);" />
+                            <select id="per-page-select" style="padding:8px;border-radius:8px;border:1px solid var(--site-line);">
+                                <option value="10">10 / halaman</option>
+                                <option value="15" selected>15 / halaman</option>
+                                <option value="25">25 / halaman</option>
+                            </select>
                         </div>
                         <div class="action-btns">
                             <button class="btn-outline">
@@ -1073,197 +1073,17 @@
                         <table class="data-table">
                             <thead>
                                 <tr>
-                                    <th>Nama Organisasi</th>
-                                    <th>Ketua Umum</th>
-                                    <th>Pembina</th>
-                                    <th>Jadwal Rapat</th>
-                                    <th>Anggota</th>
-                                    <th>Status</th>
+                                    <th>Nama</th>
+                                    <th>NIS</th>
+                                    <th>Email</th>
+                                    <th>Tgl Lahir</th>
+                                    <th>Kelas</th>
+                                    <th>Alamat</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="org-info">
-                                            <div class="org-icon navy">
-                                                <i class="bi bi-people-fill"></i>
-                                            </div>
-                                            <div>
-                                                <div class="org-name">OSIS</div>
-                                                <div class="org-desc">Organisasi Siswa Intra Sekolah</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="person-info">
-                                            <div class="avatar">AW</div>
-                                            <span class="person-name">Andi Wijaya</span>
-                                        </div>
-                                    </td>
-                                    <td>Bp. H. Siregar, M.Pd</td>
-                                    <td>
-                                        <span class="schedule-badge">
-                                            <i class="bi bi-clock"></i>
-                                            Mon, 15:00
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="members-visual">
-                                            <div class="member-avatar" style="background: #dbeafe;"></div>
-                                            <div class="member-avatar" style="background: #d1fae5;"></div>
-                                            <div class="member-avatar" style="background: #fef3c7;"></div>
-                                            <div class="member-count">+42</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge active">
-                                            <span class="status-dot"></span>
-                                            Aktif
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="action-menu">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="org-info">
-                                            <div class="org-icon gold">
-                                                <i class="bi bi-building"></i>
-                                            </div>
-                                            <div>
-                                                <div class="org-name">MPK</div>
-                                                <div class="org-desc">Majelis Perwakilan Kelas</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="person-info">
-                                            <div class="avatar">SA</div>
-                                            <span class="person-name">Siti Aminah</span>
-                                        </div>
-                                    </td>
-                                    <td>Ibu R. Panjaitan</td>
-                                    <td>
-                                        <span class="schedule-badge">
-                                            <i class="bi bi-clock"></i>
-                                            Fri, 14:00
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="members-visual">
-                                            <div class="member-avatar" style="background: #fce7f3;"></div>
-                                            <div class="member-avatar" style="background: #e0e7ff;"></div>
-                                            <div class="member-count">+15</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge active">
-                                            <span class="status-dot"></span>
-                                            Aktif
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="action-menu">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="org-info">
-                                            <div class="org-icon blue">
-                                                <i class="bi bi-flag-fill"></i>
-                                            </div>
-                                            <div>
-                                                <div class="org-name">PRAMUKA</div>
-                                                <div class="org-desc">Praja Muda Karana</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="person-info">
-                                            <div class="avatar">BS</div>
-                                            <span class="person-name">Budi Santoso</span>
-                                        </div>
-                                    </td>
-                                    <td>Bp. M. Tambunan</td>
-                                    <td>
-                                        <span class="schedule-badge">
-                                            <i class="bi bi-clock"></i>
-                                            Sat, 09:00
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="members-visual">
-                                            <div class="member-avatar" style="background: #d1fae5;"></div>
-                                            <div class="member-avatar" style="background: #dbeafe;"></div>
-                                            <div class="member-avatar" style="background: #fef3c7;"></div>
-                                            <div class="member-count">+120</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge active">
-                                            <span class="status-dot"></span>
-                                            Aktif
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="action-menu">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </div>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td>
-                                        <div class="org-info">
-                                            <div class="org-icon red">
-                                                <i class="bi bi-first-aid"></i>
-                                            </div>
-                                            <div>
-                                                <div class="org-name">PMR</div>
-                                                <div class="org-desc">Palang Merah Remaja</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="person-info">
-                                            <div class="avatar">RM</div>
-                                            <span class="person-name">Rina Melati</span>
-                                        </div>
-                                    </td>
-                                    <td>Ibu D. Simanjuntak</td>
-                                    <td>
-                                        <span class="schedule-badge">
-                                            <i class="bi bi-clock"></i>
-                                            Wed, 15:30
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="members-visual">
-                                            <div class="member-avatar" style="background: #fecaca;"></div>
-                                            <div class="member-avatar" style="background: #d1fae5;"></div>
-                                            <div class="member-count">+28</div>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <span class="status-badge hold">
-                                            <span class="status-dot"></span>
-                                            On Hold
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <div class="action-menu">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tbody id="students-tbody">
+                                <!-- rows injected by JS -->
                             </tbody>
                         </table>
                     </div>
@@ -1398,6 +1218,223 @@
             </div>
         </main>
     </div>
+
+        <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tbody = document.getElementById('students-tbody');
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const searchInput = document.getElementById('search-input');
+        const perPageSelect = document.getElementById('per-page-select');
+        const addBtn = document.querySelector('.btn-add-new');
+
+        let currentPage = 1;
+
+        function buildQuery() {
+            const params = new URLSearchParams();
+            if (searchInput.value) params.set('search', searchInput.value);
+            if (perPageSelect.value) params.set('per_page', perPageSelect.value);
+            params.set('page', currentPage);
+            return params.toString();
+        }
+
+        async function fetchStudents() {
+            try {
+                const q = buildQuery();
+                const res = await fetch('/admin/api/students?' + q, { credentials: 'same-origin', headers: { 'Accept': 'application/json' } });
+                if (!res.ok) throw new Error('Gagal memuat data');
+                const data = await res.json();
+                const rows = data.data || data;
+                renderRows(rows);
+                renderPagination(data);
+            } catch (err) {
+                console.error(err);
+                tbody.innerHTML = '<tr><td colspan="7">Gagal memuat data siswa.</td></tr>';
+            }
+        }
+
+        function renderRows(rows) {
+            if (!rows || rows.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7">Tidak ada data siswa.</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = rows.map(r => `
+                <tr>
+                    <td>${escapeHtml(r.name)}</td>
+                    <td>${escapeHtml(r.nis)}</td>
+                    <td>${escapeHtml(r.email || '')}</td>
+                    <td>${r.birth_date ? new Date(r.birth_date).toLocaleDateString() : ''}</td>
+                    <td>${escapeHtml(r.class || '')}</td>
+                    <td>${escapeHtml(r.address || '')}</td>
+                    <td>
+                        <button data-id="${r.id}" class="btn-edit">Edit</button>
+                        <button data-id="${r.id}" class="btn-delete">Hapus</button>
+                    </td>
+                </tr>
+            `).join('');
+
+            attachRowHandlers();
+        }
+
+        function attachRowHandlers() {
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', async (e) => {
+                    const id = e.currentTarget.dataset.id;
+                    if (!confirm('Hapus siswa ini?')) return;
+                    try {
+                        const res = await fetch(`/admin/api/students/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRF-TOKEN': token,
+                                'Accept': 'application/json'
+                            },
+                            credentials: 'same-origin'
+                        });
+                        if (res.status === 204) {
+                            fetchStudents();
+                        } else {
+                            alert('Gagal menghapus.');
+                        }
+                    } catch (err) {
+                        console.error(err);
+                        alert('Gagal menghapus.');
+                    }
+                });
+            });
+
+            document.querySelectorAll('.btn-edit').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const id = e.currentTarget.dataset.id;
+                    window.location.href = `/admin/students/${id}/edit`;
+                });
+            });
+        }
+
+        function renderPagination(paginated) {
+            const paginationElId = 'students-pagination';
+            let container = document.getElementById(paginationElId);
+            if (!container) {
+                container = document.createElement('div');
+                container.id = paginationElId;
+                container.style.padding = '1rem 1.5rem';
+                document.querySelector('.content-card').appendChild(container);
+            }
+
+            if (!paginated || !paginated.last_page) {
+                container.innerHTML = '';
+                return;
+            }
+
+            const current = paginated.current_page || 1;
+            const last = paginated.last_page || 1;
+
+            let html = `<div style="display:flex;gap:8px;align-items:center;">
+                <button id="prev-page" ${current<=1? 'disabled' : ''}>Prev</button>
+                <span>Halaman ${current} / ${last}</span>
+                <button id="next-page" ${current>=last? 'disabled' : ''}>Next</button>
+            </div>`;
+
+            container.innerHTML = html;
+
+            container.querySelector('#prev-page').addEventListener('click', () => {
+                if (current > 1) { currentPage = current - 1; fetchStudents(); }
+            });
+            container.querySelector('#next-page').addEventListener('click', () => {
+                if (current < last) { currentPage = current + 1; fetchStudents(); }
+            });
+        }
+
+        function escapeHtml(unsafe) {
+            return String(unsafe)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Search / per-page handlers
+        searchInput.addEventListener('input', () => { currentPage = 1; fetchStudents(); });
+        perPageSelect.addEventListener('change', () => { currentPage = 1; fetchStudents(); });
+
+        // Add student modal
+        addBtn.addEventListener('click', () => {
+            openAddModal();
+        });
+
+        function openAddModal() {
+            if (document.getElementById('add-student-modal')) return;
+
+            const modal = document.createElement('div');
+            modal.id = 'add-student-modal';
+            modal.style.position = 'fixed';
+            modal.style.inset = '0';
+            modal.style.display = 'grid';
+            modal.style.placeItems = 'center';
+            modal.style.background = 'rgba(2,6,23,0.5)';
+
+            modal.innerHTML = `
+                <div style="background:white;padding:20px;border-radius:12px;min-width:320px;max-width:680px;">
+                    <h3>Tambah Siswa</h3>
+                    <form id="add-student-form">
+                        <div style="display:grid;gap:8px;margin-top:8px;">
+                            <input name="nis" placeholder="NIS" required />
+                            <input name="name" placeholder="Nama" required />
+                            <input name="email" placeholder="Email" />
+                            <input name="birth_date" type="date" placeholder="Tgl Lahir" />
+                            <input name="class" placeholder="Kelas" />
+                            <textarea name="address" placeholder="Alamat"></textarea>
+                        </div>
+                        <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px;">
+                            <button type="button" id="cancel-add">Batal</button>
+                            <button type="submit">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            `;
+
+            document.body.appendChild(modal);
+
+            modal.querySelector('#cancel-add').addEventListener('click', () => modal.remove());
+
+            modal.querySelector('#add-student-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.currentTarget;
+                const fd = new FormData(form);
+                const payload = Object.fromEntries(fd.entries());
+
+                try {
+                    const res = await fetch('/admin/api/students', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': token,
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify(payload),
+                        credentials: 'same-origin'
+                    });
+
+                    if (res.status === 201) {
+                        modal.remove();
+                        fetchStudents();
+                    } else if (res.status === 422) {
+                        const err = await res.json();
+                        alert(Object.values(err.errors || {}).flat().join('\n'));
+                    } else {
+                        alert('Gagal menyimpan.');
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert('Gagal menyimpan.');
+                }
+            });
+        }
+
+        // initial load
+        fetchStudents();
+    });
+    </script>
 
     <script>
         // Simple tab functionality
