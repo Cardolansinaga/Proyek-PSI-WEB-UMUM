@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ ($mode ?? 'create') === 'edit' ? 'Edit Kesiswaan' : 'Tambah Kesiswaan' }} - SMAN 2 Balige</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @include('pages.admin.partials.admin-polish')
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { overflow: hidden; font-family: 'Inter', sans-serif; background: #f8fafc; }
@@ -25,6 +26,9 @@
         .btn-primary, .btn-outline { border-radius: 10px; padding: 12px 18px; font-weight: 900; text-decoration: none; cursor: pointer; }
         .btn-primary { background: #071f3a; color: white; border: 1px solid #071f3a; }
         .btn-outline { background: white; color: #071f3a; border: 1px solid #d9e1ec; }
+        .image-preview { min-height: 140px; border-radius: 12px; border: 1px solid #d9e1ec; background: #f4f7fb center/cover no-repeat; display: grid; place-items: center; color: #64748b; font-size: 12px; font-weight: 800; overflow: hidden; }
+        .check-row { display: flex; gap: 10px; align-items: flex-start; color: #071f3a; font-size: 13px; font-weight: 800; line-height: 1.5; }
+        .check-row input { width: auto; margin-top: 3px; }
         @media (max-width: 900px) { .form-grid, .field-grid { grid-template-columns: 1fr; } .page-head { flex-direction: column; } }
     </style>
     @include('pages.admin.partials.responsive')
@@ -46,7 +50,7 @@
                 </div>
             </div>
 
-            <form id="kesiswaan-form" method="POST" action="{{ $isEdit ? route('admin.kesiswaan.update', $id ?? 1) : route('admin.kesiswaan.store') }}">
+            <form id="kesiswaan-form" method="POST" action="{{ $isEdit ? route('admin.kesiswaan.update', $activity) : route('admin.kesiswaan.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="form-grid">
                     <section class="card">
@@ -54,37 +58,36 @@
                         <div class="field-grid">
                             <div class="input-group">
                                 <label>Nama Organisasi / Ekstrakurikuler</label>
-                                <input class="custom-input" name="nama" placeholder="Contoh: OSIS, MPK, Basket, Paduan Suara" required>
+                                <input class="custom-input" name="name" value="{{ old('name', $activity->name) }}" placeholder="Contoh: OSIS, MPK, Basket, Paduan Suara" required>
                             </div>
                             <div class="input-group">
                                 <label>Jenis Kegiatan</label>
-                                <select class="custom-select" name="jenis">
-                                    <option>Organisasi Siswa</option>
-                                    <option>Ekstrakurikuler Akademik</option>
-                                    <option>Ekstrakurikuler Olahraga</option>
-                                    <option>Ekstrakurikuler Seni</option>
+                                <select class="custom-select" name="type">
+                                    @foreach (['Organisasi Siswa', 'Ekstrakurikuler Akademik', 'Ekstrakurikuler Olahraga', 'Ekstrakurikuler Seni'] as $type)
+                                        <option value="{{ $type }}" @selected(old('type', $activity->type) === $type)>{{ $type }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="input-group">
                                 <label>Ketua / Koordinator</label>
-                                <input class="custom-input" name="ketua" placeholder="Nama ketua atau koordinator siswa">
+                                <input class="custom-input" name="coordinator" value="{{ old('coordinator', $activity->coordinator) }}" placeholder="Nama ketua atau koordinator siswa">
                             </div>
                             <div class="input-group">
                                 <label>Pembina</label>
-                                <input class="custom-input" name="pembina" placeholder="Nama guru pembina">
+                                <input class="custom-input" name="mentor" value="{{ old('mentor', $activity->mentor) }}" placeholder="Nama guru pembina">
                             </div>
                             <div class="input-group">
                                 <label>Jadwal Rutin</label>
-                                <input class="custom-input" name="jadwal" placeholder="Contoh: Jumat, 15.30 WIB">
+                                <input class="custom-input" name="schedule" value="{{ old('schedule', $activity->schedule) }}" placeholder="Contoh: Jumat, 15.30 WIB">
                             </div>
                             <div class="input-group">
                                 <label>Lokasi</label>
-                                <input class="custom-input" name="lokasi" placeholder="Contoh: Aula, Lapangan, Lab Bahasa">
+                                <input class="custom-input" name="location" value="{{ old('location', $activity->location) }}" placeholder="Contoh: Aula, Lapangan, Lab Bahasa">
                             </div>
                         </div>
                         <div class="input-group">
                             <label>Deskripsi Singkat</label>
-                            <textarea class="custom-textarea" name="deskripsi" placeholder="Jelaskan tujuan, aktivitas utama, dan manfaat kegiatan bagi siswa."></textarea>
+                            <textarea class="custom-textarea" name="description" placeholder="Jelaskan tujuan, aktivitas utama, dan manfaat kegiatan bagi siswa.">{{ old('description', $activity->description) }}</textarea>
                         </div>
                     </section>
                     <aside class="card">
@@ -92,21 +95,30 @@
                         <div class="input-group">
                             <label>Status</label>
                             <select class="custom-select" name="status">
-                                <option>Aktif</option>
-                                <option>Draft</option>
-                                <option>Arsip</option>
+                                @foreach (['Aktif', 'Draft', 'Arsip'] as $status)
+                                    <option value="{{ $status }}" @selected(old('status', $activity->status) === $status)>{{ $status }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="input-group">
                             <label>Tampilkan di Website</label>
                             <select class="custom-select" name="publish">
-                                <option>Ya, tampilkan</option>
-                                <option>Tidak, simpan internal</option>
+                                <option @selected(old('publish', $activity->is_published ? 'Ya, tampilkan' : 'Tidak, simpan internal') === 'Ya, tampilkan')>Ya, tampilkan</option>
+                                <option @selected(old('publish', $activity->is_published ? 'Ya, tampilkan' : 'Tidak, simpan internal') === 'Tidak, simpan internal')>Tidak, simpan internal</option>
                             </select>
                         </div>
                         <div class="input-group">
                             <label>Foto Kegiatan</label>
-                            <input type="file" class="custom-input" name="foto" accept="image/*">
+                            @if (! empty($activity->image_path))
+                                <div class="image-preview" style="background-image: url('{{ asset('storage/'.$activity->image_path) }}');"></div>
+                                <label class="check-row">
+                                    <input type="checkbox" name="remove_image" value="1">
+                                    Hapus gambar custom
+                                </label>
+                            @else
+                                <div class="image-preview">Belum ada gambar custom</div>
+                            @endif
+                            <input type="file" class="custom-input" name="image" accept="image/png,image/jpeg,image/webp">
                         </div>
                         <div style="display: flex; gap: 10px; margin-top: 22px;">
                             <a href="{{ route('kesiswaan.index') }}" class="btn-outline">Batal</a>
