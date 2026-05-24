@@ -4,20 +4,14 @@
 @section('description', 'Informasi dan update terbaru SMAN 2 Balige.')
 
 @section('content')
-    @php
-        $slug = 'pembinaan-sains-sman-2-balige-2026';
-        $cards = [
-            ['Akademik', 'Persiapan Menuju Ujian Semester Ganjil 2026/2027', 'Informasi jadwal belajar tambahan dan konsultasi guru untuk siswa kelas XII.', 'library'],
-            ['Kesiswaan', 'Kegiatan Bakti Sosial & Lingkungan Hidup', 'Siswa-siswi melakukan penanaman pohon di lingkungan sekitar Danau Toba.', 'campus'],
-            ['Inovasi', 'Inovasi Robotik Siswa SMAN 2 Balige Nasional', 'Tim robotik berhasil menciptakan alat penyaring air otomatis.', 'robot'],
-            ['Ekstrakurikuler', 'Pameran Seni Budaya Tahunan 2026', 'Karya terbaik siswa dipamerkan dalam berbagai media seni rupa.', 'art'],
-            ['Olahraga', 'Kompetisi Atletik Pelajar Daerah', 'Kontingen sekolah mengirimkan wakil terbaik untuk cabang lari dan lompat jauh.', 'sports'],
-            ['Alumni', 'Seminar Motivasi Karir Alumni 2026', 'Alumni sukses berbagi pengalaman karir dan perkuliahan.', 'alumni'],
-        ];
-    @endphp
-    <section class="school-hero hero-news text-center">
+    @php($beritaHeroImage = ! empty($settings['berita_hero_image']) ? asset('storage/'.$settings['berita_hero_image']) : null)
+    <section class="school-hero hero-news text-center relative overflow-hidden" @if($beritaHeroImage) style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('{{ $beritaHeroImage }}') !important;" @endif>
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-10 right-20 w-96 h-96 bg-[#d6a63a] rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow"></div>
+            <div class="absolute -bottom-20 left-10 w-80 h-80 bg-teal-600 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow" style="animation-delay: 1s;"></div>
+        </div>
         <div class="hero-shade"></div>
-        <div class="mx-auto grid min-h-[430px] max-w-7xl place-items-center px-4 py-20 lg:px-8">
+        <div class="mx-auto grid min-h-[430px] max-w-7xl place-items-center px-4 py-20 lg:px-8 relative z-10">
             <div class="relative max-w-4xl animate-fade-in-up">
                 <span class="section-pill animate-fade-in" style="animation-delay: 0.1s;">Warta Sekolah</span>
                 <h1 class="mt-7 text-5xl font-black leading-[1] text-white sm:text-6xl animate-fade-in-up" style="animation-delay: 0.2s;">Informasi & Update Terbaru Sekolah</h1>
@@ -26,54 +20,70 @@
         </div>
     </section>
 
-    <section class="bg-white py-8">
+    <section class="bg-gradient-to-b from-white to-[#f8fafc] py-8">
         <div class="mx-auto flex max-w-7xl flex-col gap-5 px-4 md:flex-row md:items-center md:justify-between lg:px-8">
-            <div class="flex flex-wrap gap-3">
-                @foreach (['Semua', 'Berita', 'Pengumuman', 'Prestasi'] as $filter)
-                    <a href="#daftar-berita" class="filter-pill {{ $loop->first ? 'active' : '' }}">{{ $filter }}</a>
+            <div class="flex flex-wrap gap-3 animate-fade-in-up">
+                @foreach (['Semua', 'Berita', 'Pengumuman', 'Prestasi', 'PPDB'] as $filter)
+                    <a href="#daftar-berita" class="filter-pill group {{ $loop->first ? 'active' : '' }} hover:scale-105 transition-transform hover:shadow-lg">
+                        <span class="group-hover:text-[#d6a63a] transition-colors">{{ $filter }}</span>
+                    </a>
                 @endforeach
             </div>
-            <a href="{{ route('home') }}#kontak" class="outline-button">Kirim Informasi ke Humas</a>
+            <a href="{{ route('home') }}#kontak" class="outline-button hover:bg-[#071f3a]/5 hover:scale-105 transition-all animate-fade-in-up">Kirim Informasi ke Humas</a>
         </div>
     </section>
 
-    <section id="daftar-berita" class="bg-[#f8fafc] py-16 sm:py-20">
+    <section id="daftar-berita" class="bg-gradient-to-b from-[#f8fafc] to-white py-16 sm:py-20">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
-            <article class="featured-news hover-lift animate-fade-in-up">
-                <div class="illustration trophy"></div>
-                <div class="p-8 lg:p-12">
-                    <p class="meta-line">15 Mei 2026</p>
-                    <h2>SMAN 2 Balige Perkuat Pembinaan Olimpiade dan Riset Siswa</h2>
-                    <p>Program pembinaan akademik tahun ini difokuskan pada pendampingan intensif, riset ilmiah, dan penguatan karakter kompetitif siswa.</p>
-                    <a href="{{ route('berita.show', $slug) }}">Baca Selengkapnya -></a>
-                </div>
-            </article>
+            @if ($featured)
+                <article class="featured-news hover-lift group animate-fade-in-up bg-gradient-to-br from-white to-[#f0f7ff] overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all">
+                    <div class="grid md:grid-cols-2 gap-0 relative overflow-hidden">
+                        @php($featuredImage = ! empty($featured->image_path) ? asset('storage/'.$featured->image_path) : null)
+                        <div class="illustration {{ $featured->image_class ?? 'trophy' }} relative group-hover:scale-105 transition-transform duration-300" @if($featuredImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .08), rgb(7 31 58 / .28)), url('{{ $featuredImage }}') !important;" @endif></div>
+                        <div class="absolute top-0 right-0 w-40 h-40 bg-[#d6a63a]/10 rounded-full blur-3xl"></div>
+                        <div class="p-8 lg:p-12 flex flex-col justify-between">
+                            <div>
+                                <p class="meta-line group-hover:text-[#d6a63a] transition-colors">{{ optional($featured->published_at)->format('d M Y') }} / <span class="inline-block px-3 py-1 bg-[#d6a63a]/10 rounded-full text-[#d6a63a] text-xs font-bold">{{ $featured->category }}</span></p>
+                                <h2 class="group-hover:text-[#d6a63a] transition-colors">{{ $featured->title }}</h2>
+                                <p class="text-[#6b7f91]">{{ $featured->excerpt }}</p>
+                            </div>
+                            <a href="{{ route('berita.show', $featured->slug) }}" class="inline-flex items-center gap-2 text-[#d6a63a] font-bold group/link">
+                                Baca Selengkapnya <span class="group-hover/link:translate-x-2 transition-transform">→</span>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            @endif
             <div class="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
-                @foreach ($cards as $card)
-                    <article class="news-card hover-lift animate-fade-in-up stagger-{{ ($loop->index % 6) + 1 }}">
-                        <div class="illustration {{ $card[3] }}"><span class="visual-label">{{ $card[0] }}</span></div>
+                @foreach ($posts as $post)
+                    <article class="news-card hover-lift group animate-fade-in-up stagger-{{ ($loop->index % 6) + 1 }} bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:border-[#d6a63a]/50 border border-transparent">
+                        <div class="relative overflow-hidden">
+                            @php($postImage = ! empty($post->image_path) ? asset('storage/'.$post->image_path) : null)
+                            <div class="illustration {{ $post->image_class ?? 'library' }} group-hover:scale-110 transition-transform duration-300" @if($postImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .08), rgb(7 31 58 / .28)), url('{{ $postImage }}') !important;" @endif><span class="visual-label">{{ $post->category }}</span></div>
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-[#d6a63a]/5 rounded-full blur-3xl"></div>
+                        </div>
                         <div class="p-7">
-                            <h3>{{ $card[1] }}</h3>
-                            <p>{{ $card[2] }}</p>
+                            <h3 class="group-hover:text-[#d6a63a] transition-colors">{{ $post->title }}</h3>
+                            <p class="text-[#6b7f91]">{{ $post->excerpt }}</p>
                             <div class="mt-6 flex items-center justify-between text-[11px] font-black uppercase tracking-[0.12em]">
-                                <span class="text-[#9aaaba]">{{ sprintf('%02d', $loop->index + 1) }} Mei 2026</span>
-                                <a class="!mt-0 text-[#c59632] transition-smooth hover:translate-x-1" href="{{ route('berita.show', $slug) }}">Detail -></a>
+                                <span class="text-[#9aaaba]">{{ optional($post->published_at)->format('d M Y') }}</span>
+                                <a class="!mt-0 text-[#c59632] transition-all group-hover:translate-x-2 group-hover:text-[#d6a63a] flex items-center gap-1" href="{{ route('berita.show', $post->slug) }}">Detail <span>→</span></a>
                             </div>
                         </div>
                     </article>
                 @endforeach
             </div>
-            <div class="mt-16 flex justify-center gap-3">
-                <a href="#daftar-berita" class="pager active">1</a><a href="#daftar-berita" class="pager">2</a><a href="#daftar-berita" class="pager">3</a>
+            <div class="mt-16 animate-fade-in-up" style="animation-delay: 0.5s;">
+                {{ $posts->links() }}
             </div>
         </div>
     </section>
 
-    <section class="bg-white px-4 py-20 lg:px-8">
+    <section class="bg-gradient-to-b from-white to-[#f6f9fc] px-4 py-20 lg:px-8">
         <div class="cta-panel">
-            <h2>Siap Menjadi Bagian Dari Kami?</h2>
-            <p>Informasi Penerimaan Peserta Didik Baru tahun ajaran 2026/2027 tersedia untuk calon siswa dan orang tua.</p>
-            <a href="{{ route('ppdb') }}" class="gold-button mt-10">Informasi PPDB</a>
+            <h2 class="animate-fade-in-up">Siap Menjadi Bagian Dari Kami?</h2>
+            <p class="mt-3 animate-fade-in-up" style="animation-delay: 0.1s;">Informasi Penerimaan Peserta Didik Baru tahun ajaran {{ $settings['ppdb_year'] ?? '2026/2027' }} tersedia untuk calon siswa dan orang tua.</p>
+            <a href="{{ route('ppdb') }}" class="gold-button mt-10 hover:shadow-2xl hover:shadow-[#d6a63a]/50 hover:scale-105 transition-all">Informasi PPDB</a>
         </div>
     </section>
 @endsection

@@ -7,6 +7,8 @@
 
         <title>@yield('title', 'SMAN 2 Balige')</title>
 
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @include('layouts.partials.public-polish')
     </head>
@@ -22,34 +24,35 @@
             ];
         @endphp
 
-        <header class="site-header sticky top-0 z-50 shadow-[0_8px_30px_rgba(15,35,55,0.08)]">
-            <nav class="bg-white/95 backdrop-blur-xl">
-                <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 lg:px-8 xl:justify-start xl:gap-14">
-                    <a href="{{ route('home') }}" class="flex min-w-0 items-center gap-3">
-                        <span class="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-[#071f3a] text-sm font-extrabold text-[#d6a63a] shadow-lg shadow-[#071f3a]/20">S2</span>
-                        <span class="min-w-0">
-                            <span class="block text-base font-black leading-tight text-[#071f3a]">SMAN 2 Balige</span>
-                            <span class="block text-[9px] font-black uppercase tracking-[0.32em] text-[#d6a63a]">Unggul & Berkarakter</span>
-                        </span>
+        <header class="site-header sticky-top shadow-sm" style="z-index: 1030;">
+            <nav class="navbar navbar-expand-xl bg-white bg-opacity-95" style="backdrop-filter: blur(12px);">
+                <div class="container-fluid mx-0 px-4 px-lg-5">
+                    <!-- Brand -->
+                    <a href="{{ route('home') }}" class="navbar-brand d-flex align-items-center gap-3 ms-0">
+                        <span class="d-flex align-items-center justify-content-center rounded-circle fw-black" style="width: 44px; height: 44px; background-color: #071f3a; color: #d6a63a; font-size: 0.875rem; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.2);">S2</span>
+                        <div class="d-none d-sm-block">
+                            <div style="font-size: 1rem; font-weight: 900; color: #071f3a; line-height: 1.2;">SMAN 2 Balige</div>
+                            <div style="font-size: 0.5625rem; font-weight: 900; letter-spacing: 0.32em; color: #d6a63a;">Unggul & Berkarakter</div>
+                        </div>
                     </a>
 
-                    <div class="hidden flex-1 items-center justify-end gap-5 text-xs font-extrabold text-[#496176] xl:flex">
-                        @foreach ($navItems as $item)
-                            <a class="nav-link {{ $active === $item['key'] ? 'active' : '' }}" href="{{ $item['href'] }}">{{ $item['label'] }}</a>
-                        @endforeach
-                    </div>
+                    <!-- Toggler for mobile -->
+                    <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                    <details class="mobile-menu relative xl:hidden">
-                        <summary class="grid h-11 w-11 cursor-pointer list-none place-items-center rounded-full border border-[#e4ebf2] text-[#071f3a]">
-                            <span class="sr-only">Buka menu</span>
-                            <span class="h-0.5 w-5 rounded-full bg-current shadow-[0_6px_0_currentColor,0_-6px_0_currentColor]"></span>
-                        </summary>
-                        <div class="absolute right-0 mt-3 w-64 rounded-lg border border-[#e4ebf2] bg-white p-3 text-sm font-bold text-[#496176] shadow-2xl shadow-[#071f3a]/15">
+                    <!-- Navigation Items -->
+                    <div class="collapse navbar-collapse ms-3 ms-xl-auto" id="navbarNav">
+                        <ul class="navbar-nav ms-auto gap-1 gap-xl-3">
                             @foreach ($navItems as $item)
-                                <a class="mobile-link {{ $active === $item['key'] ? 'text-[#071f3a]' : '' }}" href="{{ $item['href'] }}">{{ $item['label'] }}</a>
+                                <li class="nav-item">
+                                    <a class="nav-link fw-bold {{ $active === $item['key'] ? 'active' : '' }}" href="{{ $item['href'] }}" style="font-size: 0.75rem; color: #496176;">
+                                        {{ $item['label'] }}
+                                    </a>
+                                </li>
                             @endforeach
-                        </div>
-                    </details>
+                        </ul>
+                    </div>
                 </div>
             </nav>
         </header>
@@ -96,5 +99,8 @@
                 </div>
             </div>
         </footer>
+
+        <!-- Bootstrap JS Bundle -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>

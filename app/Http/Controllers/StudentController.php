@@ -10,12 +10,8 @@ class StudentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(function ($request, $next) {
-            if (! $request->session()->get('is_admin') && $request->cookie('is_admin') !== '1') {
-                return redirect()->route('login');
-            }
-            return $next($request);
-        });
+        // Middleware protection for admin routes
+        // This is handled via routes/web.php, not needed here for API
     }
 
     public function index(Request $request)

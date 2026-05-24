@@ -4,19 +4,20 @@
 @section('description', 'Beranda resmi SMAN 2 Balige, sekolah unggul yang membangun generasi berkarakter dan berprestasi.')
 
 @section('content')
-    <section class="school-hero hero-home" style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85'); background-size: cover; background-position: center;">
+    @php($homeHeroImage = ! empty($settings['hero_image']) ? asset('storage/'.$settings['hero_image']) : 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85')
+    <section class="school-hero hero-home" style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('{{ $homeHeroImage }}') !important; background-size: cover; background-position: center;">
         <div class="hero-shade"></div>
         <div class="mx-auto grid min-h-[620px] max-w-7xl items-center gap-12 px-4 py-20 sm:py-24 lg:grid-cols-[1fr_0.82fr] lg:px-8">
             <div class="relative max-w-3xl">
                 <span class="section-pill">Institusi Pendidikan Prestisius</span>
                 <h1 class="mt-7 text-4xl font-black leading-[1.02] text-white sm:text-6xl lg:text-7xl">
-                    Membangun Generasi Unggul & Berkarakter
+                    {{ $settings['hero_title'] ?? 'Membangun Generasi Unggul & Berkarakter' }}
                 </h1>
                 <p class="mt-7 max-w-2xl text-base font-semibold leading-8 text-white/78">
-                    Membentuk pemimpin masa depan melalui standar akademik internasional, kedisiplinan tinggi, dan pengembangan bakat komprehensif di jantung kota Balige.
+                    {{ $settings['hero_subtitle'] ?? 'Membentuk pemimpin masa depan melalui standar akademik internasional, kedisiplinan tinggi, dan pengembangan bakat komprehensif di jantung kota Balige.' }}
                 </p>
                 <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-                    <a href="{{ route('ppdb') }}" class="gold-button">Informasi PPDB</a>
+                    <a href="{{ route('ppdb') }}" class="gold-button">{{ $settings['cta_label'] ?? 'Informasi PPDB' }}</a>
                     <a href="#profil" class="ghost-button">Lihat Profil Sekolah</a>
                 </div>
             </div>
@@ -40,10 +41,10 @@
                     SMAN 2 <span class="text-[#d6a63a]">Balige</span>, Rumah Tumbuhnya Generasi Unggul
                 </h2>
                 <p class="mt-7 max-w-2xl text-sm font-semibold leading-7 text-[#6b7f91] sm:text-base">
-                    SMAN 2 Balige memadukan keteguhan tradisi, disiplin, literasi digital, dan pendampingan prestasi agar setiap siswa berkembang sebagai pribadi yang cerdas, santun, dan siap bersaing.
+                    {{ $settings['profile_summary'] ?? 'SMAN 2 Balige memadukan keteguhan tradisi, disiplin, literasi digital, dan pendampingan prestasi agar setiap siswa berkembang sebagai pribadi yang cerdas, santun, dan siap bersaing.' }}
                 </p>
                 <p class="mt-5 max-w-2xl text-sm font-semibold leading-7 text-[#6b7f91] sm:text-base">
-                    Profil sekolah, nilai inti, sejarah, sambutan kepala sekolah, fasilitas, galeri, dan pembaruan terkini tersedia langsung di Beranda sehingga pengunjung mendapat gambaran lengkap tanpa berpindah halaman.
+                    {{ $settings['profile_detail'] ?? 'Profil sekolah, nilai inti, sejarah, sambutan kepala sekolah, fasilitas, galeri, dan pembaruan terkini tersedia langsung di Beranda sehingga pengunjung mendapat gambaran lengkap tanpa berpindah halaman.' }}
                 </p>
                 <div class="mt-9 flex flex-col gap-4 sm:flex-row">
                     <a href="#sejarah" class="gold-button">Lihat Sejarah</a>
@@ -93,7 +94,7 @@
                 <article class="vision-card rounded-2xl bg-[#071f3a] p-8 text-white shadow-2xl shadow-[#071f3a]/18">
                     <span class="round-icon bg-white/10 text-[#d6a63a]"><i class="bi bi-compass"></i></span>
                     <h3 class="mt-8 text-2xl font-black">Visi Utama</h3>
-                    <p class="mt-5 text-lg font-semibold italic leading-8 text-white/76">Terwujudnya insan pendidikan yang bertaqwa, cerdas, terampil, kompetitif, dan berwawasan lingkungan dalam kancah global yang dinamis.</p>
+                    <p class="mt-5 text-lg font-semibold italic leading-8 text-white/76">{{ $settings['vision'] ?? 'Terwujudnya insan pendidikan yang bertaqwa, cerdas, terampil, kompetitif, dan berwawasan lingkungan dalam kancah global yang dinamis.' }}</p>
                 </article>
                 <article class="value-card rounded-2xl bg-[#fff4dd] p-8 text-[#071f3a] shadow-xl shadow-[#bd9140]/12">
                     <h3 class="text-xl font-black">Nilai Inti</h3>
@@ -117,10 +118,10 @@
                     <p class="section-pill">Sambutan Kepala Sekolah</p>
                     <h2 class="mt-6 text-4xl font-black leading-tight text-white sm:text-5xl">Pendidikan Adalah Investasi Masa Depan Terbesar</h2>
                     <blockquote class="mt-7 text-lg font-semibold italic leading-8">
-                        "Di SMAN 2 Balige, kami membangun budaya belajar yang disiplin, hangat, dan menantang agar siswa berani tumbuh sebagai pembelajar yang siap menghadapi masa depan."
+                        "{{ $settings['principal_message'] ?? 'Di SMAN 2 Balige, kami membangun budaya belajar yang disiplin, hangat, dan menantang agar siswa berani tumbuh sebagai pembelajar yang siap menghadapi masa depan.' }}"
                     </blockquote>
                     <div class="mt-9 border-t border-white/15 pt-6">
-                        <h3 class="text-xl font-black text-white">Drs. Horas Balige, M.Pd.</h3>
+                        <h3 class="text-xl font-black text-white">{{ $settings['principal_name'] ?? 'Drs. Horas Balige, M.Pd.' }}</h3>
                         <p class="mt-1 text-xs font-black uppercase tracking-[0.16em] text-[#f0c75e]">Kepala Sekolah SMAN 2 Balige</p>
                     </div>
                 </div>
@@ -147,9 +148,10 @@
                 <a href="#kontak" class="outline-button">Hubungi Sekolah -></a>
             </div>
             <div class="mt-12 grid gap-8 lg:grid-cols-3">
-                <article class="news-card"><div class="illustration graduates"></div><div class="p-7"><p class="meta-line">PPDB / 12 Mei 2026</p><h3>Penerimaan Siswa Baru Tahun Ajaran 2026/2027</h3><p>Informasi jalur pendaftaran, dokumen, dan jadwal layanan PPDB kini tersedia untuk calon siswa dan orang tua.</p><a href="{{ route('ppdb') }}">Baca Selengkapnya -></a></div></article>
-                <article class="news-card"><div class="illustration olympiad"></div><div class="p-7"><p class="meta-line">Prestasi / 08 Mei 2026</p><h3>Tim Sains Sekolah Siap Mengikuti Seleksi Olimpiade</h3><p>Program pembinaan akademik terus diperkuat melalui mentoring rutin, simulasi soal, dan evaluasi berkala.</p><a href="{{ route('akademik') }}#prestasi">Baca Selengkapnya -></a></div></article>
-                <article class="news-card"><div class="illustration workshop"></div><div class="p-7"><p class="meta-line">Kesiswaan / 01 Mei 2026</p><h3>LDKS Menumbuhkan Kepemimpinan yang Berkarakter</h3><p>OSIS dan MPK menyiapkan agenda pembinaan agar siswa berani memimpin, bekerja sama, dan bertanggung jawab.</p><a href="{{ route('kesiswaan') }}#organisasi">Baca Selengkapnya -></a></div></article>
+                @foreach ($posts as $post)
+                    @php($postImage = ! empty($post->image_path) ? asset('storage/'.$post->image_path) : null)
+                    <article class="news-card"><div class="illustration {{ $post->image_class ?? 'graduates' }}" @if($postImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .08), rgb(7 31 58 / .34)), url('{{ $postImage }}') !important;" @endif></div><div class="p-7"><p class="meta-line">{{ $post->category }} / {{ optional($post->published_at)->format('d M Y') }}</p><h3>{{ $post->title }}</h3><p>{{ $post->excerpt }}</p><a href="{{ route('berita.show', $post->slug) }}">Baca Selengkapnya -></a></div></article>
+                @endforeach
             </div>
         </div>
     </section>
@@ -162,10 +164,10 @@
                 <p class="mt-6 text-sm font-semibold text-[#6b7f91] sm:text-base">Potret kehidupan akademik dan kreativitas siswa SMAN 2 Balige.</p>
             </div>
             <div class="gallery-grid mt-12">
-                <div class="gallery-tile library"><span>Perpustakaan</span></div>
-                <div class="gallery-tile lab"><span>Lab Digital</span></div>
-                <div class="gallery-tile hall"><span>Ruang Belajar</span></div>
-                <div class="gallery-tile court"><span>Lapangan Olahraga</span></div>
+                @foreach ($galleries as $gallery)
+                    @php($galleryImage = ! empty($gallery->image_path) ? asset('storage/'.$gallery->image_path) : null)
+                    <div class="gallery-tile {{ $gallery->image_class }}" @if($galleryImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .08), rgb(7 31 58 / .36)), url('{{ $galleryImage }}') !important;" @endif><span>{{ $gallery->title }}</span></div>
+                @endforeach
             </div>
         </div>
     </section>
@@ -175,7 +177,7 @@
             <h2>Siap Menjadi Bagian Dari Generasi Unggul?</h2>
             <p>Bergabunglah dengan komunitas pembelajar terbaik dan wujudkan cita-citamu bersama SMAN 2 Balige.</p>
             <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-                <a href="{{ route('ppdb') }}" class="gold-button">Informasi PPDB</a>
+                <a href="{{ route('ppdb') }}" class="gold-button">{{ $settings['cta_label'] ?? 'Informasi PPDB' }}</a>
                 <a href="#galeri" class="ghost-button">Lihat Galeri</a>
             </div>
         </div>

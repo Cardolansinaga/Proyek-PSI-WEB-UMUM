@@ -1,70 +1,71 @@
 @extends('layouts.site', ['active' => 'berita'])
 
-@section('title', 'Detail Berita - SMAN 2 Balige')
-@section('description', 'Detail berita prestasi siswa SMAN 2 Balige.')
+@section('title', $post->title . ' - SMAN 2 Balige')
+@section('description', $post->excerpt)
 
 @section('content')
-    <article class="bg-white py-16 sm:py-20">
+    <article class="bg-gradient-to-b from-white to-[#f6f9fc] py-16 sm:py-20">
         <div class="mx-auto max-w-4xl px-4 lg:px-8">
-            <nav class="text-[11px] font-black uppercase tracking-[0.2em] text-[#9aaaba]">Beranda / Berita / Detail Berita</nav>
-            <div class="mt-8 flex flex-wrap items-center gap-4">
-                <span class="rounded-full bg-[#f4ecd9] px-4 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-[#c59632]">Akademik</span>
-                <span class="text-sm font-bold text-[#8396a8]">12 Mei 2026</span>
+            <nav class="text-[11px] font-black uppercase tracking-[0.2em] text-[#9aaaba] animate-fade-in-up">Beranda / Berita / Detail Berita</nav>
+            <div class="mt-8 flex flex-wrap items-center gap-4 animate-fade-in-up" style="animation-delay: 0.1s;">
+                <span class="rounded-full bg-gradient-to-r from-[#f4ecd9] to-[#f9f4e5] px-4 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-[#c59632] hover:shadow-lg transition-shadow">{{ $post->category }}</span>
+                <span class="text-sm font-bold text-[#8396a8]">{{ optional($post->published_at)->format('d M Y') }}</span>
             </div>
-            <h1 class="mt-6 text-4xl font-black leading-[1.02] text-[#071f3a] sm:text-5xl lg:text-6xl">
-                Siswa SMAN 2 Balige Perkuat Tradisi Prestasi di Bidang Sains
+            <h1 class="mt-6 text-4xl font-black leading-[1.02] text-[#071f3a] sm:text-5xl lg:text-6xl animate-fade-in-up" style="animation-delay: 0.2s;">
+                {{ $post->title }}
             </h1>
-            <div class="mt-10 flex items-center justify-between border-y border-[#e7edf2] py-6">
+            <div class="mt-10 flex flex-col sm:flex-row items-center justify-between border-y border-[#e7edf2] py-6 gap-4 animate-fade-in-up" style="animation-delay: 0.3s;">
                 <div class="flex items-center gap-4">
-                    <div class="h-12 w-12 rounded-full bg-[linear-gradient(135deg,#071f3a,#d6a63a)]"></div>
+                    <div class="h-12 w-12 rounded-full bg-gradient-to-br from-[#071f3a] to-[#d6a63a] shadow-lg shadow-[#071f3a]/20"></div>
                     <div><strong class="block text-[#071f3a]">Admin Sekolah</strong><span class="text-sm font-semibold text-[#8396a8]">Humas SMAN 2 Balige</span></div>
                 </div>
                 <div class="flex gap-3">
-                    <a class="icon-button" href="{{ route('akademik') }}#prestasi" aria-label="Lihat prestasi"><i class="bi bi-trophy"></i></a>
-                    <a class="icon-button" href="{{ route('berita.index') }}" aria-label="Kembali ke berita"><i class="bi bi-newspaper"></i></a>
+                    <a class="icon-button group hover:bg-[#d6a63a] hover:text-white transition-all hover:scale-110" href="{{ route('akademik') }}#prestasi" aria-label="Lihat prestasi"><i class="bi bi-trophy"></i></a>
+                    <a class="icon-button group hover:bg-[#071f3a] hover:text-white transition-all hover:scale-110" href="{{ route('berita.index') }}" aria-label="Kembali ke berita"><i class="bi bi-newspaper"></i></a>
                 </div>
             </div>
-            <figure class="mt-12">
-                <div class="illustration medalists min-h-[360px] rounded-[1.5rem] shadow-2xl shadow-[#071f3a]/10"></div>
-                <figcaption class="mt-5 text-center text-sm font-semibold text-[#8da0b1]">Kebanggaan Sekolah: pembinaan sains menjadi bagian penting dari budaya belajar SMAN 2 Balige.</figcaption>
+            <figure class="mt-12 animate-fade-in-up" style="animation-delay: 0.4s;">
+                @php($postImage = ! empty($post->image_path) ? asset('storage/'.$post->image_path) : null)
+                <div class="illustration {{ $post->image_class ?? 'medalists' }} min-h-[360px] rounded-[1.5rem] shadow-2xl shadow-[#071f3a]/20 group-hover:shadow-3xl transition-shadow hover:scale-[1.02] transition-transform" @if($postImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .08), rgb(7 31 58 / .28)), url('{{ $postImage }}') !important;" @endif></div>
+                <figcaption class="mt-5 text-center text-sm font-semibold text-[#8da0b1]">{{ $post->excerpt }}</figcaption>
             </figure>
-            <div class="prose-copy mt-14">
-                <p>Prestasi dan budaya riset terus menjadi perhatian utama SMAN 2 Balige. Melalui pembinaan terjadwal, siswa didampingi untuk menguatkan kemampuan analisis, keberanian berkompetisi, dan kedisiplinan belajar.</p>
-                <p>Kepala sekolah menyampaikan bahwa capaian siswa adalah hasil dari ekosistem yang bekerja bersama: guru pembina, wali kelas, orang tua, dan lingkungan sekolah yang memberi ruang bagi rasa ingin tahu.</p>
-                <blockquote>"Kunci keberhasilan adalah konsistensi dalam belajar dan keberanian untuk menghadapi tantangan tersulit sekalipun."</blockquote>
-                <p>Program akselerasi sains disusun secara bertahap melalui pendalaman materi, diskusi riset, simulasi kompetisi, dan evaluasi karakter agar siswa siap membawa nama sekolah dengan percaya diri.</p>
+            <div class="prose-copy mt-14 animate-fade-in-up" style="animation-delay: 0.5s;">
+                @foreach (preg_split('/\R+/', trim($post->body ?? $post->excerpt)) as $paragraph)
+                    <p class="text-[#6b7f91] leading-relaxed">{{ $paragraph }}</p>
+                @endforeach
             </div>
         </div>
     </article>
 
-    <section class="bg-white pb-20">
+    <section class="bg-gradient-to-b from-white to-[#f8fafc] pb-20">
         <div class="mx-auto max-w-4xl px-4 lg:px-8">
-            <h2 class="text-2xl font-black text-[#071f3a]">Galeri Kegiatan</h2>
-            <div class="mt-8 grid gap-6 sm:grid-cols-2">
-                <div class="illustration study min-h-[220px] rounded-2xl"></div>
-                <div class="grid gap-6"><div class="illustration class min-h-[220px] rounded-2xl"></div><div class="illustration labroom min-h-[220px] rounded-2xl"></div></div>
+            <h2 class="text-2xl font-black text-[#071f3a] animate-fade-in-up">Galeri Kegiatan</h2>
+            <div class="mt-8 grid gap-6 sm:grid-cols-2 animate-fade-in-up" style="animation-delay: 0.1s;">
+                <div class="illustration study min-h-[220px] rounded-2xl group hover:shadow-xl transition-shadow hover:scale-[1.02]"></div>
+                <div class="grid gap-6"><div class="illustration class min-h-[220px] rounded-2xl group hover:shadow-xl transition-shadow hover:scale-[1.02]"></div><div class="illustration labroom min-h-[220px] rounded-2xl group hover:shadow-xl transition-shadow hover:scale-[1.02]"></div></div>
             </div>
-            <div class="mt-14 flex flex-col gap-6 border-y border-[#e7edf2] py-8 sm:flex-row sm:items-center sm:justify-between">
-                <div class="flex flex-wrap gap-3"><span class="tag">#Sains2026</span><span class="tag">#Sains</span><span class="tag">#Prestasi</span></div>
+            <div class="mt-14 flex flex-col gap-6 border-y border-[#e7edf2] py-8 sm:flex-row sm:items-center sm:justify-between animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="flex flex-wrap gap-3"><span class="tag hover:bg-[#d6a63a] hover:text-white transition-all">#Sains2026</span><span class="tag hover:bg-[#071f3a] hover:text-white transition-all">#Sains</span><span class="tag hover:bg-[#d6a63a] hover:text-white transition-all">#Prestasi</span></div>
                 <div class="flex items-center gap-3">
                     <span class="text-[11px] font-black uppercase tracking-[0.18em] text-[#9aaaba]">Bagikan:</span>
-                    <a class="share fb" href="mailto:?subject=Berita SMAN 2 Balige&body={{ route('berita.show', 'pembinaan-sains-sman-2-balige-2026') }}" aria-label="Bagikan lewat email"><i class="bi bi-envelope"></i></a>
-                    <a class="share tw" href="https://twitter.com/intent/tweet?url={{ urlencode(route('berita.show', 'pembinaan-sains-sman-2-balige-2026')) }}" target="_blank" rel="noopener" aria-label="Bagikan ke X"><i class="bi bi-twitter-x"></i></a>
-                    <a class="share wa" href="https://wa.me/?text={{ urlencode(route('berita.show', 'pembinaan-sains-sman-2-balige-2026')) }}" target="_blank" rel="noopener" aria-label="Bagikan ke WhatsApp"><i class="bi bi-whatsapp"></i></a>
+                    <a class="share fb hover:scale-125 hover:bg-[#3B5998] transition-all" href="mailto:?subject={{ urlencode($post->title) }}&body={{ route('berita.show', $post->slug) }}" aria-label="Bagikan lewat email"><i class="bi bi-envelope"></i></a>
+                    <a class="share tw hover:scale-125 hover:bg-[#1DA1F2] transition-all" href="https://twitter.com/intent/tweet?url={{ urlencode(route('berita.show', $post->slug)) }}" target="_blank" rel="noopener" aria-label="Bagikan ke X"><i class="bi bi-twitter-x"></i></a>
+                    <a class="share wa hover:scale-125 hover:bg-[#25D366] transition-all" href="https://wa.me/?text={{ urlencode(route('berita.show', $post->slug)) }}" target="_blank" rel="noopener" aria-label="Bagikan ke WhatsApp"><i class="bi bi-whatsapp"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="bg-[#f8fafc] py-20">
+    <section class="bg-gradient-to-br from-[#f8fafc] via-white to-[#f0f7ff] py-20">
         <div class="mx-auto max-w-5xl px-4 lg:px-8">
-            <h2 class="text-3xl font-black text-[#071f3a]">Berita Terkait</h2>
-            <p class="mt-3 text-sm font-semibold text-[#8396a8]">Simak informasi menarik lainnya dari sekolah kami.</p>
+            <h2 class="text-3xl font-black text-[#071f3a] animate-fade-in-up">Berita Terkait</h2>
+            <p class="mt-3 text-sm font-semibold text-[#8396a8] animate-fade-in-up" style="animation-delay: 0.1s;">Simak informasi menarik lainnya dari sekolah kami.</p>
             <div class="mt-10 grid gap-8 md:grid-cols-2">
-                <article class="news-card hover-lift animate-fade-in-up stagger-1"><div class="illustration graduates"></div><div class="p-7"><p class="meta-line">Pengumuman</p><h3>Persiapan Wisuda Angkatan 2026 Mulai Dimatangkan</h3><p>Rapat koordinasi bersama wali murid telah menyepakati jadwal dan lokasi pelaksanaan.</p></div></article>
-                <article class="news-card hover-lift animate-fade-in-up stagger-2"><div class="illustration campus"></div><div class="p-7"><p class="meta-line">Kesiswaan</p><h3>Kegiatan LDKS OSIS Berjalan Lancar di Sipinsur</h3><p>Pelatihan kepemimpinan dasar diikuti seluruh pengurus OSIS baru untuk periode mendatang.</p></div></article>
+                @foreach ($relatedPosts as $related)
+                    <article class="news-card hover-lift group animate-fade-in-up stagger-{{ $loop->index + 1 }} bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all border border-transparent hover:border-[#d6a63a]/50"><div class="relative overflow-hidden"><div class="illustration {{ $related->image_class ?? 'graduates' }} group-hover:scale-110 transition-transform duration-300"></div></div><div class="p-7"><p class="meta-line group-hover:text-[#d6a63a] transition-colors">{{ $related->category }}</p><h3 class="group-hover:text-[#d6a63a] transition-colors">{{ $related->title }}</h3><p class="text-[#6b7f91]">{{ $related->excerpt }}</p><a href="{{ route('berita.show', $related->slug) }}" class="inline-flex items-center gap-2 mt-4 text-[#d6a63a] font-bold group-hover:translate-x-2 transition-transform">Detail <span>→</span></a></div></article>
+                @endforeach
             </div>
-            <div class="mt-12 text-center"><a href="{{ route('berita.index') }}" class="rounded-full bg-[#071f3a] px-8 py-4 text-sm font-black uppercase tracking-[0.08em] text-white">Lihat Berita Lainnya -></a></div>
+            <div class="mt-12 text-center animate-fade-in-up" style="animation-delay: 0.3s;"><a href="{{ route('berita.index') }}" class="rounded-full bg-gradient-to-r from-[#071f3a] to-[#0f2847] px-8 py-4 text-sm font-black uppercase tracking-[0.08em] text-white hover:shadow-2xl hover:shadow-[#071f3a]/30 hover:scale-105 transition-all">Lihat Berita Lainnya →</a></div>
         </div>
     </section>
 @endsection

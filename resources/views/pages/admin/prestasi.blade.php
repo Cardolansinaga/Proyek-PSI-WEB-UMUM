@@ -1,7 +1,105 @@
 <!DOCTYPE html>
 <html lang="id">
-<head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Manajemen Akademik & Prestasi - SMAN 2 Balige</title> @vite(['resources/css/app.css', 'resources/js/app.js']) <style> * { margin: 0; padding: 0; box-sizing: border-box; } body { overflow: hidden; font-family: 'Inter', sans-serif; background-color: #f8fafc; } .admin-container { display: flex; height: 100vh; width: 100vw; } /* SIDEBAR KONSISTEN */ .sidebar { width: 260px; background-color: #071f3a; flex-shrink: 0; display: flex; flex-direction: column; color: white; } .nav-item { padding: 12px 16px; display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 500; color: #94a3b8; text-decoration: none; transition: 0.2s; } .nav-item:hover { color: white; background: rgba(255,255,255,0.05); border-radius: 12px; } .active-nav { background: rgba(255,255,255,0.1); color: white; border-radius: 12px; font-weight: 700; border-left: 4px solid #10b981; } /* CONTENT AREA */ .main-content { flex-grow: 1; overflow-y: auto; display: flex; flex-direction: column; } .header { height: 70px; background: white; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; padding: 0 32px; position: sticky; top: 0; z-index: 10; } .content-padding { padding: 32px; } /* DASHBOARD ELEMENTS */ .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; } .card { background: white; border: 1px solid #f1f5f9; border-radius: 20px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); } .main-grid { display: grid; grid-template-columns: 1fr 350px; gap: 24px; } .data-table { width: 100%; border-collapse: collapse; margin-top: 20px; } .data-table th { text-align: left; padding: 12px; border-bottom: 2px solid #f1f5f9; color: #94a3b8; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; } .data-table td { padding: 16px 12px; border-bottom: 1px solid #f1f5f9; font-size: 14px; color: #1e293b; } /* BADGES */ .badge { padding: 4px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; } .badge-nasional { background: #ffedd5; color: #9a3412; } .badge-provinsi { background: #e0e7ff; color: #3730a3; } .badge-internasional { background: #071f3a; color: white; } .preview-card { background: linear-gradient(180deg, rgba(7,31,58,0) 0%, rgba(7,31,58,0.95) 100%), url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=400'); background-size: cover; border-radius: 20px; height: 400px; color: white; padding: 24px; display: flex; flex-direction: column; justify-content: flex-end; position: relative; } /* Tombol Tambah */ .btn-add { background: #071f3a; color: white; padding: 12px 24px; border-radius: 12px; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s; } .btn-add:hover { background: #0c2d54; transform: translateY(-1px); } </style> @include('pages.admin.partials.responsive') </head>
-<body> <div class="admin-container"> <aside class="sidebar"> <div style="padding: 32px;"> <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 32px;"> <div style="background: #d6a63a; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; font-weight: 900; color: white;">S2</div> <div> <div style="font-size: 14px; font-weight: 900; line-height: 1;">SMAN 2 Balige</div> <div style="font-size: 10px; color: #94a3b8;">Portal Admin</div> </div> </div> <nav style="display: flex; flex-direction: column; gap: 4px;"> <a href="{{ route('dashboard') }}" class="nav-item"> Dashboard</a> <a href="{{ route('guru.index') }}" class="nav-item"> Guru & Staf</a> <a href="{{ route('prestasi.index') }}" class="nav-item active-nav"> Akademik & Prestasi</a> <a href="{{ route('pengumuman.index') }}" class="nav-item"> Pengumuman</a> <a href="{{ route('kesiswaan.index') }}" class="nav-item"> Kesiswaan</a> <a href="{{ route('admin.ppdb') }}" class="nav-item"> PPDB</a> <a href="{{ route('admin.galeri') }}" class="nav-item"> Galeri</a> <a href="{{ route('admin.pengaturan') }}" class="nav-item"> Pengaturan</a> </nav> </div> <div style="margin-top: auto; padding: 32px;"> <form method="POST" action="{{ route('logout') }}"> @csrf <button type="submit" style="color: #f87171; background: none; border: none; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px;"> <span> Keluar</span> </button> </form> </div> </aside> <div class="main-content"> <header class="header"> <div style="font-size: 12px; font-weight: 800; color: #94a3b8; letter-spacing: 1px;"> PANEL ADMIN <span style="margin: 0 8px; color: #e2e8f0;">/</span> <span style="color: #64748b;">Manajemen Akademik & Prestasi</span> </div> <div style="display: flex; align-items: center; gap: 24px;"> @php $adminName = optional(Auth::user())->name ?? session('admin_name') ?? 'Admin'; @endphp <div style="text-align: right;"> <div style="font-size: 13px; font-weight: 900; color: #071f3a;">{{ $adminName }}</div> <div style="font-size: 10px; font-weight: 700; color: #3b82f6;">ADMIN UTAMA</div> </div> <div style="width: 35px; height: 35px; background: #071f3a; border-radius: 50%; display: grid; place-items: center; color: white; font-size: 12px; font-weight: 800;"> {{ strtoupper(substr($adminName, 0, 2)) }} </div> </div> </header> <main class="content-padding"> <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px;"> <div> <h1 style="font-size: 32px; font-weight: 800; color: #071f3a;">Manajemen Akademik & Prestasi</h1> <p style="color: #64748b; font-size: 14px; margin-top: 8px;">Kelola kurikulum, layanan akademik, dan pencapaian siswa SMAN 2 Balige.</p> </div> <div style="display: flex; gap: 12px;"> <button style="background: white; border: 1px solid #e2e8f0; padding: 12px 24px; border-radius: 12px; font-weight: 700; color: #475569;"> Export PDF</button> <!-- SEKARANG BISA DITEKAN: Diarahkan ke form tambah --> <a href="{{ route('prestasi.create') }}" class="btn-add">+ Tambah Prestasi</a> </div> </div> <!-- STATS GRID --> <div class="stats-grid"> <div class="card"> <div style="color: #3b82f6; font-size: 24px; margin-bottom: 12px;"></div> <div style="color: #94a3b8; font-size: 11px; font-weight: 800; text-transform: uppercase;">Total Prestasi</div> <div style="font-size: 28px; font-weight: 900; color: #071f3a;">142</div> </div> <div class="card"> <div style="color: #f59e0b; font-size: 24px; margin-bottom: 12px;"></div> <div style="color: #94a3b8; font-size: 11px; font-weight: 800; text-transform: uppercase;">Tingkat Internasional</div> <div style="font-size: 28px; font-weight: 900; color: #071f3a;">08</div> </div> <div class="card"> <div style="color: #10b981; font-size: 24px; margin-bottom: 12px;"></div> <div style="color: #94a3b8; font-size: 11px; font-weight: 800; text-transform: uppercase;">Juara Umum</div> <div style="font-size: 28px; font-weight: 900; color: #071f3a;">24</div> </div> <div class="card"> <div style="color: #ef4444; font-size: 24px; margin-bottom: 12px;"></div> <div style="color: #94a3b8; font-size: 11px; font-weight: 800; text-transform: uppercase;">Perlu Review</div> <div style="font-size: 28px; font-weight: 900; color: #071f3a;">03</div> </div> </div> <div class="main-grid"> <!-- TABLE SECTION --> <div class="card"> <h3 style="font-size: 18px; font-weight: 800; color: #071f3a; margin-bottom: 24px;">Riwayat Prestasi Terbaru</h3> <table class="data-table"> <thead> <tr> <th>Nama Siswa / Tim</th> <th>Kompetisi</th> <th>Level</th> <th>Peringkat</th> </tr> </thead> <tbody> <tr> <td style="font-weight: 700;">Andini Putri<br><span style="font-weight: 400; color: #94a3b8; font-size: 11px;">Kelas XII MIPA 1</span></td> <td>OSN Astronomi<br><span style="font-weight: 400; color: #94a3b8; font-size: 11px;">Nasional</span></td> <td><span class="badge badge-nasional">Nasional</span></td> <td style="color: #d6a63a; font-weight: 700;"> Juara 1</td> </tr> <tr> <td style="font-weight: 700;">Budi Santoso<br><span style="font-weight: 400; color: #94a3b8; font-size: 11px;">Kelas XI IPS 3</span></td> <td>FLS2N Seni Lukis<br><span style="font-weight: 400; color: #94a3b8; font-size: 11px;">Provinsi</span></td> <td><span class="badge badge-provinsi">Provinsi</span></td> <td style="color: #64748b; font-weight: 700;"> Juara 3</td> </tr> </tbody> </table> </div> <!-- PREVIEW SECTION --> <div style="display: flex; flex-direction: column; gap: 24px;"> <div class="card" style="padding: 0; overflow: hidden; border: none;"> <div class="preview-card"> <span style="background: #d6a63a; padding: 4px 12px; border-radius: 4px; font-size: 10px; font-weight: 800; position: absolute; top: 24px; left: 24px;">TERBARU</span> <h4 style="font-size: 20px; font-weight: 800; margin-bottom: 12px;">OSN Astronomi: Juara 1 Nasional</h4> <a href="{{ route('home') . '#berita' }}" style="color: white; font-size: 11px; font-weight: 800; text-decoration: none;">SELENGKAPNYA </a> </div> </div> </div> </div> </main> </div>
-</div> </body>
-</html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Akademik & Prestasi - SMAN 2 Balige</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @include('pages.admin.partials.admin-polish')
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { overflow: hidden; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
+        .admin-container { display: flex; height: 100vh; width: 100vw; }
+        .main-content { flex: 1; overflow-y: auto; }
+        .content-padding { padding: 32px; }
+        .page-head { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; margin-bottom: 32px; }
+        .page-head h1 { font-size: 36px; font-weight: 900; color: #071f3a; }
+        .page-head p { color: #64748b; margin-top: 8px; font-size: 14px; }
+        .btn-add, .btn-light, .btn-danger { border-radius: 10px; padding: 11px 18px; font-weight: 900; text-decoration: none; border: none; cursor: pointer; transition: all 0.3s ease; }
+        .btn-add { background: linear-gradient(135deg, #071f3a 0%, #0f2847 100%); color: white; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.2); }
+        .btn-add:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(7, 31, 58, 0.3); }
+        .btn-light { background: white; color: #071f3a; border: 1px solid #e2e8f0; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        .btn-light:hover { background: #f8fafc; border-color: #d6a63a; box-shadow: 0 4px 12px rgba(214, 166, 58, 0.1); }
+        .btn-danger { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
+        .btn-danger:hover { background: #ffe4e6; box-shadow: 0 4px 12px rgba(190, 18, 60, 0.1); transform: translateY(-1px); }
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 32px; }
+        .stat-card { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid; transition: all 0.3s ease; }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+        .stat-card.total { border-left-color: #d6a63a; }
+        .stat-card.international { border-left-color: #3b82f6; }
+        .stat-card.featured { border-left-color: #19a99a; }
+        .stat-card.draft { border-left-color: #f97316; }
+        .stat-label { color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+        .stat-value { font-size: 32px; font-weight: 900; color: #071f3a; }
+        .card { background: white; border-radius: 14px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .card h2 { font-size: 22px; color: #071f3a; font-weight: 900; margin-bottom: 20px; }
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table thead tr { background: linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%); }
+        .data-table th { text-align: left; padding: 14px 12px; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; }
+        .data-table td { padding: 16px 12px; border-bottom: 1px solid #f1f5f9; font-size: 14px; color: #1e293b; vertical-align: middle; }
+        .data-table tbody tr { transition: all 0.2s ease; }
+        .data-table tbody tr:hover { background-color: #f8fafc; }
+        .badge { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 8px; font-size: 11px; font-weight: 900; text-transform: uppercase; }
+        @media (max-width: 900px) { .stats-grid { grid-template-columns: 1fr; } .page-head { flex-direction: column; } }
+    </style>
+    @include('pages.admin.partials.responsive')
+</head>
+<body>
+<div class="admin-container">
+    @include('pages.admin.partials.sidebar', ['activeAdmin' => 'prestasi'])
+    <div class="main-content">
+        <main class="content-padding">
+            <div class="page-head">
+                <div>
+                    <h1>Manajemen Akademik & Prestasi</h1>
+                    <p>Kelola prestasi siswa yang ditampilkan pada halaman Akademik & Prestasi publik.</p>
+                    @if (session('status'))
+                        <p style="color:#166534; font-weight:900;">{{ session('status') }}</p>
+                    @endif
+                </div>
+                <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                    <a href="{{ route('akademik') }}#prestasi" class="btn-light">Lihat Publik</a>
+                    <a href="{{ route('prestasi.create') }}" class="btn-add">+ Tambah Prestasi</a>
+                </div>
+            </div>
 
+            <div class="stats-grid">
+                <div class="stat-card total"><div class="stat-label">📊 Total Prestasi</div><div class="stat-value">{{ $achievements->count() }}</div></div>
+                <div class="stat-card international"><div class="stat-label">🌍 Internasional</div><div class="stat-value">{{ $achievements->where('level', 'Internasional')->count() }}</div></div>
+                <div class="stat-card featured"><div class="stat-label">⭐ Unggulan</div><div class="stat-value">{{ $achievements->where('is_featured', true)->count() }}</div></div>
+                <div class="stat-card draft"><div class="stat-label">📝 Draft</div><div class="stat-value">{{ $achievements->where('status', '!=', 'published')->count() }}</div></div>
+            </div>
+
+            <section class="card">
+                <h2>Riwayat Prestasi</h2>
+                <table class="data-table">
+                    <thead><tr><th>Nama Siswa / Tim</th><th>Kompetisi</th><th>Level</th><th>Peringkat</th><th>Aksi</th></tr></thead>
+                    <tbody>
+                    @forelse ($achievements as $achievement)
+                        <tr>
+                            <td style="font-weight:900;">{{ $achievement->student_name ?? 'Tim Sekolah' }}<br><span style="font-weight:500; color:#94a3b8; font-size:11px;">{{ $achievement->class_name ?? $achievement->year }}</span></td>
+                            <td>{{ $achievement->title }}<br><span style="font-size:11px; color:#94a3b8;">{{ $achievement->competition }}</span></td>
+                            <td><span class="badge">{{ $achievement->level }}</span></td>
+                            <td style="font-weight:900; color:#c59632;">{{ $achievement->rank }}</td>
+                            <td>
+                                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                                    <a class="btn-light" href="{{ route('prestasi.edit', $achievement) }}">Edit</a>
+                                    <form method="POST" action="{{ route('admin.prestasi.destroy', $achievement) }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn-danger" type="submit">Hapus</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="5">Belum ada data prestasi.</td></tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+</div>
+</body>
+</html>

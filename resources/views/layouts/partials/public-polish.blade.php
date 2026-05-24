@@ -97,9 +97,7 @@
     .hero-gallery { background-image: linear-gradient(90deg, rgba(8,33,59,.84), rgba(8,33,59,.28)), url('https://images.unsplash.com/photo-1517457373958-b7bdd4587205?auto=format&fit=crop&w=1800&q=85') !important; background-size: cover !important; background-position: center !important; }
 
     .page-hero,
-    .teacher-hero,
-    .contact-hero,
-    .alumni-hero {
+    .contact-hero {
         position: relative;
         overflow: hidden;
         background-color: var(--site-navy);
@@ -108,8 +106,6 @@
     }
 
     .contact-hero { background-image: linear-gradient(90deg, rgba(8,33,59,.88), rgba(8,33,59,.36)), url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=85') !important; }
-    .teacher-hero { background-image: linear-gradient(90deg, rgba(8,33,59,.88), rgba(8,33,59,.32)), url('https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1800&q=85') !important; }
-    .alumni-hero { background-image: linear-gradient(90deg, rgba(8,33,59,.88), rgba(8,33,59,.28)), url('https://images.unsplash.com/photo-1515169067865-5387ec356754?auto=format&fit=crop&w=1800&q=85') !important; }
 
     .page-hero-overlay,
     .page-hero::before,
@@ -834,7 +830,7 @@
     .illustration.dance, .illustration.culture, .illustration.art { background-image: url('https://images.unsplash.com/photo-1504609813442-a8924e83f76e?auto=format&fit=crop&w=900&q=85') !important; }
     .illustration.campus, .illustration.meeting { background-image: url('https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1000&q=85') !important; }
     .illustration.robot { background-image: url('https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=900&q=85') !important; }
-    .illustration.alumni, .illustration.graduation { background-image: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=85') !important; }
+    .illustration.graduation { background-image: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=85') !important; }
     .illustration.medalists { background-image: url('https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1100&q=85') !important; }
     .illustration.study, .illustration.class, .illustration.labroom, .illustration.presentation, .illustration.assembly { background-image: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=900&q=85') !important; }
     .illustration.basketball-real { background-image: url('https://images.unsplash.com/photo-1546519638-68e109498ffc?auto=format&fit=crop&w=900&q=85') !important; }
@@ -1386,6 +1382,80 @@
             min-height: auto !important;
         }
     }
+
+    .public-site.page-ready .school-hero h1,
+    .public-site.page-ready .page-hero h1,
+    .public-site.page-ready .hero-home h1,
+    .public-site.page-ready .section-pill,
+    .public-site.page-ready .eyebrow,
+    .public-site.page-ready .cta-panel,
+    .public-site.page-ready .leadership-panel,
+    .public-site.page-ready .feature-card,
+    .public-site.page-ready .news-card,
+    .public-site.page-ready .gallery-tile,
+    .public-site.page-ready .facility-tile,
+    .public-site.page-ready .program-card,
+    .public-site.page-ready .soft-card,
+    .public-site.page-ready .profile-stat,
+    .public-site.page-ready .timeline-row,
+    .public-site.page-ready .message-panel {
+        animation: publicRise .72s cubic-bezier(.2,.8,.2,1) both;
+    }
+
+    .public-site.page-ready .feature-card:nth-child(2n),
+    .public-site.page-ready .news-card:nth-child(2n),
+    .public-site.page-ready .gallery-tile:nth-child(2n),
+    .public-site.page-ready .program-card:nth-child(2n) {
+        animation-delay: .08s;
+    }
+
+    .public-site.page-ready .feature-card:nth-child(3n),
+    .public-site.page-ready .news-card:nth-child(3n),
+    .public-site.page-ready .gallery-tile:nth-child(3n),
+    .public-site.page-ready .program-card:nth-child(3n) {
+        animation-delay: .16s;
+    }
+
+    .public-site .school-hero .gold-button,
+    .public-site .school-hero .ghost-button,
+    .public-site .page-hero .gold-button,
+    .public-site .page-hero .ghost-button {
+        box-shadow: 0 18px 38px rgba(7, 31, 58, .22);
+    }
+
+    .public-site .school-hero .hero-campus-card,
+    .public-site .page-hero .hero-campus-card,
+    .public-site .campus-photo,
+    .public-site .illustration,
+    .public-site .gallery-tile,
+    .public-site .facility-tile,
+    .public-site .portrait-visual,
+    .public-site .teaching-visual,
+    .public-site .principal-photo,
+    .public-site .academic-portrait,
+    .public-site .achievement-portrait,
+    .public-site .reveal-on-scroll {
+        opacity: 0;
+        transform: translateY(20px);
+        transition-delay: var(--reveal-delay, 0ms);
+    }
+    
+    .public-site .reveal-on-scroll.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+
+    @keyframes publicRise {
+        from {
+            opacity: 0;
+            transform: translateY(18px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 </style>
 
 <style>
@@ -1478,6 +1548,90 @@
     .public-site .outline-button:hover::after,
     .public-site .ghost-button:hover::after {
         transform: translateX(120%);
+    }
+
+    .public-site.page-ready main > section:not(.school-hero):not(.page-hero):not(.public-hero) {
+        animation: sectionRise .8s cubic-bezier(.2, .8, .2, 1) both;
+        animation-delay: var(--section-delay, 0ms);
+    }
+
+    .public-site.page-ready main > section:not(.school-hero):not(.page-hero):not(.public-hero) > div,
+    .public-site.page-ready main > section:not(.school-hero):not(.page-hero):not(.public-hero) .mx-auto,
+    .public-site.page-ready main > section:not(.school-hero):not(.page-hero):not(.public-hero) .cta-panel {
+        animation: sectionRise .85s cubic-bezier(.2, .8, .2, 1) both;
+        animation-delay: calc(var(--section-delay, 0ms) + 80ms);
+    }
+
+    .public-site.page-ready .feature-card,
+    .public-site.page-ready .info-card,
+    .public-site.page-ready .news-card,
+    .public-site.page-ready .achievement-card,
+    .public-site.page-ready .teacher-card,
+    .public-site.page-ready .staff-card,
+    .public-site.page-ready .club-card,
+    .public-site.page-ready .program-card,
+    .public-site.page-ready .soft-card,
+    .public-site.page-ready .calendar-card,
+    .public-site.page-ready .profile-stat,
+    .public-site.page-ready .facility-tile,
+    .public-site.page-ready .gallery-tile,
+    .public-site.page-ready .timeline-row,
+    .public-site.page-ready .document-row,
+    .public-site.page-ready .leader-card,
+    .public-site.page-ready .metric-card,
+    .public-site.page-ready .track-card,
+    .public-site.page-ready .service-tile,
+    .public-site.page-ready .faq-item {
+        animation: cardRise .68s cubic-bezier(.2, .8, .2, 1) both;
+    }
+
+    .public-site.page-ready .feature-card:nth-child(2n),
+    .public-site.page-ready .info-card:nth-child(2n),
+    .public-site.page-ready .news-card:nth-child(2n),
+    .public-site.page-ready .achievement-card:nth-child(2n),
+    .public-site.page-ready .teacher-card:nth-child(2n),
+    .public-site.page-ready .staff-card:nth-child(2n),
+    .public-site.page-ready .club-card:nth-child(2n),
+    .public-site.page-ready .program-card:nth-child(2n),
+    .public-site.page-ready .soft-card:nth-child(2n),
+    .public-site.page-ready .profile-stat:nth-child(2n),
+    .public-site.page-ready .facility-tile:nth-child(2n),
+    .public-site.page-ready .gallery-tile:nth-child(2n),
+    .public-site.page-ready .track-card:nth-child(2n),
+    .public-site.page-ready .metric-card:nth-child(2n) {
+        animation-delay: .08s;
+    }
+
+    .public-site.page-ready .feature-card:nth-child(3n),
+    .public-site.page-ready .info-card:nth-child(3n),
+    .public-site.page-ready .news-card:nth-child(3n),
+    .public-site.page-ready .achievement-card:nth-child(3n),
+    .public-site.page-ready .teacher-card:nth-child(3n),
+    .public-site.page-ready .staff-card:nth-child(3n),
+    .public-site.page-ready .club-card:nth-child(3n),
+    .public-site.page-ready .program-card:nth-child(3n),
+    .public-site.page-ready .soft-card:nth-child(3n),
+    .public-site.page-ready .profile-stat:nth-child(3n),
+    .public-site.page-ready .facility-tile:nth-child(3n),
+    .public-site.page-ready .gallery-tile:nth-child(3n),
+    .public-site.page-ready .track-card:nth-child(3n),
+    .public-site.page-ready .metric-card:nth-child(3n) {
+        animation-delay: .16s;
+    }
+
+    .public-site.page-ready .feature-card:nth-child(4n),
+    .public-site.page-ready .news-card:nth-child(4n),
+    .public-site.page-ready .achievement-card:nth-child(4n),
+    .public-site.page-ready .teacher-card:nth-child(4n),
+    .public-site.page-ready .staff-card:nth-child(4n),
+    .public-site.page-ready .club-card:nth-child(4n),
+    .public-site.page-ready .program-card:nth-child(4n),
+    .public-site.page-ready .soft-card:nth-child(4n),
+    .public-site.page-ready .profile-stat:nth-child(4n),
+    .public-site.page-ready .gallery-tile:nth-child(4n),
+    .public-site.page-ready .track-card:nth-child(4n),
+    .public-site.page-ready .metric-card:nth-child(4n) {
+        animation-delay: .24s;
     }
 
     .public-site .feature-card,
@@ -1724,6 +1878,43 @@
         background-image: linear-gradient(90deg, rgba(8,33,59,.86), rgba(8,33,59,.34)), url('https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1800&q=85') !important;
         background-size: cover !important;
         background-position: center !important;
+    }
+
+    .public-site [class*="bg-gradient-to"][class*="from-[#071f3a]"],
+    .public-site [class*="bg-gradient-to"][class*="from-[#0f2847]"],
+    .public-site [class*="bg-gradient-to"][class*="to-[#071f3a]"],
+    .public-site [class*="bg-gradient-to"][class*="to-[#0f2847]"] {
+        background: linear-gradient(135deg, #071f3a 0%, #0f2847 100%) !important;
+        color: #ffffff !important;
+    }
+
+    .public-site section[class*="bg-gradient-to"][class*="from-[#071f3a]"],
+    .public-site section[class*="bg-gradient-to"][class*="from-[#0f2847]"],
+    .public-site section[class*="bg-gradient-to"][class*="to-[#071f3a]"],
+    .public-site section[class*="bg-gradient-to"][class*="to-[#0f2847]"] {
+        background: linear-gradient(135deg, #071f3a 0%, #0f2847 100%) !important;
+    }
+
+    .public-site [class*="bg-gradient-to"][class*="from-white"][class*="to-[#f6f9fc]"],
+    .public-site [class*="bg-gradient-to"][class*="from-white"][class*="to-[#f8fafc]"] {
+        background: linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%) !important;
+    }
+
+    .public-site [class*="bg-gradient-to"][class*="from-[#f6f9fc]"][class*="to-white"],
+    .public-site [class*="bg-gradient-to"][class*="from-[#f8fafc]"][class*="to-white"] {
+        background: linear-gradient(180deg, #f6f9fc 0%, #ffffff 100%) !important;
+    }
+
+    .public-site [class*="bg-white/10"] {
+        background: rgba(255, 255, 255, .10) !important;
+        border: 1px solid rgba(255, 255, 255, .16) !important;
+        color: #ffffff !important;
+    }
+
+    .public-site [class*="bg-white/10"] h2,
+    .public-site [class*="bg-white/10"] h3,
+    .public-site [class*="bg-white/10"] p {
+        color: inherit !important;
     }
 
     .public-site .step-card {
@@ -1976,8 +2167,7 @@
     .public-site .illustration.trophy,
     .public-site .illustration.medalists,
     .public-site .illustration.speech,
-    .public-site .illustration.workshop,
-    .public-site .illustration.alumni {
+    .public-site .illustration.workshop {
         background-image:
             linear-gradient(180deg, transparent 38%, rgba(8,33,59,.78)),
             linear-gradient(90deg, transparent 0 13%, #071f3a 13% 29%, transparent 29% 43%, #071f3a 43% 59%, transparent 59% 73%, #071f3a 73% 89%, transparent 89%),
@@ -2018,6 +2208,517 @@
         .public-site .step-card h3 {
             max-width: none;
             margin-top: 50px !important;
+        }
+    }
+
+    /* Bootstrap Navbar Customization */
+    .navbar {
+        background-color: rgba(255, 255, 255, .95) !important;
+        box-shadow: 0 10px 28px rgba(15, 23, 42, .06) !important;
+        border-bottom: 1px solid rgba(217, 227, 238, .9) !important;
+    }
+
+    .navbar-brand {
+        font-size: 1rem !important;
+        font-weight: 900 !important;
+        color: #071f3a !important;
+        text-decoration: none !important;
+    }
+
+    .navbar-collapse {
+        transition: max-height .3s ease-in-out !important;
+    }
+
+    @media (min-width: 1200px) {
+        .site-header .navbar-toggler {
+            display: none !important;
+        }
+
+        .site-header .navbar-collapse {
+            display: flex !important;
+            flex-basis: auto !important;
+            align-items: center !important;
+            justify-content: flex-end !important;
+            max-height: none !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .site-header .navbar-nav {
+            display: flex !important;
+            flex-direction: row !important;
+            align-items: center !important;
+            margin-left: auto !important;
+        }
+    }
+
+    @media (max-width: 1199.98px) {
+        .site-header .navbar-collapse:not(.show) {
+            display: none !important;
+        }
+
+        .site-header .navbar-collapse.show {
+            display: block !important;
+            padding-top: 14px;
+        }
+
+        .site-header .navbar-nav {
+            display: grid !important;
+            gap: 8px !important;
+        }
+    }
+
+    .navbar-toggler {
+        border: none !important;
+        padding: 0.375rem 0.625rem !important;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none !important;
+        outline: 2px solid #c9962c !important;
+    }
+
+    .nav-link {
+        color: #496176 !important;
+        font-weight: 700 !important;
+        font-size: 0.875rem !important;
+        transition: all .2s ease !important;
+        position: relative !important;
+    }
+
+    .nav-link:hover {
+        color: #071f3a !important;
+        background-color: #eef4f9 !important;
+        border-radius: 6px !important;
+    }
+
+    .nav-link.active {
+        color: #071f3a !important;
+        background-color: #eef4f9 !important;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: #c9962c;
+        transform: translateX(-50%);
+        transition: width .3s ease !important;
+    }
+
+    .nav-link:hover::after {
+        width: 80%;
+    }
+
+    .nav-link.active::after {
+        width: 80%;
+    }
+
+    /* Bootstrap Button Customization */
+    .btn {
+        border-radius: 6px !important;
+        font-weight: 700 !important;
+        transition: all .2s ease !important;
+        border: none !important;
+    }
+
+    .btn-primary {
+        background-color: #0f9f7a !important;
+        color: #ffffff !important;
+    }
+
+    .btn-primary:hover {
+        background-color: #0d8563 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 10px 24px rgba(15, 159, 122, .3) !important;
+    }
+
+    .btn-outline-primary {
+        color: #0f9f7a !important;
+        border: 2px solid #0f9f7a !important;
+    }
+
+    .btn-outline-primary:hover {
+        background-color: #0f9f7a !important;
+        color: #ffffff !important;
+    }
+
+    .btn-secondary {
+        background-color: #c9962c !important;
+        color: #ffffff !important;
+    }
+
+    .btn-secondary:hover {
+        background-color: #b08625 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 10px 24px rgba(201, 150, 44, .3) !important;
+    }
+
+    .btn-sm {
+        font-size: 0.85rem !important;
+        padding: 0.4rem 0.8rem !important;
+    }
+
+    .btn-lg {
+        font-size: 1.05rem !important;
+        padding: 0.75rem 1.5rem !important;
+    }
+
+    /* Bootstrap Form Customization */
+    .form-control,
+    .form-select {
+        border: 1px solid #d9e3ee !important;
+        border-radius: 6px !important;
+        padding: 0.75rem 1rem !important;
+        font-size: 1rem !important;
+        color: #102033 !important;
+        transition: all .2s ease !important;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #0f9f7a !important;
+        box-shadow: 0 0 0 3px rgba(15, 159, 122, .1) !important;
+    }
+
+    .form-label {
+        color: #071f3a !important;
+        font-weight: 600 !important;
+        margin-bottom: 0.5rem !important;
+    }
+
+    /* Bootstrap Card Customization */
+    .card {
+        border: 1px solid #d9e3ee !important;
+        border-radius: 8px !important;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, .06) !important;
+        transition: all .3s ease !important;
+    }
+
+    .card:hover {
+        transform: translateY(-4px) !important;
+        box-shadow: 0 14px 34px rgba(15, 23, 42, .12) !important;
+    }
+
+    .card-header {
+        background-color: transparent !important;
+        border-bottom: 1px solid #d9e3ee !important;
+        padding: 1.25rem !important;
+    }
+
+    .card-body {
+        padding: 1.5rem !important;
+    }
+
+    .card-title {
+        color: #071f3a !important;
+        font-weight: 800 !important;
+        font-size: 1.1rem !important;
+    }
+
+    .card-text {
+        color: #667789 !important;
+        font-size: 0.95rem !important;
+        line-height: 1.6 !important;
+    }
+
+    /* Bootstrap Badge Customization */
+    .badge {
+        padding: 0.5rem 0.75rem !important;
+        font-weight: 700 !important;
+        border-radius: 4px !important;
+    }
+
+    .badge.bg-success {
+        background-color: #0f9f7a !important;
+    }
+
+    .badge.bg-warning {
+        background-color: #c9962c !important;
+        color: #ffffff !important;
+    }
+
+    .badge.bg-info {
+        background-color: #2563eb !important;
+    }
+
+    /* Bootstrap Alert Customization */
+    .alert {
+        border: none !important;
+        border-radius: 8px !important;
+        border-left: 4px solid !important;
+    }
+
+    .alert-success {
+        background-color: rgba(15, 159, 122, .1) !important;
+        border-color: #0f9f7a !important;
+        color: #0d8563 !important;
+    }
+
+    .alert-warning {
+        background-color: rgba(201, 150, 44, .1) !important;
+        border-color: #c9962c !important;
+        color: #8a6d20 !important;
+    }
+
+    .alert-danger {
+        background-color: rgba(220, 38, 38, .1) !important;
+        border-color: #dc2626 !important;
+        color: #991b1b !important;
+    }
+
+    .alert-info {
+        background-color: rgba(37, 99, 235, .1) !important;
+        border-color: #2563eb !important;
+        color: #1e40af !important;
+    }
+
+    /* Bootstrap Modal Customization */
+    .modal-content {
+        border: none !important;
+        border-radius: 12px !important;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, .3) !important;
+    }
+
+    .modal-header {
+        border-bottom: 1px solid #d9e3ee !important;
+        background-color: #f4f8fb !important;
+    }
+
+    .modal-title {
+        color: #071f3a !important;
+        font-weight: 800 !important;
+    }
+
+    .btn-close {
+        filter: invert(0.7) !important;
+    }
+
+    /* Bootstrap Pagination Customization */
+    .page-link {
+        color: #0f9f7a !important;
+        border: 1px solid #d9e3ee !important;
+        border-radius: 4px !important;
+    }
+
+    .page-link:hover {
+        background-color: #0f9f7a !important;
+        border-color: #0f9f7a !important;
+        color: #ffffff !important;
+    }
+
+    .page-link.active {
+        background-color: #0f9f7a !important;
+        border-color: #0f9f7a !important;
+    }
+
+    .page-item.disabled .page-link {
+        color: #999 !important;
+        cursor: not-allowed !important;
+    }
+
+    /* Responsive safety net for the public site */
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .public-site,
+    .public-site * {
+        box-sizing: border-box;
+    }
+
+    .public-site main,
+    .public-site section,
+    .public-site .mx-auto {
+        max-width: 100%;
+    }
+
+    .public-site img,
+    .public-site video,
+    .public-site iframe {
+        max-width: 100%;
+    }
+
+    .public-site [class*="grid"],
+    .public-site [class*="flex"],
+    .public-site article,
+    .public-site aside,
+    .public-site form {
+        min-width: 0;
+    }
+
+    .public-site .campus-photo,
+    .public-site .illustration,
+    .public-site .gallery-tile,
+    .public-site .facility-tile,
+    .public-site .portrait-visual,
+    .public-site .teaching-visual,
+    .public-site .principal-photo,
+    .public-site .academic-portrait,
+    .public-site .achievement-portrait,
+    .public-site .student-mentoring,
+    .public-site .character-collage,
+    .public-site .partnership-visual,
+    .public-site .dorm-study-card,
+    .public-site .gallery-showcase,
+    .public-site .video-hero {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .public-site h1,
+    .public-site h2,
+    .public-site h3,
+    .public-site p,
+    .public-site a,
+    .public-site strong,
+    .public-site span {
+        overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 1199.98px) {
+        .site-header .navbar {
+            padding-block: 10px !important;
+        }
+
+        .site-header .navbar-collapse.show {
+            width: 100% !important;
+            margin: 12px 0 0 !important;
+            border-top: 1px solid #edf2f7 !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+
+        .site-header .navbar-nav {
+            width: 100% !important;
+            padding-top: 10px !important;
+        }
+
+        .site-header .nav-link {
+            width: 100% !important;
+            justify-content: flex-start !important;
+            white-space: normal !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .site-header .container-fluid {
+            padding-inline: 16px !important;
+        }
+
+        .site-header .navbar-brand {
+            max-width: calc(100% - 58px) !important;
+            min-width: 0 !important;
+            gap: 10px !important;
+        }
+
+        .site-header .navbar-brand > span:first-child {
+            width: 40px !important;
+            height: 40px !important;
+            flex: 0 0 40px !important;
+        }
+
+        .public-site .school-hero > .mx-auto,
+        .public-site .page-hero > .mx-auto,
+        .public-site .public-hero > .mx-auto,
+        .public-site .hero-home > .mx-auto {
+            min-height: auto !important;
+            padding: 72px 18px !important;
+        }
+
+        .public-site .school-hero h1,
+        .public-site .public-hero h1,
+        .public-site .page-hero h1,
+        .public-site .hero-home h1 {
+            font-size: clamp(30px, 9vw, 42px) !important;
+            line-height: 1.12 !important;
+        }
+
+        .public-site .school-hero p,
+        .public-site .public-hero p,
+        .public-site .page-hero p,
+        .public-site .hero-home p {
+            font-size: 14px !important;
+            line-height: 1.7 !important;
+        }
+
+        .public-site main > section:not(.school-hero):not(.page-hero):not(.public-hero) {
+            padding-block: 56px !important;
+        }
+
+        .public-site .section-title,
+        .public-site .message-panel h2 {
+            font-size: clamp(26px, 8vw, 34px) !important;
+            line-height: 1.2 !important;
+        }
+
+        .public-site .gold-button,
+        .public-site .outline-button,
+        .public-site .ghost-button,
+        .public-site .primary-wide,
+        .public-site .footer-text-link,
+        .public-site .footer-internal-link {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+        .public-site .calendar-card,
+        .public-site .document-row,
+        .public-site .partner-line,
+        .public-site .value-line {
+            gap: 12px !important;
+        }
+
+        .public-site .schedule-row {
+            min-height: auto !important;
+            padding: 12px !important;
+            align-items: flex-start !important;
+        }
+
+        .public-site .schedule-row > span {
+            min-height: 44px !important;
+            width: 48px !important;
+            height: 44px !important;
+            border-radius: var(--site-radius) !important;
+        }
+
+        .public-site .map-card {
+            min-height: 300px !important;
+        }
+
+        .public-site .map-pin {
+            left: 14px !important;
+            right: 14px !important;
+            bottom: 14px !important;
+            max-width: none !important;
+        }
+    }
+
+    @media (max-width: 380px) {
+        .public-site .school-hero h1,
+        .public-site .public-hero h1,
+        .public-site .page-hero h1,
+        .public-site .hero-home h1 {
+            font-size: 28px !important;
+        }
+
+        .public-site .feature-card,
+        .public-site .info-card,
+        .public-site .soft-card,
+        .public-site .program-card,
+        .public-site .calendar-card,
+        .public-site .club-card,
+        .public-site .contact-card,
+        .public-site .metric-card,
+        .public-site .step-card {
+            padding: 18px !important;
         }
     }
 </style>

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Edit Siswa - SMAN 2 Balige</title>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @include('pages.admin.partials.admin-polish')
     <style>
         body{font-family:Inter, sans-serif;background:#f8fafc;padding:24px}
         .card{background:white;padding:20px;border-radius:10px;max-width:720px;margin:0 auto}

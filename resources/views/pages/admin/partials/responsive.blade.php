@@ -37,9 +37,7 @@
         letter-spacing: 0 !important;
     }
 
-    .admin-container a[href*="/admin/guru"],
-    .admin-container a[href*="/admin/pengumuman"],
-    .admin-container a[href*="/admin/galeri"] {
+    .admin-container a[href*="/admin/pengumuman"] {
         display: none !important;
     }
 
@@ -757,6 +755,69 @@
         .admin-container .settings-grid {
             grid-template-columns: 1fr !important;
         }
+
+        .admin-container .responsive-table {
+            display: block !important;
+            min-width: 0 !important;
+            overflow: visible !important;
+            white-space: normal !important;
+        }
+
+        .admin-container .responsive-table thead {
+            display: none !important;
+        }
+
+        .admin-container .responsive-table tbody {
+            display: grid !important;
+            gap: 14px !important;
+        }
+
+        .admin-container .responsive-table tr {
+            display: grid !important;
+            border: 1px solid var(--admin-line) !important;
+            border-radius: var(--admin-radius) !important;
+            background: #ffffff !important;
+            box-shadow: var(--admin-shadow-sm) !important;
+            overflow: hidden !important;
+        }
+
+        .admin-container .responsive-table td {
+            display: grid !important;
+            grid-template-columns: minmax(92px, 32%) minmax(0, 1fr) !important;
+            gap: 12px !important;
+            align-items: start !important;
+            padding: 12px 14px !important;
+            border-bottom: 1px solid #edf2f7 !important;
+            white-space: normal !important;
+            overflow-wrap: anywhere !important;
+        }
+
+        .admin-container .responsive-table td:last-child {
+            border-bottom: 0 !important;
+        }
+
+        .admin-container .responsive-table td::before {
+            content: attr(data-label);
+            grid-column: 1;
+            grid-row: 1 / span 6;
+            color: #94a3b8;
+            font-size: 10px;
+            font-weight: 900;
+            line-height: 1.35;
+            text-transform: uppercase;
+        }
+
+        .admin-container .responsive-table td > * {
+            grid-column: 2 !important;
+        }
+
+        .admin-container .responsive-table td[colspan] {
+            grid-template-columns: 1fr !important;
+        }
+
+        .admin-container .responsive-table td[colspan]::before {
+            content: none !important;
+        }
     }
 </style>
 <script>
@@ -778,7 +839,6 @@
             if (text.includes('dashboard')) return 'bi-speedometer2';
             if (text.includes('beranda')) return 'bi-house-door';
             if (text.includes('akademik')) return 'bi-journal-richtext';
-            if (text.includes('guru')) return 'bi-people';
             if (text.includes('prestasi')) return 'bi-trophy';
             if (text.includes('pengumuman')) return 'bi-megaphone';
             if (text.includes('kesiswaan')) return 'bi-mortarboard';
@@ -818,6 +878,23 @@
             }
         });
 
+        document.querySelectorAll('.admin-container table').forEach(function (table) {
+            const labels = Array.from(table.querySelectorAll('thead th')).map(function (header) {
+                return header.textContent.replace(/\s+/g, ' ').trim();
+            });
+
+            if (!labels.length) return;
+
+            table.classList.add('responsive-table');
+            table.querySelectorAll('tbody tr').forEach(function (row) {
+                row.querySelectorAll('td').forEach(function (cell, index) {
+                    if (!cell.hasAttribute('data-label')) {
+                        cell.setAttribute('data-label', labels[index] || 'Data');
+                    }
+                });
+            });
+        });
+
         document.querySelectorAll('.admin-container .quick-access-grid .card').forEach(function (card) {
             const label = card.textContent.replace(/\s+/g, ' ').trim();
             card.querySelectorAll('div').forEach(function (node) {
@@ -855,6 +932,7 @@
     document.addEventListener('click', function (event) {
         const button = event.target.closest('.admin-container button');
         if (!button) return;
+        if ((button.type || '').toLowerCase() === 'submit' && (button.form || button.closest('form'))) return;
 
         const label = button.textContent.trim().toLowerCase();
         const go = (url) => {
@@ -865,17 +943,15 @@
         if (button.classList.contains('floating-add-btn')) go("{{ route('dashboard') }}");
         if (label.includes('buat pengumuman') || label.includes('terbitkan')) go("{{ route('admin.beranda') }}");
         if (label.includes('manajemen ppdb') || label.includes('verif ppdb') || label.includes('ekspor data') || label.includes('laporan')) go("{{ route('admin.ppdb') }}");
-        if (label.includes('tambah anggota guru') || label.includes('tambah guru')) go("{{ route('dashboard') }}");
         if (label.includes('tambah data')) go("{{ route('kesiswaan.create') }}");
-        if (label.includes('upload galeri') || label.includes('unggah media')) go("{{ route('admin.beranda') }}");
+        if (label.includes('upload galeri') || label.includes('unggah media')) go("{{ route('admin.galeri') }}");
         if (label.includes('atur admin')) go("{{ route('admin.pengaturan') }}");
         if (label.includes('export pdf') || label.includes('ekspor daftar')) go("{{ route('prestasi.index') }}");
         if (label.includes('filter') || label.includes('export') || label.includes('arsip') || label.includes('prev') || label.includes('next')) go(window.location.href);
         if (label.includes('edit') && window.location.pathname.includes('/pengumuman')) go("{{ route('admin.beranda') }}");
         if (label.includes('edit') && window.location.pathname.includes('/prestasi')) go("{{ route('prestasi.edit', 1) }}");
-        if (label.includes('edit') && window.location.pathname.includes('/galeri')) go("{{ route('admin.beranda') }}");
+        if (label.includes('edit') && window.location.pathname.includes('/galeri')) go("{{ route('admin.galeri') }}");
         if (label.includes('detail') && window.location.pathname.includes('/ppdb')) go("{{ route('admin.ppdb.show', 1) }}");
         if (label.includes('simpan data')) go("{{ route('prestasi.index') }}");
-        if (label.includes('simpan profil') || label.includes('hapus data guru')) go("{{ route('dashboard') }}");
     });
 </script>
