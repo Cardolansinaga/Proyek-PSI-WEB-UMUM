@@ -33,10 +33,49 @@
                 </div>
             </div>
             <div class="academic-portrait">
-                <div class="floating-quote">Standar akademik di sini melatih saya untuk tidak hanya pintar, tapi juga tangguh menghadapi tantangan global.</div>
+                <div class="testimonial-card">
+                    <div class="testimonial-card__quote">
+                        <span class="quote-mark">“</span>
+                        <p class="quote-text">Standar akademik di sini melatih saya untuk tidak hanya pintar, tetapi juga tangguh menghadapi tantangan global.</p>
+                    </div>
+                    <div class="testimonial-meta">
+                        <div class="testimonial-avatar">A</div>
+                        <div class="testimonial-author">
+                            <strong>Alumni Angkatan 2022</strong>
+                            <span>Alumni</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
+    @push('scripts')
+    <script>
+        (function(){
+            function revealTestimonial(){
+                var el = document.querySelector('.academic-portrait .testimonial-card');
+                if(!el) return;
+                // Use IntersectionObserver when available for nicer on-screen trigger
+                if('IntersectionObserver' in window){
+                    var io = new IntersectionObserver(function(entries, obs){
+                        entries.forEach(function(ent){
+                            if(ent.isIntersecting){
+                                el.classList.add('is-visible');
+                                obs.unobserve(ent.target);
+                            }
+                        });
+                    }, { threshold: 0.05 });
+                    io.observe(el);
+                } else {
+                    // fallback: show after short delay
+                    setTimeout(function(){ el.classList.add('is-visible'); }, 120);
+                }
+            }
+            if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', revealTestimonial); else revealTestimonial();
+        })();
+    </script>
+    @endpush
 
     <section id="kurikulum" class="bg-[#f6f9fc] py-20 sm:py-24">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
