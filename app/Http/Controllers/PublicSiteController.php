@@ -83,6 +83,7 @@ class PublicSiteController extends Controller
             'principal_message' => 'Di SMAN 2 Balige, kami membangun budaya belajar yang disiplin, hangat, dan menantang.',
             'cta_label' => 'Informasi PPDB',
             'hero_image' => null,
+            'logo' => null,
             'akademik_hero_image' => null,
             'kesiswaan_hero_image' => null,
             'ppdb_hero_image' => null,

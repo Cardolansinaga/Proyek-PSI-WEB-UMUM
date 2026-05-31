@@ -157,6 +157,19 @@
                                 <input type="email" class="custom-input" name="admin_email" value="admin@sman2balige.sch.id">
                             </div>
                             <div class="input-group">
+                                <label>Logo Situs</label>
+                                @if (! empty($settings['logo']))
+                                    <div class="image-preview" style="background-image: url('{{ asset('storage/'.$settings['logo']) }}');"></div>
+                                    <label class="check-row">
+                                        <input type="checkbox" name="remove_logo" value="1">
+                                        Hapus logo
+                                    </label>
+                                @else
+                                    <div class="image-preview">Logo default aktif</div>
+                                @endif
+                                <input class="custom-input" type="file" name="logo" accept="image/png,image/jpeg,image/webp">
+                            </div>
+                            <div class="input-group">
                                 <label>Durasi Sesi</label>
                                 <select class="custom-select" name="session_duration">
                                     <option>120 menit</option>

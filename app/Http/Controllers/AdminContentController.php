@@ -251,6 +251,7 @@ class AdminContentController extends Controller
             'kesiswaan_hero_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
             'ppdb_hero_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
             'berita_hero_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
+            'logo' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
             'remove_akademik_hero_image' => ['nullable'],
             'remove_kesiswaan_hero_image' => ['nullable'],
             'remove_ppdb_hero_image' => ['nullable'],
@@ -270,6 +271,12 @@ class AdminContentController extends Controller
             if ($request->hasFile($field) || $request->boolean('remove_'.$field)) {
                 SiteSetting::setMany([$field => $path]);
             }
+        }
+
+        // handle logo upload separately
+        $logoPath = $this->storeImage($request, 'logo', $this->settings()['logo'] ?? null);
+        if ($request->hasFile('logo') || $request->boolean('remove_logo')) {
+            SiteSetting::setMany(['logo' => $logoPath]);
         }
 
         $this->clearSettingsCache();
@@ -411,6 +418,7 @@ class AdminContentController extends Controller
             'principal_message' => 'Di SMAN 2 Balige, kami membangun budaya belajar yang disiplin, hangat, dan menantang.',
             'cta_label' => 'Informasi PPDB',
             'hero_image' => null,
+            'logo' => null,
             'akademik_hero_image' => null,
             'kesiswaan_hero_image' => null,
             'ppdb_hero_image' => null,

@@ -29,7 +29,11 @@
                 <div class="container-fluid mx-0 px-4 px-lg-5">
                     <!-- Brand -->
                     <a href="{{ route('home') }}" class="navbar-brand d-flex align-items-center gap-3 ms-0">
-                        <span class="d-flex align-items-center justify-content-center rounded-circle fw-black" style="width: 44px; height: 44px; background-color: #071f3a; color: #d6a63a; font-size: 0.875rem; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.2);">S2</span>
+                        @if (! empty($settings['logo']))
+                            <img src="{{ asset('storage/'.$settings['logo']) }}" alt="{{ $settings['school_name'] ?? 'SMAN 2 Balige' }}" style="width:44px;height:44px;border-radius:50%;object-fit:cover;box-shadow: 0 4px 12px rgba(7,31,58,0.12);">
+                        @else
+                            <span class="d-flex align-items-center justify-content-center rounded-circle fw-black" style="width: 44px; height: 44px; background-color: #071f3a; color: #d6a63a; font-size: 0.875rem; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.2);">S2</span>
+                        @endif
                         <div class="d-none d-sm-block">
                             <div style="font-size: 1rem; font-weight: 900; color: #071f3a; line-height: 1.2;">SMAN 2 Balige</div>
                             <div style="font-size: 0.5625rem; font-weight: 900; letter-spacing: 0.32em; color: #d6a63a;">Unggul & Berkarakter</div>
