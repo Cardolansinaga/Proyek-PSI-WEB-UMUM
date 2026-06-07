@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail PPDB - SMAN 2 Balige</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
+    @vite('resources/css/admin.css')
     @include('pages.admin.partials.admin-polish')
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
+        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
         .admin-container { display: flex; height: 100vh; width: 100vw; }
         .sidebar { width: 260px; background: #071f3a; flex-shrink: 0; display: flex; flex-direction: column; color: white; }
         .main-content { flex: 1; overflow-y: auto; }
@@ -49,12 +50,12 @@
                     <h1>Detail Pendaftar PPDB</h1>
                     <p>Periksa data calon siswa, kelengkapan berkas, dan status verifikasi pendaftaran.</p>
                 </div>
-                <a href="{{ route('admin.ppdb') }}" class="btn-outline">Kembali ke PPDB</a>
+                <a href="{{ route('admin.ppdb') }}" class="btn-outline"><i class="bi bi-arrow-left" aria-hidden="true"></i> Kembali ke PPDB</a>
             </div>
 
             <div class="grid">
                 <section class="card">
-                    <h2>Data Calon Siswa</h2>
+                    <h2><i class="bi bi-person-vcard" aria-hidden="true"></i> Data Calon Siswa</h2>
                     <div class="info-grid">
                         <div class="info"><span>No. Registrasi</span><strong>{{ $application->registration_number }}</strong></div>
                         <div class="info"><span>Status</span><strong>{{ ucfirst($application->status) }}</strong></div>
@@ -68,17 +69,17 @@
                 </section>
 
                 <aside class="card">
-                    <h2>Aksi Verifikasi</h2>
+                    <h2><i class="bi bi-shield-check" aria-hidden="true"></i> Aksi Verifikasi</h2>
                     <form method="POST" action="{{ route('admin.ppdb.verify', $application) }}" style="display: grid; gap: 12px;">
                         @csrf
-                        <button type="submit" name="status" value="verified" class="btn-primary">Terverifikasi</button>
-                        <button type="submit" name="status" value="revision" class="btn-outline">Minta Revisi Berkas</button>
-                        <button type="submit" name="status" value="rejected" class="btn-danger">Tolak Pendaftaran</button>
+                        <button type="submit" name="status" value="verified" class="btn-primary"><i class="bi bi-check-circle" aria-hidden="true"></i> Terverifikasi</button>
+                        <button type="submit" name="status" value="revision" class="btn-outline"><i class="bi bi-arrow-repeat" aria-hidden="true"></i> Minta Revisi Berkas</button>
+                        <button type="submit" name="status" value="rejected" class="btn-danger"><i class="bi bi-x-circle" aria-hidden="true"></i> Tolak Pendaftaran</button>
                     </form>
                 </aside>
 
                 <section class="card" style="grid-column: 1 / -1;">
-                    <h2>Kelengkapan Berkas</h2>
+                    <h2><i class="bi bi-folder-check" aria-hidden="true"></i> Kelengkapan Berkas</h2>
                     @foreach (($application->documents ?? []) as $document => $isComplete)
                         <div class="doc-row"><strong>{{ $document }}</strong><span class="badge" style="{{ $isComplete ? '' : 'background:#fee2e2;color:#991b1b;' }}">{{ $isComplete ? 'Lengkap' : 'Belum Lengkap' }}</span></div>
                     @endforeach

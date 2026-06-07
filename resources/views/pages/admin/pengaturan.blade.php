@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pengaturan Admin - SMAN 2 Balige</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
+    @vite('resources/css/admin.css')
     @include('pages.admin.partials.admin-polish')
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
+        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
         .admin-container { display: flex; height: 100vh; width: 100vw; }
         .sidebar { width: 260px; background: #071f3a; flex-shrink: 0; display: flex; flex-direction: column; color: white; }
         .main-content { flex: 1; overflow-y: auto; }
@@ -52,10 +53,10 @@
                     <h1>Pengaturan Admin</h1>
                     <p>Atur informasi sekolah, status publikasi, periode PPDB, dan preferensi tampilan situs.</p>
                     @if (session('status'))
-                        <p style="margin-top: 12px; color:#166534; font-weight:900; padding:10px 12px; background:#dcfce7; border-radius:8px; display:inline-block; font-size:13px;">✓ {{ session('status') }}</p>
+                        <p style="margin-top: 12px; color:#166534; font-weight:900; padding:10px 12px; background:#dcfce7; border-radius:8px; display:inline-block; font-size:13px;"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> {{ session('status') }}</p>
                     @endif
                 </div>
-                <button type="submit" form="settings-form" class="btn-primary">Simpan Pengaturan</button>
+                <button type="submit" form="settings-form" class="btn-primary"><i class="bi bi-save" aria-hidden="true"></i> Simpan Pengaturan</button>
             </div>
 
             <form id="settings-form" method="POST" action="{{ route('admin.pengaturan.update') }}" enctype="multipart/form-data">
@@ -63,7 +64,7 @@
                 <div class="settings-grid">
                     <div class="stack">
                         <section class="card">
-                            <h2>Profil Sekolah</h2>
+                            <h2><i class="bi bi-building" aria-hidden="true"></i> Profil Sekolah</h2>
                             <div class="field-grid">
                                 <div class="input-group">
                                     <label>Nama Sekolah</label>
@@ -93,7 +94,7 @@
                         </section>
 
                         <section class="card">
-                            <h2>Pengaturan PPDB</h2>
+                            <h2><i class="bi bi-journal-check" aria-hidden="true"></i> Pengaturan PPDB</h2>
                             <div class="field-grid">
                                 <div class="input-group">
                                     <label>Tahun Ajaran</label>
@@ -119,7 +120,7 @@
                         </section>
 
                         <section class="card">
-                            <h2>Gambar Hero Halaman Publik</h2>
+                            <h2><i class="bi bi-image" aria-hidden="true"></i> Gambar Hero Halaman Publik</h2>
                             <div class="image-grid">
                                 @foreach ([
                                     'akademik_hero_image' => 'Akademik & Prestasi',
@@ -147,7 +148,7 @@
 
                     <aside class="stack">
                         <section class="card">
-                            <h2>Akun Admin</h2>
+                            <h2><i class="bi bi-person-gear" aria-hidden="true"></i> Akun Admin</h2>
                             <div class="input-group">
                                 <label>Nama Admin</label>
                                 <input class="custom-input" name="admin_name" value="{{ session('admin_name') ?? 'Admin Utama' }}">
@@ -158,15 +159,7 @@
                             </div>
                             <div class="input-group">
                                 <label>Logo Situs</label>
-                                @if (! empty($settings['logo']))
-                                    <div class="image-preview" style="background-image: url('{{ asset('storage/'.$settings['logo']) }}');"></div>
-                                    <label class="check-row">
-                                        <input type="checkbox" name="remove_logo" value="1">
-                                        Hapus logo
-                                    </label>
-                                @else
-                                    <div class="image-preview">Logo default aktif</div>
-                                @endif
+                                <div class="image-preview" style="background-image: url('{{ asset('images/logo-sman2-balige.jpg') }}'); background-size: contain; background-color: #ffffff;">Logo resmi aktif</div>
                                 <input class="custom-input" type="file" name="logo" accept="image/png,image/jpeg,image/webp">
                             </div>
                             <div class="input-group">
@@ -180,7 +173,7 @@
                         </section>
 
                         <section class="card">
-                            <h2>Publikasi</h2>
+                            <h2><i class="bi bi-broadcast" aria-hidden="true"></i> Publikasi</h2>
                             <div class="input-group">
                                 <label>Moderasi Konten</label>
                                 <select class="custom-select" name="moderasi">
@@ -199,8 +192,8 @@
                         </section>
 
                         <div style="display: flex; gap: 10px;">
-                            <a href="{{ route('dashboard') }}" class="btn-outline">Batal</a>
-                            <button type="submit" class="btn-primary">Simpan</button>
+                            <a href="{{ route('dashboard') }}" class="btn-outline"><i class="bi bi-x-circle" aria-hidden="true"></i> Batal</a>
+                            <button type="submit" class="btn-primary"><i class="bi bi-save" aria-hidden="true"></i> Simpan</button>
                         </div>
                     </aside>
                 </div>

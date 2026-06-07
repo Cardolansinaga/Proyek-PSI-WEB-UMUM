@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manajemen Beranda - SMAN 2 Balige</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
+    @vite('resources/css/admin.css')
     @include('pages.admin.partials.admin-polish')
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
+        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
         .admin-container { display: flex; height: 100vh; width: 100vw; }
         .sidebar { width: 260px; background: #071f3a; flex-shrink: 0; display: flex; flex-direction: column; color: white; }
         .main-content { flex: 1; overflow-y: auto; }
@@ -59,34 +60,34 @@
                     <h1>Manajemen Beranda</h1>
                     <p>Kelola semua bagian yang sekarang tampil di Beranda publik: profil sekolah, sambutan, berita & pengumuman, galeri, dan CTA PPDB.</p>
                     @if (session('status'))
-                        <p style="margin-top: 12px; color: #166534; font-weight: 900; padding: 10px 12px; background: #dcfce7; border-radius: 8px; display: inline-block; font-size: 13px;">✓ {{ session('status') }}</p>
+                        <p style="margin-top: 12px; color: #166534; font-weight: 900; padding: 10px 12px; background: #dcfce7; border-radius: 8px; display: inline-block; font-size: 13px;"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> {{ session('status') }}</p>
                     @endif
                 </div>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="{{ route('home') }}" class="btn-outline">Lihat Beranda Publik</a>
-                    <button type="submit" form="home-form" class="btn-primary">Simpan Beranda</button>
+                    <a href="{{ route('home') }}" class="btn-outline"><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i> Lihat Beranda Publik</a>
+                    <button type="submit" form="home-form" class="btn-primary"><i class="bi bi-save" aria-hidden="true"></i> Simpan Beranda</button>
                 </div>
             </div>
 
             <div class="overview-grid">
                 <article class="card" style="border-left: 4px solid #d6a63a;">
                     <span class="status-pill">Aktif</span>
-                    <h2 style="margin-top: 12px; font-size: 20px;">📋 Profil Sekolah</h2>
+                    <h2 style="margin-top: 12px; font-size: 20px;"><i class="bi bi-building" aria-hidden="true"></i> Profil Sekolah</h2>
                     <p style="color: #64748b; font-size: 14px; line-height: 1.5;">Hero, profil, sejarah, visi, misi, dan sambutan kepala sekolah.</p>
                 </article>
                 <article class="card" style="border-left: 4px solid #3b82f6;">
                     <span class="status-pill">Aktif</span>
-                    <h2 style="margin-top: 12px; font-size: 20px;">📰 Berita Terbaru</h2>
+                    <h2 style="margin-top: 12px; font-size: 20px;"><i class="bi bi-newspaper" aria-hidden="true"></i> Berita Terbaru</h2>
                     <p style="color: #64748b; font-size: 14px; line-height: 1.5;">3 pembaruan tampil langsung di section Beranda publik.</p>
                 </article>
                 <article class="card" style="border-left: 4px solid #19a99a;">
                     <span class="status-pill">Aktif</span>
-                    <h2 style="margin-top: 12px; font-size: 20px;">🖼️ Galeri Sekolah</h2>
+                    <h2 style="margin-top: 12px; font-size: 20px;"><i class="bi bi-images" aria-hidden="true"></i> Galeri Sekolah</h2>
                     <p style="color: #64748b; font-size: 14px; line-height: 1.5;">4 item galeri ringkas untuk kesan visual sekolah.</p>
                 </article>
                 <article class="card" style="border-left: 4px solid #8b5cf6;">
                     <span class="status-pill">Aktif</span>
-                    <h2 style="margin-top: 12px; font-size: 20px;">🎯 CTA PPDB</h2>
+                    <h2 style="margin-top: 12px; font-size: 20px;"><i class="bi bi-journal-check" aria-hidden="true"></i> CTA PPDB</h2>
                     <p style="color: #64748b; font-size: 14px; line-height: 1.5;">Tombol diarahkan ke halaman Informasi PPDB.</p>
                 </article>
             </div>
@@ -180,8 +181,8 @@
                                                 </label>
                                             @endif
                                             <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
-                                                <button type="submit" class="btn-primary">Simpan Gambar</button>
-                                                <a class="btn-outline" href="{{ route('berita.show', $post->slug) }}">Lihat</a>
+                                                <button type="submit" class="btn-primary"><i class="bi bi-image" aria-hidden="true"></i> Simpan Gambar</button>
+                                                <a class="btn-outline" href="{{ route('berita.show', $post->slug) }}"><i class="bi bi-eye" aria-hidden="true"></i> Lihat</a>
                                             </div>
                                         </form>
                                     </div>
@@ -195,7 +196,7 @@
                             <h2>Galeri Beranda</h2>
                             <div class="content-list">
                                 @foreach ($galleries as $gallery)
-                                    <div class="content-row"><div><strong>{{ $gallery->title }}</strong><span>{{ $gallery->status === 'published' ? 'Tampil publik' : 'Draft' }}</span></div><a class="btn-outline" href="{{ route('admin.galeri') }}">Edit</a></div>
+                                    <div class="content-row"><div><strong>{{ $gallery->title }}</strong><span>{{ $gallery->status === 'published' ? 'Tampil publik' : 'Draft' }}</span></div><a class="btn-outline" href="{{ route('admin.galeri') }}"><i class="bi bi-pencil-square" aria-hidden="true"></i> Edit</a></div>
                                 @endforeach
                             </div>
                         </section>

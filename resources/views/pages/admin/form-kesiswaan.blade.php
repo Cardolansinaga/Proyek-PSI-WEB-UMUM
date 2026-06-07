@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ ($mode ?? 'create') === 'edit' ? 'Edit Kesiswaan' : 'Tambah Kesiswaan' }} - SMAN 2 Balige</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
+    @vite('resources/css/admin.css')
     @include('pages.admin.partials.admin-polish')
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; font-family: 'Inter', sans-serif; background: #f8fafc; }
+        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: #f8fafc; }
         .admin-container { display: flex; height: 100vh; width: 100vw; }
         .sidebar { width: 260px; background: #071f3a; flex-shrink: 0; display: flex; flex-direction: column; color: white; }
         .main-content { flex: 1; overflow-y: auto; }
@@ -45,8 +46,8 @@
                     <p>Kelola organisasi siswa, ekstrakurikuler, pembina, jadwal latihan, dan status publikasi.</p>
                 </div>
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                    <a href="{{ route('kesiswaan.index') }}" class="btn-outline">Kembali</a>
-                    <button type="submit" form="kesiswaan-form" class="btn-primary">Simpan Data</button>
+                    <a href="{{ route('kesiswaan.index') }}" class="btn-outline"><i class="bi bi-arrow-left" aria-hidden="true"></i> Kembali</a>
+                    <button type="submit" form="kesiswaan-form" class="btn-primary"><i class="bi bi-save" aria-hidden="true"></i> Simpan Data</button>
                 </div>
             </div>
 
@@ -54,7 +55,7 @@
                 @csrf
                 <div class="form-grid">
                     <section class="card">
-                        <h2 style="font-size: 18px; color: #071f3a; margin-bottom: 18px;">Informasi Kegiatan</h2>
+                        <h2 style="font-size: 18px; color: #071f3a; margin-bottom: 18px;"><i class="bi bi-clipboard-data" aria-hidden="true"></i> Informasi Kegiatan</h2>
                         <div class="field-grid">
                             <div class="input-group">
                                 <label>Nama Organisasi / Ekstrakurikuler</label>
@@ -91,7 +92,7 @@
                         </div>
                     </section>
                     <aside class="card">
-                        <h2 style="font-size: 18px; color: #071f3a; margin-bottom: 18px;">Publikasi</h2>
+                        <h2 style="font-size: 18px; color: #071f3a; margin-bottom: 18px;"><i class="bi bi-broadcast" aria-hidden="true"></i> Publikasi</h2>
                         <div class="input-group">
                             <label>Status</label>
                             <select class="custom-select" name="status">
@@ -121,8 +122,8 @@
                             <input type="file" class="custom-input" name="image" accept="image/png,image/jpeg,image/webp">
                         </div>
                         <div style="display: flex; gap: 10px; margin-top: 22px;">
-                            <a href="{{ route('kesiswaan.index') }}" class="btn-outline">Batal</a>
-                            <button type="submit" class="btn-primary">Simpan</button>
+                            <a href="{{ route('kesiswaan.index') }}" class="btn-outline"><i class="bi bi-x-circle" aria-hidden="true"></i> Batal</a>
+                            <button type="submit" class="btn-primary"><i class="bi bi-save" aria-hidden="true"></i> Simpan</button>
                         </div>
                     </aside>
                 </div>

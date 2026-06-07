@@ -1,6 +1,3 @@
-<link rel="preconnect" href="https://fonts.bunny.net">
-<link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800|manrope:400,500,600,700,800" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <style>
     :root {
         --admin-navy: #0a2540;
@@ -26,7 +23,7 @@
 
     body:has(.admin-container) {
         overflow: auto !important;
-        font-family: "Plus Jakarta Sans", "Manrope", "Segoe UI", ui-sans-serif, system-ui, sans-serif !important;
+        font-family: "Plus Jakarta Sans", "Segoe UI", ui-sans-serif, system-ui, sans-serif !important;
         background: var(--admin-soft) !important;
         color: var(--admin-ink) !important;
         letter-spacing: 0 !important;
@@ -35,6 +32,29 @@
     .admin-container,
     .admin-container * {
         letter-spacing: 0 !important;
+    }
+
+    .admin-container .btn-primary,
+    .admin-container .btn-outline,
+    .admin-container .btn-add,
+    .admin-container .btn-light,
+    .admin-container .btn-danger,
+    .admin-container .btn-save,
+    .admin-container .btn-cancel,
+    .admin-container .btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 8px !important;
+    }
+
+    .admin-container .stat-label i,
+    .admin-container .card h2 i,
+    .admin-container .card h3 i,
+    .admin-container .page-head a i,
+    .admin-container .page-head button i,
+    .admin-container .status-message i {
+        color: inherit;
     }
 
     .admin-container a[href*="/admin/pengumuman"] {

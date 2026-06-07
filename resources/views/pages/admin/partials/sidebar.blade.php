@@ -1,7 +1,7 @@
 <aside class="sidebar">
     <div style="padding: 32px;">
         <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 32px;">
-            <div style="background: #d6a63a; width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; font-weight: 900; color: white;">S2</div>
+            <img src="{{ asset('images/logo-sman2-balige.jpg') }}" alt="Logo SMAN 2 Balige" width="44" height="44" style="width:44px;height:44px;border-radius:8px;object-fit:contain;background:#ffffff;padding:3px;box-shadow:0 8px 18px rgba(0,0,0,.18);">
             <div>
                 <div style="font-size: 14px; font-weight: 900; line-height: 1; color: #ffffff;">SMAN 2 Balige</div>
                 <div style="font-size: 10px; color: #94a3b8;">Portal Admin</div>

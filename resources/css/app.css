@@ -1,4 +1,11 @@
+@import '@fontsource/plus-jakarta-sans/latin-400.css';
+@import '@fontsource/plus-jakarta-sans/latin-500.css';
+@import '@fontsource/plus-jakarta-sans/latin-600.css';
+@import '@fontsource/plus-jakarta-sans/latin-700.css';
+@import '@fontsource/plus-jakarta-sans/latin-800.css';
+@import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'tailwindcss';
+@import './local-icons.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,7 +13,7 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
@@ -239,68 +246,68 @@
     .hero-home {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.48)),
-            url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-profile {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.45)),
-            url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-academic {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-dorm {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
-            url("https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-student {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-ppdb {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-news,
     .hero-gallery {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
-            url("https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-achievement {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .contact-hero {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.92), rgb(7 31 58 / 0.48)),
-            url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .alumni-hero {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
-            url("https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .teacher-hero {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
-            url("https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .filter-pill,
@@ -324,7 +331,7 @@
 @layer components {
     body:has(.admin-container) {
         overflow: auto !important;
-        font-family: 'Manrope', ui-sans-serif, system-ui, sans-serif !important;
+        font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif !important;
         background: #f8fafc;
     }
 
@@ -483,68 +490,68 @@
     .hero-home {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.48)),
-            url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=85");
+            url("/images/heroes/ppdb-hero-1280.webp");
     }
 
     .hero-profile {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.45)),
-            url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85");
+            url("/images/heroes/ppdb-hero-1280.webp");
     }
 
     .hero-academic {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1800&q=85");
+            url("/images/heroes/ppdb-hero-1280.webp");
     }
 
     .hero-dorm {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
-            url("https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1800&q=85");
+            url("/images/heroes/ppdb-hero-1280.webp");
     }
 
     .hero-student {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85");
+            url("/images/heroes/ppdb-hero-1280.webp");
     }
 
     .hero-ppdb {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1800&q=85");
+            url("/images/heroes/ppdb-hero-1280.webp");
     }
 
     .hero-news,
     .hero-gallery {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
-            url("https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1800&q=85");
+            url("/images/heroes/ppdb-hero-1280.webp");
     }
 
     .hero-achievement {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=1800&q=85");
+            url("/images/heroes/ppdb-hero-1280.webp");
     }
 
     .contact-hero {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.92), rgb(7 31 58 / 0.48)),
-            url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=85");
+            url("/images/heroes/ppdb-hero-1280.webp");
     }
 
     .alumni-hero {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
-            url("https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1800&q=85");
+            url("/images/heroes/ppdb-hero-1280.webp");
     }
 
     .teacher-hero {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
-            url("https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1800&q=85");
+            url("/images/heroes/ppdb-hero-1280.webp");
     }
 
     .filter-pill,
@@ -4518,74 +4525,74 @@
     .hero-home {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.48)),
-            url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-profile {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.45)),
-            url("https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-academic {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-dorm {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
-            url("https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-student {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-ppdb {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-news,
     .hero-gallery {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
-            url("https://images.unsplash.com/photo-1495020689067-958852a7765e?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-achievement {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1567427017947-545c5f8d16ad?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .contact-hero {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.92), rgb(7 31 58 / 0.48)),
-            url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .alumni-hero {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
-            url("https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .teacher-hero {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.44)),
-            url("https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-gallery {
         background-image:
             linear-gradient(90deg, rgb(7 31 58 / 0.9), rgb(7 31 58 / 0.42)),
-            url("https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1800&q=85") !important;
+            url("/images/heroes/ppdb-hero-1280.webp") !important;
     }
 
     .hero-shade,

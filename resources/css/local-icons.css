@@ -1,0 +1,82 @@
+.bi {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    flex: 0 0 auto;
+    vertical-align: -.125em;
+    background-color: currentColor;
+    -webkit-mask: var(--bi-icon) no-repeat center / contain;
+    mask: var(--bi-icon) no-repeat center / contain;
+}
+
+.bi-archive { --bi-icon: url('../../node_modules/bootstrap-icons/icons/archive.svg'); }
+.bi-arrow-left { --bi-icon: url('../../node_modules/bootstrap-icons/icons/arrow-left.svg'); }
+.bi-arrow-repeat { --bi-icon: url('../../node_modules/bootstrap-icons/icons/arrow-repeat.svg'); }
+.bi-arrow-right { --bi-icon: url('../../node_modules/bootstrap-icons/icons/arrow-right.svg'); }
+.bi-award { --bi-icon: url('../../node_modules/bootstrap-icons/icons/award.svg'); }
+.bi-bar-chart { --bi-icon: url('../../node_modules/bootstrap-icons/icons/bar-chart.svg'); }
+.bi-box-arrow-in-right { --bi-icon: url('../../node_modules/bootstrap-icons/icons/box-arrow-in-right.svg'); }
+.bi-box-arrow-up-right { --bi-icon: url('../../node_modules/bootstrap-icons/icons/box-arrow-up-right.svg'); }
+.bi-broadcast { --bi-icon: url('../../node_modules/bootstrap-icons/icons/broadcast.svg'); }
+.bi-building { --bi-icon: url('../../node_modules/bootstrap-icons/icons/building.svg'); }
+.bi-calendar-event { --bi-icon: url('../../node_modules/bootstrap-icons/icons/calendar-event.svg'); }
+.bi-chat-dots { --bi-icon: url('../../node_modules/bootstrap-icons/icons/chat-dots.svg'); }
+.bi-check-circle { --bi-icon: url('../../node_modules/bootstrap-icons/icons/check-circle.svg'); }
+.bi-check-circle-fill { --bi-icon: url('../../node_modules/bootstrap-icons/icons/check-circle-fill.svg'); }
+.bi-chevron-left { --bi-icon: url('../../node_modules/bootstrap-icons/icons/chevron-left.svg'); }
+.bi-chevron-right { --bi-icon: url('../../node_modules/bootstrap-icons/icons/chevron-right.svg'); }
+.bi-circle { --bi-icon: url('../../node_modules/bootstrap-icons/icons/circle.svg'); }
+.bi-clipboard-check { --bi-icon: url('../../node_modules/bootstrap-icons/icons/clipboard-check.svg'); }
+.bi-clipboard-data { --bi-icon: url('../../node_modules/bootstrap-icons/icons/clipboard-data.svg'); }
+.bi-clock-history { --bi-icon: url('../../node_modules/bootstrap-icons/icons/clock-history.svg'); }
+.bi-cloud-arrow-up { --bi-icon: url('../../node_modules/bootstrap-icons/icons/cloud-arrow-up.svg'); }
+.bi-compass { --bi-icon: url('../../node_modules/bootstrap-icons/icons/compass.svg'); }
+.bi-envelope { --bi-icon: url('../../node_modules/bootstrap-icons/icons/envelope.svg'); }
+.bi-envelope-paper { --bi-icon: url('../../node_modules/bootstrap-icons/icons/envelope-paper.svg'); }
+.bi-exclamation-triangle { --bi-icon: url('../../node_modules/bootstrap-icons/icons/exclamation-triangle.svg'); }
+.bi-eye { --bi-icon: url('../../node_modules/bootstrap-icons/icons/eye.svg'); }
+.bi-file-earmark-check { --bi-icon: url('../../node_modules/bootstrap-icons/icons/file-earmark-check.svg'); }
+.bi-file-earmark-text { --bi-icon: url('../../node_modules/bootstrap-icons/icons/file-earmark-text.svg'); }
+.bi-flask { --bi-icon: url('../../node_modules/bootstrap-icons/icons/flask.svg'); }
+.bi-folder-check { --bi-icon: url('../../node_modules/bootstrap-icons/icons/folder-check.svg'); }
+.bi-gear { --bi-icon: url('../../node_modules/bootstrap-icons/icons/gear.svg'); }
+.bi-geo-alt { --bi-icon: url('../../node_modules/bootstrap-icons/icons/geo-alt.svg'); }
+.bi-globe2 { --bi-icon: url('../../node_modules/bootstrap-icons/icons/globe2.svg'); }
+.bi-graph-up-arrow { --bi-icon: url('../../node_modules/bootstrap-icons/icons/graph-up-arrow.svg'); }
+.bi-grid { --bi-icon: url('../../node_modules/bootstrap-icons/icons/grid.svg'); }
+.bi-headset { --bi-icon: url('../../node_modules/bootstrap-icons/icons/headset.svg'); }
+.bi-hourglass-split { --bi-icon: url('../../node_modules/bootstrap-icons/icons/hourglass-split.svg'); }
+.bi-house-door { --bi-icon: url('../../node_modules/bootstrap-icons/icons/house-door.svg'); }
+.bi-image { --bi-icon: url('../../node_modules/bootstrap-icons/icons/image.svg'); }
+.bi-images { --bi-icon: url('../../node_modules/bootstrap-icons/icons/images.svg'); }
+.bi-info-circle { --bi-icon: url('../../node_modules/bootstrap-icons/icons/info-circle.svg'); }
+.bi-journal-bookmark { --bi-icon: url('../../node_modules/bootstrap-icons/icons/journal-bookmark.svg'); }
+.bi-journal-check { --bi-icon: url('../../node_modules/bootstrap-icons/icons/journal-check.svg'); }
+.bi-journal-richtext { --bi-icon: url('../../node_modules/bootstrap-icons/icons/journal-richtext.svg'); }
+.bi-list-check { --bi-icon: url('../../node_modules/bootstrap-icons/icons/list-check.svg'); }
+.bi-lock { --bi-icon: url('../../node_modules/bootstrap-icons/icons/lock.svg'); }
+.bi-megaphone { --bi-icon: url('../../node_modules/bootstrap-icons/icons/megaphone.svg'); }
+.bi-mortarboard { --bi-icon: url('../../node_modules/bootstrap-icons/icons/mortarboard.svg'); }
+.bi-newspaper { --bi-icon: url('../../node_modules/bootstrap-icons/icons/newspaper.svg'); }
+.bi-pencil-square { --bi-icon: url('../../node_modules/bootstrap-icons/icons/pencil-square.svg'); }
+.bi-people { --bi-icon: url('../../node_modules/bootstrap-icons/icons/people.svg'); }
+.bi-people-fill { --bi-icon: url('../../node_modules/bootstrap-icons/icons/people-fill.svg'); }
+.bi-person-gear { --bi-icon: url('../../node_modules/bootstrap-icons/icons/person-gear.svg'); }
+.bi-person-heart { --bi-icon: url('../../node_modules/bootstrap-icons/icons/person-heart.svg'); }
+.bi-person-raised-hand { --bi-icon: url('../../node_modules/bootstrap-icons/icons/person-raised-hand.svg'); }
+.bi-person-vcard { --bi-icon: url('../../node_modules/bootstrap-icons/icons/person-vcard.svg'); }
+.bi-plus-circle { --bi-icon: url('../../node_modules/bootstrap-icons/icons/plus-circle.svg'); }
+.bi-save { --bi-icon: url('../../node_modules/bootstrap-icons/icons/save.svg'); }
+.bi-send { --bi-icon: url('../../node_modules/bootstrap-icons/icons/send.svg'); }
+.bi-shield-check { --bi-icon: url('../../node_modules/bootstrap-icons/icons/shield-check.svg'); }
+.bi-shield-lock { --bi-icon: url('../../node_modules/bootstrap-icons/icons/shield-lock.svg'); }
+.bi-sliders { --bi-icon: url('../../node_modules/bootstrap-icons/icons/sliders.svg'); }
+.bi-speedometer2 { --bi-icon: url('../../node_modules/bootstrap-icons/icons/speedometer2.svg'); }
+.bi-star-fill { --bi-icon: url('../../node_modules/bootstrap-icons/icons/star-fill.svg'); }
+.bi-stars { --bi-icon: url('../../node_modules/bootstrap-icons/icons/stars.svg'); }
+.bi-translate { --bi-icon: url('../../node_modules/bootstrap-icons/icons/translate.svg'); }
+.bi-trash { --bi-icon: url('../../node_modules/bootstrap-icons/icons/trash.svg'); }
+.bi-trophy { --bi-icon: url('../../node_modules/bootstrap-icons/icons/trophy.svg'); }
+.bi-twitter-x { --bi-icon: url('../../node_modules/bootstrap-icons/icons/twitter-x.svg'); }
+.bi-whatsapp { --bi-icon: url('../../node_modules/bootstrap-icons/icons/whatsapp.svg'); }
+.bi-x-circle { --bi-icon: url('../../node_modules/bootstrap-icons/icons/x-circle.svg'); }

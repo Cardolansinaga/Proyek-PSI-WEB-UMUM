@@ -1,0 +1,139 @@
+@import '@fontsource/plus-jakarta-sans/latin-400.css';
+@import '@fontsource/plus-jakarta-sans/latin-600.css';
+@import '@fontsource/plus-jakarta-sans/latin-700.css';
+@import '@fontsource/plus-jakarta-sans/latin-800.css';
+@import './local-icons.css';
+
+:root {
+    --auth-font: 'Plus Jakarta Sans', 'Segoe UI', ui-sans-serif, system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    font-family: var(--auth-font) !important;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+@media (max-width: 768px), (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+    }
+}
+
+@media (max-width: 600px) {
+    html,
+    body {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .auth-shell,
+    .auth-wrap,
+    .auth-intro,
+    .auth-panel,
+    .auth-card,
+    .intro-content,
+    form {
+        min-width: 0 !important;
+        max-width: 100% !important;
+    }
+
+    .auth-shell {
+        display: block !important;
+        padding-inline: 10px !important;
+    }
+
+    .auth-wrap {
+        display: block !important;
+        width: calc(100vw - 20px) !important;
+        margin-inline: auto !important;
+    }
+
+    .auth-intro,
+    .auth-panel {
+        padding-inline: 22px !important;
+    }
+
+    .auth-panel {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    .auth-card {
+        width: min(100%, calc(100vw - 64px)) !important;
+        max-width: calc(100vw - 64px) !important;
+        margin-inline: 0 !important;
+    }
+
+    .auth-shell > .auth-card {
+        margin-inline: auto !important;
+    }
+
+    .brand,
+    .intro-label,
+    .auth-links,
+    .security-note {
+        max-width: 100% !important;
+    }
+
+    .intro-content h1 {
+        max-width: 16ch !important;
+        font-size: clamp(26px, 7.2vw, 30px) !important;
+        line-height: 1.08 !important;
+        letter-spacing: 0 !important;
+        overflow-wrap: break-word;
+        text-wrap: wrap;
+    }
+
+    .intro-content p,
+    .auth-card h1,
+    .auth-card h2,
+    .security-note,
+    .helper {
+        max-width: 100% !important;
+        overflow-wrap: break-word;
+        text-wrap: wrap;
+    }
+
+    .intro-content p,
+    .auth-card > p {
+        max-width: 30ch !important;
+        overflow-wrap: break-word;
+        text-wrap: wrap;
+    }
+
+    .field,
+    .input-wrap,
+    .field input,
+    .btn-login,
+    .btn-reset {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    input,
+    button {
+        min-width: 0;
+        max-width: 100%;
+    }
+}

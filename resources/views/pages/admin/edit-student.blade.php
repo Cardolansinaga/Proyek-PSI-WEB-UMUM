@@ -5,22 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Edit Siswa - SMAN 2 Balige</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
+    @vite('resources/css/admin.css')
     @include('pages.admin.partials.admin-polish')
     <style>
-        body{font-family:Inter, sans-serif;background:#f8fafc;padding:24px}
+        body{font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;background:#f8fafc;padding:24px}
         .card{background:white;padding:20px;border-radius:10px;max-width:720px;margin:0 auto}
         .field{display:block;margin-bottom:12px}
         input,textarea,select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef8}
         .actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
-        .btn{padding:10px 14px;border-radius:8px;cursor:pointer}
+        .btn{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:8px;cursor:pointer;text-decoration:none}
         .btn.primary{background:#071f3a;color:white;border:none}
         .btn.outline{background:white;border:1px solid #d9e1ec}
     </style>
 </head>
 <body>
     <div class="card">
-        <h2>Edit Data Siswa</h2>
+        <h2><i class="bi bi-person-vcard" aria-hidden="true"></i> Edit Data Siswa</h2>
         <form id="edit-student-form" method="POST" action="{{ route('admin.api.students.update', $student->id) }}">
             @csrf
             <div class="field">
@@ -48,8 +49,8 @@
                 <textarea name="address">{{ $student->address }}</textarea>
             </div>
             <div class="actions">
-                <a href="{{ route('admin.kesiswaan.index') }}" class="btn outline">Batal</a>
-                <button class="btn primary" type="submit">Simpan</button>
+                <a href="{{ route('admin.kesiswaan.index') }}" class="btn outline"><i class="bi bi-x-circle" aria-hidden="true"></i> Batal</a>
+                <button class="btn primary" type="submit"><i class="bi bi-save" aria-hidden="true"></i> Simpan</button>
             </div>
         </form>
     </div>

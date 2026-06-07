@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manajemen Galeri - SMAN 2 Balige</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
+    @vite('resources/css/admin.css')
     @include('pages.admin.partials.admin-polish')
     <style>
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { overflow:hidden; font-family:Inter, sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
+        body { overflow:hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
         .admin-container { display:flex; height:100vh; }
         main { flex:1; overflow-y:auto; padding:32px; max-width:1320px; margin:0 auto; width:100%; }
         .page-header { margin-bottom: 32px; }
@@ -50,22 +51,22 @@
             <h1>Manajemen Galeri</h1>
             <p>Galeri yang disimpan tampil pada Beranda publik.</p>
             @if (session('status'))
-                <p class="status-message">✓ {{ session('status') }}</p>
+                <p class="status-message"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> {{ session('status') }}</p>
             @endif
         </div>
         <div class="grid">
             <form class="card" method="POST" action="{{ route('admin.galeri.store') }}" enctype="multipart/form-data">
                 @csrf
-                <h2>Tambah Galeri Baru</h2>
+                <h2><i class="bi bi-plus-circle" aria-hidden="true"></i> Tambah Galeri Baru</h2>
                 <label>Judul Galeri</label><input name="title" required placeholder="Masukkan judul galeri">
                 <label>Deskripsi</label><textarea name="description" placeholder="Masukkan deskripsi singkat galeri"></textarea>
                 <label>Tipe Visual</label><select name="image_class">@foreach(['library' => 'Perpustakaan','lab' => 'Laboratorium','hall' => 'Aula','court' => 'Lapangan'] as $val => $label)<option value="{{ $val }}">{{ $label }}</option>@endforeach</select>
                 <label>Upload Gambar</label><input type="file" name="image" accept="image/png,image/jpeg,image/webp">
                 <label>Status Publikasi</label><select name="status"><option value="published">Dipublikasikan</option><option value="draft">Draft</option></select>
-                <button class="btn" type="submit">Simpan Galeri Baru</button>
+                <button class="btn" type="submit"><i class="bi bi-save" aria-hidden="true"></i> Simpan Galeri Baru</button>
             </form>
             <section class="card">
-                <h2>Daftar Galeri ({{ $galleries->count() }})</h2>
+                <h2><i class="bi bi-images" aria-hidden="true"></i> Daftar Galeri ({{ $galleries->count() }})</h2>
                 @if($galleries->count() > 0)
                     @foreach ($galleries as $gallery)
                         <div class="row">
@@ -91,11 +92,11 @@
                                 </div>
                             </form>
                             <div style="display: flex; gap: 8px; align-items: flex-start; padding-top: 4px; flex-wrap: wrap;">
-                                <button class="btn" type="submit" form="gallery-update-{{ $gallery->id }}" style="padding: 12px 16px; white-space: nowrap;">Update</button>
+                                <button class="btn" type="submit" form="gallery-update-{{ $gallery->id }}" style="padding: 12px 16px; white-space: nowrap;"><i class="bi bi-save" aria-hidden="true"></i> Update</button>
                                 <form method="POST" action="{{ route('admin.galeri.destroy', $gallery) }}" style="margin: 0;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn" style="padding: 12px 16px; background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); white-space: nowrap;" onclick="return confirm('Hapus galeri ini?')">Hapus</button>
+                                    <button type="submit" class="btn" style="padding: 12px 16px; background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); white-space: nowrap;" onclick="return confirm('Hapus galeri ini?')"><i class="bi bi-trash" aria-hidden="true"></i> Hapus</button>
                                 </form>
                             </div>
                         </div>

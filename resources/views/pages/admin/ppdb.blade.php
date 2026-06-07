@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manajemen PPDB - SMAN 2 Balige</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
+    @vite('resources/css/admin.css')
     @include('pages.admin.partials.admin-polish')
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
+        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
         .admin-container { display: flex; height: 100vh; width: 100vw; }
         .main-content { flex: 1; overflow-y: auto; }
         .content-padding { padding: 32px; }
@@ -44,17 +45,17 @@
                     <h1 style="font-size:36px; font-weight:900; color:#071f3a;">Manajemen PPDB</h1>
                     <p style="margin-top:8px; color:#64748b; font-size:14px;">Pantau pendaftar, verifikasi berkas, dan status penerimaan tahun ajaran {{ $settings['ppdb_year'] ?? '2026/2027' }}.</p>
                     @if (session('status'))
-                        <p style="margin-top:12px; color:#166534; font-weight:900; padding:10px 12px; background:#dcfce7; border-radius:8px; display:inline-block; font-size:13px;">✓ {{ session('status') }}</p>
+                        <p style="margin-top:12px; color:#166534; font-weight:900; padding:10px 12px; background:#dcfce7; border-radius:8px; display:inline-block; font-size:13px;"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> {{ session('status') }}</p>
                     @endif
                 </div>
-                <a href="{{ route('ppdb') }}" style="border-radius:10px; background: linear-gradient(135deg, #071f3a 0%, #0f2847 100%); color:white; padding:12px 20px; font-weight:900; text-decoration:none; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.2); transition: all 0.3s; display:inline-block;" onmouseover="this.style.boxShadow='0 8px 20px rgba(7, 31, 58, 0.3)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.boxShadow='0 4px 12px rgba(7, 31, 58, 0.2)'; this.style.transform='translateY(0)';">Lihat Halaman Publik</a>
+                <a href="{{ route('ppdb') }}" style="border-radius:10px; background: linear-gradient(135deg, #071f3a 0%, #0f2847 100%); color:white; padding:12px 20px; font-weight:900; text-decoration:none; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.2); transition: all 0.3s; display:inline-flex; align-items:center; gap:8px;" onmouseover="this.style.boxShadow='0 8px 20px rgba(7, 31, 58, 0.3)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.boxShadow='0 4px 12px rgba(7, 31, 58, 0.2)'; this.style.transform='translateY(0)';"><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i> Lihat Halaman Publik</a>
             </div>
 
             <div class="stats-grid">
-                <div class="stat-card total"><div class="stat-label">📋 Total Pendaftar</div><div class="stat-value">{{ $applications->count() }}</div></div>
-                <div class="stat-card verified"><div class="stat-label">✓ Terverifikasi</div><div class="stat-value">{{ $applications->where('status', 'verified')->count() }}</div></div>
-                <div class="stat-card waiting"><div class="stat-label">⏳ Menunggu</div><div class="stat-value">{{ $applications->where('status', 'waiting')->count() }}</div></div>
-                <div class="stat-card revision"><div class="stat-label">⚠ Perlu Revisi</div><div class="stat-value">{{ $applications->where('status', 'revision')->count() }}</div></div>
+                <div class="stat-card total"><div class="stat-label"><i class="bi bi-clipboard-data" aria-hidden="true"></i> Total Pendaftar</div><div class="stat-value">{{ $applications->count() }}</div></div>
+                <div class="stat-card verified"><div class="stat-label"><i class="bi bi-check-circle" aria-hidden="true"></i> Terverifikasi</div><div class="stat-value">{{ $applications->where('status', 'verified')->count() }}</div></div>
+                <div class="stat-card waiting"><div class="stat-label"><i class="bi bi-hourglass-split" aria-hidden="true"></i> Menunggu</div><div class="stat-value">{{ $applications->where('status', 'waiting')->count() }}</div></div>
+                <div class="stat-card revision"><div class="stat-label"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i> Perlu Revisi</div><div class="stat-value">{{ $applications->where('status', 'revision')->count() }}</div></div>
             </div>
 
             <div class="card">
@@ -78,7 +79,7 @@
                             <td>{{ $application->pathway }}</td>
                             <td>{{ $application->origin_school }}</td>
                             <td><span class="badge" style="background:{{ $status[1] }}; color:{{ $status[2] }};">{{ $status[0] }}</span></td>
-                            <td><a href="{{ route('admin.ppdb.show', $application) }}" style="color:#071f3a; font-weight:900; text-decoration:none;">Detail</a></td>
+                            <td><a href="{{ route('admin.ppdb.show', $application) }}" style="color:#071f3a; font-weight:900; text-decoration:none;"><i class="bi bi-eye" aria-hidden="true"></i> Detail</a></td>
                         </tr>
                     @empty
                         <tr><td colspan="6">Belum ada pendaftar PPDB.</td></tr>

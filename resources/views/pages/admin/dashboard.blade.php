@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - SMAN 2 Balige</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
+    @vite('resources/css/admin.css')
     @include('pages.admin.partials.admin-polish')
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
+        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
         .admin-container { display: flex; height: 100vh; width: 100vw; }
         .sidebar { width: 260px; background: #071f3a; flex-shrink: 0; display: flex; flex-direction: column; color: white; }
         .main-content { flex: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: #d6a63a #f8fafc; }
@@ -65,7 +66,7 @@
                     <h1>Dashboard Admin</h1>
                     <p>Panel admin sekarang mengikuti struktur website publik. Gunakan modul di bawah untuk mengelola Beranda, Akademik & Prestasi, Kesiswaan & Ekstrakurikuler, PPDB, dan pengaturan situs.</p>
                 </div>
-                <a href="{{ route('home') }}" class="card" style="padding: 12px 18px; font-weight: 900;">Lihat Situs Publik</a>
+                <a href="{{ route('home') }}" class="card" style="padding: 12px 18px; font-weight: 900;"><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i> Lihat Situs Publik</a>
             </div>
 
             <div class="status-row">
@@ -76,11 +77,11 @@
             </div>
 
             <div class="module-grid">
-                <a href="{{ route('admin.beranda') }}" class="card"><span>B</span><h2>Beranda</h2><p>Profil sekolah, berita & pengumuman, galeri, sambutan, dan CTA PPDB.</p></a>
-                <a href="{{ route('prestasi.index') }}" class="card"><span>A</span><h2>Akademik & Prestasi</h2><p>Kurikulum, fasilitas akademik, layanan belajar, dan prestasi siswa.</p></a>
-                <a href="{{ route('admin.kesiswaan.index') }}" class="card"><span>K</span><h2>Kesiswaan & Ekstrakurikuler</h2><p>OSIS, MPK, agenda kesiswaan, pembinaan karakter, dan ekstrakurikuler.</p></a>
-                <a href="{{ route('admin.ppdb') }}" class="card"><span>P</span><h2>PPDB</h2><p>Informasi penerimaan, jadwal, dokumen, dan verifikasi pendaftar.</p></a>
-                <a href="{{ route('admin.pengaturan') }}" class="card"><span>S</span><h2>Pengaturan Situs</h2><p>Identitas sekolah, kontak resmi, status situs, dan akun admin.</p></a>
+                <a href="{{ route('admin.beranda') }}" class="card"><span><i class="bi bi-house-door" aria-hidden="true"></i></span><h2>Beranda</h2><p>Profil sekolah, berita & pengumuman, galeri, sambutan, dan CTA PPDB.</p></a>
+                <a href="{{ route('prestasi.index') }}" class="card"><span><i class="bi bi-mortarboard" aria-hidden="true"></i></span><h2>Akademik & Prestasi</h2><p>Kurikulum, fasilitas akademik, layanan belajar, dan prestasi siswa.</p></a>
+                <a href="{{ route('admin.kesiswaan.index') }}" class="card"><span><i class="bi bi-people" aria-hidden="true"></i></span><h2>Kesiswaan & Ekstrakurikuler</h2><p>OSIS, MPK, agenda kesiswaan, pembinaan karakter, dan ekstrakurikuler.</p></a>
+                <a href="{{ route('admin.ppdb') }}" class="card"><span><i class="bi bi-journal-check" aria-hidden="true"></i></span><h2>PPDB</h2><p>Informasi penerimaan, jadwal, dokumen, dan verifikasi pendaftar.</p></a>
+                <a href="{{ route('admin.pengaturan') }}" class="card"><span><i class="bi bi-gear" aria-hidden="true"></i></span><h2>Pengaturan Situs</h2><p>Identitas sekolah, kontak resmi, status situs, dan akun admin.</p></a>
             </div>
         </main>
     </div>

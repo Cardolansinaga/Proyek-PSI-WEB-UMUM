@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Manajemen Kesiswaan & Ekstrakurikuler - SMAN 2 Balige">
     <title>Manajemen Kesiswaan & Ekstrakurikuler - SMAN 2 Balige</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
+    @vite('resources/css/admin.css')
     @include('pages.admin.partials.admin-polish')
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; font-family: Inter, sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
+        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
         .admin-container { display: flex; height: 100vh; width: 100vw; }
         .main-content { flex: 1; min-width: 0; overflow-y: auto; }
         .content-padding { width: 100%; max-width: 1320px; margin: 0 auto; padding: 32px; }
@@ -66,30 +67,30 @@
                     <h1>Manajemen Kesiswaan & Ekstrakurikuler</h1>
                     <p>Kelola organisasi siswa, kegiatan pembinaan, dan ekstrakurikuler yang tampil di halaman publik.</p>
                     @if (session('status'))
-                        <p class="status-message">✓ {{ session('status') }}</p>
+                        <p class="status-message"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> {{ session('status') }}</p>
                     @endif
                 </div>
                 <div class="actions">
-                    <a href="{{ route('kesiswaan') }}" class="btn-light">Lihat Publik</a>
-                    <a href="{{ route('admin.kesiswaan.create') }}" class="btn-primary">+ Tambah Data</a>
+                    <a href="{{ route('kesiswaan') }}" class="btn-light"><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i> Lihat Publik</a>
+                    <a href="{{ route('admin.kesiswaan.create') }}" class="btn-primary"><i class="bi bi-plus-circle" aria-hidden="true"></i> Tambah Data</a>
                 </div>
             </div>
 
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-label">📊 Total Data</div>
+                    <div class="stat-label"><i class="bi bi-bar-chart" aria-hidden="true"></i> Total Data</div>
                     <div class="stat-value">{{ $activities->count() }}</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">🏢 Organisasi</div>
+                    <div class="stat-label"><i class="bi bi-people" aria-hidden="true"></i> Organisasi</div>
                     <div class="stat-value">{{ $activities->where('type', 'Organisasi Siswa')->count() }}</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">⚽ Ekstrakurikuler</div>
+                    <div class="stat-label"><i class="bi bi-stars" aria-hidden="true"></i> Ekstrakurikuler</div>
                     <div class="stat-value">{{ $activities->where('type', '!=', 'Organisasi Siswa')->count() }}</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-label">👁 Tampil Publik</div>
+                    <div class="stat-label"><i class="bi bi-eye" aria-hidden="true"></i> Tampil Publik</div>
                     <div class="stat-value">{{ $activities->where('is_published', true)->count() }}</div>
                 </div>
             </div>
@@ -127,7 +128,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a class="btn-light" href="{{ route('admin.kesiswaan.edit', $activity) }}">Edit</a>
+                                    <a class="btn-light" href="{{ route('admin.kesiswaan.edit', $activity) }}"><i class="bi bi-pencil-square" aria-hidden="true"></i> Edit</a>
                                 </td>
                             </tr>
                         @empty

@@ -4,13 +4,9 @@
 @section('description', 'Kesiswaan, OSIS, MPK, ekstrakurikuler, dan pembinaan karakter SMAN 2 Balige.')
 
 @section('content')
-    @php($kesiswaanHeroImage = ! empty($settings['kesiswaan_hero_image']) ? asset('storage/'.$settings['kesiswaan_hero_image']) : null)
-    <section class="school-hero hero-kesiswaan relative overflow-hidden" @if($kesiswaanHeroImage) style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('{{ $kesiswaanHeroImage }}') !important;" @endif>
+    @php($kesiswaanHeroImage = ! empty($settings['kesiswaan_hero_image']) ? asset('storage/'.$settings['kesiswaan_hero_image']) : asset('images/heroes/ppdb-hero-1280.webp'))
+    <section class="school-hero hero-kesiswaan relative overflow-hidden" style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('{{ $kesiswaanHeroImage }}') !important;">
         <div class="hero-shade"></div>
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-[#19a99a] rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow"></div>
-            <div class="absolute bottom-20 right-10 w-72 h-72 bg-[#d6a63a] rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow animation-delay-2"></div>
-        </div>
         <div class="mx-auto grid min-h-[520px] max-w-7xl items-center px-4 py-20 lg:px-8 relative z-10">
             <div class="relative max-w-3xl text-white animate-fade-in-up">
                 <span class="section-pill animate-fade-in" style="animation-delay: 0.1s;">Ekosistem Kesiswaan</span>
@@ -19,8 +15,8 @@
                 </h1>
                 <p class="mt-6 max-w-2xl text-base font-semibold leading-7 text-white/80 animate-fade-in-up" style="animation-delay: 0.3s;">Informasi kegiatan OSIS, MPK, ekstrakurikuler, pembinaan karakter, dan program partisipasi siswa dalam mengembangkan potensi diri.</p>
                 <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-                    <a href="#organisasi" class="gold-button transition-smooth hover:shadow-2xl hover:shadow-[#d6a63a]/50 hover:scale-105" style="animation-delay: 0.4s;">Organisasi & Agenda</a>
-                    <a href="#ekskul" class="ghost-button transition-smooth hover:bg-white/20 hover:scale-105" style="animation-delay: 0.5s;">Ekstrakurikuler</a>
+                    <a href="#organisasi" class="gold-button transition-smooth hover:shadow-2xl hover:shadow-[#d6a63a]/50 hover:scale-105" style="animation-delay: 0.4s;"><i class="bi bi-people" aria-hidden="true"></i>Organisasi & Agenda</a>
+                    <a href="#ekskul" class="ghost-button transition-smooth hover:bg-white/20 hover:scale-105" style="animation-delay: 0.5s;"><i class="bi bi-stars" aria-hidden="true"></i>Ekstrakurikuler</a>
                 </div>
             </div>
         </div>
@@ -34,7 +30,7 @@
                     <h2 class="mt-3 text-4xl font-black text-[#071f3a] animate-fade-in-up">Organisasi Siswa & Agenda</h2>
                     <p class="mt-4 max-w-2xl text-sm font-semibold text-[#6b7f91] animate-fade-in-up" style="animation-delay: 0.1s;">OSIS dan MPK memfasilitasi kegiatan kepemimpinan, agenda tahunan, dan pembinaan karakter siswa melalui partisipasi aktif.</p>
                 </div>
-                <a href="{{ route('home') }}#berita" class="outline-button hover:scale-105 transition-transform hover:shadow-lg">Lihat Agenda Terbaru</a>
+                <a href="{{ route('home') }}#berita" class="outline-button hover:scale-105 transition-transform hover:shadow-lg"><i class="bi bi-calendar-event" aria-hidden="true"></i>Lihat Agenda Terbaru</a>
             </div>
 
             <div class="mt-10 grid gap-6 lg:grid-cols-3">
@@ -64,10 +60,12 @@
             </div>
             <div class="mt-12 grid gap-6 md:grid-cols-2">
                 <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover-lift group cursor-pointer">
+                    <span class="round-icon bg-white/10 text-[#19a99a]"><i class="bi bi-person-raised-hand" aria-hidden="true"></i></span>
                     <h3 class="text-xl font-black group-hover:text-[#19a99a] transition-colors">Program Kepemimpinan</h3>
                     <p class="mt-3 text-sm text-white/80">Pelatihan rutin untuk mengembangkan skill kepemimpinan, komunikasi, dan manajemen konflik.</p>
                 </div>
                 <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover-lift group cursor-pointer">
+                    <span class="round-icon bg-white/10 text-[#d6a63a]"><i class="bi bi-shield-check" aria-hidden="true"></i></span>
                     <h3 class="text-xl font-black group-hover:text-[#d6a63a] transition-colors">Pembinaan Karakter</h3>
                     <p class="mt-3 text-sm text-white/80">Pengembangan nilai-nilai integritas, tanggung jawab, dan gotong royong melalui kegiatan nyata.</p>
                 </div>
@@ -122,8 +120,8 @@
             <h2>Jadilah Bagian Dari Komunitas Kesiswaan SMAN 2 Balige</h2>
             <p>Bergabunglah dengan ribuan siswa yang aktif mengembangkan potensi diri melalui kegiatan organisasi dan ekstrakurikuler.</p>
             <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-                <a href="{{ route('home') }}#kontak" class="gold-button hover:shadow-xl">Hubungi Bagian Kesiswaan</a>
-                <a href="{{ route('home') }}#berita" class="ghost-button hover:bg-white/10">Lihat Berita Kegiatan</a>
+                <a href="{{ route('home') }}#kontak" class="gold-button hover:shadow-xl"><i class="bi bi-headset" aria-hidden="true"></i>Hubungi Bagian Kesiswaan</a>
+                <a href="{{ route('home') }}#berita" class="ghost-button hover:bg-white/10"><i class="bi bi-newspaper" aria-hidden="true"></i>Lihat Berita Kegiatan</a>
             </div>
         </div>
     </section>

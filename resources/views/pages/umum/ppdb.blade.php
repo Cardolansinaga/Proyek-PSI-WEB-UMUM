@@ -3,26 +3,56 @@
 @section('title', 'Informasi PPDB - SMAN 2 Balige')
 @section('description', 'Informasi penerimaan peserta didik baru SMAN 2 Balige.')
 
+@php($hasCustomPpdbHero = ! empty($settings['ppdb_hero_image']))
+
+@push('head')
+    @unless($hasCustomPpdbHero)
+        <link
+            rel="preload"
+            as="image"
+            href="{{ asset('images/heroes/ppdb-hero-960.webp') }}"
+            imagesrcset="{{ asset('images/heroes/ppdb-hero-640.webp') }} 640w, {{ asset('images/heroes/ppdb-hero-960.webp') }} 960w, {{ asset('images/heroes/ppdb-hero-1280.webp') }} 1280w, {{ asset('images/heroes/ppdb-hero-1600.webp') }} 1600w"
+            imagesizes="100vw"
+            type="image/webp"
+            fetchpriority="high"
+        >
+    @endunless
+@endpush
+
 @section('content')
-    @php($ppdbHeroImage = ! empty($settings['ppdb_hero_image']) ? asset('storage/'.$settings['ppdb_hero_image']) : null)
-    <section class="school-hero hero-ppdb text-center relative overflow-hidden" @if($ppdbHeroImage) style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('{{ $ppdbHeroImage }}') !important;" @endif>
-        <div class="hero-shade"></div>
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-[#d6a63a] rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow"></div>
-            <div class="absolute bottom-20 right-10 w-72 h-72 bg-emerald-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow animation-delay-2"></div>
-        </div>
+    @php($ppdbHeroImage = $hasCustomPpdbHero ? asset('storage/'.$settings['ppdb_hero_image']) : asset('images/heroes/ppdb-hero-1280.webp'))
+    <section class="school-hero hero-ppdb text-center relative overflow-hidden" style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.88), rgb(7 31 58 / 0.42)) !important;">
+        <picture class="hero-picture" aria-hidden="true">
+            @unless($hasCustomPpdbHero)
+                <source
+                    type="image/webp"
+                    srcset="{{ asset('images/heroes/ppdb-hero-640.webp') }} 640w, {{ asset('images/heroes/ppdb-hero-960.webp') }} 960w, {{ asset('images/heroes/ppdb-hero-1280.webp') }} 1280w, {{ asset('images/heroes/ppdb-hero-1600.webp') }} 1600w"
+                    sizes="100vw"
+                >
+            @endunless
+            <img
+                class="hero-media"
+                src="{{ $ppdbHeroImage }}"
+                alt=""
+                width="1600"
+                height="900"
+                fetchpriority="high"
+                decoding="async"
+            >
+        </picture>
+        <div class="hero-overlay" aria-hidden="true"></div>
         <div class="mx-auto grid min-h-[520px] max-w-7xl place-items-center px-4 py-20 lg:px-8 relative z-10">
-            <div class="relative max-w-4xl animate-fade-in-up">
-                <span class="section-pill animate-fade-in" style="animation-delay: 0.1s;">Tahun Ajaran {{ $settings['ppdb_year'] ?? '2026/2027' }} - {{ $settings['ppdb_status'] ?? 'Dibuka' }}</span>
-                <h1 class="mt-7 text-5xl font-black leading-[0.98] text-white sm:text-6xl lg:text-7xl animate-fade-in-up drop-shadow-lg" style="animation-delay: 0.2s;">
-                    Penerimaan Peserta <span class="text-[#d6a63a]">Didik Baru</span>
+            <div class="relative max-w-4xl">
+                <span class="section-pill">Tahun Ajaran {{ $settings['ppdb_year'] ?? '2026/2027' }} - {{ $settings['ppdb_status'] ?? 'Dibuka' }}</span>
+                <h1 class="mt-7 text-5xl font-black leading-[0.98] text-white sm:text-6xl lg:text-7xl drop-shadow-lg">
+                    Penerimaan Peserta <span class="ppdb-title-accent text-[#d6a63a]">Didik Baru</span>
                 </h1>
-                <p class="mx-auto mt-7 max-w-2xl text-base font-semibold leading-8 text-white/76 animate-fade-in-up" style="animation-delay: 0.3s;">
+                <p class="mx-auto mt-7 max-w-2xl text-base font-semibold leading-8 text-white/76">
                     Bergabunglah dengan institusi pendidikan unggulan yang berfokus pada karakter, prestasi, dan masa depan gemilang.
                 </p>
                 <div class="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
-                    <a href="#formulir" class="gold-button transition-smooth hover:shadow-2xl hover:shadow-[#d6a63a]/50 hover:scale-105" style="animation-delay: 0.4s;">{{ ($settings['ppdb_status'] ?? 'Dibuka') === 'Dibuka' ? 'Hubungi Panitia' : 'Lihat Informasi' }}</a>
-                    <a href="#syarat" class="ghost-button transition-smooth hover:bg-white/20 hover:scale-105" style="animation-delay: 0.5s;">Lihat Panduan</a>
+                    <a href="#formulir" class="gold-button transition-smooth hover:shadow-2xl hover:shadow-[#d6a63a]/50 hover:scale-105"><i class="bi bi-headset" aria-hidden="true"></i>{{ ($settings['ppdb_status'] ?? 'Dibuka') === 'Dibuka' ? 'Hubungi Panitia' : 'Lihat Informasi' }}</a>
+                    <a href="#syarat" class="ghost-button transition-smooth hover:bg-white/20 hover:scale-105"><i class="bi bi-list-check" aria-hidden="true"></i>Lihat Panduan</a>
                 </div>
             </div>
         </div>
@@ -30,28 +60,25 @@
 
     <section class="bg-white py-20 sm:py-24">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
-            <div class="mx-auto max-w-3xl text-center animate-fade-in-up">
+            <div class="mx-auto max-w-3xl text-center">
                 <h2 class="text-3xl font-black text-[#071f3a] sm:text-4xl">Mengapa Memilih SMAN 2 Balige?</h2>
-                <div class="mx-auto mt-5 h-1 w-16 rounded-full bg-gradient-to-r from-[#d6a63a] to-[#f0d97d] animate-pulse-glow"></div>
+                <div class="mx-auto mt-5 h-1 w-16 rounded-full bg-gradient-to-r from-[#d6a63a] to-[#f0d97d]"></div>
             </div>
             <div class="mt-14 grid gap-8 md:grid-cols-3">
-                <article class="info-card hover-lift animate-fade-in-up stagger-1 group"><span class="round-icon group-hover:scale-125 transition-transform"><i class="bi bi-award"></i></span><h2 class="group-hover:text-[#d6a63a] transition-colors">Akreditasi A</h2><p>Kualitas pendidikan terstandarisasi nasional dengan kurikulum relevan dan adaptif.</p></article>
-                <article class="info-card hover-lift animate-fade-in-up stagger-2 group"><span class="round-icon group-hover:scale-125 transition-transform"><i class="bi bi-trophy"></i></span><h2 class="group-hover:text-[#d6a63a] transition-colors">Prestasi Internasional</h2><p>Siswa kami konsisten meraih medali di ajang olimpiade sains dan kompetisi global.</p></article>
-                <article class="info-card hover-lift animate-fade-in-up stagger-3 group"><span class="round-icon group-hover:scale-125 transition-transform"><i class="bi bi-people"></i></span><h2 class="group-hover:text-[#d6a63a] transition-colors">Lingkungan Inklusif</h2><p>Pembentukan karakter melalui lingkungan aman, disiplin, dan penuh rasa persaudaraan.</p></article>
+                <article class="info-card hover-lift group"><span class="round-icon group-hover:scale-125 transition-transform" aria-hidden="true"><i class="bi bi-award"></i></span><h2 class="group-hover:text-[#d6a63a] transition-colors">Akreditasi A</h2><p>Kualitas pendidikan terstandarisasi nasional dengan kurikulum relevan dan adaptif.</p></article>
+                <article class="info-card hover-lift group"><span class="round-icon group-hover:scale-125 transition-transform" aria-hidden="true"><i class="bi bi-trophy"></i></span><h2 class="group-hover:text-[#d6a63a] transition-colors">Prestasi Internasional</h2><p>Siswa kami konsisten meraih medali di ajang olimpiade sains dan kompetisi global.</p></article>
+                <article class="info-card hover-lift group"><span class="round-icon group-hover:scale-125 transition-transform" aria-hidden="true"><i class="bi bi-people"></i></span><h2 class="group-hover:text-[#d6a63a] transition-colors">Lingkungan Inklusif</h2><p>Pembentukan karakter melalui lingkungan aman, disiplin, dan penuh rasa persaudaraan.</p></article>
             </div>
         </div>
     </section>
 
     <section class="bg-gradient-to-b from-[#071f3a] to-[#0f2847] py-20 text-center text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-1/2 left-1/2 w-96 h-96 bg-[#d6a63a] rounded-full filter blur-3xl animate-pulse"></div>
-        </div>
         <div class="mx-auto max-w-7xl px-4 lg:px-8 relative z-10">
-            <h2 class="text-3xl font-black sm:text-4xl animate-fade-in-up">Alur Pendaftaran</h2>
-            <p class="mx-auto mt-4 max-w-2xl text-sm font-semibold leading-7 text-white/78 animate-fade-in-up" style="animation-delay: 0.1s;">Ikuti langkah-langkah mudah untuk menjadi bagian dari civitas akademika SMAN 2 Balige.</p>
+            <h2 class="text-3xl font-black sm:text-4xl">Alur Pendaftaran</h2>
+            <p class="mx-auto mt-4 max-w-2xl text-sm font-semibold leading-7 text-white/78">Ikuti langkah-langkah mudah untuk menjadi bagian dari civitas akademika SMAN 2 Balige.</p>
             <div class="mt-12 grid gap-6 md:grid-cols-4">
                 @foreach ([['Konsultasi Informasi', 'Hubungi panitia untuk memastikan jadwal dan jalur pendaftaran.'], ['Persiapan Dokumen', 'Lengkapi biodata calon siswa dan berkas yang diperlukan.'], ['Verifikasi Berkas', 'Tim panitia memeriksa kelengkapan dokumen.'], ['Pengumuman', 'Ikuti informasi resmi sekolah terkait hasil seleksi.']] as $index => $step)
-                    <article class="step-card transition-smooth hover:translate-y-[-8px] hover:shadow-2xl animate-fade-in-up group" style="animation-delay: {{ (0.2 + $index * 0.1) }}s;">
+                    <article class="step-card transition-smooth hover:translate-y-[-8px] hover:shadow-2xl group">
                         <span class="text-2xl font-black group-hover:text-[#d6a63a] transition-colors">{{ $index + 1 }}</span>
                         <h3 class="group-hover:text-[#d6a63a] transition-colors">{{ $step[0] }}</h3>
                         <p class="text-xs text-white/70">{{ $step[1] }}</p>
@@ -64,12 +91,12 @@
     <section id="syarat" class="bg-gradient-to-b from-white to-[#f6f9fc] py-20 sm:py-24">
         <div class="mx-auto grid max-w-7xl gap-12 px-4 lg:grid-cols-[1.35fr_0.8fr] lg:px-8">
             <div>
-                <h2 class="mini-heading animate-fade-in-up">Persyaratan & Dokumen</h2>
-                <p class="mt-2 text-sm text-[#6b7f91] animate-fade-in-up" style="animation-delay: 0.1s;">Lengkapi semua berkas dengan baik dan benar untuk mempercepat proses verifikasi.</p>
+                <h2 class="mini-heading">Persyaratan & Dokumen</h2>
+                <p class="mt-2 text-sm text-[#6b7f91]">Lengkapi semua berkas dengan baik dan benar untuk mempercepat proses verifikasi.</p>
                 <div class="mt-8 grid gap-5">
                     @foreach (['Scan Ijazah / SKL', 'Akta Kelahiran & Kartu Keluarga', 'Pas Foto Terbaru', 'Rapor Semester 1-5'] as $doc)
                         <div class="document-row group hover:bg-[#d6a63a]/5 transition-colors rounded-lg">
-                            <span class="text-[#d6a63a] group-hover:scale-110 transition-transform">✓</span>
+                            <span class="text-[#d6a63a] group-hover:scale-110 transition-transform"><i class="bi bi-check-circle-fill" aria-hidden="true"></i></span>
                             <div>
                                 <strong class="group-hover:text-[#d6a63a] transition-colors">{{ $doc }}</strong>
                                 <p class="text-xs text-[#8ca0b0]">Dokumen dipindai dengan jelas dan diunggah melalui portal pendaftaran.</p>
@@ -96,8 +123,8 @@
     <section class="bg-white py-20 sm:py-24">
         <div class="mx-auto max-w-4xl px-4 lg:px-8">
             <div class="rounded-2xl bg-gradient-to-r from-[#071f3a] to-[#0f2847] p-12 text-center text-white mb-12">
-                <h2 class="text-3xl font-black animate-fade-in-up">Pertanyaan Umum (FAQ)</h2>
-                <p class="mt-4 text-white/80 animate-fade-in-up" style="animation-delay: 0.1s;">Temukan jawaban atas pertanyaan seputar PPDB SMAN 2 Balige.</p>
+                <h2 class="text-3xl font-black">Pertanyaan Umum (FAQ)</h2>
+                <p class="mt-4 text-white/80">Temukan jawaban atas pertanyaan seputar PPDB SMAN 2 Balige.</p>
             </div>
             <div class="space-y-5 text-left">
                 <details class="faq-item group" open>
@@ -118,11 +145,11 @@
 
     <section id="formulir" class="bg-gradient-to-b from-[#f6f9fc] to-white px-4 py-20 lg:px-8">
         <div class="cta-panel">
-            <h2 class="animate-fade-in-up">Siap Menjadi Bagian Dari Generasi Unggul?</h2>
-            <p class="mt-3 animate-fade-in-up" style="animation-delay: 0.1s;">Jangan lewatkan kesempatan berharga untuk menempuh pendidikan di salah satu SMA terbaik di Sumatera Utara.</p>
+            <h2>Siap Menjadi Bagian Dari Generasi Unggul?</h2>
+            <p class="mt-3">Jangan lewatkan kesempatan berharga untuk menempuh pendidikan di salah satu SMA terbaik di Sumatera Utara.</p>
             <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-                <a href="{{ route('home') }}#kontak" class="gold-button hover:shadow-2xl hover:shadow-[#d6a63a]/50 hover:scale-105 transition-all">Hubungi Panitia PPDB</a>
-                <a href="{{ route('home') }}#kontak" class="ghost-button hover:bg-white/20 hover:scale-105 transition-all">Lihat Lokasi Sekolah</a>
+                <a href="{{ route('home') }}#kontak" class="gold-button hover:shadow-2xl hover:shadow-[#d6a63a]/50 hover:scale-105 transition-all"><i class="bi bi-headset" aria-hidden="true"></i>Hubungi Panitia PPDB</a>
+                <a href="{{ route('home') }}#kontak" class="ghost-button hover:bg-white/20 hover:scale-105 transition-all"><i class="bi bi-geo-alt" aria-hidden="true"></i>Lihat Lokasi Sekolah</a>
             </div>
         </div>
     </section>

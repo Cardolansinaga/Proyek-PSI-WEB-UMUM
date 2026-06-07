@@ -4,13 +4,9 @@
 @section('description', 'Program akademik, kurikulum, prestasi, kalender, layanan, dan fasilitas belajar SMAN 2 Balige.')
 
 @section('content')
-    @php($akademikHeroImage = ! empty($settings['akademik_hero_image']) ? asset('storage/'.$settings['akademik_hero_image']) : null)
-    <section class="school-hero hero-academic relative overflow-hidden" @if($akademikHeroImage) style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('{{ $akademikHeroImage }}') !important;" @endif>
+    @php($akademikHeroImage = ! empty($settings['akademik_hero_image']) ? asset('storage/'.$settings['akademik_hero_image']) : asset('images/heroes/ppdb-hero-1280.webp'))
+    <section class="school-hero hero-academic relative overflow-hidden" style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('{{ $akademikHeroImage }}') !important;">
         <div class="hero-shade"></div>
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-20 left-10 w-72 h-72 bg-[#d6a63a] rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow"></div>
-            <div class="absolute bottom-20 right-10 w-72 h-72 bg-blue-400 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow animation-delay-2"></div>
-        </div>
         <div class="mx-auto grid min-h-[560px] max-w-7xl items-center px-4 py-20 lg:px-8 relative z-10">
             <div class="relative max-w-3xl animate-fade-in-up">
                 <span class="section-pill animate-fade-in" style="animation-delay: 0.1s;">Keunggulan Akademik & Prestasi</span>
@@ -19,8 +15,8 @@
                 </h1>
                 <p class="mt-7 max-w-2xl text-base font-semibold leading-8 text-white/78 animate-fade-in-up" style="animation-delay: 0.3s;">Ekosistem belajar yang kompetitif, suportif, dan terukur untuk menumbuhkan karakter, disiplin, serta budaya juara.</p>
                 <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-                    <a href="#portal-akademik" class="gold-button transition-smooth hover:shadow-2xl hover:shadow-[#d6a63a]/50 hover:scale-105" style="animation-delay: 0.4s;">Layanan Akademik</a>
-                    <a href="#prestasi" class="ghost-button transition-smooth hover:bg-white/20 hover:scale-105" style="animation-delay: 0.5s;">Lihat Prestasi</a>
+                    <a href="#portal-akademik" class="gold-button transition-smooth hover:shadow-2xl hover:shadow-[#d6a63a]/50 hover:scale-105" style="animation-delay: 0.4s;"><i class="bi bi-journal-bookmark" aria-hidden="true"></i>Layanan Akademik</a>
+                    <a href="#prestasi" class="ghost-button transition-smooth hover:bg-white/20 hover:scale-105" style="animation-delay: 0.5s;"><i class="bi bi-trophy" aria-hidden="true"></i>Lihat Prestasi</a>
                 </div>
             </div>
         </div>
@@ -93,16 +89,17 @@
                     @endforeach
                 </div>
                 <a href="{{ route('home') }}#kontak" class="final-link mt-8 group">
-                    <span class="group-hover:translate-x-2 transition-transform inline-block">Tanya Bagian Kurikulum</span> <span class="group-hover:translate-x-1 transition-transform inline-block">-></span>
+                    <i class="bi bi-chat-dots" aria-hidden="true"></i><span class="group-hover:translate-x-2 transition-transform inline-block">Tanya Bagian Kurikulum</span>
                 </a>
             </div>
             <aside id="portal-akademik" class="rounded-[1.6rem] bg-gradient-to-br from-[#071f3a] to-[#0f2847] p-8 text-white shadow-2xl shadow-[#071f3a]/30 hover-lift">
                 <h3 class="text-2xl font-black">Layanan Akademik</h3>
                 <p class="mt-2 text-xs text-white/60">Dukungan penuh untuk perjalanan akademik Anda</p>
                 <div class="mt-8 grid gap-4 sm:grid-cols-2">
-                    @foreach (['Legalisir Ijazah', 'Surat Keterangan', 'Transkrip Nilai', 'Konseling Belajar'] as $service)
+                    @foreach ([['Legalisir Ijazah', 'bi-file-earmark-check'], ['Surat Keterangan', 'bi-envelope-paper'], ['Transkrip Nilai', 'bi-clipboard-data'], ['Konseling Belajar', 'bi-person-heart']] as $service)
                         <div class="service-tile group hover:bg-white/10 cursor-pointer">
-                            <strong class="group-hover:text-[#d6a63a] transition-colors">{{ $service }}</strong>
+                            <i class="bi {{ $service[1] }} text-[#d6a63a]" aria-hidden="true"></i>
+                            <strong class="group-hover:text-[#d6a63a] transition-colors">{{ $service[0] }}</strong>
                             <p class="text-xs text-white/70">Layanan administrasi dan pendampingan siswa.</p>
                         </div>
                     @endforeach
@@ -154,7 +151,7 @@
                         <h3 class="mt-8 text-3xl font-black text-[#071f3a] animate-fade-in-up">{{ $featuredAchievement->title }}</h3>
                         <p class="mt-5 text-sm font-semibold leading-7 text-[#6b7f91]">{{ $featuredAchievement->description }}</p>
                         <div class="mt-8 rounded-2xl bg-gradient-to-r from-[#f6f9fc] to-[#e8f0f6] p-5 text-sm font-black text-[#071f3a] border-l-4 border-[#d6a63a]">{{ $featuredAchievement->student_name ?? 'Tim Sekolah' }} <span class="block pt-1 text-xs font-bold text-[#8ca0b0]">{{ $featuredAchievement->class_name ?? $featuredAchievement->competition }}</span></div>
-                        <a href="{{ route('home') }}#berita" class="mt-8 inline-flex w-full justify-center rounded-full bg-gradient-to-r from-[#071f3a] to-[#0f2847] px-7 py-4 text-sm font-black text-white hover:shadow-xl hover:shadow-[#071f3a]/30 transition-shadow">Baca Kisah Lengkap -></a>
+                        <a href="{{ route('home') }}#berita" class="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#071f3a] to-[#0f2847] px-7 py-4 text-sm font-black text-white hover:shadow-xl hover:shadow-[#071f3a]/30 transition-shadow">Baca Kisah Lengkap <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
                     </div>
                 </article>
             @endif
@@ -190,86 +187,4 @@
         </div>
     </section>
 
-    <section class="bg-white py-20 sm:py-24">
-        <div class="mx-auto max-w-4xl px-4 lg:px-8">
-            <div class="text-center">
-                <h2 class="text-3xl font-black text-[#071f3a]">Butuh Bantuan Akademik?</h2>
-                <p class="mt-4 text-sm font-semibold text-[#6b7f91]">Tim kurikulum dan bimbingan sekolah siap membantu perjalanan akademik Anda.</p>
-                <a href="{{ route('home') }}#kontak" class="final-link mt-8">Tanya Bagian Kurikulum -></a>
-            </div>
-            <aside id="portal-akademik" class="rounded-[1.6rem] bg-[#071f3a] p-8 text-white shadow-2xl shadow-[#071f3a]/20">
-                <h3 class="text-2xl font-black">Layanan Akademik</h3>
-                <div class="mt-8 grid gap-4 sm:grid-cols-2">
-                    @foreach (['Legalisir Ijazah', 'Surat Keterangan', 'Transkrip Nilai', 'Konseling Belajar'] as $service)
-                        <div class="service-tile"><strong>{{ $service }}</strong><p>Layanan administrasi dan pendampingan siswa.</p></div>
-                    @endforeach
-                </div>
-            </aside>
-        </div>
-    </section>
-
-    <section class="bg-[#071f3a] py-20 text-white">
-        <div class="mx-auto max-w-7xl px-4 lg:px-8">
-            <div class="mx-auto max-w-3xl text-center">
-                <p class="eyebrow">Infrastruktur & Fasilitas</p>
-                <h2 class="mt-3 text-4xl font-black">Ruang Belajar Modern</h2>
-                <p class="mt-5 text-sm font-semibold leading-7 text-white/78">Dukungan teknologi modern untuk memastikan pembelajaran teoritis dapat dipraktikkan secara langsung.</p>
-            </div>
-            <div class="facility-mosaic mt-12">
-                <div class="facility-tile science-lab"><span>Lab Kimia & Fisika Terpadu</span></div>
-                <div class="facility-tile lab-real"><span>Lab Multimedia</span></div>
-                <div class="facility-tile library-real"><span>Perpustakaan Digital</span></div>
-                <div class="facility-tile classroom-real"><span>Smart Classroom</span></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="prestasi" class="bg-[#f6f9fc] py-20 sm:py-24">
-        @php($featuredAchievement = $achievements->firstWhere('is_featured', true) ?? $achievements->first())
-        <div class="mx-auto max-w-7xl px-4 lg:px-8">
-            <div class="flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
-                <div>
-                    <p class="eyebrow">Budaya Prestasi</p>
-                    <h2 class="mt-3 text-4xl font-black text-[#071f3a] sm:text-5xl">Prestasi Unggulan</h2>
-                    <p class="mt-5 max-w-2xl text-sm font-semibold leading-7 text-[#6b7f91]">Prestasi menjadi bagian dari proses belajar harian melalui pembinaan akademik, seni, olahraga, dan kepemimpinan.</p>
-                </div>
-                <div class="grid grid-cols-2 gap-6 text-right">
-                    <div class="big-stat"><strong>{{ $achievements->count() }}+</strong><span>Prestasi Tercatat</span></div>
-                    <div class="big-stat"><strong>{{ $achievements->where('level', 'Internasional')->count() }}</strong><span>Level Internasional</span></div>
-                </div>
-            </div>
-
-            @if ($featuredAchievement)
-                <article class="mt-10 grid overflow-hidden rounded-[1.6rem] bg-white shadow-2xl shadow-[#071f3a]/10 lg:grid-cols-[1fr_1fr]">
-                    @php($featuredImage = ! empty($featuredAchievement->image_path) ? asset('storage/'.$featuredAchievement->image_path) : null)
-                    <div class="illustration {{ $featuredAchievement->image_class ?? 'victory' }} min-h-[360px]" @if($featuredImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .08), rgb(7 31 58 / .28)), url('{{ $featuredImage }}') !important;" @endif></div>
-                    <div class="p-8 lg:p-12">
-                        <span class="rounded-full bg-emerald-50 px-4 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-emerald-600">{{ $featuredAchievement->rank }} {{ $featuredAchievement->level }}</span>
-                        <h3 class="mt-8 text-3xl font-black text-[#071f3a]">{{ $featuredAchievement->title }}</h3>
-                        <p class="mt-5 text-sm font-semibold leading-7 text-[#6b7f91]">{{ $featuredAchievement->description }}</p>
-                        <div class="mt-8 rounded-2xl bg-[#f6f9fc] p-5 text-sm font-black text-[#071f3a]">{{ $featuredAchievement->student_name ?? 'Tim Sekolah' }} <span class="block pt-1 text-xs font-bold text-[#8ca0b0]">{{ $featuredAchievement->class_name ?? $featuredAchievement->competition }}</span></div>
-                        <a href="{{ route('home') }}#berita" class="mt-8 inline-flex w-full justify-center rounded-full bg-[#071f3a] px-7 py-4 text-sm font-black text-white">Baca Kisah Lengkap -></a>
-                    </div>
-                </article>
-            @endif
-
-            <div class="mt-12 grid gap-8 md:grid-cols-3">
-                @foreach ($achievements->where('id', '!=', optional($featuredAchievement)->id)->take(3) as $achievement)
-                    @php($achievementImage = ! empty($achievement->image_path) ? asset('storage/'.$achievement->image_path) : null)
-                    <article class="achievement-card hover-lift animate-fade-in-up stagger-{{ $loop->index + 1 }}"><div class="illustration {{ $achievement->image_class ?? 'speech' }}" @if($achievementImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .08), rgb(7 31 58 / .28)), url('{{ $achievementImage }}') !important;" @endif></div><h3>{{ $achievement->title }}</h3><p>{{ $achievement->student_name ?? 'Tim Sekolah' }} - Tingkat {{ $achievement->level }}</p><span>{{ $achievement->rank }}</span></article>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
-    <section class="bg-white py-20">
-        <div class="mx-auto max-w-4xl px-4 lg:px-8">
-            <h2 class="text-center text-3xl font-black text-[#071f3a]">Informasi Akademik & Prestasi</h2>
-            <div class="mt-10 space-y-5">
-                @foreach (['Apa saja syarat untuk mengikuti kelas pengayaan olimpiade?', 'Bagaimana sistem penilaian Kurikulum Merdeka di SMAN 2 Balige?', 'Apakah tersedia beasiswa prestasi akademik?'] as $question)
-                    <details class="faq-item"><summary>{{ $question }}</summary><p>Informasi lengkap tersedia melalui wali kelas, bagian kurikulum, dan portal akademik sekolah.</p></details>
-                @endforeach
-            </div>
-        </div>
-    </section>
 @endsection

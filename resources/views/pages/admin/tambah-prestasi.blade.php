@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ ($mode ?? 'create') === 'edit' ? 'Edit Prestasi' : 'Tambah Prestasi' }} - SMAN 2 Balige</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
+    @vite('resources/css/admin.css')
     @include('pages.admin.partials.admin-polish')
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow-x: hidden; font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        body { overflow-x: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background-color: #f8fafc; }
         .admin-container { display: flex; min-height: 100vh; width: 100vw; }
         .main-content { flex: 1; }
         .content-padding { padding: 40px; max-width: 1200px; margin: 0 auto; width: 100%; }
@@ -42,14 +43,14 @@
                         <p style="color:#64748b; margin-top:8px;">Data yang disimpan akan langsung tersedia untuk halaman publik jika statusnya published.</p>
                     </div>
                     <div style="display:flex; gap:12px;">
-                        <a href="{{ route('prestasi.index') }}" class="btn-cancel">Batal</a>
-                        <button class="btn-save" type="submit">Simpan Data</button>
+                        <a href="{{ route('prestasi.index') }}" class="btn-cancel"><i class="bi bi-x-circle" aria-hidden="true"></i> Batal</a>
+                        <button class="btn-save" type="submit"><i class="bi bi-save" aria-hidden="true"></i> Simpan Data</button>
                     </div>
                 </div>
 
                 <div class="form-grid">
                     <section class="card">
-                        <h2 style="font-size:18px; font-weight:900; color:#071f3a; margin-bottom:24px;">Informasi Utama</h2>
+                        <h2 style="font-size:18px; font-weight:900; color:#071f3a; margin-bottom:24px;"><i class="bi bi-trophy" aria-hidden="true"></i> Informasi Utama</h2>
                         <div class="input-group">
                             <label>Nama Prestasi / Nama Lomba</label>
                             <input name="title" class="custom-input" value="{{ old('title', $achievement->title) }}" required>
@@ -93,7 +94,7 @@
                     </section>
 
                     <aside class="card">
-                        <h2 style="font-size:18px; font-weight:900; color:#071f3a; margin-bottom:24px;">Publikasi</h2>
+                        <h2 style="font-size:18px; font-weight:900; color:#071f3a; margin-bottom:24px;"><i class="bi bi-broadcast" aria-hidden="true"></i> Publikasi</h2>
                         <div class="input-group">
                             <label>Status</label>
                             <select name="status" class="custom-input">

@@ -4,7 +4,7 @@
 @section('description', 'Beranda resmi SMAN 2 Balige, sekolah unggul yang membangun generasi berkarakter dan berprestasi.')
 
 @section('content')
-    @php($homeHeroImage = ! empty($settings['hero_image']) ? asset('storage/'.$settings['hero_image']) : 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=1800&q=85')
+    @php($homeHeroImage = ! empty($settings['hero_image']) ? asset('storage/'.$settings['hero_image']) : asset('images/heroes/ppdb-hero-1280.webp'))
     <section class="school-hero hero-home" style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('{{ $homeHeroImage }}') !important; background-size: cover; background-position: center;">
         <div class="hero-shade"></div>
         <div class="mx-auto grid min-h-[620px] max-w-7xl items-center gap-12 px-4 py-20 sm:py-24 lg:grid-cols-[1fr_0.82fr] lg:px-8">
@@ -17,8 +17,8 @@
                     {{ $settings['hero_subtitle'] ?? 'Membentuk pemimpin masa depan melalui standar akademik internasional, kedisiplinan tinggi, dan pengembangan bakat komprehensif di jantung kota Balige.' }}
                 </p>
                 <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-                    <a href="{{ route('ppdb') }}" class="gold-button">{{ $settings['cta_label'] ?? 'Informasi PPDB' }}</a>
-                    <a href="#profil" class="ghost-button">Lihat Profil Sekolah</a>
+                    <a href="{{ route('ppdb') }}" class="gold-button"><i class="bi bi-journal-check" aria-hidden="true"></i>{{ $settings['cta_label'] ?? 'Informasi PPDB' }}</a>
+                    <a href="#profil" class="ghost-button"><i class="bi bi-building" aria-hidden="true"></i>Lihat Profil Sekolah</a>
                 </div>
             </div>
             <div class="hero-campus-card" aria-hidden="true">
@@ -47,8 +47,8 @@
                     {{ $settings['profile_detail'] ?? 'Profil sekolah, nilai inti, sejarah, sambutan kepala sekolah, fasilitas, galeri, dan pembaruan terkini tersedia langsung di Beranda sehingga pengunjung mendapat gambaran lengkap tanpa berpindah halaman.' }}
                 </p>
                 <div class="mt-9 flex flex-col gap-4 sm:flex-row">
-                    <a href="#sejarah" class="gold-button">Lihat Sejarah</a>
-                    <a href="{{ route('akademik') }}#prestasi" class="outline-button">Akademik & Prestasi</a>
+                    <a href="#sejarah" class="gold-button"><i class="bi bi-clock-history" aria-hidden="true"></i>Lihat Sejarah</a>
+                    <a href="{{ route('akademik') }}#prestasi" class="outline-button"><i class="bi bi-trophy" aria-hidden="true"></i>Akademik & Prestasi</a>
                 </div>
             </div>
             <div class="grid gap-5 sm:grid-cols-2">
@@ -59,11 +59,11 @@
         </div>
         <div class="mx-auto mt-16 max-w-7xl px-4 lg:px-8">
             <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-                <article class="feature-card"><span class="feature-icon">BK</span><h3>Akademik</h3><p>Kurikulum unggulan persiapan masuk PTN terbaik dan luar negeri.</p></article>
-                <article class="feature-card"><span class="feature-icon">KR</span><h3>Karakter</h3><p>Penanaman nilai luhur, disiplin, dan etika berintegritas.</p></article>
-                <article class="feature-card"><span class="feature-icon">TR</span><h3>Prestasi</h3><p>Ragam jejak juara kompetisi sains, seni, dan olahraga.</p></article>
-                <article class="feature-card"><span class="feature-icon">GD</span><h3>Fasilitas</h3><p>Lingkungan sekolah asri dengan ruang belajar yang nyaman.</p></article>
-                <article id="kesiswaan" class="feature-card"><span class="feature-icon">OS</span><h3>Ekskul</h3><p>20+ pilihan pengembangan diri mulai robotik hingga seni.</p></article>
+                <article class="feature-card"><span class="feature-icon"><i class="bi bi-mortarboard" aria-hidden="true"></i></span><h3>Akademik</h3><p>Kurikulum unggulan persiapan masuk PTN terbaik dan luar negeri.</p></article>
+                <article class="feature-card"><span class="feature-icon"><i class="bi bi-shield-check" aria-hidden="true"></i></span><h3>Karakter</h3><p>Penanaman nilai luhur, disiplin, dan etika berintegritas.</p></article>
+                <article class="feature-card"><span class="feature-icon"><i class="bi bi-trophy" aria-hidden="true"></i></span><h3>Prestasi</h3><p>Ragam jejak juara kompetisi sains, seni, dan olahraga.</p></article>
+                <article class="feature-card"><span class="feature-icon"><i class="bi bi-building" aria-hidden="true"></i></span><h3>Fasilitas</h3><p>Lingkungan sekolah asri dengan ruang belajar yang nyaman.</p></article>
+                <article id="kesiswaan" class="feature-card"><span class="feature-icon"><i class="bi bi-stars" aria-hidden="true"></i></span><h3>Ekskul</h3><p>20+ pilihan pengembangan diri mulai robotik hingga seni.</p></article>
             </div>
         </div>
     </section>
@@ -145,12 +145,12 @@
                     <p class="eyebrow">Pembaruan Terkini</p>
                     <h2 class="mt-3 text-4xl font-black text-[#071f3a] sm:text-5xl">Berita & Pengumuman</h2>
                 </div>
-                <a href="#kontak" class="outline-button">Hubungi Sekolah -></a>
+                <a href="#kontak" class="outline-button"><i class="bi bi-chat-dots" aria-hidden="true"></i>Hubungi Sekolah</a>
             </div>
             <div class="mt-12 grid gap-8 lg:grid-cols-3">
                 @foreach ($posts as $post)
                     @php($postImage = ! empty($post->image_path) ? asset('storage/'.$post->image_path) : null)
-                    <article class="news-card"><div class="illustration {{ $post->image_class ?? 'graduates' }}" @if($postImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .08), rgb(7 31 58 / .34)), url('{{ $postImage }}') !important;" @endif></div><div class="p-7"><p class="meta-line">{{ $post->category }} / {{ optional($post->published_at)->format('d M Y') }}</p><h3>{{ $post->title }}</h3><p>{{ $post->excerpt }}</p><a href="{{ route('berita.show', $post->slug) }}">Baca Selengkapnya -></a></div></article>
+                    <article class="news-card"><div class="illustration {{ $post->image_class ?? 'graduates' }}" @if($postImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .08), rgb(7 31 58 / .34)), url('{{ $postImage }}') !important;" @endif></div><div class="p-7"><p class="meta-line">{{ $post->category }} / {{ optional($post->published_at)->format('d M Y') }}</p><h3>{{ $post->title }}</h3><p>{{ $post->excerpt }}</p><a href="{{ route('berita.show', $post->slug) }}">Baca Selengkapnya <i class="bi bi-arrow-right" aria-hidden="true"></i></a></div></article>
                 @endforeach
             </div>
         </div>
@@ -177,8 +177,8 @@
             <h2>Siap Menjadi Bagian Dari Generasi Unggul?</h2>
             <p>Bergabunglah dengan komunitas pembelajar terbaik dan wujudkan cita-citamu bersama SMAN 2 Balige.</p>
             <div class="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-                <a href="{{ route('ppdb') }}" class="gold-button">{{ $settings['cta_label'] ?? 'Informasi PPDB' }}</a>
-                <a href="#galeri" class="ghost-button">Lihat Galeri</a>
+                <a href="{{ route('ppdb') }}" class="gold-button"><i class="bi bi-journal-check" aria-hidden="true"></i>{{ $settings['cta_label'] ?? 'Informasi PPDB' }}</a>
+                <a href="#galeri" class="ghost-button"><i class="bi bi-images" aria-hidden="true"></i>Lihat Galeri</a>
             </div>
         </div>
     </section>

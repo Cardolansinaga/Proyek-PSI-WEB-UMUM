@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manajemen Akademik & Prestasi - SMAN 2 Balige</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
+    @vite('resources/css/admin.css')
     @include('pages.admin.partials.admin-polish')
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
+        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
         .admin-container { display: flex; height: 100vh; width: 100vw; }
         .main-content { flex: 1; overflow-y: auto; }
         .content-padding { padding: 32px; }
@@ -58,16 +59,16 @@
                     @endif
                 </div>
                 <div style="display:flex; gap:12px; flex-wrap:wrap;">
-                    <a href="{{ route('akademik') }}#prestasi" class="btn-light">Lihat Publik</a>
-                    <a href="{{ route('prestasi.create') }}" class="btn-add">+ Tambah Prestasi</a>
+                    <a href="{{ route('akademik') }}#prestasi" class="btn-light"><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i> Lihat Publik</a>
+                    <a href="{{ route('prestasi.create') }}" class="btn-add"><i class="bi bi-plus-circle" aria-hidden="true"></i> Tambah Prestasi</a>
                 </div>
             </div>
 
             <div class="stats-grid">
-                <div class="stat-card total"><div class="stat-label">📊 Total Prestasi</div><div class="stat-value">{{ $achievements->count() }}</div></div>
-                <div class="stat-card international"><div class="stat-label">🌍 Internasional</div><div class="stat-value">{{ $achievements->where('level', 'Internasional')->count() }}</div></div>
-                <div class="stat-card featured"><div class="stat-label">⭐ Unggulan</div><div class="stat-value">{{ $achievements->where('is_featured', true)->count() }}</div></div>
-                <div class="stat-card draft"><div class="stat-label">📝 Draft</div><div class="stat-value">{{ $achievements->where('status', '!=', 'published')->count() }}</div></div>
+                <div class="stat-card total"><div class="stat-label"><i class="bi bi-bar-chart" aria-hidden="true"></i> Total Prestasi</div><div class="stat-value">{{ $achievements->count() }}</div></div>
+                <div class="stat-card international"><div class="stat-label"><i class="bi bi-globe2" aria-hidden="true"></i> Internasional</div><div class="stat-value">{{ $achievements->where('level', 'Internasional')->count() }}</div></div>
+                <div class="stat-card featured"><div class="stat-label"><i class="bi bi-star-fill" aria-hidden="true"></i> Unggulan</div><div class="stat-value">{{ $achievements->where('is_featured', true)->count() }}</div></div>
+                <div class="stat-card draft"><div class="stat-label"><i class="bi bi-file-earmark-text" aria-hidden="true"></i> Draft</div><div class="stat-value">{{ $achievements->where('status', '!=', 'published')->count() }}</div></div>
             </div>
 
             <section class="card">
@@ -83,11 +84,11 @@
                             <td style="font-weight:900; color:#c59632;">{{ $achievement->rank }}</td>
                             <td>
                                 <div style="display:flex; gap:8px; flex-wrap:wrap;">
-                                    <a class="btn-light" href="{{ route('prestasi.edit', $achievement) }}">Edit</a>
+                                    <a class="btn-light" href="{{ route('prestasi.edit', $achievement) }}"><i class="bi bi-pencil-square" aria-hidden="true"></i> Edit</a>
                                     <form method="POST" action="{{ route('admin.prestasi.destroy', $achievement) }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn-danger" type="submit">Hapus</button>
+                                        <button class="btn-danger" type="submit"><i class="bi bi-trash" aria-hidden="true"></i> Hapus</button>
                                     </form>
                                 </div>
                             </td>

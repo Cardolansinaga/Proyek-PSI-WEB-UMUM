@@ -4,16 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Admin - SMAN 2 Balige</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:400,500,600,700,800|manrope:400,500,600,700,800" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
+    @vite('resources/css/auth.css')
     <style>
         * { box-sizing: border-box; }
         html, body { min-height: 100%; }
-        body { margin: 0; font-family: "Plus Jakarta Sans", "Manrope", system-ui, sans-serif; background: #eef5f8; color: #102033; letter-spacing: 0; }
+        body { margin: 0; font-family: "Plus Jakarta Sans", system-ui, sans-serif; background: #eef5f8; color: #102033; letter-spacing: 0; }
         .auth-shell { min-height: 100vh; display: grid; place-items: center; padding: 24px; background:
             linear-gradient(135deg, rgba(238,245,248,.96), rgba(246,250,250,.96)),
             repeating-linear-gradient(135deg, rgba(7,31,58,.045) 0 1px, transparent 1px 18px); }
@@ -24,7 +20,8 @@
             linear-gradient(180deg, transparent 0%, rgba(12,70,91,.32) 100%); }
         .auth-intro::after { content: ""; position: absolute; right: -16%; bottom: -18%; width: 64%; aspect-ratio: 1; border: 1px solid rgba(255,255,255,.14); transform: rotate(18deg); }
         .brand { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
-        .brand-mark { width: 48px; height: 48px; border-radius: 8px; display: grid; place-items: center; background: #d6a63a; color: #071f3a; font-weight: 900; box-shadow: 0 14px 26px rgba(0,0,0,.18); }
+        .brand-mark { width: 48px; height: 48px; border-radius: 8px; display: grid; place-items: center; background: #ffffff; color: #071f3a; font-weight: 900; box-shadow: 0 14px 26px rgba(0,0,0,.18); padding: 3px; }
+        .brand-mark img { width: 100%; height: 100%; object-fit: contain; display: block; }
         .brand strong { display: block; font-size: 18px; line-height: 1; }
         .brand span { display: block; margin-top: 4px; font-size: 11px; font-weight: 800; color: rgba(255,255,255,.72); }
         .intro-content { position: relative; z-index: 1; max-width: 520px; }
@@ -164,7 +161,7 @@
             margin-top: 16px;
             font-size: clamp(32px, 3.8vw, 48px);
             line-height: .98;
-            letter-spacing: -0.04em;
+            letter-spacing: 0;
         }
 
         .intro-content p {
@@ -235,7 +232,7 @@
             font-size: 28px;
             line-height: 1.12;
             font-weight: 900;
-            letter-spacing: -0.03em;
+            letter-spacing: 0;
         }
 
         .auth-card > p {
@@ -482,7 +479,7 @@
         <div class="auth-wrap">
             <section class="auth-intro" aria-label="Portal administrasi SMAN 2 Balige">
                 <a class="brand" href="{{ route('home') }}">
-                    <span class="brand-mark">S2</span>
+                    <span class="brand-mark"><img src="{{ asset('images/logo-sman2-balige.jpg') }}" alt="Logo SMAN 2 Balige"></span>
                     <span><strong>SMAN 2 Balige</strong><span>Portal Administrasi Sekolah</span></span>
                 </a>
                 <div class="intro-content">
@@ -547,8 +544,5 @@
             </section>
         </div>
     </main>
-
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -4,12 +4,8 @@
 @section('description', 'Informasi dan update terbaru SMAN 2 Balige.')
 
 @section('content')
-    @php($beritaHeroImage = ! empty($settings['berita_hero_image']) ? asset('storage/'.$settings['berita_hero_image']) : null)
-    <section class="school-hero hero-news text-center relative overflow-hidden" @if($beritaHeroImage) style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('{{ $beritaHeroImage }}') !important;" @endif>
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-10 right-20 w-96 h-96 bg-[#d6a63a] rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow"></div>
-            <div class="absolute -bottom-20 left-10 w-80 h-80 bg-teal-600 rounded-full mix-blend-multiply filter blur-3xl animate-pulse-glow" style="animation-delay: 1s;"></div>
-        </div>
+    @php($beritaHeroImage = ! empty($settings['berita_hero_image']) ? asset('storage/'.$settings['berita_hero_image']) : asset('images/heroes/ppdb-hero-1280.webp'))
+    <section class="school-hero hero-news text-center relative overflow-hidden" style="background-image: linear-gradient(90deg, rgb(7 31 58 / 0.86), rgb(7 31 58 / 0.38)), url('{{ $beritaHeroImage }}') !important;">
         <div class="hero-shade"></div>
         <div class="mx-auto grid min-h-[430px] max-w-7xl place-items-center px-4 py-20 lg:px-8 relative z-10">
             <div class="relative max-w-4xl animate-fade-in-up">
@@ -23,13 +19,15 @@
     <section class="bg-gradient-to-b from-white to-[#f8fafc] py-8">
         <div class="mx-auto flex max-w-7xl flex-col gap-5 px-4 md:flex-row md:items-center md:justify-between lg:px-8">
             <div class="flex flex-wrap gap-3 animate-fade-in-up">
+                @php($filterIcons = ['Semua' => 'bi-grid', 'Berita' => 'bi-newspaper', 'Pengumuman' => 'bi-megaphone', 'Prestasi' => 'bi-trophy', 'PPDB' => 'bi-journal-check'])
                 @foreach (['Semua', 'Berita', 'Pengumuman', 'Prestasi', 'PPDB'] as $filter)
                     <a href="#daftar-berita" class="filter-pill group {{ $loop->first ? 'active' : '' }} hover:scale-105 transition-transform hover:shadow-lg">
+                        <i class="bi {{ $filterIcons[$filter] }}" aria-hidden="true"></i>
                         <span class="group-hover:text-[#d6a63a] transition-colors">{{ $filter }}</span>
                     </a>
                 @endforeach
             </div>
-            <a href="{{ route('home') }}#kontak" class="outline-button hover:bg-[#071f3a]/5 hover:scale-105 transition-all animate-fade-in-up">Kirim Informasi ke Humas</a>
+            <a href="{{ route('home') }}#kontak" class="outline-button hover:bg-[#071f3a]/5 hover:scale-105 transition-all animate-fade-in-up"><i class="bi bi-send" aria-hidden="true"></i>Kirim Informasi ke Humas</a>
         </div>
     </section>
 
@@ -48,7 +46,7 @@
                                 <p class="text-[#6b7f91]">{{ $featured->excerpt }}</p>
                             </div>
                             <a href="{{ route('berita.show', $featured->slug) }}" class="inline-flex items-center gap-2 text-[#d6a63a] font-bold group/link">
-                                Baca Selengkapnya <span class="group-hover/link:translate-x-2 transition-transform">→</span>
+                                Baca Selengkapnya <i class="bi bi-arrow-right group-hover/link:translate-x-2 transition-transform" aria-hidden="true"></i>
                             </a>
                         </div>
                     </div>
@@ -67,7 +65,7 @@
                             <p class="text-[#6b7f91]">{{ $post->excerpt }}</p>
                             <div class="mt-6 flex items-center justify-between text-[11px] font-black uppercase tracking-[0.12em]">
                                 <span class="text-[#9aaaba]">{{ optional($post->published_at)->format('d M Y') }}</span>
-                                <a class="!mt-0 text-[#c59632] transition-all group-hover:translate-x-2 group-hover:text-[#d6a63a] flex items-center gap-1" href="{{ route('berita.show', $post->slug) }}">Detail <span>→</span></a>
+                                <a class="!mt-0 text-[#c59632] transition-all group-hover:translate-x-2 group-hover:text-[#d6a63a] flex items-center gap-1" href="{{ route('berita.show', $post->slug) }}">Detail <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </article>
@@ -83,7 +81,7 @@
         <div class="cta-panel">
             <h2 class="animate-fade-in-up">Siap Menjadi Bagian Dari Kami?</h2>
             <p class="mt-3 animate-fade-in-up" style="animation-delay: 0.1s;">Informasi Penerimaan Peserta Didik Baru tahun ajaran {{ $settings['ppdb_year'] ?? '2026/2027' }} tersedia untuk calon siswa dan orang tua.</p>
-            <a href="{{ route('ppdb') }}" class="gold-button mt-10 hover:shadow-2xl hover:shadow-[#d6a63a]/50 hover:scale-105 transition-all">Informasi PPDB</a>
+            <a href="{{ route('ppdb') }}" class="gold-button mt-10 hover:shadow-2xl hover:shadow-[#d6a63a]/50 hover:scale-105 transition-all"><i class="bi bi-journal-check" aria-hidden="true"></i>Informasi PPDB</a>
         </div>
     </section>
 @endsection
