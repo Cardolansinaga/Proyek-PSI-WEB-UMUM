@@ -1,46 +1,12 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail PPDB - SMAN 2 Balige</title>
-    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
-    @vite('resources/css/admin.css')
-    @include('pages.admin.partials.admin-polish')
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
-        .admin-container { display: flex; height: 100vh; width: 100vw; }
-        .sidebar { width: 260px; background: #071f3a; flex-shrink: 0; display: flex; flex-direction: column; color: white; }
-        .main-content { flex: 1; overflow-y: auto; }
-        .content-padding { padding: 34px 30px; max-width: 1120px; margin: 0 auto; width: 100%; }
-        .page-head { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 32px; }
-        .page-head h1 { font-size: 36px; color: #071f3a; font-weight: 900; }
-        .page-head p { color: #64748b; margin-top: 8px; font-size: 14px; }
-        .grid { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 24px; }
-        .card { background: white; border-radius: 14px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .card h2 { font-size: 22px; color: #071f3a; font-weight: 900; margin-bottom: 20px; }
-        .info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
-        .info { padding: 16px; border: 1px solid #f1f5f9; border-radius: 10px; background: #fbfdff; transition: all 0.2s ease; }
-        .info:hover { background: #f8fafc; border-color: #d6a63a; }
-        .info span { display: block; font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-        .info strong { color: #071f3a; font-size: 14px; }
-        .doc-row { display: flex; justify-content: space-between; gap: 12px; padding: 16px 0; border-bottom: 1px solid #f1f5f9; transition: all 0.2s ease; }
-        .doc-row:hover { background: #fbfdff; padding: 16px 12px; margin: 0 -12px; border-radius: 8px; }
-        .doc-row strong { color: #071f3a; }
-        .badge { border-radius: 999px; padding: 8px 12px; font-size: 11px; font-weight: 900; background: #dcfce7; color: #166534; }
-        .btn-primary, .btn-outline, .btn-danger { border-radius: 10px; padding: 12px 18px; font-weight: 900; text-decoration: none; cursor: pointer; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.08); transition: all 0.3s ease; }
-        .btn-primary { background: linear-gradient(135deg, #071f3a 0%, #0f2847 100%); color: white; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(7, 31, 58, 0.3); }
-        .btn-outline { background: white; color: #071f3a; border: 1px solid #d9e1ec; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-        .btn-outline:hover { border-color: #d6a63a; box-shadow: 0 4px 12px rgba(214, 166, 58, 0.15); }
-        .btn-danger { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
-        .btn-danger:hover { background: #ffe4e6; box-shadow: 0 4px 12px rgba(190, 18, 60, 0.15); }
-        @media (max-width: 900px) { .grid, .info-grid { grid-template-columns: 1fr; } .page-head { flex-direction: column; } }
-    </style>
-    @include('pages.admin.partials.responsive')
-</head>
-<body>
+@extends('layouts.admin')
+
+@section('title', 'Detail PPDB')
+
+@push('styles')
+    @vite('resources/css/admin-pages/detail-ppdb.css')
+@endpush
+
+@section('content')
 <div class="admin-container">
     @include('pages.admin.partials.sidebar', ['activeAdmin' => 'ppdb'])
     <div class="main-content">
@@ -52,6 +18,16 @@
                 </div>
                 <a href="{{ route('admin.ppdb') }}" class="btn-outline"><i class="bi bi-arrow-left" aria-hidden="true"></i> Kembali ke PPDB</a>
             </div>
+
+            @include('pages.admin.partials.page-guide', [
+                'title' => 'Panduan verifikasi pendaftar',
+                'description' => 'Gunakan halaman ini untuk mengecek satu pendaftar sebelum menentukan statusnya.',
+                'items' => [
+                    'Periksa nama, nomor kontak, jalur pendaftaran, asal sekolah, dan alamat.',
+                    'Cek kelengkapan berkas sebelum menekan tombol verifikasi.',
+                    'Pilih Minta Revisi Berkas jika data masih perlu diperbaiki oleh pendaftar.',
+                ],
+            ])
 
             <div class="grid">
                 <section class="card">
@@ -88,5 +64,4 @@
         </main>
     </div>
 </div>
-</body>
-</html>
+@endsection

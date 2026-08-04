@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
     <title>Lupa Password Admin - SMAN 2 Balige</title>
     <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
     @vite('resources/css/auth.css')
@@ -46,11 +47,11 @@
             <p>Masukkan email admin yang terdaftar. Instruksi pemulihan akses akan dikirim bila email tersebut tersedia di sistem.</p>
 
             @if(session('status'))
-                <div class="notice">{{ session('status') }}</div>
+                <div class="notice" role="status">{{ session('status') }}</div>
             @endif
 
             @if($errors->any())
-                <div class="notice error">{{ $errors->first() }}</div>
+                <div class="notice error" role="alert">{{ $errors->first() }}</div>
             @endif
 
             <form method="POST" action="{{ route('password.email') }}">
@@ -59,7 +60,7 @@
                     <label for="email">Email Admin</label>
                     <div class="input-wrap">
                         <i class="bi bi-envelope"></i>
-                        <input id="email" type="email" name="email" placeholder="admin@sman2balige.sch.id" value="{{ old('email') }}" required autofocus>
+                        <input id="email" type="email" name="email" placeholder="admin@sman2balige.sch.id" value="{{ old('email') }}" autocomplete="email" required autofocus>
                     </div>
                 </div>
                 <button type="submit" class="btn-reset">

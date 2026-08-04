@@ -1,0 +1,84 @@
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+}
+
+.container-fluid {
+    width: 100%;
+    margin-inline: auto;
+}
+
+.navbar,
+.navbar > .container-fluid,
+.navbar-brand,
+.navbar-nav,
+.nav-link {
+    display: flex;
+}
+
+.navbar {
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: .5rem;
+}
+
+.navbar > .container-fluid {
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-brand {
+    align-items: center;
+    white-space: nowrap;
+}
+
+.navbar-collapse {
+    flex-basis: 100%;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.collapse:not(.show) {
+    display: none;
+}
+
+.collapse.show {
+    display: block;
+}
+
+.navbar-nav {
+    flex-direction: column;
+    padding-left: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.nav-link {
+    align-items: center;
+    text-decoration: none;
+}
+
+.fw-bold {
+    font-weight: 700;
+}
+
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem rgba(15, 23, 42, .075);
+}
+
+@media (min-width: 1200px) {
+    .navbar-expand-xl .navbar-collapse {
+        display: flex !important;
+        flex-basis: auto;
+    }
+
+    .navbar-expand-xl .navbar-nav {
+        flex-direction: row;
+    }
+
+    .ms-xl-auto {
+        margin-left: auto !important;
+    }
+}

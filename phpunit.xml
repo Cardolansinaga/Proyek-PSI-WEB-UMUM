@@ -19,6 +19,9 @@
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>
+        <env name="ADMIN_EMAIL" value="admin@sman2balige.sch.id"/>
+        <env name="ADMIN_INITIAL_PASSWORD" value="Test-only-Admin!2026"/>
+        <env name="ADMIN_NAME" value="Admin Pengujian"/>
         <env name="APP_MAINTENANCE_DRIVER" value="file"/>
         <env name="BCRYPT_ROUNDS" value="4"/>
         <env name="BROADCAST_CONNECTION" value="null"/>

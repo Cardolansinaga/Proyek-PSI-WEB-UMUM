@@ -1,62 +1,78 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen PPDB - SMAN 2 Balige</title>
-    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
-    @vite('resources/css/admin.css')
-    @include('pages.admin.partials.admin-polish')
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
-        .admin-container { display: flex; height: 100vh; width: 100vw; }
-        .main-content { flex: 1; overflow-y: auto; }
-        .content-padding { padding: 32px; }
-        .card { background: white; border-radius: 14px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .card h2 { font-size: 22px; color: #071f3a; font-weight: 900; margin-bottom: 20px; }
-        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin: 32px 0; }
-        .stat-card { background: white; border-radius: 14px; padding: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border-left: 4px solid; transition: all 0.3s ease; }
-        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
-        .stat-card.total { border-left-color: #d6a63a; }
-        .stat-card.verified { border-left-color: #16a34a; }
-        .stat-card.waiting { border-left-color: #d97706; }
-        .stat-card.revision { border-left-color: #dc2626; }
-        .stat-label { color: #94a3b8; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
-        .stat-value { font-size: 32px; font-weight: 900; color: #071f3a; }
-        .data-table { width: 100%; border-collapse: collapse; }
-        .data-table thead tr { background: linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%); }
-        .data-table th { padding: 14px 12px; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; text-align: left; }
-        .data-table td { padding: 16px 12px; border-bottom: 1px solid #f1f5f9; font-size: 14px; color: #1e293b; text-align: left; vertical-align: middle; }
-        .data-table tbody tr { transition: all 0.2s ease; }
-        .data-table tbody tr:hover { background-color: #f8fafc; }
-        .badge { display: inline-flex; align-items: center; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 900; }
-        @media (max-width: 900px) { .stats-grid { grid-template-columns: 1fr; } }
-    </style>
-    @include('pages.admin.partials.responsive')
-</head>
-<body>
+@extends('layouts.admin')
+
+@section('title', 'Kelola PPDB')
+
+@push('styles')
+    @vite('resources/css/admin-pages/ppdb.css')
+@endpush
+
+@section('content')
 <div class="admin-container">
     @include('pages.admin.partials.sidebar', ['activeAdmin' => 'ppdb'])
     <div class="main-content">
         <main class="content-padding">
-            <div style="display:flex; justify-content:space-between; gap:20px; align-items:flex-start; flex-wrap:wrap; margin-bottom:32px;">
+            @php
+                $decodeAdminJson = function (string $key) use ($settings): array {
+                    $decoded = json_decode($settings[$key] ?? '', true);
+
+                    return is_array($decoded) ? $decoded : [];
+                };
+                $stageSchedules = $decodeAdminJson('ppdb_stage_schedule_json');
+                $schoolPhone = $settings['school_phone'] ?? '0812-7492-3186';
+            @endphp
+            <div class="page-head">
                 <div>
-                    <h1 style="font-size:36px; font-weight:900; color:#071f3a;">Manajemen PPDB</h1>
-                    <p style="margin-top:8px; color:#64748b; font-size:14px;">Pantau pendaftar, verifikasi berkas, dan status penerimaan tahun ajaran {{ $settings['ppdb_year'] ?? '2026/2027' }}.</p>
+                    <h1>Kelola PPDB</h1>
+                    <p style="margin-top:8px; color:#64748b; font-size:14px;">Pantau pendaftar, verifikasi berkas, serta informasi SPMB yang tampil di halaman publik.</p>
                     @if (session('status'))
                         <p style="margin-top:12px; color:#166534; font-weight:900; padding:10px 12px; background:#dcfce7; border-radius:8px; display:inline-block; font-size:13px;"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> {{ session('status') }}</p>
                     @endif
                 </div>
-                <a href="{{ route('ppdb') }}" style="border-radius:10px; background: linear-gradient(135deg, #071f3a 0%, #0f2847 100%); color:white; padding:12px 20px; font-weight:900; text-decoration:none; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.2); transition: all 0.3s; display:inline-flex; align-items:center; gap:8px;" onmouseover="this.style.boxShadow='0 8px 20px rgba(7, 31, 58, 0.3)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.boxShadow='0 4px 12px rgba(7, 31, 58, 0.2)'; this.style.transform='translateY(0)';"><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i> Lihat Halaman Publik</a>
+                <div class="page-actions" style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <a href="{{ route('ppdb') }}" class="btn-outline"><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i> Lihat Publik</a>
+                    <a href="{{ route('admin.pengaturan') }}" class="btn-primary"><i class="bi bi-sliders" aria-hidden="true"></i> Edit Info SPMB</a>
+                </div>
             </div>
 
-            <div class="stats-grid">
-                <div class="stat-card total"><div class="stat-label"><i class="bi bi-clipboard-data" aria-hidden="true"></i> Total Pendaftar</div><div class="stat-value">{{ $applications->count() }}</div></div>
-                <div class="stat-card verified"><div class="stat-label"><i class="bi bi-check-circle" aria-hidden="true"></i> Terverifikasi</div><div class="stat-value">{{ $applications->where('status', 'verified')->count() }}</div></div>
-                <div class="stat-card waiting"><div class="stat-label"><i class="bi bi-hourglass-split" aria-hidden="true"></i> Menunggu</div><div class="stat-value">{{ $applications->where('status', 'waiting')->count() }}</div></div>
-                <div class="stat-card revision"><div class="stat-label"><i class="bi bi-exclamation-triangle" aria-hidden="true"></i> Perlu Revisi</div><div class="stat-value">{{ $applications->where('status', 'revision')->count() }}</div></div>
-            </div>
+            @include('pages.admin.partials.page-guide', [
+                'title' => 'Cara mengelola PPDB',
+                'description' => 'Halaman ini menampilkan ringkasan SPMB dan daftar pendaftar yang masuk ke admin.',
+                'items' => [
+                    'Klik Edit Info SPMB untuk mengubah jadwal, daya tampung, kontak, dan syarat PPDB.',
+                    'Klik Detail pada pendaftar untuk melihat data dan menentukan status verifikasi.',
+                    'Gunakan Lihat Publik untuk memastikan informasi PPDB sudah mudah dibaca.',
+                ],
+            ])
+
+            <section class="ppdb-admin-overview">
+                <article class="ppdb-admin-panel">
+                    <h2><i class="bi bi-info-circle" aria-hidden="true"></i> Informasi SPMB Aktif</h2>
+                    <p>Satu sumber data untuk halaman PPDB publik. Nomor sekolah mengikuti poster resmi SPMB.</p>
+                    <div class="ppdb-summary-list">
+                        <div><span>Tahun Pelajaran</span><strong>{{ $settings['ppdb_year'] ?? '2026/2027' }}</strong></div>
+                        <div><span>Status</span><strong>{{ $settings['ppdb_status'] ?? 'SPMB Sumut 2026' }}</strong></div>
+                        <div><span>Daya Tampung</span><strong>6 rombel x 36 = 216 orang</strong></div>
+                        <div><span>Nomor Sekolah</span><strong>{{ $schoolPhone }}</strong></div>
+                        <div><span>Aplikasi</span><strong>{{ $settings['ppdb_app_url'] ?? 'https://spmbsumutberkah.disdik.sumutprov.go.id' }}</strong></div>
+                    </div>
+                </article>
+                <article class="ppdb-admin-panel">
+                    <h2><i class="bi bi-calendar-event" aria-hidden="true"></i> Jadwal Resmi</h2>
+                    <p>Jadwal ini tampil di PPDB umum dan diedit melalui Pengaturan Admin.</p>
+                    <div class="ppdb-stage-summary">
+                        @foreach ($stageSchedules as $stage)
+                            <article>
+                                <h3>{{ $stage['stage'] ?? '' }} - {{ $stage['track'] ?? '' }}</h3>
+                                <ul>
+                                    @foreach (($stage['items'] ?? []) as $item)
+                                        <li><span>{{ $item['label'] ?? '' }}</span><strong>{{ $item['date'] ?? '' }}</strong></li>
+                                    @endforeach
+                                </ul>
+                            </article>
+                        @endforeach
+                    </div>
+                </article>
+            </section>
 
             <div class="card">
                 <h2>Pendaftar Terbaru</h2>
@@ -90,5 +106,4 @@
         </main>
     </div>
 </div>
-</body>
-</html>
+@endsection

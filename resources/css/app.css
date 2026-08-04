@@ -1,19 +1,14 @@
-@import '@fontsource/plus-jakarta-sans/latin-400.css';
-@import '@fontsource/plus-jakarta-sans/latin-500.css';
-@import '@fontsource/plus-jakarta-sans/latin-600.css';
-@import '@fontsource/plus-jakarta-sans/latin-700.css';
-@import '@fontsource/plus-jakarta-sans/latin-800.css';
-@import 'bootstrap/dist/css/bootstrap.min.css';
 @import 'tailwindcss';
 @import './local-icons.css';
+@import './bootstrap-shim.css';
+@import './public-polish.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
 @source '../**/*.blade.php';
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
+    --font-sans: 'Segoe UI', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
@@ -331,7 +326,7 @@
 @layer components {
     body:has(.admin-container) {
         overflow: auto !important;
-        font-family: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif !important;
+        font-family: 'Segoe UI', ui-sans-serif, system-ui, sans-serif !important;
         background: #f8fafc;
     }
 
@@ -575,6 +570,10 @@
 @layer base {
     html {
         scroll-behavior: smooth;
+    }
+
+    [id] {
+        scroll-margin-top: calc(var(--header-height, 88px) + 18px);
     }
 
     body {
@@ -3925,6 +3924,11 @@
     }
 }
 
+.public-site .school-hero.hero-ppdb.ppdb-hero {
+    background-image: none !important;
+    background-color: #071f3a !important;
+}
+
 @layer components {
     .hero-profile {
         background:
@@ -4787,5 +4791,284 @@
             min-height: 15.5rem;
             opacity: 0.95;
         }
+    }
+
+    .public-site .school-hero.hero-ppdb.ppdb-hero {
+        background-color: #071f3a !important;
+        background-image: none !important;
+    }
+
+    .public-site .ppdb-section-heading .eyebrow,
+    .public-site .eyebrow {
+        border-color: #ead08d !important;
+        background: #fff7df !important;
+        color: #6f4b0c !important;
+    }
+
+    .public-site .ppdb-hero-card dt {
+        color: #4f6475 !important;
+    }
+
+    .public-site .ppdb-panel-title p {
+        color: #6f4b0c !important;
+    }
+
+    .public-site .ppdb-stage-head span {
+        color: #ffffff !important;
+    }
+
+    .public-site .ppdb-contact-copy {
+        background-color: #071f3a !important;
+    }
+
+    .public-site .ppdb-kicker {
+        border-color: rgba(255, 242, 190, .42) !important;
+        background: #12395f !important;
+        color: #fff6cc !important;
+    }
+
+    .public-site .dark-footer-list,
+    .public-site .dark-footer-list li,
+    .public-site .dark-footer-list a {
+        color: #d8e7f5 !important;
+    }
+}
+
+.public-site .school-hero.hero-ppdb.ppdb-hero {
+    background: #071f3a !important;
+    background-image: none !important;
+}
+
+.public-site .eyebrow {
+    border-color: #ead08d !important;
+    background: #fff7df !important;
+    color: #6f4b0c !important;
+}
+
+.public-site .ppdb-hero-card dt {
+    color: #4f6475 !important;
+}
+
+.public-site .ppdb-panel-title p,
+.public-site .ppdb-stage-head span {
+    color: #6f4b0c !important;
+}
+
+.public-site .ppdb-kicker {
+    border-color: rgba(255, 242, 190, .42) !important;
+    background: #12395f !important;
+    color: #fff6cc !important;
+}
+
+.public-site .section-pill,
+.public-site .meta-line {
+    color: #6f4b0c !important;
+}
+
+.public-site .timeline-row p,
+.public-site .news-card p,
+.public-site .gallery-grid + p {
+    color: #4b6175 !important;
+}
+
+.public-site .site-brand-copy [style*="#d6a63a"] {
+    color: #8d5f0d !important;
+}
+
+.public-site .bg-white [class~="text-[#d6a63a]"],
+.public-site [class~="bg-[#f6f9fc]"] [class~="text-[#d6a63a]"],
+.public-site .bg-white [class~="text-[#c59632]"],
+.public-site [class~="bg-[#f6f9fc]"] [class~="text-[#c59632]"] {
+    color: #8d5f0d !important;
+}
+
+@supports (content-visibility: auto) {
+    .public-site main > section {
+        content-visibility: auto;
+        contain-intrinsic-size: 760px;
+    }
+
+    .public-site .school-hero,
+    .public-site #profil,
+    .public-site .page-hero,
+    .public-site .ppdb-hero {
+        content-visibility: visible;
+        contain-intrinsic-size: auto;
+    }
+}
+
+.public-site .academic-curriculum-section {
+    padding-bottom: clamp(38px, 4vw, 58px) !important;
+}
+
+.public-site .academic-calendar-section {
+    padding-top: clamp(28px, 3vw, 44px) !important;
+    padding-bottom: clamp(56px, 5vw, 76px) !important;
+}
+
+.public-site .academic-calendar-section > .mx-auto {
+    align-items: center !important;
+    gap: clamp(28px, 4vw, 48px) !important;
+}
+
+.public-site .academic-calendar-title {
+    max-width: 640px;
+    letter-spacing: 0 !important;
+}
+
+.public-site .academic-calendar-copy {
+    color: #526b80 !important;
+}
+
+.public-site .academic-calendar-section .calendar-card {
+    display: flex !important;
+    align-items: center !important;
+    gap: 16px !important;
+    min-height: auto !important;
+    padding: 18px 20px !important;
+    border: 1px solid #d9e5ef !important;
+    border-radius: 8px !important;
+    background: #ffffff !important;
+    box-shadow: 0 12px 30px rgba(7, 31, 58, .055) !important;
+}
+
+.public-site .academic-calendar-section .calendar-card > span {
+    display: grid !important;
+    width: 56px !important;
+    min-width: 56px !important;
+    height: 56px !important;
+    place-items: center !important;
+    border: 1px solid #efd58d !important;
+    border-radius: 8px !important;
+    background: #fff8e7 !important;
+    color: #8d5f0d !important;
+    font-size: 14px !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
+}
+
+.public-site .academic-calendar-section .calendar-card:hover > span {
+    font-size: 14px !important;
+}
+
+.public-site .academic-calendar-section .calendar-card h3 {
+    color: #071f3a !important;
+    font-size: 16px !important;
+    line-height: 1.25 !important;
+}
+
+.public-site .academic-calendar-section .calendar-card:hover h3 {
+    color: #071f3a !important;
+}
+
+.public-site .academic-calendar-section .calendar-card p {
+    margin-top: 6px !important;
+    color: #526b80 !important;
+    font-size: 13px !important;
+    line-height: 1.55 !important;
+}
+
+.public-site #portal-akademik {
+    border: 1px solid rgba(255, 255, 255, .14) !important;
+    border-radius: 8px !important;
+    background: linear-gradient(135deg, #071f3a 0%, #124a5a 100%) !important;
+    padding: clamp(24px, 3vw, 34px) !important;
+    box-shadow: 0 22px 54px rgba(7, 31, 58, .16) !important;
+}
+
+.public-site #portal-akademik > h3 {
+    color: #ffffff !important;
+    font-size: clamp(24px, 3vw, 30px) !important;
+    line-height: 1.18 !important;
+}
+
+.public-site #portal-akademik > p {
+    color: #d8e7f5 !important;
+    font-size: 13px !important;
+    line-height: 1.7 !important;
+}
+
+.public-site #portal-akademik .service-tile {
+    display: flex !important;
+    min-height: 136px !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 10px !important;
+    border: 1px solid rgba(255, 255, 255, .18) !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, .1) !important;
+    padding: 18px !important;
+    color: #ffffff !important;
+    text-align: center !important;
+    box-shadow: none !important;
+}
+
+.public-site #portal-akademik .service-tile:hover {
+    background: rgba(255, 255, 255, .15) !important;
+    transform: translateY(-2px);
+}
+
+.public-site #portal-akademik .service-tile > i {
+    color: #f4c95d !important;
+    font-size: 22px !important;
+}
+
+.public-site #portal-akademik .service-tile strong {
+    color: #ffffff !important;
+    font-size: 15px !important;
+    line-height: 1.25 !important;
+}
+
+.public-site #portal-akademik .service-tile p {
+    margin: 0 !important;
+    color: #d8e7f5 !important;
+    font-size: 12px !important;
+    line-height: 1.55 !important;
+}
+
+@media (max-width: 767.98px) {
+    .public-site .academic-calendar-section .calendar-card {
+        align-items: flex-start !important;
+        padding: 16px !important;
+    }
+
+    .public-site #portal-akademik .service-tile {
+        min-height: 118px !important;
+    }
+}
+
+@layer components {
+    @supports (content-visibility: auto) {
+        .public-site .academic-calendar-section {
+            content-visibility: visible !important;
+            contain-intrinsic-size: auto !important;
+        }
+    }
+
+    .public-site #portal-akademik,
+    .public-site .academic-calendar-section #portal-akademik {
+        border: 1px solid rgba(255, 255, 255, .14) !important;
+        background: linear-gradient(135deg, #071f3a 0%, #124a5a 100%) !important;
+    }
+
+    .public-site #portal-akademik > h3,
+    .public-site .academic-calendar-section #portal-akademik > h3,
+    .public-site #portal-akademik .service-tile strong,
+    .public-site .academic-calendar-section #portal-akademik .service-tile strong {
+        color: #ffffff !important;
+    }
+
+    .public-site #portal-akademik > p,
+    .public-site #portal-akademik .service-tile p,
+    .public-site .academic-calendar-section #portal-akademik > p,
+    .public-site .academic-calendar-section #portal-akademik .service-tile p {
+        color: #d8e7f5 !important;
+    }
+
+    .public-site #portal-akademik .service-tile,
+    .public-site .academic-calendar-section #portal-akademik .service-tile {
+        border-color: rgba(255, 255, 255, .18) !important;
+        background: rgba(255, 255, 255, .1) !important;
     }
 }

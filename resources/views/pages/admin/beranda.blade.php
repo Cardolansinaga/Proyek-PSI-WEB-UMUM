@@ -1,64 +1,20 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Beranda - SMAN 2 Balige</title>
-    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
-    @vite('resources/css/admin.css')
-    @include('pages.admin.partials.admin-polish')
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
-        .admin-container { display: flex; height: 100vh; width: 100vw; }
-        .sidebar { width: 260px; background: #071f3a; flex-shrink: 0; display: flex; flex-direction: column; color: white; }
-        .main-content { flex: 1; overflow-y: auto; }
-        .content-padding { padding: 34px 30px; max-width: 1320px; margin: 0 auto; width: 100%; }
-        .page-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; margin-bottom: 32px; }
-        .page-head h1 { font-size: 36px; color: #071f3a; font-weight: 900; }
-        .page-head p { color: #64748b; margin-top: 8px; max-width: 720px; font-size: 14px; }
-        .btn-primary, .btn-outline { border-radius: 10px; padding: 12px 18px; font-weight: 900; text-decoration: none; cursor: pointer; transition: all 0.3s ease; }
-        .btn-primary { background: linear-gradient(135deg, #071f3a 0%, #0f2847 100%); color: white; border: none; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.2); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(7, 31, 58, 0.3); }
-        .btn-outline { background: white; color: #071f3a; border: 1px solid #d9e1ec; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-        .btn-outline:hover { border-color: #d6a63a; box-shadow: 0 4px 12px rgba(214, 166, 58, 0.15); }
-        .overview-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 28px; }
-        .management-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(320px, .75fr); gap: 20px; }
-        .card { background: white; border-radius: 14px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .card h2 { font-size: 22px; color: #071f3a; font-weight: 900; margin-bottom: 20px; }
-        .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-        .input-group { display: grid; gap: 10px; margin-bottom: 16px; }
-        .input-group label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
-        .custom-input, .custom-select, .custom-textarea { width: 100%; border: 1px solid #d9e1ec; border-radius: 10px; padding: 12px 14px; font: inherit; color: #071f3a; background: white; transition: all 0.3s ease; }
-        .custom-input:hover, .custom-select:hover, .custom-textarea:hover { border-color: #d6a63a; box-shadow: 0 2px 8px rgba(214, 166, 58, 0.1); }
-        .custom-input:focus, .custom-select:focus, .custom-textarea:focus { outline: none; border-color: #071f3a; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.15); }
-        .custom-textarea { min-height: 118px; resize: vertical; }
-        .stack { display: grid; gap: 18px; }
-        .content-list { display: grid; gap: 12px; }
-        .content-row { display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: center; border: 1px solid #f1f5f9; border-radius: 10px; padding: 16px; background: #fbfdff; transition: all 0.2s ease; }
-        .content-row.media-row { grid-template-columns: 132px 1fr; align-items: start; }
-        .content-row:hover { background: #f8fafc; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-        .content-row strong { color: #071f3a; display: block; font-size: 14px; }
-        .content-row span { color: #94a3b8; font-size: 12px; margin-top: 4px; }
-        .status-pill { display: inline-flex; border-radius: 999px; padding: 8px 14px; background: #dcfce7; color: #166534; font-size: 11px; font-weight: 900; letter-spacing: 0.5px; }
-        .note { border-left: 4px solid #c9962c; background: #fff8e7; padding: 16px; border-radius: 10px; color: #7c5a10; font-size: 13px; line-height: 1.6; }
-        .image-preview { min-height: 150px; border-radius: 12px; border: 1px solid #d9e1ec; background: #f4f7fb center/cover no-repeat; display: grid; place-items: center; color: #64748b; font-size: 12px; font-weight: 800; overflow: hidden; }
-        .check-row { display: flex; gap: 10px; align-items: flex-start; color: #071f3a; font-size: 13px; font-weight: 800; line-height: 1.5; }
-        .check-row input { width: auto; margin-top: 3px; }
-        @media (max-width: 1080px) { .overview-grid, .management-grid, .field-grid { grid-template-columns: 1fr; } .page-head { flex-direction: column; } }
-        @media (max-width: 640px) { .content-row.media-row { grid-template-columns: 1fr; } }
-    </style>
-    @include('pages.admin.partials.responsive')
-</head>
-<body>
+@extends('layouts.admin')
+
+@section('title', 'Kelola Beranda')
+
+@push('styles')
+    @vite('resources/css/admin-pages/beranda.css')
+@endpush
+
+@section('content')
 <div class="admin-container">
     @include('pages.admin.partials.sidebar', ['activeAdmin' => 'beranda'])
     <div class="main-content">
         <main class="content-padding">
             <div class="page-head">
                 <div>
-                    <h1>Manajemen Beranda</h1>
-                    <p>Kelola semua bagian yang sekarang tampil di Beranda publik: profil sekolah, sambutan, berita & pengumuman, galeri, dan CTA PPDB.</p>
+                    <h1>Kelola Beranda</h1>
+                    <p>Ubah isi halaman depan website: judul utama, profil sekolah, sambutan, berita, galeri, dan tombol ajakan PPDB.</p>
                     @if (session('status'))
                         <p style="margin-top: 12px; color: #166534; font-weight: 900; padding: 10px 12px; background: #dcfce7; border-radius: 8px; display: inline-block; font-size: 13px;"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> {{ session('status') }}</p>
                     @endif
@@ -68,6 +24,16 @@
                     <button type="submit" form="home-form" class="btn-primary"><i class="bi bi-save" aria-hidden="true"></i> Simpan Beranda</button>
                 </div>
             </div>
+
+            @include('pages.admin.partials.page-guide', [
+                'title' => 'Cara mengubah Beranda',
+                'description' => 'Beranda adalah halaman pertama yang dilihat pengunjung, jadi ubah teks dengan singkat dan jelas.',
+                'items' => [
+                    'Isi bagian Konten Utama Beranda untuk judul, profil, dan sambutan kepala sekolah.',
+                    'Untuk gambar, pilih file JPG, PNG, atau WEBP yang jelas dan tidak terlalu gelap.',
+                    'Klik Simpan Beranda, lalu buka Lihat Beranda Publik untuk mengecek hasilnya.',
+                ],
+            ])
 
             <div class="overview-grid">
                 <article class="card" style="border-left: 4px solid #d6a63a;">
@@ -87,8 +53,8 @@
                 </article>
                 <article class="card" style="border-left: 4px solid #8b5cf6;">
                     <span class="status-pill">Aktif</span>
-                    <h2 style="margin-top: 12px; font-size: 20px;"><i class="bi bi-journal-check" aria-hidden="true"></i> CTA PPDB</h2>
-                    <p style="color: #64748b; font-size: 14px; line-height: 1.5;">Tombol diarahkan ke halaman Informasi PPDB.</p>
+                    <h2 style="margin-top: 12px; font-size: 20px;"><i class="bi bi-journal-check" aria-hidden="true"></i> Tombol PPDB</h2>
+                    <p style="color: #64748b; font-size: 14px; line-height: 1.5;">Tombol ajakan diarahkan ke halaman Informasi PPDB.</p>
                 </article>
             </div>
 
@@ -104,7 +70,7 @@
                                     <input class="custom-input" name="hero_title" value="{{ old('hero_title', $settings['hero_title'] ?? '') }}">
                                 </div>
                                 <div class="input-group">
-                                    <label>Label CTA</label>
+                                    <label>Teks Tombol PPDB</label>
                                     <input class="custom-input" name="cta_label" value="{{ old('cta_label', $settings['cta_label'] ?? '') }}">
                                 </div>
                             </div>
@@ -133,6 +99,11 @@
                             <div class="input-group">
                                 <label>Sambutan Kepala Sekolah</label>
                                 <textarea class="custom-textarea" name="principal_message">{{ old('principal_message', $settings['principal_message'] ?? '') }}</textarea>
+                            </div>
+                            <div class="input-group">
+                                <label>Daftar Fokus Kerja Beranda</label>
+                                <textarea class="custom-textarea" name="leadership_focus_json" data-structured-json rows="12">{{ old('leadership_focus_json', $settings['leadership_focus_json'] ?? '') }}</textarea>
+                                <p class="field-help">Kelola daftar melalui editor visual. Gunakan tombol tambah atau hapus untuk mengubah susunan.</p>
                             </div>
                             <div class="input-group">
                                 <label>Gambar Hero Beranda</label>
@@ -182,7 +153,8 @@
                                             @endif
                                             <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 12px;">
                                                 <button type="submit" class="btn-primary"><i class="bi bi-image" aria-hidden="true"></i> Simpan Gambar</button>
-                                                <a class="btn-outline" href="{{ route('berita.show', $post->slug) }}"><i class="bi bi-eye" aria-hidden="true"></i> Lihat</a>
+                                                <a class="btn-outline" href="{{ route('admin.posts.edit', $post) }}"><i class="bi bi-pencil-square" aria-hidden="true"></i> Edit Lengkap</a>
+                                                <a class="btn-outline" href="{{ route('admin.posts.preview', $post) }}" target="_blank" rel="noopener"><i class="bi bi-eye" aria-hidden="true"></i> Preview</a>
                                             </div>
                                         </form>
                                     </div>
@@ -196,7 +168,7 @@
                             <h2>Galeri Beranda</h2>
                             <div class="content-list">
                                 @foreach ($galleries as $gallery)
-                                    <div class="content-row"><div><strong>{{ $gallery->title }}</strong><span>{{ $gallery->status === 'published' ? 'Tampil publik' : 'Draft' }}</span></div><a class="btn-outline" href="{{ route('admin.galeri') }}"><i class="bi bi-pencil-square" aria-hidden="true"></i> Edit</a></div>
+                                    <div class="content-row"><div><strong>{{ $gallery->title }}</strong><span>{{ $gallery->status === 'published' ? 'Tampil di website' : 'Belum tampil' }}</span></div><a class="btn-outline" href="{{ route('admin.galeri') }}"><i class="bi bi-pencil-square" aria-hidden="true"></i> Edit</a></div>
                                 @endforeach
                             </div>
                         </section>
@@ -206,11 +178,11 @@
                             <div class="input-group">
                                 <label>Mode Publikasi</label>
                                 <select class="custom-select" name="publish_mode">
-                                    <option>Publik</option>
-                                    <option>Draft</option>
+                                    <option value="published" @selected(old('publish_mode', $settings['publish_mode'] ?? 'published') === 'published')>Published — tampil di website</option>
+                                    <option value="draft" @selected(old('publish_mode', $settings['publish_mode'] ?? 'published') === 'draft')>Draft — simpan tanpa mengubah website</option>
                                 </select>
                             </div>
-                            <div class="note">Modul Pengumuman dan Galeri tidak dipisah lagi karena keduanya sekarang menjadi bagian dari Beranda publik.</div>
+                            <div class="note">Mode Draft menyimpan perubahan untuk dilanjutkan nanti. Pengunjung tetap melihat versi Published terakhir.</div>
                         </section>
                     </aside>
                 </div>
@@ -218,5 +190,4 @@
         </main>
     </div>
 </div>
-</body>
-</html>
+@endsection

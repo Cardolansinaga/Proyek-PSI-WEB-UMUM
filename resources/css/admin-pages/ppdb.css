@@ -1,0 +1,30 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
+        .admin-container { display: flex; height: 100vh; width: 100vw; }
+        .main-content { flex: 1; overflow-y: auto; }
+        .content-padding { padding: 32px; }
+        .card { background: white; border-radius: 14px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .card h2 { font-size: 22px; color: #071f3a; font-weight: 900; margin-bottom: 20px; }
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table thead tr { background: linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%); }
+        .data-table th { padding: 14px 12px; color: #64748b; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; text-align: left; }
+        .data-table td { padding: 16px 12px; border-bottom: 1px solid #f1f5f9; font-size: 14px; color: #1e293b; text-align: left; vertical-align: middle; }
+        .data-table tbody tr { transition: all 0.2s ease; }
+        .data-table tbody tr:hover { background-color: #f8fafc; }
+        .badge { display: inline-flex; align-items: center; border-radius: 8px; padding: 6px 12px; font-size: 11px; font-weight: 900; }
+        .ppdb-admin-overview { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 18px; margin-bottom: 28px; }
+        .ppdb-admin-panel { background: #ffffff; border: 1px solid #d9e1ec; border-radius: 14px; padding: 22px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .ppdb-admin-panel h2 { margin: 0 0 14px; font-size: 20px; color: #071f3a; font-weight: 900; }
+        .ppdb-admin-panel p { margin: 0; color: #64748b; line-height: 1.65; font-size: 13px; font-weight: 700; }
+        .ppdb-summary-list { display: grid; gap: 10px; margin-top: 16px; }
+        .ppdb-summary-list div { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 12px; padding: 12px; border: 1px solid #edf2f7; border-radius: 10px; background: #fbfdff; }
+        .ppdb-summary-list span { color: #94a3b8; font-size: 11px; font-weight: 900; text-transform: uppercase; }
+        .ppdb-summary-list strong { color: #071f3a; overflow-wrap: anywhere; }
+        .ppdb-stage-summary { display: grid; gap: 12px; margin-top: 16px; }
+        .ppdb-stage-summary article { border: 1px solid #edf2f7; border-radius: 10px; padding: 14px; background: #fbfdff; }
+        .ppdb-stage-summary h3 { margin: 0 0 8px; color: #071f3a; font-size: 14px; font-weight: 900; }
+        .ppdb-stage-summary ul { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; color: #475569; font-size: 13px; font-weight: 700; }
+        .ppdb-stage-summary li { display: flex; justify-content: space-between; gap: 10px; border-top: 1px solid #edf2f7; padding-top: 6px; }
+        .ppdb-stage-summary li:first-child { border-top: 0; padding-top: 0; }
+        .ppdb-admin-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+        @media (max-width: 900px) { .ppdb-admin-overview { grid-template-columns: 1fr; } .ppdb-summary-list div { grid-template-columns: 1fr; } }

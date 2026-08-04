@@ -2,37 +2,33 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Achievement;
-use App\Models\Activity;
 use App\Models\Gallery;
 use App\Models\Post;
-use App\Models\PpdbApplication;
 use App\Models\SiteSetting;
-use App\Models\Student;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class AdminContentController extends Controller
 {
-    public function dashboard()
-    {
-        return view('pages.admin.dashboard', [
-            'stats' => [
-                'posts' => Post::count(),
-                'achievements' => Achievement::count(),
-                'students' => Student::count(),
-                'ppdb' => PpdbApplication::count(),
-            ],
-        ]);
-    }
+    private const HOME_FIELDS = [
+        'hero_title',
+        'hero_subtitle',
+        'hero_badge',
+        'profile_summary',
+        'profile_detail',
+        'cta_label',
+        'principal_name',
+        'principal_message',
+        'leadership_focus_json',
+    ];
 
     public function beranda()
     {
         return view('pages.admin.beranda', [
-            'settings' => $this->settings(),
+            'settings' => $this->homeEditorSettings(),
             'posts' => Post::query()->latest('published_at')->take(3)->get(),
             'galleries' => Gallery::query()->orderBy('sort_order')->take(4)->get(),
         ]);
@@ -49,20 +45,63 @@ class AdminContentController extends Controller
             'cta_label' => ['required', 'string', 'max:80'],
             'principal_name' => ['nullable', 'string', 'max:120'],
             'principal_message' => ['nullable', 'string'],
+            'leadership_focus_json' => ['nullable', 'json'],
             'hero_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
             'remove_hero_image' => ['nullable'],
+            'publish_mode' => ['required', Rule::in(['published', 'draft'])],
+        ], [
+            'leadership_focus_json.json' => 'Format Daftar Fokus Kerja Beranda belum benar. Jika ragu, ubah hanya teks di dalam tanda kutip dan jangan hapus tanda kurung, koma, atau titik dua.',
+            'hero_image.image' => 'Gambar Beranda harus berupa file gambar.',
+            'hero_image.mimes' => 'Gambar Beranda harus berformat JPG, PNG, atau WEBP.',
+        ], [
+            'hero_title' => 'Judul Hero',
+            'profile_summary' => 'Ringkasan Profil',
+            'cta_label' => 'Teks Tombol PPDB',
+            'leadership_focus_json' => 'Daftar Fokus Kerja Beranda',
         ]);
 
-        SiteSetting::setMany(collect($data)->except(['hero_image', 'remove_hero_image'])->all());
+        $publishMode = $data['publish_mode'];
+        $this->assertLeadershipFocusStructure($data['leadership_focus_json'] ?? null);
+        $content = collect($data)->only(self::HOME_FIELDS)->all();
+        $publishedImage = $this->settings()['hero_image'] ?? null;
+        $draftImage = SiteSetting::getValue('draft_home_hero_image');
+        $hasImageChange = $request->hasFile('hero_image') || $request->boolean('remove_hero_image');
 
-        $heroImage = $this->storeImage($request, 'hero_image', $this->settings()['hero_image'] ?? null);
-        if ($request->hasFile('hero_image') || $request->boolean('remove_hero_image')) {
-            SiteSetting::setMany(['hero_image' => $heroImage]);
+        if ($publishMode === 'draft') {
+            $draftContent = collect($content)
+                ->mapWithKeys(fn ($value, $key) => ['draft_home_'.$key => $value])
+                ->all();
+
+            SiteSetting::setMany($draftContent + ['home_publish_mode' => 'draft']);
+
+            if ($hasImageChange) {
+                $newDraftImage = $this->storeImage($request, 'hero_image', $draftImage);
+                SiteSetting::setMany(['draft_home_hero_image' => $newDraftImage]);
+            } elseif ($draftImage === null) {
+                SiteSetting::setMany(['draft_home_hero_image' => $publishedImage]);
+            }
+        } else {
+            $selectedImage = $hasImageChange
+                ? $this->storeImage($request, 'hero_image', $draftImage ?? $publishedImage)
+                : ($draftImage ?? $publishedImage);
+
+            if ($publishedImage && $publishedImage !== $selectedImage && $publishedImage !== $draftImage) {
+                $this->deleteImage($publishedImage);
+            }
+
+            SiteSetting::setMany($content + [
+                'hero_image' => $selectedImage,
+                'home_publish_mode' => 'published',
+            ]);
         }
 
         $this->clearSettingsCache();
 
-        return redirect()->route('admin.beranda')->with('status', 'Konten Beranda berhasil disimpan dan tampil di halaman publik.');
+        $message = $publishMode === 'published'
+            ? 'Konten Beranda berhasil diterbitkan ke halaman publik.'
+            : 'Draft Beranda berhasil disimpan tanpa mengubah halaman publik.';
+
+        return redirect()->route('admin.beranda')->with('status', $message);
     }
 
     public function updateBeritaImage(Request $request, Post $post)
@@ -78,152 +117,9 @@ class AdminContentController extends Controller
             'image_path' => $this->storeImage($request, 'image', $post->image_path),
         ]);
 
+        $this->clearPublicPageCache();
+
         return redirect()->route('admin.beranda')->with('status', 'Gambar berita berhasil diperbarui.');
-    }
-
-    public function prestasi()
-    {
-        $achievements = Achievement::query()
-            ->orderByDesc('year')
-            ->orderBy('sort_order')
-            ->paginate(15);
-
-        return view('pages.admin.prestasi', compact('achievements'));
-    }
-
-    public function createPrestasi()
-    {
-        return view('pages.admin.tambah-prestasi', [
-            'achievement' => new Achievement(['year' => now()->year, 'level' => 'Nasional', 'status' => 'published']),
-            'mode' => 'create',
-        ]);
-    }
-
-    public function editPrestasi(Achievement $achievement)
-    {
-        return view('pages.admin.tambah-prestasi', [
-            'achievement' => $achievement,
-            'mode' => 'edit',
-        ]);
-    }
-
-    public function storePrestasi(Request $request)
-    {
-        Achievement::create($this->achievementData($request));
-
-        return redirect()->route('prestasi.index')->with('status', 'Prestasi berhasil disimpan ke database dan halaman publik.');
-    }
-
-    public function updatePrestasi(Request $request, Achievement $achievement)
-    {
-        $achievement->update($this->achievementData($request, $achievement->image_path));
-
-        return redirect()->route('prestasi.index')->with('status', 'Prestasi berhasil diperbarui.');
-    }
-
-    public function destroyPrestasi(Achievement $achievement)
-    {
-        $this->deleteImage($achievement->image_path);
-        $achievement->delete();
-
-        return redirect()->route('prestasi.index')->with('status', 'Prestasi berhasil dihapus.');
-    }
-
-    public function kesiswaan()
-    {
-        $activities = Activity::query()
-            ->orderBy('sort_order')
-            ->paginate(15);
-
-        return view('pages.admin.kesiswaan', compact('activities'));
-    }
-
-    public function createKesiswaan()
-    {
-        return view('pages.admin.form-kesiswaan', [
-            'activity' => new Activity(['status' => 'Aktif', 'is_published' => true]),
-            'mode' => 'create',
-        ]);
-    }
-
-    public function editKesiswaan(Activity $activity)
-    {
-        return view('pages.admin.form-kesiswaan', [
-            'activity' => $activity,
-            'mode' => 'edit',
-        ]);
-    }
-
-    public function storeKesiswaan(Request $request)
-    {
-        Activity::create($this->activityData($request));
-
-        return redirect()->route('admin.kesiswaan.index')->with('status', 'Data kesiswaan berhasil disimpan ke database.');
-    }
-
-    public function updateKesiswaan(Request $request, Activity $activity)
-    {
-        $activity->update($this->activityData($request, $activity->image_path));
-
-        return redirect()->route('admin.kesiswaan.index')->with('status', 'Data kesiswaan berhasil diperbarui.');
-    }
-
-    public function ppdb()
-    {
-        $applications = PpdbApplication::query()
-            ->latest()
-            ->paginate(20);
-
-        return view('pages.admin.ppdb', [
-            'applications' => $applications,
-            'settings' => $this->settings(),
-        ]);
-    }
-
-    public function ppdbDetail(PpdbApplication $application)
-    {
-        return view('pages.admin.detail-ppdb', [
-            'application' => $application,
-        ]);
-    }
-
-    public function verifyPpdb(Request $request, PpdbApplication $application)
-    {
-        $request->validate(['status' => ['required', 'in:waiting,verified,revision,rejected']]);
-        $application->update(['status' => $request->status]);
-
-        return redirect()->route('admin.ppdb')->with('status', 'Status pendaftar PPDB berhasil diperbarui.');
-    }
-
-    public function galeri()
-    {
-        $galleries = Gallery::query()
-            ->orderBy('sort_order')
-            ->paginate(12);
-
-        return view('pages.admin.galeri', compact('galleries'));
-    }
-
-    public function storeGaleri(Request $request)
-    {
-        Gallery::create($this->galleryData($request));
-
-        return redirect()->route('admin.galeri')->with('status', 'Galeri berhasil disimpan.');
-    }
-
-    public function updateGaleri(Request $request, Gallery $gallery)
-    {
-        $gallery->update($this->galleryData($request, $gallery->image_path));
-
-        return redirect()->route('admin.galeri')->with('status', 'Galeri berhasil diperbarui.');
-    }
-
-    public function destroyGaleri(Gallery $gallery)
-    {
-        $this->deleteImage($gallery->image_path);
-        $gallery->delete();
-
-        return redirect()->route('admin.galeri')->with('status', 'Galeri berhasil dihapus.');
     }
 
     public function pengaturan()
@@ -235,18 +131,120 @@ class AdminContentController extends Controller
 
     public function updatePengaturan(Request $request)
     {
-        $data = $request->validate([
+        $contentFields = [
+            'school_tagline',
+            'footer_description',
+            'instagram_url',
+            'facebook_url',
+            'maps_url',
+            'academic_hero_badge',
+            'academic_hero_title',
+            'academic_hero_highlight',
+            'academic_hero_subtitle',
+            'academic_intro_title',
+            'academic_intro_body',
+            'academic_intro_quote',
+            'academic_stat_one_value',
+            'academic_stat_one_label',
+            'academic_stat_two_value',
+            'academic_stat_two_label',
+            'academic_curriculum_title',
+            'academic_curriculum_description',
+            'academic_calendar_year',
+            'student_hero_badge',
+            'student_hero_title',
+            'student_hero_highlight',
+            'student_hero_subtitle',
+            'student_org_title',
+            'student_org_description',
+            'student_character_title',
+            'student_character_description',
+            'student_clubs_title',
+            'student_clubs_description',
+            'student_cta_title',
+            'student_cta_description',
+            'ppdb_hero_title',
+            'ppdb_hero_subtitle',
+            'ppdb_app_url',
+            'ppdb_tracking_note',
+            'ppdb_contact_title',
+            'ppdb_contact_description',
+        ];
+
+        $jsonFieldLabels = [
+            'academic_programs_json' => 'Daftar Program Akademik',
+            'academic_calendar_json' => 'Daftar Kalender Akademik',
+            'academic_services_json' => 'Daftar Layanan Akademik',
+            'academic_facilities_json' => 'Daftar Fasilitas Akademik',
+            'academic_faq_json' => 'Daftar Tanya Jawab Akademik',
+            'student_character_json' => 'Daftar Program Pembinaan',
+            'student_faq_json' => 'Daftar Tanya Jawab Kesiswaan',
+            'ppdb_pathways_json' => 'Daftar Jalur PPDB',
+            'ppdb_steps_json' => 'Daftar Alur PPDB',
+            'ppdb_documents_json' => 'Daftar Dokumen PPDB',
+            'ppdb_faq_json' => 'Daftar Tanya Jawab PPDB',
+            'ppdb_capacity_json' => 'Daftar Daya Tampung SPMB',
+            'ppdb_stage_schedule_json' => 'Daftar Jadwal Tahap SPMB',
+            'ppdb_special_requirements_json' => 'Daftar Persyaratan Khusus SPMB',
+            'ppdb_weighting_json' => 'Daftar Pembobotan Prestasi SPMB',
+            'ppdb_contacts_json' => 'Daftar Kontak Panitia SPMB',
+        ];
+        $jsonFields = array_keys($jsonFieldLabels);
+        $jsonMessages = collect($jsonFields)
+            ->mapWithKeys(fn ($field) => [
+                $field.'.json' => 'Format '.$jsonFieldLabels[$field].' belum benar. Jika ragu, ubah hanya teks di dalam tanda kutip dan jangan hapus tanda kurung, koma, atau titik dua.',
+            ])
+            ->all();
+        $contentRules = array_fill_keys($contentFields, ['nullable', 'string']);
+        $contentRules['instagram_url'] = ['nullable', 'url:http,https', 'max:2048'];
+        $contentRules['maps_url'] = ['nullable', 'url:http,https', 'max:2048'];
+        $contentRules['ppdb_app_url'] = ['nullable', 'url:http,https', 'max:2048'];
+        $contentRules['facebook_url'] = [
+            'nullable',
+            'url:http,https',
+            'max:2048',
+            function (string $attribute, mixed $value, $fail): void {
+                if ($value === null || $value === '') {
+                    return;
+                }
+
+                $host = strtolower((string) parse_url($value, PHP_URL_HOST));
+                $path = strtolower((string) parse_url($value, PHP_URL_PATH));
+
+                if (! in_array($host, ['facebook.com', 'www.facebook.com', 'm.facebook.com'], true)) {
+                    $fail('Facebook Resmi harus menggunakan alamat facebook.com.');
+
+                    return;
+                }
+
+                if ($path === '' || $path === '/' || str_starts_with($path, '/search')) {
+                    $fail('Gunakan tautan langsung halaman Facebook, bukan halaman pencarian Facebook.');
+                }
+            },
+        ];
+
+        $data = $request->validate(array_merge([
             'school_name' => ['required', 'string', 'max:120'],
             'school_email' => ['nullable', 'email', 'max:120'],
             'school_phone' => ['nullable', 'string', 'max:80'],
+            'school_npsn' => ['required', 'digits:8'],
+            'school_postal_code' => ['nullable', 'string', 'max:10'],
+            'school_accreditation' => ['nullable', 'string', 'max:20'],
+            'school_latitude' => ['nullable', 'numeric', 'between:-90,90'],
+            'school_longitude' => ['nullable', 'numeric', 'between:-180,180'],
             'site_status' => ['required', 'string', 'max:80'],
             'school_address' => ['nullable', 'string'],
             'ppdb_year' => ['required', 'string', 'max:40'],
             'ppdb_status' => ['required', 'string', 'max:40'],
             'ppdb_open_date' => ['nullable', 'date'],
-            'ppdb_close_date' => ['nullable', 'date'],
-            'admin_name' => ['nullable', 'string', 'max:120'],
-            'admin_email' => ['nullable', 'email', 'max:120'],
+            'ppdb_close_date' => ['nullable', 'date', 'after_or_equal:ppdb_open_date'],
+            'admin_name' => ['required', 'string', 'max:120'],
+            'admin_email' => [
+                'required',
+                'email',
+                'max:120',
+                Rule::unique('users', 'email')->ignore($request->user()->id),
+            ],
             'akademik_hero_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
             'kesiswaan_hero_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
             'ppdb_hero_image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
@@ -256,12 +254,24 @@ class AdminContentController extends Controller
             'remove_kesiswaan_hero_image' => ['nullable'],
             'remove_ppdb_hero_image' => ['nullable'],
             'remove_berita_hero_image' => ['nullable'],
-        ]);
+            'remove_logo' => ['nullable'],
+        ], $contentRules, array_fill_keys($jsonFields, ['nullable', 'json'])), $jsonMessages, array_merge([
+            'school_name' => 'Nama Sekolah',
+            'school_email' => 'Email Resmi',
+            'school_phone' => 'Telepon Sekolah',
+            'school_npsn' => 'NPSN',
+            'school_address' => 'Alamat Sekolah',
+            'ppdb_year' => 'Tahun Ajaran PPDB',
+            'ppdb_status' => 'Status PPDB',
+            'ppdb_open_date' => 'Tanggal Buka PPDB',
+            'ppdb_close_date' => 'Tanggal Tutup PPDB',
+        ], $jsonFieldLabels));
 
         $imageFields = ['akademik_hero_image', 'kesiswaan_hero_image', 'ppdb_hero_image', 'berita_hero_image'];
+        $this->assertStructuredJsonFields($data);
 
         SiteSetting::setMany(collect($data)->except(array_merge(
-            ['admin_name', 'admin_email'],
+            ['admin_name', 'admin_email', 'logo', 'remove_logo'],
             $imageFields,
             array_map(fn ($field) => 'remove_'.$field, $imageFields),
         ))->all());
@@ -281,90 +291,129 @@ class AdminContentController extends Controller
 
         $this->clearSettingsCache();
 
-        if (! empty($data['admin_email'])) {
-            User::updateOrCreate(
-                ['email' => $data['admin_email']],
-                ['name' => $data['admin_name'] ?: 'Admin Utama', 'password' => Hash::make('password')]
-            );
-            $request->session()->put('admin_name', $data['admin_name'] ?: 'Admin Utama');
-        }
+        $request->user()->update([
+            'name' => $data['admin_name'],
+            'email' => Str::lower($data['admin_email']),
+        ]);
+        $request->session()->put('admin_name', $data['admin_name']);
 
         return redirect()->route('admin.pengaturan')->with('status', 'Pengaturan berhasil disimpan.');
     }
 
-    /**
-     * @return array<string, mixed>
-     */
-    private function achievementData(Request $request, ?string $oldImage = null): array
+    private function assertLeadershipFocusStructure(?string $json): void
     {
-        $data = $request->validate([
-            'title' => ['required', 'string', 'max:180'],
-            'student_name' => ['nullable', 'string', 'max:160'],
-            'class_name' => ['nullable', 'string', 'max:120'],
-            'competition' => ['nullable', 'string', 'max:160'],
-            'level' => ['required', 'string', 'max:80'],
-            'rank' => ['nullable', 'string', 'max:120'],
-            'year' => ['required', 'integer', 'min:1990', 'max:2100'],
-            'description' => ['nullable', 'string'],
-            'image_class' => ['nullable', 'string', 'max:80'],
-            'status' => ['required', 'string', 'max:40'],
-            'is_featured' => ['nullable'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
-            'remove_image' => ['nullable'],
-        ]);
+        if ($json === null || trim($json) === '') {
+            return;
+        }
 
-        $data['is_featured'] = $request->boolean('is_featured');
-        $data['image_path'] = $this->storeImage($request, 'image', $oldImage);
-        unset($data['image'], $data['remove_image']);
+        $decoded = json_decode($json, true);
+        if (! is_array($decoded)) {
+            throw ValidationException::withMessages([
+                'leadership_focus_json' => ['Daftar Fokus Kerja Beranda harus berupa daftar JSON yang valid.'],
+            ]);
+        }
 
-        return $data;
+        if ($decoded === []) {
+            return;
+        }
+
+        foreach ($decoded as $index => $item) {
+            if (! is_array($item)) {
+                throw ValidationException::withMessages([
+                    'leadership_focus_json' => ['Item #'.($index + 1).' pada Daftar Fokus Kerja Beranda harus berupa objek JSON.'],
+                ]);
+            }
+
+            foreach (['title', 'summary', 'description'] as $requiredKey) {
+                $value = trim((string) ($item[$requiredKey] ?? ''));
+                if ($value === '') {
+                    throw ValidationException::withMessages([
+                        'leadership_focus_json' => ['Item #'.($index + 1).' pada Daftar Fokus Kerja Beranda wajib mengisi kolom '.$requiredKey.'.'],
+                    ]);
+                }
+            }
+        }
     }
 
     /**
-     * @return array<string, mixed>
+     * @param  array<string, mixed>  $data
      */
-    private function activityData(Request $request, ?string $oldImage = null): array
+    private function assertStructuredJsonFields(array $data): void
     {
-        $data = $request->validate([
-            'name' => ['required', 'string', 'max:160'],
-            'type' => ['required', 'string', 'max:120'],
-            'coordinator' => ['nullable', 'string', 'max:120'],
-            'mentor' => ['nullable', 'string', 'max:120'],
-            'schedule' => ['nullable', 'string', 'max:120'],
-            'location' => ['nullable', 'string', 'max:120'],
-            'description' => ['nullable', 'string'],
-            'status' => ['required', 'string', 'max:40'],
-            'publish' => ['nullable', 'string', 'max:40'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
-            'remove_image' => ['nullable'],
-        ]);
+        $errors = [];
+        $objectListRules = [
+            'academic_programs_json' => ['title', 'description', 'icon'],
+            'academic_calendar_json' => ['date', 'title', 'description'],
+            'academic_services_json' => ['title', 'icon', 'description'],
+            'academic_facilities_json' => ['title'],
+            'academic_faq_json' => ['question', 'answer'],
+            'student_character_json' => ['title', 'description', 'icon'],
+            'student_faq_json' => ['question', 'answer'],
+            'ppdb_pathways_json' => ['title', 'description', 'icon'],
+            'ppdb_steps_json' => ['title', 'description'],
+            'ppdb_faq_json' => ['question', 'answer'],
+            'ppdb_contacts_json' => ['name', 'phone'],
+        ];
+        $stringListRules = [
+            'ppdb_documents_json',
+        ];
 
-        $data['is_published'] = ($data['publish'] ?? 'Ya, tampilkan') === 'Ya, tampilkan';
-        $data['image_class'] = Str::contains($data['type'], 'Organisasi') ? 'bi-people-fill' : 'bi-stars';
-        $data['image_path'] = $this->storeImage($request, 'image', $oldImage);
-        unset($data['publish'], $data['image'], $data['remove_image']);
+        foreach ($objectListRules as $field => $requiredKeys) {
+            $rawValue = $data[$field] ?? null;
+            if (! is_string($rawValue) || trim($rawValue) === '') {
+                continue;
+            }
 
-        return $data;
-    }
+            $decoded = json_decode($rawValue, true);
+            if (! is_array($decoded) || $decoded === []) {
+                $errors[$field][] = 'Kolom ini wajib berisi daftar JSON dengan minimal satu item.';
+                continue;
+            }
 
-    /**
-     * @return array<string, mixed>
-     */
-    private function galleryData(Request $request, ?string $oldImage = null): array
-    {
-        $data = $request->validate([
-            'title' => ['required', 'string', 'max:160'],
-            'description' => ['nullable', 'string'],
-            'image_class' => ['required', 'string', 'max:80'],
-            'status' => ['required', 'string', 'max:40'],
-            'image' => ['nullable', 'image', 'mimes:jpg,jpeg,png,webp', 'max:4096'],
-            'remove_image' => ['nullable'],
-        ]);
+            foreach ($decoded as $index => $item) {
+                if (! is_array($item)) {
+                    $errors[$field][] = 'Item #'.($index + 1).' harus berupa objek JSON.';
+                    continue;
+                }
 
-        $data['image_path'] = $this->storeImage($request, 'image', $oldImage);
-        unset($data['image'], $data['remove_image']);
+                foreach ($requiredKeys as $requiredKey) {
+                    if (trim((string) ($item[$requiredKey] ?? '')) === '') {
+                        $errors[$field][] = 'Item #'.($index + 1).' wajib mengisi kolom "'.$requiredKey.'".';
+                    }
+                }
 
-        return $data;
+                if ($field === 'academic_facilities_json') {
+                    $hasClass = trim((string) ($item['class'] ?? '')) !== '';
+                    $hasImage = trim((string) ($item['image'] ?? '')) !== '';
+                    if (! $hasClass && ! $hasImage) {
+                        $errors[$field][] = 'Item #'.($index + 1).' wajib memiliki "class" atau "image".';
+                    }
+                }
+            }
+        }
+
+        foreach ($stringListRules as $field) {
+            $rawValue = $data[$field] ?? null;
+            if (! is_string($rawValue) || trim($rawValue) === '') {
+                continue;
+            }
+
+            $decoded = json_decode($rawValue, true);
+            if (! is_array($decoded) || $decoded === []) {
+                $errors[$field][] = 'Kolom ini wajib berisi daftar JSON teks dengan minimal satu item.';
+                continue;
+            }
+
+            foreach ($decoded as $index => $item) {
+                if (trim((string) $item) === '') {
+                    $errors[$field][] = 'Item #'.($index + 1).' tidak boleh kosong.';
+                }
+            }
+        }
+
+        if ($errors !== []) {
+            throw ValidationException::withMessages($errors);
+        }
     }
 
     private function storeImage(Request $request, string $field, ?string $oldPath = null): ?string
@@ -396,6 +445,18 @@ class AdminContentController extends Controller
     {
         cache()->forget('site_settings');
         cache()->forget('admin_site_settings');
+        $this->clearPublicPageCache();
+    }
+
+    private function clearPublicPageCache(): void
+    {
+        $cacheFiles = glob(public_path('page-cache/*.html')) ?: [];
+
+        foreach ($cacheFiles as $cacheFile) {
+            if (is_file($cacheFile)) {
+                @unlink($cacheFile);
+            }
+        }
     }
 
     /**
@@ -403,30 +464,31 @@ class AdminContentController extends Controller
      */
     private function settings(): array
     {
-        return cache()->remember('admin_site_settings', 3600, fn () => SiteSetting::map([
-            'school_name' => 'SMAN 2 Balige',
-            'school_email' => 'info@sman2balige.sch.id',
-            'school_phone' => '(0632) 213456',
-            'school_address' => 'Jl. Kartini Soposurung, Balige, Toba, Sumatera Utara',
-            'site_status' => 'Aktif',
-            'hero_title' => 'Membangun Generasi Unggul & Berkarakter',
-            'hero_subtitle' => 'Membentuk pemimpin masa depan melalui standar akademik internasional, kedisiplinan tinggi, dan pengembangan bakat komprehensif.',
-            'hero_badge' => 'Institusi Pendidikan Prestisius',
-            'profile_summary' => 'SMAN 2 Balige memadukan keteguhan tradisi, disiplin, literasi digital, dan pendampingan prestasi.',
-            'profile_detail' => 'Profil sekolah, nilai inti, sejarah, sambutan kepala sekolah, fasilitas, galeri, dan pembaruan terkini tersedia langsung di Beranda.',
-            'principal_name' => 'Drs. Horas Balige, M.Pd.',
-            'principal_message' => 'Di SMAN 2 Balige, kami membangun budaya belajar yang disiplin, hangat, dan menantang.',
-            'cta_label' => 'Informasi PPDB',
-            'hero_image' => null,
-            'logo' => null,
-            'akademik_hero_image' => null,
-            'kesiswaan_hero_image' => null,
-            'ppdb_hero_image' => null,
-            'berita_hero_image' => null,
-            'ppdb_year' => '2026/2027',
-            'ppdb_status' => 'Dibuka',
-            'ppdb_open_date' => '2026-06-01',
-            'ppdb_close_date' => '2026-07-15',
-        ]));
+        return cache()->remember('admin_site_settings', 3600, fn () => SiteSetting::map(SiteSetting::defaults()));
+    }
+
+    /**
+     * @return array<string, string|null>
+     */
+    private function homeEditorSettings(): array
+    {
+        $settings = $this->settings();
+        $mode = $settings['home_publish_mode'] ?? 'published';
+
+        if ($mode === 'draft') {
+            $stored = SiteSetting::map();
+
+            foreach ([...self::HOME_FIELDS, 'hero_image'] as $field) {
+                $draftKey = 'draft_home_'.$field;
+
+                if (array_key_exists($draftKey, $stored)) {
+                    $settings[$field] = $stored[$draftKey];
+                }
+            }
+        }
+
+        $settings['publish_mode'] = $mode;
+
+        return $settings;
     }
 }

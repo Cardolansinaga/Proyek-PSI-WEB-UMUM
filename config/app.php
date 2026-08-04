@@ -30,6 +30,19 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Local demonstration content
+    |--------------------------------------------------------------------------
+    |
+    | Demo students, posts, achievements, activities, galleries, and PPDB
+    | applications are never seeded unless this flag is explicitly enabled in
+    | a local environment. Production data must be entered by an administrator.
+    |
+    */
+
+    'seed_demo_content' => (bool) env('SEED_DEMO_CONTENT', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Application Debug Mode
     |--------------------------------------------------------------------------
     |
@@ -54,6 +67,8 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+    'force_https' => (bool) env('APP_FORCE_HTTPS', false),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone
@@ -65,7 +80,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'Asia/Jakarta'),
 
     /*
     |--------------------------------------------------------------------------

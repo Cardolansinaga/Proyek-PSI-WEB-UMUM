@@ -2,29 +2,35 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
+use LogicException;
 
 class AdminSeeder extends Seeder
 {
     public function run(): void
     {
-        $email = env('ADMIN_EMAIL', 'admin@sman2balige.sch.id');
+        $email = Str::lower(trim((string) config('admin.email')));
 
-        $user = User::where('email', $email)->first();
-        if (! $user) {
-            User::factory()->create([
-                'name' => 'Admin Utama',
-                'email' => $email,
-                'password' => Hash::make('password'),
-            ]);
-            echo "Created admin user: {$email} with password 'password'\n";
-        } else {
-            // ensure password is set to known value for initial access
-            $user->password = Hash::make('password');
-            $user->save();
-            echo "Updated admin password for: {$email}\n";
+        if (User::query()->where('is_admin', true)->exists()) {
+            return;
         }
+
+        $initialPassword = (string) config('admin.initial_password');
+
+        if ($initialPassword === '') {
+            throw new LogicException(
+                'ADMIN_INITIAL_PASSWORD wajib diisi saat membuat akun admin pertama kali.'
+            );
+        }
+
+        User::query()->create([
+            'name' => (string) config('admin.name', 'Admin Utama'),
+            'email' => $email,
+            'password' => $initialPassword,
+            'is_admin' => true,
+            'must_change_password' => true,
+        ]);
     }
 }

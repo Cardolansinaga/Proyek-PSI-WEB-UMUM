@@ -1,112 +1,165 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manajemen Galeri - SMAN 2 Balige</title>
-    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
-    @vite('resources/css/admin.css')
-    @include('pages.admin.partials.admin-polish')
-    <style>
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { overflow:hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
-        .admin-container { display:flex; height:100vh; }
-        main { flex:1; overflow-y:auto; padding:32px; max-width:1320px; margin:0 auto; width:100%; }
-        .page-header { margin-bottom: 32px; }
-        .page-header h1 { font-size:36px; font-weight:900; color:#071f3a; }
-        .page-header p { color:#64748b; margin:8px 0 0; font-size: 14px; }
-        .status-message { margin:12px 0 0; color:#166534; font-weight:900; padding:10px 12px; background:#dcfce7; border-radius:8px; display:inline-block; font-size:13px; }
-        .grid { display:grid; grid-template-columns:380px 1fr; gap:24px; }
-        .card { background:white; border-radius:14px; padding:28px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .card h2 { font-size:22px; font-weight:900; color:#071f3a; margin-bottom:20px; }
-        label { display:block; font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing: 0.5px; margin-bottom:10px; }
-        input, select, textarea { width:100%; border:1px solid #d9e1ec; border-radius:10px; padding:12px 14px; font:inherit; margin-bottom:16px; color: #071f3a; background: white; transition: all 0.3s ease; }
-        input:hover, select:hover, textarea:hover { border-color: #d6a63a; box-shadow: 0 2px 8px rgba(214, 166, 58, 0.1); }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: #071f3a; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.15); }
-        textarea { min-height:90px; }
-        .btn { border-radius:10px; padding:12px 18px; font-weight:900; text-decoration:none; background: linear-gradient(135deg, #071f3a 0%, #0f2847 100%); color:white; border:0; cursor:pointer; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.2); transition: all 0.3s ease; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(7, 31, 58, 0.3); }
-        .image-preview { min-height: 130px; border-radius: 12px; border: 1px solid #d9e1ec; background: #f4f7fb center/cover no-repeat; display: grid; place-items: center; color: #64748b; font-size: 12px; font-weight: 800; overflow: hidden; margin-bottom: 14px; }
-        .check-row { display: flex; gap: 10px; align-items: flex-start; color: #071f3a; font-size: 13px; font-weight: 800; line-height: 1.5; margin-bottom: 14px; }
-        .check-row input { width: auto; margin-top: 3px; margin-bottom: 0; }
-        .row { display:grid; grid-template-columns:1fr auto; gap:12px; align-items:flex-start; border-bottom:1px solid #f1f5f9; padding:18px 0; transition: all 0.2s ease; }
-        .row:hover { background-color: #f8fafc; padding: 18px 12px; border-radius: 8px; margin: 0 -12px; }
-        .row form { margin: 0; }
-        @media (max-width:900px) { .grid { grid-template-columns:1fr; } .row { grid-template-columns: 1fr; } }
-        @media (max-width:520px) {
-            main { padding: 20px 14px; }
-            .card { padding: 20px; }
-            .row [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
-            .row [style*="display: flex"] { width: 100%; }
-            .row .btn { width: 100%; }
-        }
-    </style>
-    @include('pages.admin.partials.responsive')
-</head>
-<body>
+@extends('layouts.admin')
+
+@section('title', 'Kelola Galeri')
+
+@push('styles')
+    @vite('resources/css/admin-pages/galeri.css')
+@endpush
+
+@section('content')
 <div class="admin-container">
     @include('pages.admin.partials.sidebar', ['activeAdmin' => 'galeri'])
     <main>
         <div class="page-header">
-            <h1>Manajemen Galeri</h1>
-            <p>Galeri yang disimpan tampil pada Beranda publik.</p>
+            <h1>Kelola Galeri</h1>
+            <p>Tambah dan atur foto yang tampil pada bagian Galeri di Beranda publik.</p>
             @if (session('status'))
                 <p class="status-message"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> {{ session('status') }}</p>
             @endif
         </div>
-        <div class="grid">
-            <form class="card" method="POST" action="{{ route('admin.galeri.store') }}" enctype="multipart/form-data">
+
+        @if ($errors->any())
+            <div class="form-errors" role="alert">
+                <strong>Galeri belum dapat disimpan.</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        @include('pages.admin.partials.page-guide', [
+            'title' => 'Cara mengelola galeri',
+            'description' => 'Foto galeri membantu pengunjung melihat suasana sekolah. Pilih foto yang terang, jelas, dan mewakili kegiatan sekolah.',
+            'items' => [
+                'Tulis tipe visual sendiri, misalnya Lapangan Basket, Ruang Musik, atau kegiatan baru lainnya.',
+                'Klik area gambar, tarik dan lepas file, atau tempel gambar dengan Ctrl+V untuk melihat preview.',
+                'Galeri yang dipublikasikan wajib memiliki gambar. Pilih Simpan Dulu jika konten belum lengkap.',
+            ],
+        ])
+
+        <datalist id="gallery-visual-types">
+            <option value="Perpustakaan">
+            <option value="Laboratorium">
+            <option value="Aula">
+            <option value="Lapangan">
+            <option value="Lapangan Basket">
+            <option value="Ruang Kelas">
+            <option value="Ruang Musik">
+            <option value="Kegiatan Siswa">
+        </datalist>
+
+        <div class="gallery-admin-grid">
+            <form class="gallery-card gallery-create-form" method="POST" action="{{ route('admin.galeri.store') }}" enctype="multipart/form-data">
                 @csrf
                 <h2><i class="bi bi-plus-circle" aria-hidden="true"></i> Tambah Galeri Baru</h2>
-                <label>Judul Galeri</label><input name="title" required placeholder="Masukkan judul galeri">
-                <label>Deskripsi</label><textarea name="description" placeholder="Masukkan deskripsi singkat galeri"></textarea>
-                <label>Tipe Visual</label><select name="image_class">@foreach(['library' => 'Perpustakaan','lab' => 'Laboratorium','hall' => 'Aula','court' => 'Lapangan'] as $val => $label)<option value="{{ $val }}">{{ $label }}</option>@endforeach</select>
-                <label>Upload Gambar</label><input type="file" name="image" accept="image/png,image/jpeg,image/webp">
-                <label>Status Publikasi</label><select name="status"><option value="published">Dipublikasikan</option><option value="draft">Draft</option></select>
+
+                <label for="gallery-title-new">Judul Galeri</label>
+                <input id="gallery-title-new" name="title" value="{{ old('title') }}" required placeholder="Masukkan judul galeri">
+
+                <label for="gallery-description-new">Deskripsi</label>
+                <textarea id="gallery-description-new" name="description" placeholder="Masukkan deskripsi singkat galeri">{{ old('description') }}</textarea>
+
+                <label for="gallery-type-new">Tipe Visual</label>
+                <input id="gallery-type-new" name="image_class" value="{{ old('image_class') }}" list="gallery-visual-types" required maxlength="80" placeholder="Contoh: Lapangan Basket">
+                <p class="field-help">Boleh memilih saran atau mengetik tipe baru sendiri.</p>
+
+                <label>Gambar Galeri</label>
+                <div class="image-dropzone" data-image-dropzone tabindex="0" role="button" aria-label="Unggah gambar galeri baru">
+                    <input class="image-file-input" data-image-input type="file" name="image" accept="image/png,image/jpeg,image/webp">
+                    <div class="dropzone-preview" data-image-preview>
+                        <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
+                    </div>
+                    <strong>Tarik dan lepas gambar ke sini</strong>
+                    <span>atau <button type="button" data-image-browse>pilih gambar</button> dari perangkat</span>
+                    <small>JPG, PNG, atau WebP · maksimal 4 MB · bisa ditempel dengan Ctrl+V</small>
+                    <p class="selected-file" data-image-filename>Belum ada gambar dipilih.</p>
+                </div>
+
+                <label for="gallery-status-new">Status Tampilan</label>
+                <select id="gallery-status-new" name="status">
+                    <option value="published" @selected(old('status') === 'published')>Tampil di Website</option>
+                    <option value="draft" @selected(old('status', 'draft') === 'draft')>Simpan Dulu, Belum Tampil</option>
+                </select>
+
                 <button class="btn" type="submit"><i class="bi bi-save" aria-hidden="true"></i> Simpan Galeri Baru</button>
             </form>
-            <section class="card">
-                <h2><i class="bi bi-images" aria-hidden="true"></i> Daftar Galeri ({{ $galleries->count() }})</h2>
-                @if($galleries->count() > 0)
-                    @foreach ($galleries as $gallery)
-                        <div class="row">
-                            <form id="gallery-update-{{ $gallery->id }}" method="POST" action="{{ route('admin.galeri.update', $gallery) }}" enctype="multipart/form-data">
-                                @csrf
-                                <div style="display: grid; gap: 10px; flex: 1;">
-                                    <input name="title" value="{{ $gallery->title }}" required placeholder="Judul galeri">
-                                    <textarea name="description" placeholder="Deskripsi" style="margin-bottom: 0; min-height: 60px;">{{ $gallery->description }}</textarea>
-                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                                        <select name="image_class">@foreach(['library' => 'Perpustakaan','lab' => 'Laboratorium','hall' => 'Aula','court' => 'Lapangan'] as $val => $label)<option value="{{ $val }}" @selected($gallery->image_class === $val)>{{ $label }}</option>@endforeach</select>
-                                        <select name="status"><option value="published" @selected($gallery->status === 'published')>Dipublikasikan</option><option value="draft" @selected($gallery->status === 'draft')>Draft</option></select>
+
+            <section class="gallery-card gallery-list-card">
+                <h2><i class="bi bi-images" aria-hidden="true"></i> Daftar Galeri ({{ $galleries->total() }})</h2>
+
+                @forelse ($galleries as $gallery)
+                    @php
+                        $legacyVisualLabels = ['library' => 'Perpustakaan', 'lab' => 'Laboratorium', 'hall' => 'Aula', 'court' => 'Lapangan'];
+                        $visualLabel = $legacyVisualLabels[$gallery->image_class] ?? $gallery->image_class;
+                    @endphp
+                    <article class="gallery-row">
+                        <form id="gallery-update-{{ $gallery->id }}" class="gallery-edit-form" method="POST" action="{{ route('admin.galeri.update', $gallery) }}" enctype="multipart/form-data">
+                            @csrf
+
+                            <div class="gallery-edit-fields">
+                                <label for="gallery-title-{{ $gallery->id }}">Judul</label>
+                                <input id="gallery-title-{{ $gallery->id }}" name="title" value="{{ $gallery->title }}" required placeholder="Judul galeri">
+
+                                <label for="gallery-description-{{ $gallery->id }}">Deskripsi</label>
+                                <textarea id="gallery-description-{{ $gallery->id }}" name="description" placeholder="Deskripsi">{{ $gallery->description }}</textarea>
+
+                                <div class="gallery-two-columns">
+                                    <div>
+                                        <label for="gallery-type-{{ $gallery->id }}">Tipe Visual</label>
+                                        <input id="gallery-type-{{ $gallery->id }}" name="image_class" value="{{ $visualLabel }}" list="gallery-visual-types" required maxlength="80" placeholder="Contoh: Lapangan Basket">
                                     </div>
-                                    @if (! empty($gallery->image_path))
-                                        <div class="image-preview" style="background-image: url('{{ asset('storage/'.$gallery->image_path) }}');"></div>
-                                        <label class="check-row">
-                                            <input type="checkbox" name="remove_image" value="1">
-                                            Hapus gambar custom
-                                        </label>
-                                    @else
-                                        <div class="image-preview">Gambar bawaan aktif</div>
-                                    @endif
-                                    <input type="file" name="image" accept="image/png,image/jpeg,image/webp">
+                                    <div>
+                                        <label for="gallery-status-{{ $gallery->id }}">Status</label>
+                                        <select id="gallery-status-{{ $gallery->id }}" name="status">
+                                            <option value="published" @selected($gallery->status === 'published')>Tampil di Website</option>
+                                            <option value="draft" @selected($gallery->status === 'draft')>Simpan Dulu</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </form>
-                            <div style="display: flex; gap: 8px; align-items: flex-start; padding-top: 4px; flex-wrap: wrap;">
-                                <button class="btn" type="submit" form="gallery-update-{{ $gallery->id }}" style="padding: 12px 16px; white-space: nowrap;"><i class="bi bi-save" aria-hidden="true"></i> Update</button>
-                                <form method="POST" action="{{ route('admin.galeri.destroy', $gallery) }}" style="margin: 0;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn" style="padding: 12px 16px; background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); white-space: nowrap;" onclick="return confirm('Hapus galeri ini?')"><i class="bi bi-trash" aria-hidden="true"></i> Hapus</button>
-                                </form>
+
+                                <label>Gambar Galeri</label>
+                                <div class="image-dropzone compact" data-image-dropzone tabindex="0" role="button" aria-label="Ganti gambar {{ $gallery->title }}">
+                                    <input class="image-file-input" data-image-input type="file" name="image" accept="image/png,image/jpeg,image/webp">
+                                    <div class="dropzone-preview {{ $gallery->image_path ? 'has-image' : '' }}" data-image-preview>
+                                        @if ($gallery->image_path)
+                                            <img src="{{ asset('storage/'.$gallery->image_path) }}" alt="Gambar {{ $gallery->title }}">
+                                        @else
+                                            <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
+                                        @endif
+                                    </div>
+                                    <strong>{{ $gallery->image_path ? 'Ganti gambar' : 'Tambahkan gambar' }}</strong>
+                                    <span>Tarik file, <button type="button" data-image-browse>pilih gambar</button>, atau tempel Ctrl+V</span>
+                                    <small>JPG, PNG, atau WebP · maksimal 4 MB</small>
+                                    <p class="selected-file" data-image-filename>{{ $gallery->image_path ? 'Gambar saat ini tetap digunakan.' : 'Belum ada gambar. Galeri ini tidak tampil di publik.' }}</p>
+                                </div>
+
+                                @if ($gallery->image_path)
+                                    <label class="check-row">
+                                        <input type="checkbox" name="remove_image" value="1">
+                                        Hapus gambar saat ini
+                                    </label>
+                                @endif
                             </div>
+                        </form>
+
+                        <div class="gallery-row-actions">
+                            <button class="btn" type="submit" form="gallery-update-{{ $gallery->id }}"><i class="bi bi-save" aria-hidden="true"></i> Simpan Perubahan</button>
+                            <form method="POST" action="{{ route('admin.galeri.destroy', $gallery) }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Hapus galeri ini?')"><i class="bi bi-trash" aria-hidden="true"></i> Hapus</button>
+                            </form>
                         </div>
-                    @endforeach
-                @else
-                    <p style="color: #94a3b8; font-size: 14px; padding: 20px 0; text-align: center;">Belum ada galeri yang ditambahkan</p>
-                @endif
+                    </article>
+                @empty
+                    <p class="gallery-empty">Belum ada galeri yang ditambahkan.</p>
+                @endforelse
+
+                {{ $galleries->links() }}
             </section>
         </div>
     </main>
 </div>
-</body>
-</html>
+@endsection

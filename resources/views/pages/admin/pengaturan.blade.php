@@ -1,49 +1,12 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pengaturan Admin - SMAN 2 Balige</title>
-    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
-    @vite('resources/css/admin.css')
-    @include('pages.admin.partials.admin-polish')
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); }
-        .admin-container { display: flex; height: 100vh; width: 100vw; }
-        .sidebar { width: 260px; background: #071f3a; flex-shrink: 0; display: flex; flex-direction: column; color: white; }
-        .main-content { flex: 1; overflow-y: auto; }
-        .content-padding { padding: 34px 30px; max-width: 1180px; margin: 0 auto; width: 100%; }
-        .page-head { display: flex; justify-content: space-between; gap: 20px; margin-bottom: 32px; }
-        .page-head h1 { font-size: 36px; color: #071f3a; font-weight: 900; }
-        .page-head p { color: #64748b; margin-top: 8px; font-size: 14px; }
-        .settings-grid { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 24px; }
-        .card { background: white; border-radius: 14px; padding: 28px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
-        .stack { display: grid; gap: 18px; }
-        .field-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-        .input-group { display: grid; gap: 10px; margin-bottom: 16px; }
-        .input-group label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
-        .custom-input, .custom-select, .custom-textarea { width: 100%; border: 1px solid #d9e1ec; border-radius: 10px; padding: 12px 14px; font: inherit; color: #071f3a; background: white; transition: all 0.3s ease; }
-        .custom-input:hover, .custom-select:hover, .custom-textarea:hover { border-color: #d6a63a; box-shadow: 0 2px 8px rgba(214, 166, 58, 0.1); }
-        .custom-input:focus, .custom-select:focus, .custom-textarea:focus { outline: none; border-color: #071f3a; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.15); }
-        .custom-textarea { min-height: 110px; resize: vertical; }
-        .btn-primary, .btn-outline { border-radius: 10px; padding: 12px 18px; font-weight: 900; text-decoration: none; cursor: pointer; transition: all 0.3s ease; }
-        .btn-primary { background: linear-gradient(135deg, #071f3a 0%, #0f2847 100%); color: white; border: none; box-shadow: 0 4px 12px rgba(7, 31, 58, 0.2); }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(7, 31, 58, 0.3); }
-        .btn-outline { background: white; color: #071f3a; border: 1px solid #d9e1ec; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-        .btn-outline:hover { border-color: #d6a63a; box-shadow: 0 4px 12px rgba(214, 166, 58, 0.15); }
-        .setting-note { border-left: 4px solid #c9962c; background: #fff8e7; padding: 16px; border-radius: 10px; color: #7c5a10; font-size: 13px; line-height: 1.6; }
-        .card h2 { font-size: 22px; font-weight: 900; color: #071f3a; margin-bottom: 20px; }
-        .image-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-        .image-preview { min-height: 120px; border-radius: 12px; border: 1px solid #d9e1ec; background: #f4f7fb center/cover no-repeat; display: grid; place-items: center; color: #64748b; font-size: 12px; font-weight: 800; overflow: hidden; }
-        .check-row { display: flex; gap: 10px; align-items: flex-start; color: #071f3a; font-size: 13px; font-weight: 800; line-height: 1.5; }
-        .check-row input { width: auto; margin-top: 3px; }
-        @media (max-width: 900px) { .settings-grid, .field-grid { grid-template-columns: 1fr; } .page-head { flex-direction: column; } }
-        @media (max-width: 640px) { .image-grid { grid-template-columns: 1fr; } }
-    </style>
-    @include('pages.admin.partials.responsive')
-</head>
-<body>
+@extends('layouts.admin')
+
+@section('title', 'Pengaturan Admin')
+
+@push('styles')
+    @vite('resources/css/admin-pages/pengaturan.css')
+@endpush
+
+@section('content')
 <div class="admin-container">
     @include('pages.admin.partials.sidebar', ['activeAdmin' => 'pengaturan'])
     <div class="main-content">
@@ -51,13 +14,33 @@
             <div class="page-head">
                 <div>
                     <h1>Pengaturan Admin</h1>
-                    <p>Atur informasi sekolah, status publikasi, periode PPDB, dan preferensi tampilan situs.</p>
+                    <p>Atur identitas sekolah, kontak resmi, teks halaman publik, jadwal PPDB, dan gambar utama website.</p>
                     @if (session('status'))
-                        <p style="margin-top: 12px; color:#166534; font-weight:900; padding:10px 12px; background:#dcfce7; border-radius:8px; display:inline-block; font-size:13px;"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> {{ session('status') }}</p>
+                        <p class="status-message" style="margin-top: 12px;"><i class="bi bi-check-circle-fill" aria-hidden="true"></i> {{ session('status') }}</p>
+                    @endif
+                    @if ($errors->any())
+                        <div class="error-list" style="margin-top: 12px;">
+                            <strong>Periksa kembali data pengaturan:</strong>
+                            <ul style="margin: 8px 0 0 18px;">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
                 </div>
                 <button type="submit" form="settings-form" class="btn-primary"><i class="bi bi-save" aria-hidden="true"></i> Simpan Pengaturan</button>
             </div>
+
+            @include('pages.admin.partials.page-guide', [
+                'title' => 'Panduan aman mengubah pengaturan',
+                'description' => 'Bagian ini mengatur banyak halaman sekaligus. Ubah hanya bagian yang memang perlu diperbarui.',
+                'items' => [
+                    'Untuk teks biasa, langsung ganti kalimat di kotak isian.',
+                    'Untuk bagian Format Daftar Khusus, cukup ubah kata di dalam tanda kutip jika belum terbiasa.',
+                    'Setelah klik Simpan Pengaturan, cek halaman publik yang terkait agar tidak ada teks salah.',
+                ],
+            ])
 
             <form id="settings-form" method="POST" action="{{ route('admin.pengaturan.update') }}" enctype="multipart/form-data">
                 @csrf
@@ -69,6 +52,10 @@
                                 <div class="input-group">
                                     <label>Nama Sekolah</label>
                                     <input class="custom-input" name="school_name" value="{{ old('school_name', $settings['school_name'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Tagline Sekolah</label>
+                                    <input class="custom-input" name="school_tagline" value="{{ old('school_tagline', $settings['school_tagline'] ?? '') }}">
                                 </div>
                                 <div class="input-group">
                                     <label>Email Resmi</label>
@@ -86,10 +73,53 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                <div class="input-group">
+                                    <label>NPSN</label>
+                                    <input class="custom-input" name="school_npsn" inputmode="numeric" maxlength="8" value="{{ old('school_npsn', $settings['school_npsn'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Kode Pos</label>
+                                    <input class="custom-input" name="school_postal_code" value="{{ old('school_postal_code', $settings['school_postal_code'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Akreditasi</label>
+                                    <input class="custom-input" name="school_accreditation" value="{{ old('school_accreditation', $settings['school_accreditation'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Latitude</label>
+                                    <input class="custom-input" name="school_latitude" inputmode="decimal" value="{{ old('school_latitude', $settings['school_latitude'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Longitude</label>
+                                    <input class="custom-input" name="school_longitude" inputmode="decimal" value="{{ old('school_longitude', $settings['school_longitude'] ?? '') }}">
+                                </div>
                             </div>
                             <div class="input-group">
                                 <label>Alamat Sekolah</label>
                                 <textarea class="custom-textarea" name="school_address">{{ old('school_address', $settings['school_address'] ?? '') }}</textarea>
+                            </div>
+                        </section>
+
+                        <section class="card">
+                            <h2><i class="bi bi-globe2" aria-hidden="true"></i> Footer & Tautan Publik</h2>
+                            <div class="input-group">
+                                <label>Deskripsi Footer</label>
+                                <textarea class="custom-textarea" name="footer_description">{{ old('footer_description', $settings['footer_description'] ?? '') }}</textarea>
+                            </div>
+                            <div class="field-grid">
+                                <div class="input-group">
+                                    <label>Instagram Resmi</label>
+                                    <input type="url" class="custom-input" name="instagram_url" value="{{ old('instagram_url', $settings['instagram_url'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Facebook Resmi</label>
+                                    <input class="custom-input" type="url" name="facebook_url" value="{{ old('facebook_url', $settings['facebook_url'] ?? '') }}" placeholder="https://www.facebook.com/nama-halaman">
+                                    <small>Gunakan URL halaman/profil langsung, bukan URL hasil pencarian Facebook.</small>
+                                </div>
+                                <div class="input-group">
+                                    <label>Google Maps</label>
+                                    <input type="url" class="custom-input" name="maps_url" value="{{ old('maps_url', $settings['maps_url'] ?? '') }}">
+                                </div>
                             </div>
                         </section>
 
@@ -102,11 +132,7 @@
                                 </div>
                                 <div class="input-group">
                                     <label>Status PPDB</label>
-                                    <select class="custom-select" name="ppdb_status">
-                                        @foreach (['Dibuka', 'Ditutup', 'Segera Dibuka'] as $status)
-                                            <option value="{{ $status }}" @selected(old('ppdb_status', $settings['ppdb_status'] ?? '') === $status)>{{ $status }}</option>
-                                        @endforeach
-                                    </select>
+                                    <input class="custom-input" name="ppdb_status" value="{{ old('ppdb_status', $settings['ppdb_status'] ?? '') }}">
                                 </div>
                                 <div class="input-group">
                                     <label>Tanggal Buka</label>
@@ -116,6 +142,215 @@
                                     <label>Tanggal Tutup</label>
                                     <input type="date" class="custom-input" name="ppdb_close_date" value="{{ old('ppdb_close_date', $settings['ppdb_close_date'] ?? '') }}">
                                 </div>
+                            </div>
+                        </section>
+
+                        <section class="card">
+                            <h2><i class="bi bi-mortarboard" aria-hidden="true"></i> Konten Akademik & Prestasi</h2>
+                            <div class="field-grid">
+                                <div class="input-group">
+                                    <label>Badge Hero</label>
+                                    <input class="custom-input" name="academic_hero_badge" value="{{ old('academic_hero_badge', $settings['academic_hero_badge'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Judul Hero</label>
+                                    <input class="custom-input" name="academic_hero_title" value="{{ old('academic_hero_title', $settings['academic_hero_title'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Aksen Judul Hero</label>
+                                    <input class="custom-input" name="academic_hero_highlight" value="{{ old('academic_hero_highlight', $settings['academic_hero_highlight'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Tahun Kalender Akademik</label>
+                                    <input class="custom-input" name="academic_calendar_year" value="{{ old('academic_calendar_year', $settings['academic_calendar_year'] ?? '') }}">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Subjudul Hero</label>
+                                <textarea class="custom-textarea" name="academic_hero_subtitle">{{ old('academic_hero_subtitle', $settings['academic_hero_subtitle'] ?? '') }}</textarea>
+                            </div>
+                            <div class="field-grid">
+                                <div class="input-group">
+                                    <label>Judul Komitmen</label>
+                                    <input class="custom-input" name="academic_intro_title" value="{{ old('academic_intro_title', $settings['academic_intro_title'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Kutipan Visual</label>
+                                    <input class="custom-input" name="academic_intro_quote" value="{{ old('academic_intro_quote', $settings['academic_intro_quote'] ?? '') }}">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Deskripsi Komitmen</label>
+                                <textarea class="custom-textarea" name="academic_intro_body">{{ old('academic_intro_body', $settings['academic_intro_body'] ?? '') }}</textarea>
+                            </div>
+                            <div class="field-grid">
+                                <div class="input-group">
+                                    <label>Statistik 1 - Angka</label>
+                                    <input class="custom-input" name="academic_stat_one_value" value="{{ old('academic_stat_one_value', $settings['academic_stat_one_value'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Statistik 1 - Label</label>
+                                    <input class="custom-input" name="academic_stat_one_label" value="{{ old('academic_stat_one_label', $settings['academic_stat_one_label'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Statistik 2 - Angka</label>
+                                    <input class="custom-input" name="academic_stat_two_value" value="{{ old('academic_stat_two_value', $settings['academic_stat_two_value'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Statistik 2 - Label</label>
+                                    <input class="custom-input" name="academic_stat_two_label" value="{{ old('academic_stat_two_label', $settings['academic_stat_two_label'] ?? '') }}">
+                                </div>
+                            </div>
+                            <div class="field-grid">
+                                <div class="input-group">
+                                    <label>Judul Kurikulum</label>
+                                    <input class="custom-input" name="academic_curriculum_title" value="{{ old('academic_curriculum_title', $settings['academic_curriculum_title'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Deskripsi Kurikulum</label>
+                                    <textarea class="custom-textarea" name="academic_curriculum_description">{{ old('academic_curriculum_description', $settings['academic_curriculum_description'] ?? '') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="field-grid">
+                                @foreach ([
+                                    'academic_programs_json' => 'Daftar Program Akademik',
+                                    'academic_calendar_json' => 'Daftar Kalender Akademik',
+                                    'academic_services_json' => 'Daftar Layanan Akademik',
+                                    'academic_facilities_json' => 'Daftar Fasilitas Akademik',
+                                    'academic_faq_json' => 'Daftar Tanya Jawab Akademik',
+                                ] as $field => $label)
+                                    <div class="input-group">
+                                        <label>{{ $label }}</label>
+                                        <textarea class="custom-textarea" name="{{ $field }}" data-structured-json style="min-height: 180px;">{{ old($field, $settings[$field] ?? '') }}</textarea>
+                                        <p class="field-help">Kelola daftar melalui editor visual. Gunakan tombol tambah atau hapus untuk mengubah susunan.</p>
+                                        @if ($field === 'academic_facilities_json')
+                                            <p class="field-help">Isi kolom gambar hanya dengan URL/path foto fasilitas yang telah diverifikasi atau diunggah oleh sekolah.</p>
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+                        </section>
+
+                        <section class="card">
+                            <h2><i class="bi bi-people" aria-hidden="true"></i> Konten Kesiswaan & Ekstrakurikuler</h2>
+                            <div class="field-grid">
+                                <div class="input-group">
+                                    <label>Badge Hero</label>
+                                    <input class="custom-input" name="student_hero_badge" value="{{ old('student_hero_badge', $settings['student_hero_badge'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Judul Hero</label>
+                                    <input class="custom-input" name="student_hero_title" value="{{ old('student_hero_title', $settings['student_hero_title'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Aksen Judul Hero</label>
+                                    <input class="custom-input" name="student_hero_highlight" value="{{ old('student_hero_highlight', $settings['student_hero_highlight'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Judul Organisasi</label>
+                                    <input class="custom-input" name="student_org_title" value="{{ old('student_org_title', $settings['student_org_title'] ?? '') }}">
+                                </div>
+                            </div>
+                            <div class="input-group">
+                                <label>Subjudul Hero</label>
+                                <textarea class="custom-textarea" name="student_hero_subtitle">{{ old('student_hero_subtitle', $settings['student_hero_subtitle'] ?? '') }}</textarea>
+                            </div>
+                            <div class="input-group">
+                                <label>Deskripsi Organisasi</label>
+                                <textarea class="custom-textarea" name="student_org_description">{{ old('student_org_description', $settings['student_org_description'] ?? '') }}</textarea>
+                            </div>
+                            <div class="field-grid">
+                                <div class="input-group">
+                                    <label>Judul Pembinaan Karakter</label>
+                                    <input class="custom-input" name="student_character_title" value="{{ old('student_character_title', $settings['student_character_title'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Judul Ekstrakurikuler</label>
+                                    <input class="custom-input" name="student_clubs_title" value="{{ old('student_clubs_title', $settings['student_clubs_title'] ?? '') }}">
+                                </div>
+                            </div>
+                            <div class="field-grid">
+                                <div class="input-group">
+                                    <label>Deskripsi Pembinaan Karakter</label>
+                                    <textarea class="custom-textarea" name="student_character_description">{{ old('student_character_description', $settings['student_character_description'] ?? '') }}</textarea>
+                                </div>
+                                <div class="input-group">
+                                    <label>Deskripsi Ekstrakurikuler</label>
+                                    <textarea class="custom-textarea" name="student_clubs_description">{{ old('student_clubs_description', $settings['student_clubs_description'] ?? '') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="field-grid">
+                                <div class="input-group">
+                                    <label>Judul Tombol Ajakan</label>
+                                    <input class="custom-input" name="student_cta_title" value="{{ old('student_cta_title', $settings['student_cta_title'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Deskripsi Tombol Ajakan</label>
+                                    <textarea class="custom-textarea" name="student_cta_description">{{ old('student_cta_description', $settings['student_cta_description'] ?? '') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="field-grid">
+                                @foreach ([
+                                    'student_character_json' => 'Daftar Program Pembinaan',
+                                    'student_faq_json' => 'Daftar Tanya Jawab Kesiswaan',
+                                ] as $field => $label)
+                                    <div class="input-group">
+                                        <label>{{ $label }}</label>
+                                        <textarea class="custom-textarea" name="{{ $field }}" data-structured-json style="min-height: 180px;">{{ old($field, $settings[$field] ?? '') }}</textarea>
+                                        <p class="field-help">Kelola daftar melalui editor visual. Gunakan tombol tambah atau hapus untuk mengubah susunan.</p>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </section>
+
+                        <section class="card">
+                            <h2><i class="bi bi-journal-check" aria-hidden="true"></i> Konten Halaman PPDB</h2>
+                            <div class="field-grid">
+                                <div class="input-group">
+                                    <label>Judul Hero PPDB</label>
+                                    <input class="custom-input" name="ppdb_hero_title" value="{{ old('ppdb_hero_title', $settings['ppdb_hero_title'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Judul Kontak PPDB</label>
+                                    <input class="custom-input" name="ppdb_contact_title" value="{{ old('ppdb_contact_title', $settings['ppdb_contact_title'] ?? '') }}">
+                                </div>
+                                <div class="input-group">
+                                    <label>Link Aplikasi SPMB</label>
+                                    <input type="url" class="custom-input" name="ppdb_app_url" value="{{ old('ppdb_app_url', $settings['ppdb_app_url'] ?? '') }}">
+                                </div>
+                            </div>
+                            <div class="field-grid">
+                                <div class="input-group">
+                                    <label>Subjudul Hero PPDB</label>
+                                    <textarea class="custom-textarea" name="ppdb_hero_subtitle">{{ old('ppdb_hero_subtitle', $settings['ppdb_hero_subtitle'] ?? '') }}</textarea>
+                                </div>
+                                <div class="input-group">
+                                    <label>Deskripsi Kontak PPDB</label>
+                                    <textarea class="custom-textarea" name="ppdb_contact_description">{{ old('ppdb_contact_description', $settings['ppdb_contact_description'] ?? '') }}</textarea>
+                                </div>
+                                <div class="input-group">
+                                    <label>Catatan Tracking SPMB</label>
+                                    <textarea class="custom-textarea" name="ppdb_tracking_note">{{ old('ppdb_tracking_note', $settings['ppdb_tracking_note'] ?? '') }}</textarea>
+                                </div>
+                            </div>
+                            <div class="field-grid">
+                                @foreach ([
+                                    'ppdb_pathways_json' => 'Daftar Jalur PPDB',
+                                    'ppdb_steps_json' => 'Daftar Alur PPDB',
+                                    'ppdb_documents_json' => 'Daftar Dokumen PPDB',
+                                    'ppdb_faq_json' => 'Daftar Tanya Jawab PPDB',
+                                    'ppdb_capacity_json' => 'Daftar Daya Tampung SPMB',
+                                    'ppdb_stage_schedule_json' => 'Daftar Jadwal Tahap SPMB',
+                                    'ppdb_special_requirements_json' => 'Daftar Persyaratan Khusus SPMB',
+                                    'ppdb_weighting_json' => 'Daftar Pembobotan Prestasi SPMB',
+                                    'ppdb_contacts_json' => 'Daftar Kontak Panitia SPMB',
+                                ] as $field => $label)
+                                    <div class="input-group">
+                                        <label>{{ $label }}</label>
+                                        <textarea class="custom-textarea" name="{{ $field }}" data-structured-json style="min-height: 180px;">{{ old($field, $settings[$field] ?? '') }}</textarea>
+                                        <p class="field-help">Kelola daftar melalui editor visual. Gunakan tombol tambah atau hapus untuk mengubah susunan.</p>
+                                    </div>
+                                @endforeach
                             </div>
                         </section>
 
@@ -151,44 +386,35 @@
                             <h2><i class="bi bi-person-gear" aria-hidden="true"></i> Akun Admin</h2>
                             <div class="input-group">
                                 <label>Nama Admin</label>
-                                <input class="custom-input" name="admin_name" value="{{ session('admin_name') ?? 'Admin Utama' }}">
+                                <input class="custom-input" name="admin_name" value="{{ old('admin_name', auth()->user()->name) }}" required>
                             </div>
                             <div class="input-group">
                                 <label>Email Login</label>
-                                <input type="email" class="custom-input" name="admin_email" value="admin@sman2balige.sch.id">
+                                <input type="email" class="custom-input" name="admin_email" value="{{ old('admin_email', auth()->user()->email) }}" required>
                             </div>
                             <div class="input-group">
                                 <label>Logo Situs</label>
-                                <div class="image-preview" style="background-image: url('{{ asset('images/logo-sman2-balige.jpg') }}'); background-size: contain; background-color: #ffffff;">Logo resmi aktif</div>
+                                @if (! empty($settings['logo']))
+                                    <div class="image-preview" style="background-image: url('{{ asset('storage/'.$settings['logo']) }}'); background-size: contain; background-color: #ffffff;"></div>
+                                    <label class="check-row">
+                                        <input type="checkbox" name="remove_logo" value="1">
+                                        Hapus logo custom
+                                    </label>
+                                @else
+                                    <div class="image-preview" style="background-image: url('{{ asset('images/logo-sman2-balige.jpg') }}'); background-size: contain; background-color: #ffffff;">Logo resmi aktif</div>
+                                @endif
                                 <input class="custom-input" type="file" name="logo" accept="image/png,image/jpeg,image/webp">
                             </div>
                             <div class="input-group">
                                 <label>Durasi Sesi</label>
-                                <select class="custom-select" name="session_duration">
-                                    <option>120 menit</option>
-                                    <option>240 menit</option>
-                                    <option>1 hari</option>
-                                </select>
+                                <p class="field-help">Durasi sesi login mengikuti konfigurasi keamanan server dan tidak diubah dari formulir ini.</p>
                             </div>
                         </section>
 
                         <section class="card">
                             <h2><i class="bi bi-broadcast" aria-hidden="true"></i> Publikasi</h2>
-                            <div class="input-group">
-                                <label>Moderasi Konten</label>
-                                <select class="custom-select" name="moderasi">
-                                    <option>Wajib review admin</option>
-                                    <option>Publikasi otomatis</option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <label>Urutan Berita</label>
-                                <select class="custom-select" name="urutan_berita">
-                                    <option>Terbaru dulu</option>
-                                    <option>Prioritas dulu</option>
-                                </select>
-                            </div>
-                            <div class="setting-note">Gunakan pengaturan ini untuk menjaga data publik sekolah tetap konsisten sebelum diberikan ke mitra.</div>
+                            <div class="setting-note">Semua konten publik ditarik dari data yang Anda simpan di formulir ini dan modul konten lain (Berita, Galeri, Kesiswaan, Akademik).</div>
+                            <p class="field-help"><strong>Catatan:</strong> Hindari mengisi data contoh. Simpan hanya data resmi agar halaman publik selalu valid.</p>
                         </section>
 
                         <div style="display: flex; gap: 10px;">
@@ -201,5 +427,4 @@
         </main>
     </div>
 </div>
-</body>
-</html>
+@endsection

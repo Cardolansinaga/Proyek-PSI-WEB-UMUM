@@ -1,0 +1,10 @@
+@extends('errors.layout')
+
+@section('title', 'Sesi Berakhir')
+@section('eyebrow', 'Keamanan Sesi')
+@section('heading', 'Sesi Anda telah berakhir')
+@section('message', 'Demi keamanan, formulir yang terlalu lama terbuka perlu dimuat ulang. Silakan masuk kembali atau ulangi proses dari halaman sebelumnya.')
+@section('code', '419')
+@section('status', 'Page Expired')
+@section('primary_label', 'Masuk Kembali')
+@section('primary_url', url('/login'))

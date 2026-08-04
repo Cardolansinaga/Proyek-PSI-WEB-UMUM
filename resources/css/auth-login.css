@@ -1,0 +1,442 @@
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    overflow-x: hidden;
+    background: linear-gradient(180deg, #f5f8fb 0%, #eef3f7 100%);
+    color: #102033;
+    animation: auth-fade .45s ease-out both;
+}
+
+.auth-shell {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+
+.auth-wrap {
+    width: min(100%, 1040px);
+    min-height: min(560px, calc(100vh - 40px));
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(360px, .78fr);
+    overflow: hidden;
+    border: 1px solid rgba(215, 227, 236, .92);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, .9);
+    box-shadow: 0 38px 100px rgba(7, 31, 58, .12);
+    backdrop-filter: blur(16px);
+}
+
+.auth-intro {
+    position: relative;
+    min-height: 100%;
+    padding: clamp(30px, 4vw, 48px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+    overflow: hidden;
+    background: linear-gradient(160deg, #071f3a 0%, #0b3558 56%, #0d5e63 100%);
+    color: #fff;
+    text-align: center;
+}
+
+.auth-intro::before,
+.auth-intro::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.auth-intro::before {
+    inset: -25%;
+    background:
+        radial-gradient(circle at 22% 18%, rgba(214, 166, 58, .24), transparent 18%),
+        radial-gradient(circle at 78% 72%, rgba(74, 163, 152, .22), transparent 22%),
+        repeating-linear-gradient(135deg, rgba(255, 255, 255, .055) 0 1px, transparent 1px 34px);
+    animation: auth-sweep 18s linear infinite;
+}
+
+.auth-intro::after {
+    width: 280px;
+    aspect-ratio: 1;
+    right: -120px;
+    bottom: -130px;
+    border: 1px solid rgba(255, 255, 255, .12);
+    border-radius: 50%;
+    animation: auth-orbit 12s ease-in-out infinite;
+}
+
+.school-identity,
+.intro-content {
+    position: relative;
+    z-index: 1;
+}
+
+.school-identity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+}
+
+.school-emblem {
+    width: clamp(116px, 13vw, 156px);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    padding: 10px;
+    border: 1px solid rgba(255, 255, 255, .34);
+    border-radius: 28px;
+    background: #fff;
+    box-shadow: 0 24px 52px rgba(0, 0, 0, .24);
+    animation: emblem-float 6s ease-in-out infinite;
+}
+
+.school-emblem img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+    border-radius: 20px;
+}
+
+.school-name {
+    margin-top: 18px;
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.school-portal {
+    margin-top: 5px;
+    color: rgba(255, 255, 255, .7);
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.intro-content {
+    max-width: 480px;
+}
+
+.intro-label {
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px;
+    border: 1px solid rgba(214, 166, 58, .44);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .08);
+    color: #fff1bc;
+    font-size: .68rem;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.intro-content h1 {
+    margin: 16px 0 0;
+    font-size: clamp(2rem, 3.4vw, 2.8rem);
+    line-height: 1.08;
+}
+
+.intro-content p {
+    max-width: 390px;
+    margin: 14px auto 0;
+    color: rgba(255, 255, 255, .76);
+    font-size: .9rem;
+    line-height: 1.7;
+}
+
+.auth-panel {
+    display: grid;
+    align-items: center;
+    padding: clamp(24px, 3.6vw, 44px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .98), rgba(250, 252, 255, .98));
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 410px;
+    margin-inline: auto;
+    animation: auth-rise .66s cubic-bezier(.2, .8, .2, 1) both;
+}
+
+.auth-card h2 {
+    margin: 0;
+    color: #071f3a;
+    font-size: 1.75rem;
+    line-height: 1.12;
+}
+
+.auth-card > p {
+    margin: 8px 0 20px;
+    color: #61768a;
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.68;
+}
+
+.notice {
+    margin-bottom: 14px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.notice.success {
+    border: 1px solid #bbf7d0;
+    background: #ecfdf5;
+    color: #166534;
+}
+
+.notice.error {
+    border: 1px solid #fecdd3;
+    background: #fff1f2;
+    color: #be123c;
+}
+
+.field {
+    display: grid;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.field label {
+    color: #0f2540;
+    font-size: .69rem;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.input-wrap {
+    position: relative;
+}
+
+.input-wrap i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    color: #8ba0b3;
+    transform: translateY(-50%);
+}
+
+.field input {
+    width: 100%;
+    height: 54px;
+    padding: 0 14px 0 42px;
+    border: 1px solid #d7e1ea;
+    border-radius: 14px;
+    outline: none;
+    background: #f8fbfd;
+    color: #071f3a;
+    font-weight: 600;
+    transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+}
+
+.field input:focus {
+    border-color: #0f9f7a;
+    background: #fff;
+    box-shadow: 0 0 0 4px rgba(15, 159, 122, .12);
+}
+
+.btn-login {
+    width: 100%;
+    min-height: 52px;
+    margin-top: 18px;
+    border: 0;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    background: linear-gradient(135deg, #071f3a, #0c3457);
+    box-shadow: 0 18px 30px rgba(7, 31, 58, .2);
+    color: #fff;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform .18s ease, box-shadow .18s ease;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 38px rgba(7, 31, 58, .24);
+}
+
+.auth-links {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: .8rem;
+    font-weight: 700;
+}
+
+.auth-links a {
+    color: #071f3a;
+    text-decoration: none;
+}
+
+.auth-links a.secondary {
+    color: #61768a;
+}
+
+.security-note {
+    margin-top: 14px;
+    padding: 13px 14px;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    border: 1px solid rgba(15, 159, 122, .14);
+    border-radius: 14px;
+    background: linear-gradient(135deg, rgba(15, 159, 122, .08), rgba(214, 166, 58, .08));
+    color: #496176;
+    font-size: .75rem;
+    font-weight: 600;
+    line-height: 1.6;
+}
+
+.security-note i {
+    color: #0f9f7a;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+@keyframes auth-rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes auth-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes auth-sweep {
+    from { transform: translate3d(-2%, -2%, 0) rotate(0deg); }
+    to { transform: translate3d(2%, 2%, 0) rotate(2deg); }
+}
+
+@keyframes auth-orbit {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(-18px, -14px, 0) scale(1.06); }
+}
+
+@keyframes emblem-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-7px); }
+}
+
+@media (max-width: 900px) {
+    .auth-wrap {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        border-radius: 22px;
+    }
+
+    .auth-intro {
+        min-height: auto;
+        padding: 28px 24px;
+        flex-direction: row;
+        text-align: left;
+    }
+
+    .school-identity {
+        flex: 0 0 124px;
+    }
+
+    .school-emblem {
+        width: 88px;
+        border-radius: 20px;
+    }
+
+    .school-emblem img {
+        border-radius: 14px;
+    }
+
+    .school-name {
+        margin-top: 10px;
+        font-size: .95rem;
+    }
+
+    .school-portal {
+        display: none;
+    }
+
+    .intro-content p {
+        margin-inline: 0;
+    }
+}
+
+@media (max-width: 560px) {
+    .auth-shell {
+        padding: 10px;
+        align-items: start;
+    }
+
+    .auth-wrap {
+        width: calc(100vw - 20px);
+        margin-top: 10px;
+    }
+
+    .auth-intro {
+        align-items: center;
+        gap: 18px;
+        padding: 24px 20px;
+    }
+
+    .school-identity {
+        flex-basis: 96px;
+    }
+
+    .school-emblem {
+        width: 72px;
+        padding: 7px;
+        border-radius: 17px;
+    }
+
+    .school-name {
+        font-size: .82rem;
+    }
+
+    .intro-label,
+    .intro-content p {
+        display: none;
+    }
+
+    .intro-content h1 {
+        margin: 0;
+        max-width: 16ch;
+        font-size: clamp(1.45rem, 6.8vw, 1.8rem);
+    }
+
+    .auth-panel {
+        padding: 24px 22px;
+    }
+
+    .auth-links {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .auth-intro::before,
+    .auth-intro::after,
+    .school-emblem,
+    .auth-card,
+    body {
+        animation: none;
+    }
+}

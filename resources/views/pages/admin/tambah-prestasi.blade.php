@@ -1,35 +1,12 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ ($mode ?? 'create') === 'edit' ? 'Edit Prestasi' : 'Tambah Prestasi' }} - SMAN 2 Balige</title>
-    <link rel="icon" type="image/jpeg" href="{{ asset('images/logo-sman2-balige.jpg') }}">
-    @vite('resources/css/admin.css')
-    @include('pages.admin.partials.admin-polish')
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { overflow-x: hidden; font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; background-color: #f8fafc; }
-        .admin-container { display: flex; min-height: 100vh; width: 100vw; }
-        .main-content { flex: 1; }
-        .content-padding { padding: 40px; max-width: 1200px; margin: 0 auto; width: 100%; }
-        .form-grid { display: grid; grid-template-columns: 1fr 320px; gap: 32px; margin-top: 32px; }
-        .card { background: white; border: 1px solid #f1f5f9; border-radius: 16px; padding: 24px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 24px; }
-        .input-group { margin-bottom: 20px; }
-        .input-group label { display: block; font-size: 11px; font-weight: 900; color: #64748b; text-transform: uppercase; margin-bottom: 8px; }
-        .custom-input, .custom-textarea { width: 100%; padding: 12px 16px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; font-size: 14px; color: #1e293b; outline: none; }
-        .custom-textarea { min-height: 150px; resize: vertical; }
-        .btn-save, .btn-cancel { padding: 12px 24px; border-radius: 12px; font-weight: 900; text-decoration: none; cursor: pointer; }
-        .btn-save { background: #071f3a; color: white; border: 1px solid #071f3a; }
-        .btn-cancel { background: white; border: 1px solid #e2e8f0; color: #475569; }
-        .image-preview { min-height: 150px; border-radius: 12px; border: 1px solid #d9e1ec; background: #f4f7fb center/cover no-repeat; display: grid; place-items: center; color: #64748b; font-size: 12px; font-weight: 800; overflow: hidden; }
-        .check-row { display: flex; gap: 10px; align-items: flex-start; color: #071f3a; font-size: 13px; font-weight: 800; line-height: 1.5; }
-        .check-row input { width: auto; margin-top: 3px; }
-        @media (max-width: 900px) { .form-grid { grid-template-columns: 1fr; } }
-    </style>
-    @include('pages.admin.partials.responsive')
-</head>
-<body>
+@extends('layouts.admin')
+
+@section('title', '{{ ($mode ?? \'create\') === \'edit\' ? \'Edit Prestasi\' : \'Tambah Prestasi\' }}')
+
+@push('styles')
+    @vite('resources/css/admin-pages/tambah-prestasi.css')
+@endpush
+
+@section('content')
 <div class="admin-container">
     @include('pages.admin.partials.sidebar', ['activeAdmin' => 'prestasi'])
     <div class="main-content">
@@ -37,16 +14,26 @@
             @php($isEdit = ($mode ?? 'create') === 'edit')
             <form id="achievement-form" method="POST" action="{{ $isEdit ? route('admin.prestasi.update', $achievement) : route('admin.prestasi.store') }}" enctype="multipart/form-data">
                 @csrf
-                <div style="display:flex; justify-content:space-between; gap:20px; align-items:flex-start; margin-bottom:32px;">
+                <div class="page-head" style="display:flex; justify-content:space-between; gap:20px; align-items:flex-start; margin-bottom:32px;">
                     <div>
                         <h1 style="font-size:36px; font-weight:900; color:#071f3a;">{{ $isEdit ? 'Edit Prestasi' : 'Tambah Prestasi' }}</h1>
-                        <p style="color:#64748b; margin-top:8px;">Data yang disimpan akan langsung tersedia untuk halaman publik jika statusnya published.</p>
+                        <p style="color:#64748b; margin-top:8px;">Isi data prestasi siswa atau tim. Data akan tampil di website jika statusnya dipilih tampil.</p>
                     </div>
-                    <div style="display:flex; gap:12px;">
+                    <div class="page-actions" style="display:flex; gap:12px;">
                         <a href="{{ route('prestasi.index') }}" class="btn-cancel"><i class="bi bi-x-circle" aria-hidden="true"></i> Batal</a>
                         <button class="btn-save" type="submit"><i class="bi bi-save" aria-hidden="true"></i> Simpan Data</button>
                     </div>
                 </div>
+
+                @include('pages.admin.partials.page-guide', [
+                    'title' => $isEdit ? 'Panduan edit prestasi' : 'Panduan tambah prestasi',
+                    'description' => 'Gunakan kalimat singkat agar prestasi mudah dipahami pengunjung website.',
+                    'items' => [
+                        'Nama prestasi atau lomba wajib diisi.',
+                        'Pilih status Tampil di Website jika data sudah siap dilihat publik.',
+                        'Centang prestasi unggulan hanya untuk prestasi yang ingin ditonjolkan.',
+                    ],
+                ])
 
                 <div class="form-grid">
                     <section class="card">
@@ -98,17 +85,18 @@
                         <div class="input-group">
                             <label>Status</label>
                             <select name="status" class="custom-input">
-                                <option value="published" @selected(old('status', $achievement->status) === 'published')>Published</option>
-                                <option value="draft" @selected(old('status', $achievement->status) === 'draft')>Draft</option>
+                                <option value="published" @selected(old('status', $achievement->status) === 'published')>Tampil di Website</option>
+                                <option value="draft" @selected(old('status', $achievement->status) === 'draft')>Simpan Dulu, Belum Tampil</option>
                             </select>
                         </div>
                         <div class="input-group">
-                            <label>Visual Card</label>
+                            <label>Pilihan Ilustrasi Bawaan</label>
                             <select name="image_class" class="custom-input">
                                 @foreach (['victory', 'speech', 'runner', 'dance'] as $visual)
                                     <option value="{{ $visual }}" @selected(old('image_class', $achievement->image_class) === $visual)>{{ ucfirst($visual) }}</option>
                                 @endforeach
                             </select>
+                            <p class="field-help">Dipakai jika belum ada gambar prestasi yang diunggah.</p>
                         </div>
                         <div class="input-group">
                             <label>Gambar Prestasi</label>
@@ -133,5 +121,4 @@
         </main>
     </div>
 </div>
-</body>
-</html>
+@endsection

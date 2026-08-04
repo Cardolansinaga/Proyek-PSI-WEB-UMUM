@@ -4,24 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class StudentController extends Controller
 {
-    public function __construct()
-    {
-        // Middleware protection for admin routes
-        // This is handled via routes/web.php, not needed here for API
-    }
-
     public function index(Request $request)
     {
-        $perPage = (int) $request->get('per_page', 15);
-        $search = $request->get('search');
-        $classFilter = $request->get('class');
+        $filters = $request->validate([
+            'per_page' => ['nullable', 'integer', 'min:1', 'max:100'],
+            'search' => ['nullable', 'string', 'max:120'],
+            'class' => ['nullable', 'string', 'max:120'],
+        ]);
+        $perPage = (int) ($filters['per_page'] ?? 15);
+        $search = trim((string) ($filters['search'] ?? ''));
+        $classFilter = trim((string) ($filters['class'] ?? ''));
 
         $q = Student::query();
-        if ($search) {
+        if ($search !== '') {
             $q->where(function ($sub) use ($search) {
                 $sub->where('name', 'like', "%{$search}%")
                     ->orWhere('nis', 'like', "%{$search}%")
@@ -29,7 +27,7 @@ class StudentController extends Controller
             });
         }
 
-        if ($classFilter) {
+        if ($classFilter !== '') {
             $q->where('class', $classFilter);
         }
 
@@ -37,77 +35,51 @@ class StudentController extends Controller
         return response()->json($paginated);
     }
 
-    public function show($id)
+    public function show(int $id)
     {
         return response()->json(Student::findOrFail($id));
     }
 
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'nis' => 'required|string|unique:students,nis',
-            'name' => 'required|string',
-            'email' => 'nullable|email',
-            'birth_date' => 'nullable|date',
-            'class' => 'nullable|string',
-            'address' => 'nullable|string',
+        $data = $request->validate([
+            'nis' => ['required', 'string', 'max:40', 'unique:students,nis'],
+            'name' => ['required', 'string', 'max:160'],
+            'email' => ['nullable', 'email', 'max:160'],
+            'birth_date' => ['nullable', 'date'],
+            'class' => ['nullable', 'string', 'max:120'],
+            'address' => ['nullable', 'string'],
         ]);
+        $student = Student::create($data);
 
-        if ($validator->fails()) {
-            if ($request->wantsJson()) {
-                return response()->json(['message' => 'Validation failed', 'errors' => $validator->errors()], 422);
-            }
-            return back()->withErrors($validator)->withInput();
+        if ($request->wantsJson()) {
+            return response()->json($student, 201);
         }
 
-        try {
-            $student = Student::create($validator->validated());
-            if ($request->wantsJson()) {
-                return response()->json($student, 201);
-            }
-            return redirect()->route('admin.kesiswaan.index')->with('status', 'Siswa berhasil ditambahkan.');
-        } catch (\Exception $e) {
-            if ($request->wantsJson()) {
-                return response()->json(['message' => 'Server error', 'error' => $e->getMessage()], 500);
-            }
-            return back()->with('error', 'Server error: ' . $e->getMessage());
-        }
+        return redirect()->route('admin.kesiswaan.index')->with('status', 'Siswa berhasil ditambahkan.');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, int $id)
     {
         $student = Student::findOrFail($id);
-        $validator = Validator::make($request->all(), [
-            'nis' => 'required|string|unique:students,nis,'.$student->id,
-            'name' => 'required|string',
-            'email' => 'nullable|email',
-            'birth_date' => 'nullable|date',
-            'class' => 'nullable|string',
-            'address' => 'nullable|string',
+        $data = $request->validate([
+            'nis' => ['required', 'string', 'max:40', 'unique:students,nis,'.$student->id],
+            'name' => ['required', 'string', 'max:160'],
+            'email' => ['nullable', 'email', 'max:160'],
+            'birth_date' => ['nullable', 'date'],
+            'class' => ['nullable', 'string', 'max:120'],
+            'address' => ['nullable', 'string'],
         ]);
+        $student->update($data);
 
-        if ($validator->fails()) {
-            if ($request->wantsJson()) {
-                return response()->json(['message' => 'Validation failed', 'errors' => $validator->errors()], 422);
-            }
-            return back()->withErrors($validator)->withInput();
+        if ($request->wantsJson()) {
+            return response()->json($student);
         }
 
-        try {
-            $student->update($validator->validated());
-            if ($request->wantsJson()) {
-                return response()->json($student);
-            }
-            return redirect()->route('admin.kesiswaan.index')->with('status', 'Data siswa berhasil diperbarui.');
-        } catch (\Exception $e) {
-            if ($request->wantsJson()) {
-                return response()->json(['message' => 'Server error', 'error' => $e->getMessage()], 500);
-            }
-            return back()->with('error', 'Server error: ' . $e->getMessage());
-        }
+        return redirect()->route('admin.kesiswaan.index')->with('status', 'Data siswa berhasil diperbarui.');
     }
 
-    public function destroy($id)
+    public function destroy(int $id)
     {
         $student = Student::findOrFail($id);
         $student->delete();
