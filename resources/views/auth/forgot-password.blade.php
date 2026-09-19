@@ -60,7 +60,7 @@
                     <label for="email">Email Admin</label>
                     <div class="input-wrap">
                         <i class="bi bi-envelope"></i>
-                        <input id="email" type="email" name="email" placeholder="Masukkan email admin" value="{{ old('email', config('admin.email')) }}" autocomplete="email" required autofocus>
+                        <input id="email" type="email" name="email" placeholder="Masukkan email admin" value="{{ old('email') }}" autocomplete="email" required autofocus>
                     </div>
                 </div>
                 <button type="submit" class="btn-reset">
