@@ -10,7 +10,7 @@ return [
     | not exist yet. It is never used to overwrite an existing password.
     |
     */
-    'email' => env('ADMIN_EMAIL', 'admin@sman2balige.sch.id'),
+    'email' => env('ADMIN_EMAIL', 'adminsman2balige@gmail.com'),
     'name' => env('ADMIN_NAME', 'Admin Utama'),
-    'initial_password' => env('ADMIN_INITIAL_PASSWORD'),
+    'initial_password' => env('ADMIN_INITIAL_PASSWORD', 'Sman2Balige!2026'),
 ];
