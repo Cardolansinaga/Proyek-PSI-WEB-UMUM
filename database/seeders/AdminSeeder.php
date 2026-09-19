@@ -13,7 +13,7 @@ class AdminSeeder extends Seeder
     {
         $email = Str::lower(trim((string) config('admin.email')));
 
-        if (User::query()->where('is_admin', true)->exists()) {
+        if (User::query()->where('email', $email)->exists()) {
             return;
         }
 
