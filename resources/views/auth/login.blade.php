@@ -45,7 +45,7 @@
                             <label for="email">Email Admin</label>
                             <div class="input-wrap">
                                 <i class="bi bi-envelope" aria-hidden="true"></i>
-                                <input id="email" type="email" name="email" placeholder="admin@sman2balige.sch.id" value="{{ old('email') }}" autocomplete="username" required autofocus>
+                                <input id="email" type="email" name="email" placeholder="Masukkan email admin" value="{{ old('email', config('admin.email')) }}" autocomplete="username" required autofocus>
                             </div>
                         </div>
                         <div class="field">
