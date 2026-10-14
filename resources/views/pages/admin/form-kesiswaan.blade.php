@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', '{{ ($mode ?? \'create\') === \'edit\' ? \'Edit Kesiswaan\' : \'Tambah Kesiswaan\' }}')
+@section('title', ($mode ?? 'create') === 'edit' ? 'Edit Kesiswaan' : 'Tambah Kesiswaan')
 
 @push('styles')
     @vite('resources/css/admin-pages/form-kesiswaan.css')

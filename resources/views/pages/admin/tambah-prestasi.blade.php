@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', '{{ ($mode ?? \'create\') === \'edit\' ? \'Edit Prestasi\' : \'Tambah Prestasi\' }}')
+@section('title', ($mode ?? 'create') === 'edit' ? 'Edit Prestasi' : 'Tambah Prestasi')
 
 @push('styles')
     @vite('resources/css/admin-pages/tambah-prestasi.css')

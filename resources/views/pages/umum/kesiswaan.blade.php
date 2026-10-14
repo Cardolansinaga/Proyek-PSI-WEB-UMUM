@@ -64,7 +64,7 @@
                 @foreach ($organizations as $item)
                     <article class="info-card hover-lift group">
                         @php($organizationImage = ! empty($item->image_path) ? asset('storage/'.$item->image_path) : null)
-                        <div class="activity-media {{ $organizationImage ? '' : 'media-placeholder' }}" @if($organizationImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .04), rgb(7 31 58 / .22)), url('{{ $organizationImage }}') !important;" @endif>
+                        <div class="activity-media {{ $organizationImage ? '' : 'media-placeholder' }}" @if($organizationImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .04), rgb(7 31 58 / .22)), url('{{ $organizationImage }}') !important;" role="img" aria-label="Foto {{ $item->name }}" @endif>
                             @unless($organizationImage)<span><i class="bi bi-image" aria-hidden="true"></i> Foto belum tersedia</span>@endunless
                         </div>
                         <span class="round-icon"><i class="bi {{ $item->image_class ?? 'bi-people-fill' }}"></i></span>
@@ -110,7 +110,7 @@
                 @foreach ($clubs as $club)
                     <article class="club-card hover-lift group">
                         @php($clubImage = ! empty($club->image_path) ? asset('storage/'.$club->image_path) : null)
-                        <div class="activity-media {{ $clubImage ? '' : 'media-placeholder' }}" @if($clubImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .04), rgb(7 31 58 / .22)), url('{{ $clubImage }}') !important;" @endif>
+                        <div class="activity-media {{ $clubImage ? '' : 'media-placeholder' }}" @if($clubImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .04), rgb(7 31 58 / .22)), url('{{ $clubImage }}') !important;" role="img" aria-label="Foto {{ $club->name }}" @endif>
                             @unless($clubImage)<span><i class="bi bi-image" aria-hidden="true"></i> Foto belum tersedia</span>@endunless
                         </div>
                         <span class="round-icon bg-gradient-to-br from-[#19a99a]/20 to-[#d6a63a]/20">

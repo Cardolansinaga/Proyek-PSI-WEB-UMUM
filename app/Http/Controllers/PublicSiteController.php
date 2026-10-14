@@ -34,7 +34,7 @@ class PublicSiteController extends Controller
         return view('pages.umum.kesiswaan', [
             'settings' => $this->settings(),
             'organizations' => Activity::query()->published()->where('type', 'like', '%Organisasi%')->orderBy('sort_order')->get(),
-            'clubs' => Activity::query()->published()->where('type', 'like', '%Ekstrakurikuler%')->orderBy('sort_order')->get(),
+            'clubs' => Activity::query()->published()->where('type', 'not like', '%Organisasi%')->orderBy('sort_order')->get(),
         ]);
     }
 
