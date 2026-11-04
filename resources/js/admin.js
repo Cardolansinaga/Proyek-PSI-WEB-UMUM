@@ -103,7 +103,9 @@ function renderArray(array, template, onChange, title = 'Item') {
         add.className = 'structured-add';
         add.textContent = '+ Tambah item';
         add.addEventListener('click', () => {
-            array.push(clone(template));
+            array.push(template && typeof template === 'object' && !Array.isArray(template)
+                ? clone(template)
+                : '');
             onChange();
             redraw();
         });
@@ -126,6 +128,12 @@ document.querySelectorAll('textarea[data-structured-json]').forEach((textarea) =
         return;
     }
     if (!Array.isArray(value)) value = [];
+
+    // New installations intentionally start some content lists empty. Show a
+    // usable first item so admins can fill the editor without an extra click.
+    if (value.length === 0 && schema && typeof schema === 'object') {
+        value.push(clone(schema));
+    }
 
     const editor = document.createElement('div');
     editor.className = 'structured-editor';

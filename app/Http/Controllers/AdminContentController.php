@@ -279,8 +279,17 @@ class AdminContentController extends Controller
             'ppdb_close_date' => 'Tanggal Tutup PPDB',
         ], $jsonFieldLabels));
 
+        // Settings are edited on one large form. If a structured list was not
+        // submitted (for example by a partial/custom form), preserve its saved
+        // value instead of treating it as an empty replacement.
+        foreach ($jsonFields as $field) {
+            if (! $request->exists($field)) {
+                $data[$field] = $this->settings()[$field] ?? SiteSetting::defaults()[$field] ?? '[]';
+            }
+        }
+
         $imageFields = ['akademik_hero_image', 'kesiswaan_hero_image', 'ppdb_hero_image', 'berita_hero_image'];
-        $this->assertStructuredJsonFields($data);
+        $data = $this->normalizeAndAssertStructuredJsonFields($data);
 
         $uploads = [];
         $previousImages = [];
@@ -376,7 +385,7 @@ class AdminContentController extends Controller
     /**
      * @param  array<string, mixed>  $data
      */
-    private function assertStructuredJsonFields(array $data): void
+    private function normalizeAndAssertStructuredJsonFields(array $data): array
     {
         $errors = [];
         $objectListRules = [
@@ -403,9 +412,22 @@ class AdminContentController extends Controller
 
             $decoded = json_decode($rawValue, true);
             if (! is_array($decoded) || $decoded === []) {
-                $errors[$field][] = 'Kolom ini wajib berisi daftar JSON dengan minimal satu item.';
+                // An empty list is valid when the admin is editing another
+                // setting; it must not block unrelated changes.
                 continue;
             }
+
+            $decoded = array_values(array_filter($decoded, function ($item) use ($requiredKeys): bool {
+                if (! is_array($item)) {
+                    return true;
+                }
+
+                // Ignore untouched or partially filled placeholders. Each
+                // published item still needs all required fields, while other
+                // settings can be saved independently.
+                return collect($requiredKeys)->every(fn ($key) => trim((string) ($item[$key] ?? '')) !== '');
+            }));
+            $data[$field] = json_encode($decoded, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
             foreach ($decoded as $index => $item) {
                 if (! is_array($item)) {
@@ -430,9 +452,12 @@ class AdminContentController extends Controller
 
             $decoded = json_decode($rawValue, true);
             if (! is_array($decoded) || $decoded === []) {
-                $errors[$field][] = 'Kolom ini wajib berisi daftar JSON teks dengan minimal satu item.';
+                // Empty lists are allowed so unrelated settings can be saved.
                 continue;
             }
+
+            $decoded = array_values(array_filter($decoded, fn ($item) => trim((string) $item) !== ''));
+            $data[$field] = json_encode($decoded, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
             foreach ($decoded as $index => $item) {
                 if (trim((string) $item) === '') {
@@ -444,6 +469,8 @@ class AdminContentController extends Controller
         if ($errors !== []) {
             throw ValidationException::withMessages($errors);
         }
+
+        return $data;
     }
 
     private function storeImage(Request $request, string $field, ?string $oldPath = null): ?string
