@@ -38,19 +38,19 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-label"><i class="bi bi-bar-chart" aria-hidden="true"></i> Total Data</div>
-                    <div class="stat-value">{{ $activities->count() }}</div>
+                    <div class="stat-value">{{ $activityStats['total'] }}</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label"><i class="bi bi-people" aria-hidden="true"></i> Organisasi</div>
-                    <div class="stat-value">{{ $activities->where('type', 'Organisasi Siswa')->count() }}</div>
+                    <div class="stat-value">{{ $activityStats['organizations'] }}</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label"><i class="bi bi-stars" aria-hidden="true"></i> Ekstrakurikuler</div>
-                    <div class="stat-value">{{ $activities->where('type', '!=', 'Organisasi Siswa')->count() }}</div>
+                    <div class="stat-value">{{ $activityStats['clubs'] }}</div>
                 </div>
                 <div class="stat-card">
                     <div class="stat-label"><i class="bi bi-eye" aria-hidden="true"></i> Tampil Publik</div>
-                    <div class="stat-value">{{ $activities->where('is_published', true)->count() }}</div>
+                    <div class="stat-value">{{ $activityStats['published'] }}</div>
                 </div>
             </div>
 

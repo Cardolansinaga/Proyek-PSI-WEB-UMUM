@@ -1096,6 +1096,18 @@ img {
     }
 
     .admin-container .btn-primary,
+    .admin-container .btn-outline,
+    .admin-container .btn-add,
+    .admin-container .btn-create,
+    .admin-container .btn-save,
+    .admin-container .btn-cancel {
+        min-height: 38px !important;
+        padding: 8px 13px !important;
+        font-size: 12px !important;
+        line-height: 1.2 !important;
+    }
+
+    .admin-container .btn-primary,
     .admin-container .btn-add,
     .admin-container .btn-create,
     .admin-container .btn-save,

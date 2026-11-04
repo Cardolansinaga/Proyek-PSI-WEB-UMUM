@@ -23,6 +23,13 @@
                 </div>
             </div>
 
+            @if (session('status'))
+                <p class="status-message" role="status">{{ session('status') }}</p>
+            @endif
+            @if ($errors->any())
+                <div class="form-errors" role="alert"><strong>Data kegiatan belum dapat disimpan:</strong><ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>
+            @endif
+
             @include('pages.admin.partials.page-guide', [
                 'title' => $isEdit ? 'Panduan edit kegiatan' : 'Panduan tambah kegiatan',
                 'description' => 'Isi data yang benar-benar dibutuhkan pengunjung: nama kegiatan, pembina, jadwal, lokasi, dan deskripsi singkat.',
@@ -93,7 +100,7 @@
                         <div class="input-group">
                             <label>Foto Kegiatan</label>
                             @if (! empty($activity->image_path))
-                                <div class="image-preview" style="background-image: url('{{ asset('storage/'.$activity->image_path) }}');"></div>
+                                <div class="image-preview" style="background-image: url('{{ media_url($activity->image_path) }}');"></div>
                                 <label class="check-row">
                                     <input type="checkbox" name="remove_image" value="1">
                                     Hapus gambar custom

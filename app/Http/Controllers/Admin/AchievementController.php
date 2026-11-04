@@ -12,6 +12,12 @@ class AchievementController extends AdminController
     {
         return view('pages.admin.prestasi', [
             'achievements' => Achievement::query()->orderByDesc('year')->orderBy('sort_order')->paginate(15),
+            'achievementStats' => [
+                'total' => Achievement::count(),
+                'international' => Achievement::where('level', 'Internasional')->count(),
+                'featured' => Achievement::where('is_featured', true)->count(),
+                'draft' => Achievement::where('status', '!=', 'published')->count(),
+            ],
         ]);
     }
 

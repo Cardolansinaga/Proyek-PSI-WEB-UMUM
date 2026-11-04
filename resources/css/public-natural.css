@@ -627,7 +627,17 @@
 }
 
 .public-site-natural .news-card .illustration:not([style]) {
-    display: none !important;
+    display: grid !important;
+    place-items: end start;
+    background-image: linear-gradient(145deg, #193b57, #0b2339) !important;
+}
+
+.public-site-natural .news-card .illustration:not([style]).library {
+    background-image: linear-gradient(145deg, #193b57, #0b2339) !important;
+}
+
+.public-site-natural .news-card .illustration:not([style]) .visual-label {
+    margin: 16px;
 }
 
 .public-site-natural .news-card .p-7 {

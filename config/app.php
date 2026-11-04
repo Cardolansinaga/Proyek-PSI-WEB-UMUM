@@ -33,7 +33,7 @@ return [
     | Local demonstration content
     |--------------------------------------------------------------------------
     |
-    | Demo students, posts, achievements, activities, galleries, and PPDB
+    | Demo posts, achievements, activities, galleries, and PPDB content
     | applications are never seeded unless this flag is explicitly enabled in
     | a local environment. Production data must be entered by an administrator.
     |

@@ -3,12 +3,12 @@
 @section('title', 'Berita & Pengumuman - SMAN 2 Balige')
 @section('description', 'Informasi dan update terbaru SMAN 2 Balige.')
 @section('canonical', $activeCategory !== '' ? route('berita.index', ['category' => $activeCategory]) : route('berita.index'))
-@section('image', ! empty($settings['berita_hero_image']) ? asset('storage/'.$settings['berita_hero_image']) : asset('images/logo-sman2-balige.jpg'))
+@section('image', ! empty($settings['berita_hero_image']) ? media_url($settings['berita_hero_image']) : asset('images/logo-sman2-balige.jpg'))
 
 @section('content')
     @php
         $hasCustomBeritaHero = ! empty($settings['berita_hero_image']);
-        $beritaHeroImage = $hasCustomBeritaHero ? asset('storage/'.$settings['berita_hero_image']) : null;
+        $beritaHeroImage = $hasCustomBeritaHero ? media_url($settings['berita_hero_image']) : null;
     @endphp
     <section
         class="school-hero hero-news text-center relative overflow-hidden {{ $hasCustomBeritaHero ? 'has-custom-photo' : 'default-school-hero' }}"
@@ -50,7 +50,7 @@
     <section id="daftar-berita" class="bg-gradient-to-b from-[#f8fafc] to-white py-16 sm:py-20">
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
             @if ($featured)
-                @php($featuredImage = ! empty($featured->image_path) ? asset('storage/'.$featured->image_path) : null)
+                @php($featuredImage = ! empty($featured->image_path) ? media_url($featured->image_path) : null)
                 <article class="featured-news hover-lift group bg-gradient-to-br from-white to-[#f0f7ff] overflow-hidden rounded-2xl shadow-xl hover:shadow-2xl transition-all">
                     <div class="featured-news-layout {{ $featuredImage ? 'has-media' : 'is-text-only' }}">
                         @if($featuredImage)
@@ -80,16 +80,20 @@
             @else
                 <div class="mt-14 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
                     @foreach ($posts as $post)
-                    @php($postImage = ! empty($post->image_path) ? asset('storage/'.$post->image_path) : null)
+                    @php($postImage = ! empty($post->image_path) ? media_url($post->image_path) : null)
                     <article class="news-card {{ $postImage ? 'has-media' : 'is-text-only' }} hover-lift group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all hover:border-[#d6a63a]/50 border border-transparent">
-                        @if($postImage)
+                        <div class="relative overflow-hidden">
+                            @if($postImage)
                             <div class="relative overflow-hidden">
                                 <div class="illustration group-hover:scale-110 transition-transform duration-300" style="background-image: linear-gradient(180deg, rgb(7 31 58 / .08), rgb(7 31 58 / .28)), url('{{ $postImage }}') !important;">
                                 <span class="visual-label">{{ $post->category }}</span>
                                 </div>
                                 <div class="absolute top-0 right-0 w-32 h-32 bg-[#d6a63a]/5 rounded-full blur-3xl"></div>
                             </div>
-                        @endif
+                            @else
+                                <div class="illustration {{ $post->image_class ?? 'library' }}" aria-hidden="true"><span class="visual-label">{{ $post->category }}</span></div>
+                            @endif
+                        </div>
                         <div class="p-7">
                             <h3 class="group-hover:text-[#d6a63a] transition-colors">{{ $post->title }}</h3>
                             <p class="text-[#6b7f91]">{{ $post->excerpt }}</p>

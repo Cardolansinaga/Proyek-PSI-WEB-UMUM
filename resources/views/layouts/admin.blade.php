@@ -8,6 +8,7 @@
     <link rel="icon" type="image/webp" href="{{ asset('images/logo-sman2-balige-96.webp') }}">
     @vite(['resources/css/admin.css', 'resources/js/admin.js'])
     @stack('styles')
+    @vite('resources/css/admin-layout.css')
 </head>
 <body>
     @yield('content')

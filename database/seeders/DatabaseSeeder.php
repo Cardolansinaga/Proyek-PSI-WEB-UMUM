@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
 
         if ($shouldSeedDemo) {
             $this->call([
-                StudentSeeder::class,
                 SchoolContentSeeder::class,
             ]);
         }

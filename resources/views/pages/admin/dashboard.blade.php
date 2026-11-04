@@ -50,7 +50,6 @@
             <div class="status-row">
                 <div class="status-card"><strong>{{ $stats['posts'] }}</strong><small>Berita tersimpan</small></div>
                 <div class="status-card"><strong>{{ $stats['achievements'] }}</strong><small>Prestasi tercatat</small></div>
-                <div class="status-card"><strong>{{ $stats['students'] }}</strong><small>Data siswa</small></div>
                 <div class="status-card"><strong>{{ $stats['ppdb'] }}</strong><small>Data pendaftar</small></div>
             </div>
 

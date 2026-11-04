@@ -29,7 +29,7 @@ class AdminContentController extends Controller
     {
         return view('pages.admin.beranda', [
             'settings' => $this->homeEditorSettings(),
-            'posts' => Post::query()->latest('published_at')->take(3)->get(),
+            'posts' => Post::query()->published()->latest('published_at')->take(3)->get(),
             'galleries' => Gallery::query()->orderBy('sort_order')->take(4)->get(),
         ]);
     }
@@ -65,7 +65,12 @@ class AdminContentController extends Controller
         $content = collect($data)->only(self::HOME_FIELDS)->all();
         $publishedImage = $this->settings()['hero_image'] ?? null;
         $draftImage = SiteSetting::getValue('draft_home_hero_image');
-        $hasImageChange = $request->hasFile('hero_image') || $request->boolean('remove_hero_image');
+        $newUploadedImage = null;
+        if ($request->hasFile('hero_image')) {
+            $newUploadedImage = $this->storeImage($request, 'hero_image', $publishMode === 'draft'
+                ? $draftImage
+                : ($draftImage ?? $publishedImage));
+        }
 
         if ($publishMode === 'draft') {
             $draftContent = collect($content)
@@ -74,25 +79,32 @@ class AdminContentController extends Controller
 
             SiteSetting::setMany($draftContent + ['home_publish_mode' => 'draft']);
 
-            if ($hasImageChange) {
-                $newDraftImage = $this->storeImage($request, 'hero_image', $draftImage);
-                SiteSetting::setMany(['draft_home_hero_image' => $newDraftImage]);
+            if ($request->hasFile('hero_image')) {
+                SiteSetting::setMany(['draft_home_hero_image' => $newUploadedImage]);
+            } elseif ($request->boolean('remove_hero_image')) {
+                SiteSetting::setMany(['draft_home_hero_image' => null]);
+                if ($draftImage && $draftImage !== $publishedImage) {
+                    $this->deleteImage($draftImage);
+                }
             } elseif ($draftImage === null) {
                 SiteSetting::setMany(['draft_home_hero_image' => $publishedImage]);
             }
         } else {
-            $selectedImage = $hasImageChange
-                ? $this->storeImage($request, 'hero_image', $draftImage ?? $publishedImage)
-                : ($draftImage ?? $publishedImage);
-
-            if ($publishedImage && $publishedImage !== $selectedImage && $publishedImage !== $draftImage) {
-                $this->deleteImage($publishedImage);
-            }
+            $selectedImage = $request->boolean('remove_hero_image')
+                ? null
+                : ($request->hasFile('hero_image') ? $newUploadedImage : ($draftImage ?? $publishedImage));
 
             SiteSetting::setMany($content + [
                 'hero_image' => $selectedImage,
                 'home_publish_mode' => 'published',
             ]);
+
+            foreach (array_unique(array_filter([$publishedImage, $draftImage])) as $obsoleteImage) {
+                if ($obsoleteImage !== $selectedImage) {
+                    $this->deleteImage($obsoleteImage);
+                }
+            }
+            SiteSetting::setMany(['draft_home_hero_image' => null]);
         }
 
         $this->clearSettingsCache();
@@ -117,6 +129,7 @@ class AdminContentController extends Controller
             'image_path' => $this->storeImage($request, 'image', $post->image_path),
         ]);
 
+        $this->clearSettingsCache();
         $this->clearPublicPageCache();
 
         return redirect()->route('admin.beranda')->with('status', 'Gambar berita berhasil diperbarui.');
@@ -175,7 +188,6 @@ class AdminContentController extends Controller
             'academic_programs_json' => 'Daftar Program Akademik',
             'academic_calendar_json' => 'Daftar Kalender Akademik',
             'academic_services_json' => 'Daftar Layanan Akademik',
-            'academic_facilities_json' => 'Daftar Fasilitas Akademik',
             'academic_faq_json' => 'Daftar Tanya Jawab Akademik',
             'student_character_json' => 'Daftar Program Pembinaan',
             'student_faq_json' => 'Daftar Tanya Jawab Kesiswaan',
@@ -232,7 +244,7 @@ class AdminContentController extends Controller
             'school_accreditation' => ['nullable', 'string', 'max:20'],
             'school_latitude' => ['nullable', 'numeric', 'between:-90,90'],
             'school_longitude' => ['nullable', 'numeric', 'between:-180,180'],
-            'site_status' => ['required', 'string', 'max:80'],
+            'site_status' => ['required', Rule::in(['Aktif', 'Mode Perawatan'])],
             'school_address' => ['nullable', 'string'],
             'ppdb_year' => ['required', 'string', 'max:40'],
             'ppdb_status' => ['required', 'string', 'max:40'],
@@ -270,23 +282,49 @@ class AdminContentController extends Controller
         $imageFields = ['akademik_hero_image', 'kesiswaan_hero_image', 'ppdb_hero_image', 'berita_hero_image'];
         $this->assertStructuredJsonFields($data);
 
-        SiteSetting::setMany(collect($data)->except(array_merge(
-            ['admin_name', 'admin_email', 'logo', 'remove_logo'],
-            $imageFields,
-            array_map(fn ($field) => 'remove_'.$field, $imageFields),
-        ))->all());
-
-        foreach ($imageFields as $field) {
-            $path = $this->storeImage($request, $field, $this->settings()[$field] ?? null);
-            if ($request->hasFile($field) || $request->boolean('remove_'.$field)) {
-                SiteSetting::setMany([$field => $path]);
+        $uploads = [];
+        $previousImages = [];
+        foreach ([...$imageFields, 'logo'] as $imageField) {
+            $previousImages[$imageField] = $this->settings()[$imageField] ?? null;
+            if ($request->hasFile($imageField)) {
+                $storedPath = $this->storeImage($request, $imageField);
+                if (! $storedPath || ! Storage::disk('public')->exists($storedPath)) {
+                    throw ValidationException::withMessages([
+                        $imageField => ['Gambar gagal disimpan ke penyimpanan. Periksa izin folder storage/app/public lalu coba lagi.'],
+                    ]);
+                }
+                $uploads[$imageField] = $storedPath;
             }
         }
 
-        // handle logo upload separately
-        $logoPath = $this->storeImage($request, 'logo', $this->settings()['logo'] ?? null);
+        $settingsToSave = collect($data)->except(array_merge(
+            ['admin_name', 'admin_email', 'logo', 'remove_logo'],
+            $imageFields,
+            array_map(fn ($field) => 'remove_'.$field, $imageFields),
+        ))->all();
+        $imageSettingsToSave = [];
+        foreach ($imageFields as $field) {
+            $path = $request->hasFile($field)
+                ? $uploads[$field]
+                : ($request->boolean('remove_'.$field) ? null : $previousImages[$field]);
+            if ($request->hasFile($field) || $request->boolean('remove_'.$field)) {
+                $imageSettingsToSave[$field] = $path;
+            }
+        }
+
+        $logoPath = $request->hasFile('logo')
+            ? $uploads['logo']
+            : ($request->boolean('remove_logo') ? null : $previousImages['logo']);
         if ($request->hasFile('logo') || $request->boolean('remove_logo')) {
-            SiteSetting::setMany(['logo' => $logoPath]);
+            $imageSettingsToSave['logo'] = $logoPath;
+        }
+
+        SiteSetting::setMany($settingsToSave + $imageSettingsToSave);
+        foreach ($imageSettingsToSave as $field => $newPath) {
+            $oldPath = $previousImages[$field] ?? null;
+            if ($oldPath && $oldPath !== $newPath) {
+                $this->deleteImage($oldPath);
+            }
         }
 
         $this->clearSettingsCache();
@@ -297,7 +335,7 @@ class AdminContentController extends Controller
         ]);
         $request->session()->put('admin_name', $data['admin_name']);
 
-        return redirect()->route('admin.pengaturan')->with('status', 'Pengaturan berhasil disimpan.');
+        return redirect()->route('admin.pengaturan')->with('status', 'Pengaturan berhasil disimpan. Periksa halaman publik yang terkait untuk memastikan perubahan sudah sesuai.');
     }
 
     private function assertLeadershipFocusStructure(?string $json): void
@@ -345,7 +383,6 @@ class AdminContentController extends Controller
             'academic_programs_json' => ['title', 'description', 'icon'],
             'academic_calendar_json' => ['date', 'title', 'description'],
             'academic_services_json' => ['title', 'icon', 'description'],
-            'academic_facilities_json' => ['title'],
             'academic_faq_json' => ['question', 'answer'],
             'student_character_json' => ['title', 'description', 'icon'],
             'student_faq_json' => ['question', 'answer'],
@@ -382,13 +419,6 @@ class AdminContentController extends Controller
                     }
                 }
 
-                if ($field === 'academic_facilities_json') {
-                    $hasClass = trim((string) ($item['class'] ?? '')) !== '';
-                    $hasImage = trim((string) ($item['image'] ?? '')) !== '';
-                    if (! $hasClass && ! $hasImage) {
-                        $errors[$field][] = 'Item #'.($index + 1).' wajib memiliki "class" atau "image".';
-                    }
-                }
             }
         }
 
@@ -429,6 +459,11 @@ class AdminContentController extends Controller
         }
 
         $path = $request->file($field)->store('site-images', 'public');
+        if (! $path || ! Storage::disk('public')->exists($path)) {
+            throw ValidationException::withMessages([
+                $field => ['Gambar gagal disimpan. Periksa konfigurasi disk public dan ruang penyimpanan.'],
+            ]);
+        }
         $this->deleteImage($oldPath);
 
         return $path;
@@ -484,6 +519,10 @@ class AdminContentController extends Controller
                 if (array_key_exists($draftKey, $stored)) {
                     $settings[$field] = $stored[$draftKey];
                 }
+            }
+
+            if (array_key_exists('draft_home_hero_image', $stored)) {
+                $settings['hero_image'] = $stored['draft_home_hero_image'];
             }
         }
 

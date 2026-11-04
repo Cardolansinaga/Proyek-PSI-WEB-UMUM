@@ -12,6 +12,12 @@
     <div class="main-content">
         <main class="content-padding">
             @php($isEdit = ($mode ?? 'create') === 'edit')
+            @if (session('status'))
+                <p class="status-message" role="status">{{ session('status') }}</p>
+            @endif
+            @if ($errors->any())
+                <div class="form-errors" role="alert"><strong>Data prestasi belum dapat disimpan:</strong><ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul></div>
+            @endif
             <form id="achievement-form" method="POST" action="{{ $isEdit ? route('admin.prestasi.update', $achievement) : route('admin.prestasi.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="page-head" style="display:flex; justify-content:space-between; gap:20px; align-items:flex-start; margin-bottom:32px;">
@@ -101,7 +107,7 @@
                         <div class="input-group">
                             <label>Gambar Prestasi</label>
                             @if (! empty($achievement->image_path))
-                                <div class="image-preview" style="background-image: url('{{ asset('storage/'.$achievement->image_path) }}');"></div>
+                                <div class="image-preview" style="background-image: url('{{ media_url($achievement->image_path) }}');"></div>
                                 <label class="check-row">
                                     <input type="checkbox" name="remove_image" value="1">
                                     Hapus gambar custom

@@ -11,7 +11,6 @@ class PpdbController extends AdminController
     public function index()
     {
         return view('pages.admin.ppdb', [
-            'applications' => PpdbApplication::query()->latest()->paginate(20),
             'settings' => cache()->remember('admin_site_settings', 3600, fn () => SiteSetting::map(SiteSetting::defaults())),
         ]);
     }
@@ -26,6 +25,8 @@ class PpdbController extends AdminController
         $data = $request->validate(['status' => ['required', 'in:waiting,verified,revision,rejected']]);
         $application->update($data);
 
-        return redirect()->route('admin.ppdb')->with('status', 'Status pendaftar PPDB berhasil diperbarui.');
+        $labels = ['waiting' => 'Menunggu', 'verified' => 'Terverifikasi', 'revision' => 'Perlu revisi', 'rejected' => 'Ditolak'];
+
+        return redirect()->route('admin.ppdb.show', $application)->with('status', 'Status pendaftar diperbarui menjadi: '.$labels[$data['status']].'.');
     }
 }

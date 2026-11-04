@@ -89,9 +89,14 @@ class AdminPostController extends Controller
 
     public function create(): View
     {
+        $category = request()->query('category');
+        if (! in_array($category, self::DEFAULT_CATEGORIES, true)) {
+            $category = 'Berita';
+        }
+
         return view('pages.admin.posts.form', [
             'post' => new Post([
-                'category' => 'Berita',
+                'category' => $category,
                 'status' => 'draft',
                 'published_at' => now(),
                 'sort_order' => 0,

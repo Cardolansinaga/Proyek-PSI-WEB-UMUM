@@ -6,7 +6,7 @@
 
 @php
     $hasCustomKesiswaanHero = ! empty($settings['kesiswaan_hero_image']);
-    $kesiswaanHeroImage = $hasCustomKesiswaanHero ? asset('storage/'.$settings['kesiswaan_hero_image']) : null;
+    $kesiswaanHeroImage = $hasCustomKesiswaanHero ? media_url($settings['kesiswaan_hero_image']) : null;
 @endphp
 
 @push('head')
@@ -63,7 +63,7 @@
             <div class="mt-10 grid gap-6 lg:grid-cols-3">
                 @foreach ($organizations as $item)
                     <article class="info-card hover-lift group">
-                        @php($organizationImage = ! empty($item->image_path) ? asset('storage/'.$item->image_path) : null)
+                        @php($organizationImage = ! empty($item->image_path) ? media_url($item->image_path) : null)
                         <div class="activity-media {{ $organizationImage ? '' : 'media-placeholder' }}" @if($organizationImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .04), rgb(7 31 58 / .22)), url('{{ $organizationImage }}') !important;" role="img" aria-label="Foto {{ $item->name }}" @endif>
                             @unless($organizationImage)<span><i class="bi bi-image" aria-hidden="true"></i> Foto belum tersedia</span>@endunless
                         </div>
@@ -109,7 +109,7 @@
             <div class="mt-12 grid gap-6 lg:grid-cols-3">
                 @foreach ($clubs as $club)
                     <article class="club-card hover-lift group">
-                        @php($clubImage = ! empty($club->image_path) ? asset('storage/'.$club->image_path) : null)
+                        @php($clubImage = ! empty($club->image_path) ? media_url($club->image_path) : null)
                         <div class="activity-media {{ $clubImage ? '' : 'media-placeholder' }}" @if($clubImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .04), rgb(7 31 58 / .22)), url('{{ $clubImage }}') !important;" role="img" aria-label="Foto {{ $club->name }}" @endif>
                             @unless($clubImage)<span><i class="bi bi-image" aria-hidden="true"></i> Foto belum tersedia</span>@endunless
                         </div>

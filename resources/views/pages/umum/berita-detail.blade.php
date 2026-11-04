@@ -4,7 +4,7 @@
 @section('description', $post->meta_description ?: $post->excerpt)
 @section('canonical', route('berita.show', $post->slug))
 @section('og_type', 'article')
-@section('image', $post->image_path ? asset('storage/'.$post->image_path) : asset('images/logo-sman2-balige.jpg'))
+@section('image', $post->image_path ? media_url($post->image_path) : asset('images/logo-sman2-balige.jpg'))
 @if(! empty($isPreview))
     @section('robots', 'noindex,nofollow')
 @endif
@@ -16,7 +16,7 @@
             '@type' => 'NewsArticle',
             'headline' => $post->title,
             'description' => $post->meta_description ?: $post->excerpt,
-            'image' => [$post->image_path ? asset('storage/'.$post->image_path) : asset('images/logo-sman2-balige.jpg')],
+            'image' => [$post->image_path ? media_url($post->image_path) : asset('images/logo-sman2-balige.jpg')],
             'datePublished' => $post->published_at?->toIso8601String(),
             'dateModified' => $post->updated_at?->toIso8601String(),
             'mainEntityOfPage' => route('berita.show', $post->slug),
@@ -29,7 +29,7 @@
                 'name' => $settings['school_name'] ?? 'SMAN 2 Balige',
                 'logo' => [
                     '@type' => 'ImageObject',
-                    'url' => ! empty($settings['logo']) ? asset('storage/'.$settings['logo']) : asset('images/logo-sman2-balige-96.webp'),
+                    'url' => ! empty($settings['logo']) ? media_url($settings['logo']) : asset('images/logo-sman2-balige-96.webp'),
                 ],
             ],
         ];
@@ -82,7 +82,7 @@
                 <a href="{{ route('berita.index') }}">Kembali ke daftar berita</a>
             </div>
 
-            @php($postImage = ! empty($post->image_path) ? asset('storage/'.$post->image_path) : null)
+            @php($postImage = ! empty($post->image_path) ? media_url($post->image_path) : null)
             @if($postImage)
                 <figure class="article-figure">
                     <img src="{{ $postImage }}" alt="{{ $post->title }}" loading="eager" decoding="async">
@@ -118,7 +118,7 @@
                 <p>Informasi sekolah lainnya yang dapat Anda baca.</p>
                 <div class="natural-news-grid">
                     @foreach ($relatedPosts as $related)
-                        @php($relatedImage = ! empty($related->image_path) ? asset('storage/'.$related->image_path) : null)
+                        @php($relatedImage = ! empty($related->image_path) ? media_url($related->image_path) : null)
                         <article class="news-card">
                             <div
                                 class="illustration {{ $related->image_class ?? 'graduates' }}"

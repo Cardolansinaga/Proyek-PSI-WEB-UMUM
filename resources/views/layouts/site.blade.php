@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         @php
             $siteSettings = $settings ?? [];
-            $siteLogo = ! empty($siteSettings['logo']) ? asset('storage/'.$siteSettings['logo']) : asset('images/logo-sman2-balige-96.webp');
+            $siteLogo = ! empty($siteSettings['logo']) ? media_url($siteSettings['logo']) : asset('images/logo-sman2-balige-96.webp');
             $siteName = $siteSettings['school_name'] ?? 'SMAN 2 Balige';
             $siteTagline = $siteSettings['school_tagline'] ?? 'Unggul & Berkarakter';
             $footerDescription = $siteSettings['footer_description'] ?? 'Portal resmi informasi sekolah untuk profil, akademik, kesiswaan dan ekstrakurikuler, PPDB, dan kontak SMAN 2 Balige.';

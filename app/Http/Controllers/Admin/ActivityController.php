@@ -13,6 +13,12 @@ class ActivityController extends AdminController
     {
         return view('pages.admin.kesiswaan', [
             'activities' => Activity::query()->orderBy('sort_order')->paginate(15),
+            'activityStats' => [
+                'total' => Activity::count(),
+                'organizations' => Activity::where('type', 'Organisasi Siswa')->count(),
+                'clubs' => Activity::where('type', '!=', 'Organisasi Siswa')->count(),
+                'published' => Activity::where('is_published', true)->count(),
+            ],
         ]);
     }
 

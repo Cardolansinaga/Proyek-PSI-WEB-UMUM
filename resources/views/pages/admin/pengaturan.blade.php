@@ -29,7 +29,6 @@
                         </div>
                     @endif
                 </div>
-                <button type="submit" form="settings-form" class="btn-primary"><i class="bi bi-save" aria-hidden="true"></i> Simpan Pengaturan</button>
             </div>
 
             @include('pages.admin.partials.page-guide', [
@@ -45,13 +44,13 @@
             <form id="settings-form" method="POST" action="{{ route('admin.pengaturan.update') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="settings-grid">
-                    <div class="stack">
+                    <div class="stack settings-main-column">
                         <section class="card">
                             <h2><i class="bi bi-building" aria-hidden="true"></i> Profil Sekolah</h2>
                             <div class="field-grid">
                                 <div class="input-group">
                                     <label>Nama Sekolah</label>
-                                    <input class="custom-input" name="school_name" value="{{ old('school_name', $settings['school_name'] ?? '') }}">
+                                    <input class="custom-input" name="school_name" value="{{ old('school_name', $settings['school_name'] ?? '') }}" required maxlength="120">
                                 </div>
                                 <div class="input-group">
                                     <label>Tagline Sekolah</label>
@@ -75,7 +74,7 @@
                                 </div>
                                 <div class="input-group">
                                     <label>NPSN</label>
-                                    <input class="custom-input" name="school_npsn" inputmode="numeric" maxlength="8" value="{{ old('school_npsn', $settings['school_npsn'] ?? '') }}">
+                                    <input class="custom-input" name="school_npsn" inputmode="numeric" maxlength="8" pattern="[0-9]{8}" value="{{ old('school_npsn', $settings['school_npsn'] ?? '') }}" required>
                                 </div>
                                 <div class="input-group">
                                     <label>Kode Pos</label>
@@ -116,7 +115,7 @@
                                     <input class="custom-input" type="url" name="facebook_url" value="{{ old('facebook_url', $settings['facebook_url'] ?? '') }}" placeholder="https://www.facebook.com/nama-halaman">
                                     <small>Gunakan URL halaman/profil langsung, bukan URL hasil pencarian Facebook.</small>
                                 </div>
-                                <div class="input-group">
+                                <div class="input-group maps-link-field">
                                     <label>Google Maps</label>
                                     <input type="url" class="custom-input" name="maps_url" value="{{ old('maps_url', $settings['maps_url'] ?? '') }}">
                                 </div>
@@ -128,11 +127,11 @@
                             <div class="field-grid">
                                 <div class="input-group">
                                     <label>Tahun Ajaran</label>
-                                    <input class="custom-input" name="ppdb_year" value="{{ old('ppdb_year', $settings['ppdb_year'] ?? '') }}">
+                                    <input class="custom-input" name="ppdb_year" value="{{ old('ppdb_year', $settings['ppdb_year'] ?? '') }}" required maxlength="40">
                                 </div>
                                 <div class="input-group">
                                     <label>Status PPDB</label>
-                                    <input class="custom-input" name="ppdb_status" value="{{ old('ppdb_status', $settings['ppdb_status'] ?? '') }}">
+                                    <input class="custom-input" name="ppdb_status" value="{{ old('ppdb_status', $settings['ppdb_status'] ?? '') }}" required maxlength="40">
                                 </div>
                                 <div class="input-group">
                                     <label>Tanggal Buka</label>
@@ -216,16 +215,13 @@
                                     'academic_programs_json' => 'Daftar Program Akademik',
                                     'academic_calendar_json' => 'Daftar Kalender Akademik',
                                     'academic_services_json' => 'Daftar Layanan Akademik',
-                                    'academic_facilities_json' => 'Daftar Fasilitas Akademik',
                                     'academic_faq_json' => 'Daftar Tanya Jawab Akademik',
                                 ] as $field => $label)
                                     <div class="input-group">
                                         <label>{{ $label }}</label>
+                                        @error($field)<small class="field-error">{{ $message }}</small>@enderror
                                         <textarea class="custom-textarea" name="{{ $field }}" data-structured-json style="min-height: 180px;">{{ old($field, $settings[$field] ?? '') }}</textarea>
                                         <p class="field-help">Kelola daftar melalui editor visual. Gunakan tombol tambah atau hapus untuk mengubah susunan.</p>
-                                        @if ($field === 'academic_facilities_json')
-                                            <p class="field-help">Isi kolom gambar hanya dengan URL/path foto fasilitas yang telah diverifikasi atau diunggah oleh sekolah.</p>
-                                        @endif
                                     </div>
                                 @endforeach
                             </div>
@@ -366,7 +362,7 @@
                                     <div class="input-group">
                                         <label>{{ $label }}</label>
                                         @if (! empty($settings[$field]))
-                                            <div class="image-preview" style="background-image: url('{{ asset('storage/'.$settings[$field]) }}');"></div>
+                                            <div class="image-preview" style="background-image: url('{{ media_url($settings[$field]) }}');"></div>
                                             <label class="check-row">
                                                 <input type="checkbox" name="remove_{{ $field }}" value="1">
                                                 Hapus gambar custom
@@ -381,7 +377,7 @@
                         </section>
                     </div>
 
-                    <aside class="stack">
+                    <aside class="stack settings-aside-column">
                         <section class="card">
                             <h2><i class="bi bi-person-gear" aria-hidden="true"></i> Akun Admin</h2>
                             <div class="input-group">
@@ -395,7 +391,7 @@
                             <div class="input-group">
                                 <label>Logo Situs</label>
                                 @if (! empty($settings['logo']))
-                                    <div class="image-preview" style="background-image: url('{{ asset('storage/'.$settings['logo']) }}'); background-size: contain; background-color: #ffffff;"></div>
+                                    <div class="image-preview" style="background-image: url('{{ media_url($settings['logo']) }}'); background-size: contain; background-color: #ffffff;"></div>
                                     <label class="check-row">
                                         <input type="checkbox" name="remove_logo" value="1">
                                         Hapus logo custom
@@ -404,6 +400,7 @@
                                     <div class="image-preview" style="background-image: url('{{ asset('images/logo-sman2-balige.jpg') }}'); background-size: contain; background-color: #ffffff;">Logo resmi aktif</div>
                                 @endif
                                 <input class="custom-input" type="file" name="logo" accept="image/png,image/jpeg,image/webp">
+                                @error('logo')<small class="field-error">{{ $message }}</small>@enderror
                             </div>
                             <div class="input-group">
                                 <label>Durasi Sesi</label>
@@ -417,11 +414,11 @@
                             <p class="field-help"><strong>Catatan:</strong> Hindari mengisi data contoh. Simpan hanya data resmi agar halaman publik selalu valid.</p>
                         </section>
 
-                        <div style="display: flex; gap: 10px;">
-                            <a href="{{ route('dashboard') }}" class="btn-outline"><i class="bi bi-x-circle" aria-hidden="true"></i> Batal</a>
-                            <button type="submit" class="btn-primary"><i class="bi bi-save" aria-hidden="true"></i> Simpan</button>
-                        </div>
                     </aside>
+                </div>
+                <div class="settings-form-actions">
+                    <a href="{{ route('dashboard') }}" class="btn-outline"><i class="bi bi-x-circle" aria-hidden="true"></i> Batal</a>
+                    <button type="submit" class="btn-primary"><i class="bi bi-save" aria-hidden="true"></i> Simpan</button>
                 </div>
             </form>
         </main>

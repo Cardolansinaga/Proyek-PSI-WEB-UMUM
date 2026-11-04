@@ -2,11 +2,11 @@
 
 @section('title', 'Akademik & Prestasi - SMAN 2 Balige')
 @section('canonical', route('akademik'))
-@section('description', 'Program akademik, kurikulum, prestasi, kalender, layanan, dan fasilitas belajar SMAN 2 Balige.')
+@section('description', 'Program akademik, kurikulum, prestasi, kalender, dan layanan SMAN 2 Balige.')
 
 @php
     $hasCustomAkademikHero = ! empty($settings['akademik_hero_image']);
-    $akademikHeroImage = $hasCustomAkademikHero ? asset('storage/'.$settings['akademik_hero_image']) : null;
+    $akademikHeroImage = $hasCustomAkademikHero ? media_url($settings['akademik_hero_image']) : null;
 @endphp
 
 @push('head')
@@ -22,26 +22,9 @@
 
             return is_array($decoded) ? $decoded : $fallback;
         };
-        $resolveImageUrl = function (?string $value): ?string {
-            $candidate = trim((string) $value);
-            if ($candidate === '') {
-                return null;
-            }
-
-            if (str_starts_with($candidate, 'http://') || str_starts_with($candidate, 'https://')) {
-                return $candidate;
-            }
-
-            if (str_starts_with($candidate, '/')) {
-                return asset(ltrim($candidate, '/'));
-            }
-
-            return asset('storage/'.$candidate);
-        };
         $programs = $decodeList('academic_programs_json');
         $calendarItems = $decodeList('academic_calendar_json');
         $services = $decodeList('academic_services_json');
-        $facilities = $decodeList('academic_facilities_json');
         $faqs = $decodeList('academic_faq_json');
     @endphp
     <section
@@ -146,32 +129,6 @@
         </div>
     </section>
 
-    <section class="academic-facilities-section bg-gradient-to-b from-[#071f3a] to-[#0f2847] py-20 text-white relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10">
-            <div class="absolute top-0 left-1/4 w-96 h-96 bg-[#d6a63a] rounded-full filter blur-3xl"></div>
-        </div>
-        <div class="mx-auto max-w-7xl px-4 lg:px-8 relative z-10">
-            <div class="mx-auto max-w-3xl text-center">
-                <p class="eyebrow text-white/80">Infrastruktur & Fasilitas</p>
-                <h2 class="mt-3 text-4xl font-black">Fasilitas Pembelajaran</h2>
-                <p class="mt-5 text-sm font-semibold leading-7 text-white/78">Ruang dan fasilitas yang mendukung kegiatan belajar siswa.</p>
-            </div>
-            <div class="facility-mosaic mt-12">
-                @foreach ($facilities as $facility)
-                    @php($facilityImage = $resolveImageUrl($facility['image'] ?? null))
-                    <div
-                        class="facility-tile {{ $facility['class'] ?? 'classroom-real' }} group hover-lift"
-                        @if($facilityImage)
-                            style="background-image: linear-gradient(180deg, rgb(7 31 58 / .10), rgb(7 31 58 / .42)), url('{{ $facilityImage }}') !important;"
-                        @endif
-                    >
-                        <span>{{ $facility['title'] ?? '' }}</span>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
-
     <section id="prestasi" class="academic-achievement-section bg-gradient-to-b from-white to-[#f6f9fc] py-20 sm:py-24">
         @php($featuredAchievement = $achievements->firstWhere('is_featured', true) ?? $achievements->first())
         <div class="mx-auto max-w-7xl px-4 lg:px-8">
@@ -189,7 +146,7 @@
 
             @if ($featuredAchievement)
                 <article class="mt-10 grid overflow-hidden rounded-[1.6rem] bg-white shadow-2xl shadow-[#071f3a]/10 lg:grid-cols-[1fr_1fr] hover-lift">
-                    @php($featuredImage = ! empty($featuredAchievement->image_path) ? asset('storage/'.$featuredAchievement->image_path) : null)
+                    @php($featuredImage = ! empty($featuredAchievement->image_path) ? media_url($featuredAchievement->image_path) : null)
                     <div class="illustration {{ $featuredAchievement->image_class ?? 'victory' }} min-h-[360px] group-hover:scale-105 transition-transform duration-500" @if($featuredImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .08), rgb(7 31 58 / .28)), url('{{ $featuredImage }}') !important;" @endif></div>
                     <div class="p-8 lg:p-12 flex flex-col justify-center">
                         <span class="rounded-full bg-emerald-50 px-4 py-2 text-[10px] font-black uppercase tracking-[0.14em] text-emerald-600 w-fit group-hover:bg-emerald-100 transition-colors">{{ $featuredAchievement->rank }} {{ $featuredAchievement->level }}</span>
@@ -204,7 +161,7 @@
             <div class="mt-12 grid gap-8 md:grid-cols-3">
                 @foreach ($achievements->where('id', '!=', optional($featuredAchievement)->id)->take(3) as $achievement)
                     <article class="achievement-card hover-lift group">
-                        @php($achievementImage = ! empty($achievement->image_path) ? asset('storage/'.$achievement->image_path) : null)
+                        @php($achievementImage = ! empty($achievement->image_path) ? media_url($achievement->image_path) : null)
                         <div class="illustration {{ $achievement->image_class ?? 'speech' }} group-hover:scale-110 transition-transform duration-500" @if($achievementImage) style="background-image: linear-gradient(180deg, rgb(7 31 58 / .08), rgb(7 31 58 / .28)), url('{{ $achievementImage }}') !important;" @endif></div>
                         <h3 class="group-hover:text-[#d6a63a] transition-colors">{{ $achievement->title }}</h3>
                         <p>{{ $achievement->student_name ?? 'Tim Sekolah' }} - Tingkat {{ $achievement->level }}</p>

@@ -2,19 +2,19 @@
 
 @section('title', 'Informasi SPMB 2026/2027 - SMAN 2 Balige')
 @section('canonical', route('ppdb'))
-@section('image', ! empty($settings['ppdb_hero_image']) ? asset('storage/'.$settings['ppdb_hero_image']) : asset('images/logo-sman2-balige.jpg'))
+@section('image', ! empty($settings['ppdb_hero_image']) ? media_url($settings['ppdb_hero_image']) : asset('images/logo-sman2-balige.jpg'))
 @section('description', 'Informasi resmi SPMB SMAN 2 Balige Tahun Pelajaran 2026/2027.')
 
 @push('head')
     @if(! empty($settings['ppdb_hero_image']))
-        <link rel="preload" as="image" href="{{ asset('storage/'.$settings['ppdb_hero_image']) }}" fetchpriority="high">
+        <link rel="preload" as="image" href="{{ media_url($settings['ppdb_hero_image']) }}" fetchpriority="high">
     @endif
 @endpush
 
 @section('content')
     @php
         $hasCustomPpdbHero = ! empty($settings['ppdb_hero_image']);
-        $ppdbHeroImage = $hasCustomPpdbHero ? asset('storage/'.$settings['ppdb_hero_image']) : null;
+        $ppdbHeroImage = $hasCustomPpdbHero ? media_url($settings['ppdb_hero_image']) : null;
         $ppdbYear = $settings['ppdb_year'] ?? '2026/2027';
         $ppdbStatus = $settings['ppdb_status'] ?? 'Dibuka';
         $schoolEmail = trim((string) ($settings['school_email'] ?? ''));

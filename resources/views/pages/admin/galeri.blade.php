@@ -124,7 +124,7 @@
                                     <input class="image-file-input" data-image-input type="file" name="image" accept="image/png,image/jpeg,image/webp">
                                     <div class="dropzone-preview {{ $gallery->image_path ? 'has-image' : '' }}" data-image-preview>
                                         @if ($gallery->image_path)
-                                            <img src="{{ asset('storage/'.$gallery->image_path) }}" alt="Gambar {{ $gallery->title }}">
+                                            <img src="{{ media_url($gallery->image_path) }}" alt="Gambar {{ $gallery->title }}">
                                         @else
                                             <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
                                         @endif

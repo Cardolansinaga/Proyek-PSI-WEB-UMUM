@@ -10,12 +10,13 @@ use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Admin\PpdbController;
 use App\Http\Controllers\PublicSiteController;
 use App\Http\Controllers\SeoController;
-use App\Http\Controllers\StudentController;
-use App\Models\Student;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/robots.txt', [SeoController::class, 'robots'])->name('robots');
 Route::get('/sitemap.xml', [SeoController::class, 'sitemap'])->name('sitemap');
+Route::get('/media/{path}', [App\Http\Controllers\MediaController::class, 'show'])
+    ->where('path', '.*')
+    ->name('media.show');
 
 Route::get('/', [PublicSiteController::class, 'home'])->name('home');
 Route::redirect('/profil-sekolah', '/#profil')->name('profil');
@@ -58,9 +59,8 @@ Route::middleware('admin.session')->group(function () {
     Route::delete('/admin/prestasi/{achievement}', [AchievementController::class, 'destroy'])->name('admin.prestasi.destroy');
 
     Route::get('/admin/pengumuman', fn () => redirect()->route('admin.posts.index', ['category' => 'Pengumuman']))->name('pengumuman.index');
-    Route::get('/admin/pengumuman/create', fn () => redirect()->route('admin.posts.create'))->name('pengumuman.create');
+    Route::get('/admin/pengumuman/create', fn () => redirect()->route('admin.posts.create', ['category' => 'Pengumuman']))->name('pengumuman.create');
     Route::get('/admin/pengumuman/{id}/edit', fn ($id) => redirect()->route('admin.posts.edit', $id))->name('pengumuman.edit');
-    Route::post('/admin/pengumuman', [AdminPostController::class, 'store'])->name('admin.pengumuman.store');
 
     Route::get('/admin/kesiswaan', [ActivityController::class, 'index'])->name('admin.kesiswaan.index');
     Route::get('/admin/kesiswaan/create', [ActivityController::class, 'create'])->name('admin.kesiswaan.create');
@@ -70,18 +70,6 @@ Route::middleware('admin.session')->group(function () {
     Route::get('/admin/kesiswaan-legacy', fn () => redirect()->route('admin.kesiswaan.index'))->name('kesiswaan.index');
     Route::get('/admin/kesiswaan/create-legacy', fn () => redirect()->route('admin.kesiswaan.create'))->name('kesiswaan.create');
     Route::get('/admin/kesiswaan/{activity}/edit-legacy', fn ($activity) => redirect()->route('admin.kesiswaan.edit', $activity))->name('kesiswaan.edit');
-
-    Route::get('/admin/students/{id}/edit', function ($id) {
-        $student = Student::findOrFail($id);
-
-        return view('pages.admin.edit-student', ['student' => $student]);
-    })->name('admin.students.edit');
-
-    Route::get('/admin/api/students', [StudentController::class, 'index'])->name('admin.api.students.index');
-    Route::get('/admin/api/students/{id}', [StudentController::class, 'show'])->name('admin.api.students.show');
-    Route::post('/admin/api/students', [StudentController::class, 'store'])->name('admin.api.students.store');
-    Route::post('/admin/api/students/{id}', [StudentController::class, 'update'])->name('admin.api.students.update');
-    Route::delete('/admin/api/students/{id}', [StudentController::class, 'destroy'])->name('admin.api.students.destroy');
 
     Route::get('/admin/ppdb', [PpdbController::class, 'index'])->name('admin.ppdb');
     Route::get('/admin/ppdb/{application}', [PpdbController::class, 'show'])->name('admin.ppdb.show');

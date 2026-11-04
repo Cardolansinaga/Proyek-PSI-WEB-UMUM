@@ -15,6 +15,8 @@
                 <div>
                     <h1>Detail Pendaftar PPDB</h1>
                     <p>Periksa data calon siswa, kelengkapan berkas, dan status verifikasi pendaftaran.</p>
+                    @if (session('status'))<p class="status-message" role="status">{{ session('status') }}</p>@endif
+                    @if ($errors->any())<div class="error-list" role="alert">@foreach ($errors->all() as $error)<p>{{ $error }}</p>@endforeach</div>@endif
                 </div>
                 <a href="{{ route('admin.ppdb') }}" class="btn-outline"><i class="bi bi-arrow-left" aria-hidden="true"></i> Kembali ke PPDB</a>
             </div>

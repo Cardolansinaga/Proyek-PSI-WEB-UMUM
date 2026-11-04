@@ -3,7 +3,6 @@ const schemas = {
     academic_programs_json: { title: '', description: '', icon: 'bi-journal-bookmark', variant: '' },
     academic_calendar_json: { date: '', title: '', description: '' },
     academic_services_json: { title: '', icon: 'bi-file-earmark-check', description: '' },
-    academic_facilities_json: { title: '', image: '', class: '' },
     academic_faq_json: { question: '', answer: '' },
     student_character_json: { title: '', description: '', icon: 'bi-person-check', accent: '' },
     student_faq_json: { question: '', answer: '' },

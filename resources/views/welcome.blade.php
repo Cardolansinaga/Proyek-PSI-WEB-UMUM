@@ -3,11 +3,11 @@
 @section('title', 'Beranda - SMAN 2 Balige')
 @section('description', 'Situs resmi SMAN 2 Balige yang memuat profil sekolah, informasi akademik, kegiatan siswa, berita, dan penerimaan murid baru.')
 @section('canonical', route('home'))
-@section('image', ! empty($settings['hero_image']) ? asset('storage/'.$settings['hero_image']) : asset('images/logo-sman2-balige.jpg'))
+@section('image', ! empty($settings['hero_image']) ? media_url($settings['hero_image']) : asset('images/logo-sman2-balige.jpg'))
 
 @php
     $hasCustomHomeHero = ! empty($settings['hero_image']);
-    $homeHeroImage = $hasCustomHomeHero ? asset('storage/'.$settings['hero_image']) : null;
+    $homeHeroImage = $hasCustomHomeHero ? media_url($settings['hero_image']) : null;
     $visibleGalleries = $galleries->filter(fn ($gallery) => ! empty($gallery->image_path));
     $principalName = trim($settings['principal_name'] ?? '');
     if ($principalName === '' || $principalName === 'Drs. Horas Balige, M.Pd.') {
@@ -168,7 +168,7 @@
             </div>
             <div class="natural-news-grid">
                 @forelse ($posts as $post)
-                    @php($postImage = ! empty($post->image_path) ? asset('storage/'.$post->image_path) : null)
+                    @php($postImage = ! empty($post->image_path) ? media_url($post->image_path) : null)
                     <article class="news-card">
                         @if($postImage)
                             <div class="illustration" style="background-image: url('{{ $postImage }}') !important;"></div>
@@ -201,7 +201,7 @@
                 </div>
                 <div class="gallery-grid natural-gallery-grid">
                     @forelse ($visibleGalleries as $gallery)
-                        @php($galleryImage = ! empty($gallery->image_path) ? asset('storage/'.$gallery->image_path) : null)
+                    @php($galleryImage = ! empty($gallery->image_path) ? media_url($gallery->image_path) : null)
                         <div
                             class="gallery-tile"
                             @if($galleryImage)

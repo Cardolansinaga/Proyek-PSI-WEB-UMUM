@@ -36,10 +36,10 @@
             ])
 
             <div class="stats-grid">
-                <div class="stat-card total"><div class="stat-label"><i class="bi bi-bar-chart" aria-hidden="true"></i> Total Prestasi</div><div class="stat-value">{{ $achievements->count() }}</div></div>
-                <div class="stat-card international"><div class="stat-label"><i class="bi bi-globe2" aria-hidden="true"></i> Internasional</div><div class="stat-value">{{ $achievements->where('level', 'Internasional')->count() }}</div></div>
-                <div class="stat-card featured"><div class="stat-label"><i class="bi bi-star-fill" aria-hidden="true"></i> Unggulan</div><div class="stat-value">{{ $achievements->where('is_featured', true)->count() }}</div></div>
-                <div class="stat-card draft"><div class="stat-label"><i class="bi bi-file-earmark-text" aria-hidden="true"></i> Belum Tampil</div><div class="stat-value">{{ $achievements->where('status', '!=', 'published')->count() }}</div></div>
+                <div class="stat-card total"><div class="stat-label"><i class="bi bi-bar-chart" aria-hidden="true"></i> Total Prestasi</div><div class="stat-value">{{ $achievementStats['total'] }}</div></div>
+                <div class="stat-card international"><div class="stat-label"><i class="bi bi-globe2" aria-hidden="true"></i> Internasional</div><div class="stat-value">{{ $achievementStats['international'] }}</div></div>
+                <div class="stat-card featured"><div class="stat-label"><i class="bi bi-star-fill" aria-hidden="true"></i> Unggulan</div><div class="stat-value">{{ $achievementStats['featured'] }}</div></div>
+                <div class="stat-card draft"><div class="stat-label"><i class="bi bi-file-earmark-text" aria-hidden="true"></i> Belum Tampil</div><div class="stat-value">{{ $achievementStats['draft'] }}</div></div>
             </div>
 
             <section class="card">

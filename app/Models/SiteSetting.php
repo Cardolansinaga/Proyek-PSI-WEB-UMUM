@@ -66,7 +66,6 @@ class SiteSetting extends Model
             'academic_calendar_year' => null,
             'academic_calendar_json' => '[]',
             'academic_services_json' => '[]',
-            'academic_facilities_json' => '[]',
             'academic_faq_json' => '[]',
             'student_hero_badge' => 'Kegiatan Siswa',
             'student_hero_title' => 'Kesiswaan',

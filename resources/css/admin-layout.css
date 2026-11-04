@@ -1,0 +1,406 @@
+/* Final shared layout rules for every admin page. */
+body:has(.admin-container) {
+    min-width: 320px;
+    min-height: 100vh;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
+.admin-container {
+    display: flex !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 100vh !important;
+    height: auto !important;
+    overflow: visible !important;
+}
+
+.admin-container > .sidebar {
+    position: sticky !important;
+    inset-block-start: 0 !important;
+    flex: 0 0 272px !important;
+    width: 272px !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    align-self: flex-start !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+}
+
+.admin-container .main-content {
+    flex: 1 1 0 !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+}
+
+.admin-container > main {
+    flex: 1 1 0 !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 1560px !important;
+    height: auto !important;
+    max-height: none !important;
+    margin-inline: auto !important;
+    padding: clamp(20px, 2.6vw, 36px) clamp(16px, 2.4vw, 34px) 44px !important;
+    overflow: visible !important;
+}
+
+.admin-container .content-padding {
+    width: 100% !important;
+    max-width: 1560px !important;
+    margin-inline: auto !important;
+    padding: clamp(20px, 2.6vw, 36px) clamp(16px, 2.4vw, 34px) 44px !important;
+}
+
+.admin-container .page-head,
+.admin-container .page-header {
+    align-items: flex-start !important;
+    gap: 16px !important;
+    margin-bottom: 22px !important;
+}
+
+.admin-container :is(.page-head, .page-header) h1 {
+    max-width: 100%;
+    font-size: clamp(24px, 2vw, 30px) !important;
+    line-height: 1.2 !important;
+    overflow-wrap: anywhere;
+}
+
+.admin-container :is(.page-head, .page-header) p {
+    max-width: 70ch !important;
+    line-height: 1.55 !important;
+}
+
+.admin-container :is(.main-grid, .management-grid, .form-grid, .settings-grid, .ppdb-admin-overview) {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: start !important;
+    gap: 16px !important;
+}
+
+.admin-container .settings-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+}
+
+.admin-container :is(.stats-grid, .quick-access-grid, .overview-grid, .module-grid, .faculty-grid, .gallery-admin-grid, .module-grid, .overview-grid) {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)) !important;
+    align-items: stretch !important;
+    gap: 14px !important;
+}
+
+.admin-container .gallery-admin-grid {
+    grid-template-columns: minmax(340px, .78fr) minmax(0, 1.22fr) !important;
+    align-items: start !important;
+    gap: 16px !important;
+}
+
+.admin-container :is(.gallery-card, .gallery-edit-form, .gallery-edit-fields, .gallery-row) {
+    min-width: 0 !important;
+    max-width: 100% !important;
+}
+
+.admin-container .gallery-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 12px !important;
+}
+
+.admin-container .gallery-row-actions {
+    min-width: 0 !important;
+    grid-column: 1 / -1 !important;
+    justify-content: flex-end !important;
+    flex-wrap: wrap !important;
+    padding-top: 0 !important;
+}
+
+.admin-container .gallery-row-actions > form {
+    width: auto !important;
+}
+
+.admin-container .gallery-row-actions > .btn,
+.admin-container .gallery-row-actions > form > .btn {
+    width: auto !important;
+    min-width: 104px !important;
+}
+
+.admin-container .field-grid,
+.admin-container .gallery-two-columns {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 12px 14px !important;
+}
+
+.admin-container :is(.card, .panel, .form-card, .settings-card, .ppdb-admin-panel, .table-container) {
+    min-width: 0 !important;
+    max-width: 100% !important;
+    padding: clamp(16px, 1.5vw, 22px) !important;
+    border-radius: 12px !important;
+}
+
+.admin-container :is(.input-group, .form-group) {
+    min-width: 0 !important;
+    margin-block: 0 12px !important;
+}
+
+.admin-container :is(input, select, textarea, .custom-input, .custom-select, .custom-textarea) {
+    max-width: 100% !important;
+    min-width: 0 !important;
+}
+
+.admin-container :is(textarea, .custom-textarea) {
+    min-height: 92px;
+}
+
+.admin-container :is(.actions, .page-actions, .page-head-actions, .head-actions, .image-actions, .gallery-row-actions, .post-actions, .settings-form-actions, .ppdb-admin-actions) {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+}
+
+.admin-container :is(button, .btn, .btn-primary, .btn-outline, .btn-add, .btn-light, .btn-danger, .btn-save, .btn-cancel, .btn-create) {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    max-width: 100% !important;
+    min-height: 38px !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    font-size: 12px !important;
+    line-height: 1.25 !important;
+    white-space: normal;
+}
+
+.admin-container .image-dropzone button {
+    width: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #0b6f8b !important;
+    font-size: inherit !important;
+    line-height: inherit !important;
+    text-decoration: underline !important;
+}
+
+.admin-container :is(.actions, .page-actions, .page-head-actions, .head-actions, .image-actions, .gallery-row-actions, .post-actions, .settings-form-actions, .ppdb-admin-actions) > form {
+    display: flex;
+    margin: 0;
+}
+
+.admin-container :is(.actions, .page-actions, .page-head-actions, .head-actions, .image-actions, .gallery-row-actions, .post-actions, .settings-form-actions, .ppdb-admin-actions) > form > button {
+    width: auto !important;
+}
+
+.admin-container .sidebar-actions {
+    display: grid !important;
+    gap: 8px !important;
+}
+
+.admin-container .sidebar-actions > :is(a, form),
+.admin-container .sidebar-actions > form > button {
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+.admin-container .sidebar-actions > a,
+.admin-container .sidebar-actions > form > button {
+    min-height: 42px !important;
+    justify-content: center !important;
+    padding: 8px 10px !important;
+    border-radius: 8px !important;
+}
+
+.admin-container :is(.data-table, .responsive-table, .announcement-table) {
+    max-width: 100%;
+}
+
+.admin-container :is(.content-row, .gallery-row, .post-row, .management-row) {
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.admin-container .content-row.media-row {
+    display: block !important;
+}
+
+.admin-container .content-row-form {
+    display: grid !important;
+    min-width: 0 !important;
+    gap: 10px !important;
+}
+
+.admin-container .content-row-head {
+    display: grid !important;
+    grid-template-columns: 132px minmax(0, 1fr) !important;
+    align-items: start !important;
+    gap: 14px !important;
+}
+
+.admin-container .content-row-head .image-preview {
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 99px !important;
+    aspect-ratio: 4 / 3;
+}
+
+.admin-container .content-row-meta {
+    display: grid;
+    min-width: 0;
+    gap: 4px;
+}
+
+.admin-container .content-row-meta strong {
+    overflow-wrap: anywhere;
+}
+
+.admin-container .content-row-form .image-controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+
+.admin-container .content-row-form .image-actions {
+    justify-content: flex-start !important;
+    margin-top: 2px !important;
+}
+
+@media (max-width: 1180px) {
+    .admin-container > .sidebar {
+        flex-basis: 248px !important;
+        width: 248px !important;
+    }
+
+    .admin-container :is(.main-grid, .management-grid, .form-grid, .settings-grid, .ppdb-admin-overview) {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+}
+
+@media (max-width: 1240px) {
+    .admin-container :is(.gallery-admin-grid, .editor-grid, .detail-grid) {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .admin-container .gallery-create-form {
+        max-width: none !important;
+    }
+
+    .admin-container .gallery-row {
+        grid-template-columns: minmax(0, 1fr) !important;
+        gap: 10px !important;
+    }
+
+    .admin-container .gallery-row-actions {
+        justify-content: flex-start !important;
+        padding-top: 0 !important;
+    }
+
+    .admin-container .filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .admin-container .post-card {
+        grid-template-columns: 128px minmax(0, 1fr) !important;
+    }
+
+    .admin-container .post-actions {
+        grid-column: 1 / -1 !important;
+        display: flex !important;
+        width: 100% !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .admin-container {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    .admin-container > .sidebar {
+        position: sticky !important;
+        inset-block-start: 0 !important;
+        z-index: 1050 !important;
+        flex: 0 0 auto !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        align-self: auto !important;
+    }
+
+    .admin-container .main-content {
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .admin-container > main {
+        flex: 1 1 auto !important;
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+        padding: 20px 18px 36px !important;
+    }
+
+    .admin-container .content-padding {
+        padding: 20px 18px 36px !important;
+    }
+
+    .admin-container :is(.field-grid, .gallery-two-columns) {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .admin-container :is(.page-head, .page-header) {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .admin-container :is(.actions, .page-actions, .page-head-actions, .head-actions, .image-actions, .gallery-row-actions, .post-actions, .settings-form-actions, .ppdb-admin-actions) {
+        width: 100% !important;
+    }
+
+    .admin-container .content-row-head {
+        grid-template-columns: 112px minmax(0, 1fr) !important;
+    }
+
+    .admin-container .filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+
+@media (max-width: 600px) {
+    .admin-container .content-padding {
+        padding-inline: 14px !important;
+    }
+
+    .admin-container :is(.field-grid, .gallery-two-columns) {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .admin-container .content-row-form .image-controls {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .admin-container :is(.actions, .page-actions, .page-head-actions, .head-actions, .image-actions, .gallery-row-actions, .post-actions, .settings-form-actions, .ppdb-admin-actions) > :is(a, button),
+    .admin-container :is(.actions, .page-actions, .page-head-actions, .head-actions, .image-actions, .gallery-row-actions, .post-actions, .settings-form-actions, .ppdb-admin-actions) > form > button {
+        width: auto !important;
+    }
+
+    .admin-container .responsive-table {
+        overflow-x: auto;
+    }
+
+    .admin-container :is(.filters, .post-card, .editor-grid, .detail-grid) {
+        grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    .admin-container .post-actions {
+        grid-column: auto !important;
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        width: 100% !important;
+    }
+}

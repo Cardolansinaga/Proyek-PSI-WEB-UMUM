@@ -9,9 +9,12 @@
 @section('content')
 @php
     $isEdit = $mode === 'edit';
-    $formAction = $isEdit ? route('admin.posts.update', $post) : route('admin.posts.store');
+    $formAction = $isEdit
+        ? route('admin.posts.update', $post)
+        : (old('category', $post->category) === 'Pengumuman' ? route('admin.pengumuman.store') : route('admin.posts.store'));
+    $formCategory = old('category', $post->category);
     $publishedValue = old('published_at', $post->published_at?->format('Y-m-d\TH:i'));
-    $imageUrl = $post->image_path ? asset('storage/'.$post->image_path) : null;
+    $imageUrl = $post->image_path ? media_url($post->image_path) : null;
 @endphp
 
 <div class="admin-container">
@@ -21,7 +24,7 @@
         <main class="content-padding">
             <header class="page-head">
                 <div>
-                    <h1>{{ $isEdit ? 'Edit Berita' : 'Tambah Berita' }}</h1>
+                            <h1>{{ $isEdit ? ($formCategory === 'Pengumuman' ? 'Edit Pengumuman' : 'Edit Berita') : ($formCategory === 'Pengumuman' ? 'Tambah Pengumuman' : 'Tambah Berita') }}</h1>
                     <p>Gunakan bahasa resmi, jelas, dan mudah dipahami. Simpan sebagai Draft jika isi belum siap dilihat publik.</p>
                 </div>
                 <div class="head-actions">
@@ -37,7 +40,7 @@
                     @endif
                     <button class="btn-primary" type="submit" form="post-form">
                         <i class="bi bi-save" aria-hidden="true"></i>
-                        Simpan Berita
+                        Simpan {{ $formCategory === 'Pengumuman' ? 'Pengumuman' : 'Berita' }}
                     </button>
                 </div>
             </header>

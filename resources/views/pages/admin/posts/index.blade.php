@@ -103,7 +103,7 @@
                                 'archived' => 'Diarsipkan',
                                 'trashed' => 'Sampah',
                             ][$displayStatus] ?? ucfirst($displayStatus);
-                            $imageUrl = $post->image_path ? asset('storage/'.$post->image_path) : null;
+                            $imageUrl = $post->image_path ? media_url($post->image_path) : null;
                         @endphp
 
                         <article class="post-card">

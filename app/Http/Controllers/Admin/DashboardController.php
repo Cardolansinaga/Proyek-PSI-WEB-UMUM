@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Achievement;
 use App\Models\Post;
 use App\Models\PpdbApplication;
-use App\Models\Student;
 
 class DashboardController extends AdminController
 {
@@ -15,7 +14,6 @@ class DashboardController extends AdminController
             'stats' => [
                 'posts' => Post::count(),
                 'achievements' => Achievement::count(),
-                'students' => Student::count(),
                 'ppdb' => PpdbApplication::count(),
             ],
         ]);
